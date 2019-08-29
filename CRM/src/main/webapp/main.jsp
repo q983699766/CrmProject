@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
     <center>
     <h1>
-    	欢迎,${empty sessionScope.nowuser ? "游客":sessionScope.nowuser.userName},来到我的主页！
+    	欢迎你,${empty sessionScope.nowuser ? "游客":sessionScope.nowuser.userName},来到我的主页！
     </h1>
     	<c:if test="${empty sessionScope.nowuser}">
     		<a href="login.jsp">登录</a>
