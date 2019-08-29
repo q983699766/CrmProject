@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sc.mapper.OfficeTaskdetailMapper" >
+  <resultMap id="BaseResultMap" type="com.sc.bean.OfficeTaskdetail" >
+    <constructor >
+      <idArg column="IDD" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="TASK_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="RECEIVER_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="IS_FINISH" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="STATUE" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="COM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="LAST_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    IDD, TASK_ID, RECEIVER_ID, IS_FINISH, STATUE, COM_ID, LAST_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sc.bean.OfficeTaskdetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from OFFICE_TASKDETAIL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from OFFICE_TASKDETAIL
+    where IDD = #{idd,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from OFFICE_TASKDETAIL
+    where IDD = #{idd,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.bean.OfficeTaskdetailExample" >
+    delete from OFFICE_TASKDETAIL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sc.bean.OfficeTaskdetail" >
+    insert into OFFICE_TASKDETAIL (IDD, TASK_ID, RECEIVER_ID, 
+      IS_FINISH, STATUE, COM_ID, 
+      LAST_TIME)
+    values (#{idd,jdbcType=DECIMAL}, #{taskId,jdbcType=DECIMAL}, #{receiverId,jdbcType=DECIMAL}, 
+      #{isFinish,jdbcType=DECIMAL}, #{statue,jdbcType=DECIMAL}, #{comId,jdbcType=DECIMAL}, 
+      #{lastTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sc.bean.OfficeTaskdetail" >
+    insert into OFFICE_TASKDETAIL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idd != null" >
+        IDD,
+      </if>
+      <if test="taskId != null" >
+        TASK_ID,
+      </if>
+      <if test="receiverId != null" >
+        RECEIVER_ID,
+      </if>
+      <if test="isFinish != null" >
+        IS_FINISH,
+      </if>
+      <if test="statue != null" >
+        STATUE,
+      </if>
+      <if test="comId != null" >
+        COM_ID,
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idd != null" >
+        #{idd,jdbcType=DECIMAL},
+      </if>
+      <if test="taskId != null" >
+        #{taskId,jdbcType=DECIMAL},
+      </if>
+      <if test="receiverId != null" >
+        #{receiverId,jdbcType=DECIMAL},
+      </if>
+      <if test="isFinish != null" >
+        #{isFinish,jdbcType=DECIMAL},
+      </if>
+      <if test="statue != null" >
+        #{statue,jdbcType=DECIMAL},
+      </if>
+      <if test="comId != null" >
+        #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.bean.OfficeTaskdetailExample" resultType="java.lang.Integer" >
+    select count(*) from OFFICE_TASKDETAIL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update OFFICE_TASKDETAIL
+    <set >
+      <if test="record.idd != null" >
+        IDD = #{record.idd,jdbcType=DECIMAL},
+      </if>
+      <if test="record.taskId != null" >
+        TASK_ID = #{record.taskId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.receiverId != null" >
+        RECEIVER_ID = #{record.receiverId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isFinish != null" >
+        IS_FINISH = #{record.isFinish,jdbcType=DECIMAL},
+      </if>
+      <if test="record.statue != null" >
+        STATUE = #{record.statue,jdbcType=DECIMAL},
+      </if>
+      <if test="record.comId != null" >
+        COM_ID = #{record.comId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastTime != null" >
+        LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update OFFICE_TASKDETAIL
+    set IDD = #{record.idd,jdbcType=DECIMAL},
+      TASK_ID = #{record.taskId,jdbcType=DECIMAL},
+      RECEIVER_ID = #{record.receiverId,jdbcType=DECIMAL},
+      IS_FINISH = #{record.isFinish,jdbcType=DECIMAL},
+      STATUE = #{record.statue,jdbcType=DECIMAL},
+      COM_ID = #{record.comId,jdbcType=DECIMAL},
+      LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.bean.OfficeTaskdetail" >
+    update OFFICE_TASKDETAIL
+    <set >
+      <if test="taskId != null" >
+        TASK_ID = #{taskId,jdbcType=DECIMAL},
+      </if>
+      <if test="receiverId != null" >
+        RECEIVER_ID = #{receiverId,jdbcType=DECIMAL},
+      </if>
+      <if test="isFinish != null" >
+        IS_FINISH = #{isFinish,jdbcType=DECIMAL},
+      </if>
+      <if test="statue != null" >
+        STATUE = #{statue,jdbcType=DECIMAL},
+      </if>
+      <if test="comId != null" >
+        COM_ID = #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where IDD = #{idd,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.bean.OfficeTaskdetail" >
+    update OFFICE_TASKDETAIL
+    set TASK_ID = #{taskId,jdbcType=DECIMAL},
+      RECEIVER_ID = #{receiverId,jdbcType=DECIMAL},
+      IS_FINISH = #{isFinish,jdbcType=DECIMAL},
+      STATUE = #{statue,jdbcType=DECIMAL},
+      COM_ID = #{comId,jdbcType=DECIMAL},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+    where IDD = #{idd,jdbcType=DECIMAL}
+  </update>
+</mapper>
