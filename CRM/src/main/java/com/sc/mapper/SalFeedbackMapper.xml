@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sc.mapper.SalFeedbackMapper" >
+  <resultMap id="BaseResultMap" type="com.sc.bean.SalFeedback" >
+    <constructor >
+      <idArg column="FEEDBACK_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="PRI" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CUSTOM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="STATES" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="FEEDBACK_TYPE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="FEEDBACK_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="HEAD_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="FEEDBACK_RESOURCE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="FEEDBACK_TOPIC" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="FEEDBACK_DESC" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ANAIUSIS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="LAST_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    FEEDBACK_ID, PRI, CUSTOM_ID, STATES, FEEDBACK_TYPE, FEEDBACK_TIME, HEAD_ID, FEEDBACK_RESOURCE, 
+    FEEDBACK_TOPIC, FEEDBACK_DESC, ANAIUSIS, COM_ID, LAST_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sc.bean.SalFeedbackExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from SAL_FEEDBACK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from SAL_FEEDBACK
+    where FEEDBACK_ID = #{feedbackId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from SAL_FEEDBACK
+    where FEEDBACK_ID = #{feedbackId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.bean.SalFeedbackExample" >
+    delete from SAL_FEEDBACK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sc.bean.SalFeedback" >
+    insert into SAL_FEEDBACK (FEEDBACK_ID, PRI, CUSTOM_ID, 
+      STATES, FEEDBACK_TYPE, FEEDBACK_TIME, 
+      HEAD_ID, FEEDBACK_RESOURCE, FEEDBACK_TOPIC, 
+      FEEDBACK_DESC, ANAIUSIS, COM_ID, 
+      LAST_TIME)
+    values (#{feedbackId,jdbcType=DECIMAL}, #{pri,jdbcType=VARCHAR}, #{customId,jdbcType=DECIMAL}, 
+      #{states,jdbcType=VARCHAR}, #{feedbackType,jdbcType=VARCHAR}, #{feedbackTime,jdbcType=TIMESTAMP}, 
+      #{headId,jdbcType=DECIMAL}, #{feedbackResource,jdbcType=VARCHAR}, #{feedbackTopic,jdbcType=VARCHAR}, 
+      #{feedbackDesc,jdbcType=VARCHAR}, #{anaiusis,jdbcType=VARCHAR}, #{comId,jdbcType=DECIMAL}, 
+      #{lastTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sc.bean.SalFeedback" >
+    insert into SAL_FEEDBACK
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="feedbackId != null" >
+        FEEDBACK_ID,
+      </if>
+      <if test="pri != null" >
+        PRI,
+      </if>
+      <if test="customId != null" >
+        CUSTOM_ID,
+      </if>
+      <if test="states != null" >
+        STATES,
+      </if>
+      <if test="feedbackType != null" >
+        FEEDBACK_TYPE,
+      </if>
+      <if test="feedbackTime != null" >
+        FEEDBACK_TIME,
+      </if>
+      <if test="headId != null" >
+        HEAD_ID,
+      </if>
+      <if test="feedbackResource != null" >
+        FEEDBACK_RESOURCE,
+      </if>
+      <if test="feedbackTopic != null" >
+        FEEDBACK_TOPIC,
+      </if>
+      <if test="feedbackDesc != null" >
+        FEEDBACK_DESC,
+      </if>
+      <if test="anaiusis != null" >
+        ANAIUSIS,
+      </if>
+      <if test="comId != null" >
+        COM_ID,
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="feedbackId != null" >
+        #{feedbackId,jdbcType=DECIMAL},
+      </if>
+      <if test="pri != null" >
+        #{pri,jdbcType=VARCHAR},
+      </if>
+      <if test="customId != null" >
+        #{customId,jdbcType=DECIMAL},
+      </if>
+      <if test="states != null" >
+        #{states,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackType != null" >
+        #{feedbackType,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackTime != null" >
+        #{feedbackTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="headId != null" >
+        #{headId,jdbcType=DECIMAL},
+      </if>
+      <if test="feedbackResource != null" >
+        #{feedbackResource,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackTopic != null" >
+        #{feedbackTopic,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackDesc != null" >
+        #{feedbackDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="anaiusis != null" >
+        #{anaiusis,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.bean.SalFeedbackExample" resultType="java.lang.Integer" >
+    select count(*) from SAL_FEEDBACK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SAL_FEEDBACK
+    <set >
+      <if test="record.feedbackId != null" >
+        FEEDBACK_ID = #{record.feedbackId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.pri != null" >
+        PRI = #{record.pri,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customId != null" >
+        CUSTOM_ID = #{record.customId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.states != null" >
+        STATES = #{record.states,jdbcType=VARCHAR},
+      </if>
+      <if test="record.feedbackType != null" >
+        FEEDBACK_TYPE = #{record.feedbackType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.feedbackTime != null" >
+        FEEDBACK_TIME = #{record.feedbackTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.headId != null" >
+        HEAD_ID = #{record.headId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.feedbackResource != null" >
+        FEEDBACK_RESOURCE = #{record.feedbackResource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.feedbackTopic != null" >
+        FEEDBACK_TOPIC = #{record.feedbackTopic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.feedbackDesc != null" >
+        FEEDBACK_DESC = #{record.feedbackDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.anaiusis != null" >
+        ANAIUSIS = #{record.anaiusis,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comId != null" >
+        COM_ID = #{record.comId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastTime != null" >
+        LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SAL_FEEDBACK
+    set FEEDBACK_ID = #{record.feedbackId,jdbcType=DECIMAL},
+      PRI = #{record.pri,jdbcType=VARCHAR},
+      CUSTOM_ID = #{record.customId,jdbcType=DECIMAL},
+      STATES = #{record.states,jdbcType=VARCHAR},
+      FEEDBACK_TYPE = #{record.feedbackType,jdbcType=VARCHAR},
+      FEEDBACK_TIME = #{record.feedbackTime,jdbcType=TIMESTAMP},
+      HEAD_ID = #{record.headId,jdbcType=DECIMAL},
+      FEEDBACK_RESOURCE = #{record.feedbackResource,jdbcType=VARCHAR},
+      FEEDBACK_TOPIC = #{record.feedbackTopic,jdbcType=VARCHAR},
+      FEEDBACK_DESC = #{record.feedbackDesc,jdbcType=VARCHAR},
+      ANAIUSIS = #{record.anaiusis,jdbcType=VARCHAR},
+      COM_ID = #{record.comId,jdbcType=DECIMAL},
+      LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.bean.SalFeedback" >
+    update SAL_FEEDBACK
+    <set >
+      <if test="pri != null" >
+        PRI = #{pri,jdbcType=VARCHAR},
+      </if>
+      <if test="customId != null" >
+        CUSTOM_ID = #{customId,jdbcType=DECIMAL},
+      </if>
+      <if test="states != null" >
+        STATES = #{states,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackType != null" >
+        FEEDBACK_TYPE = #{feedbackType,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackTime != null" >
+        FEEDBACK_TIME = #{feedbackTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="headId != null" >
+        HEAD_ID = #{headId,jdbcType=DECIMAL},
+      </if>
+      <if test="feedbackResource != null" >
+        FEEDBACK_RESOURCE = #{feedbackResource,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackTopic != null" >
+        FEEDBACK_TOPIC = #{feedbackTopic,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackDesc != null" >
+        FEEDBACK_DESC = #{feedbackDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="anaiusis != null" >
+        ANAIUSIS = #{anaiusis,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        COM_ID = #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where FEEDBACK_ID = #{feedbackId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.bean.SalFeedback" >
+    update SAL_FEEDBACK
+    set PRI = #{pri,jdbcType=VARCHAR},
+      CUSTOM_ID = #{customId,jdbcType=DECIMAL},
+      STATES = #{states,jdbcType=VARCHAR},
+      FEEDBACK_TYPE = #{feedbackType,jdbcType=VARCHAR},
+      FEEDBACK_TIME = #{feedbackTime,jdbcType=TIMESTAMP},
+      HEAD_ID = #{headId,jdbcType=DECIMAL},
+      FEEDBACK_RESOURCE = #{feedbackResource,jdbcType=VARCHAR},
+      FEEDBACK_TOPIC = #{feedbackTopic,jdbcType=VARCHAR},
+      FEEDBACK_DESC = #{feedbackDesc,jdbcType=VARCHAR},
+      ANAIUSIS = #{anaiusis,jdbcType=VARCHAR},
+      COM_ID = #{comId,jdbcType=DECIMAL},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+    where FEEDBACK_ID = #{feedbackId,jdbcType=DECIMAL}
+  </update>
+</mapper>

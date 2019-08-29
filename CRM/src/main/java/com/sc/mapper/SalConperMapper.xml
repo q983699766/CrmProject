@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sc.mapper.SalConperMapper" >
+  <resultMap id="BaseResultMap" type="com.sc.bean.SalConper" >
+    <constructor >
+      <idArg column="CONPER_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="CUSTOM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="CONPER_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ENGLISH_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="POST" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="DEPT" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CELL_PHONE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="TEL" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="EMAIL" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ADDRESS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="REMARK" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="LAST_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CONPER_ID, CUSTOM_ID, CONPER_NAME, ENGLISH_NAME, POST, DEPT, CELL_PHONE, TEL, EMAIL, 
+    ADDRESS, REMARK, COM_ID, LAST_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sc.bean.SalConperExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from SAL_CONPER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from SAL_CONPER
+    where CONPER_ID = #{conperId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from SAL_CONPER
+    where CONPER_ID = #{conperId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.bean.SalConperExample" >
+    delete from SAL_CONPER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sc.bean.SalConper" >
+    insert into SAL_CONPER (CONPER_ID, CUSTOM_ID, CONPER_NAME, 
+      ENGLISH_NAME, POST, DEPT, 
+      CELL_PHONE, TEL, EMAIL, 
+      ADDRESS, REMARK, COM_ID, 
+      LAST_TIME)
+    values (#{conperId,jdbcType=DECIMAL}, #{customId,jdbcType=DECIMAL}, #{conperName,jdbcType=VARCHAR}, 
+      #{englishName,jdbcType=VARCHAR}, #{post,jdbcType=VARCHAR}, #{dept,jdbcType=VARCHAR}, 
+      #{cellPhone,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{comId,jdbcType=DECIMAL}, 
+      #{lastTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sc.bean.SalConper" >
+    insert into SAL_CONPER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="conperId != null" >
+        CONPER_ID,
+      </if>
+      <if test="customId != null" >
+        CUSTOM_ID,
+      </if>
+      <if test="conperName != null" >
+        CONPER_NAME,
+      </if>
+      <if test="englishName != null" >
+        ENGLISH_NAME,
+      </if>
+      <if test="post != null" >
+        POST,
+      </if>
+      <if test="dept != null" >
+        DEPT,
+      </if>
+      <if test="cellPhone != null" >
+        CELL_PHONE,
+      </if>
+      <if test="tel != null" >
+        TEL,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="comId != null" >
+        COM_ID,
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="conperId != null" >
+        #{conperId,jdbcType=DECIMAL},
+      </if>
+      <if test="customId != null" >
+        #{customId,jdbcType=DECIMAL},
+      </if>
+      <if test="conperName != null" >
+        #{conperName,jdbcType=VARCHAR},
+      </if>
+      <if test="englishName != null" >
+        #{englishName,jdbcType=VARCHAR},
+      </if>
+      <if test="post != null" >
+        #{post,jdbcType=VARCHAR},
+      </if>
+      <if test="dept != null" >
+        #{dept,jdbcType=VARCHAR},
+      </if>
+      <if test="cellPhone != null" >
+        #{cellPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.bean.SalConperExample" resultType="java.lang.Integer" >
+    select count(*) from SAL_CONPER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SAL_CONPER
+    <set >
+      <if test="record.conperId != null" >
+        CONPER_ID = #{record.conperId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.customId != null" >
+        CUSTOM_ID = #{record.customId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.conperName != null" >
+        CONPER_NAME = #{record.conperName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.englishName != null" >
+        ENGLISH_NAME = #{record.englishName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.post != null" >
+        POST = #{record.post,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dept != null" >
+        DEPT = #{record.dept,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cellPhone != null" >
+        CELL_PHONE = #{record.cellPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tel != null" >
+        TEL = #{record.tel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        ADDRESS = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comId != null" >
+        COM_ID = #{record.comId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastTime != null" >
+        LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SAL_CONPER
+    set CONPER_ID = #{record.conperId,jdbcType=DECIMAL},
+      CUSTOM_ID = #{record.customId,jdbcType=DECIMAL},
+      CONPER_NAME = #{record.conperName,jdbcType=VARCHAR},
+      ENGLISH_NAME = #{record.englishName,jdbcType=VARCHAR},
+      POST = #{record.post,jdbcType=VARCHAR},
+      DEPT = #{record.dept,jdbcType=VARCHAR},
+      CELL_PHONE = #{record.cellPhone,jdbcType=VARCHAR},
+      TEL = #{record.tel,jdbcType=VARCHAR},
+      EMAIL = #{record.email,jdbcType=VARCHAR},
+      ADDRESS = #{record.address,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      COM_ID = #{record.comId,jdbcType=DECIMAL},
+      LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.bean.SalConper" >
+    update SAL_CONPER
+    <set >
+      <if test="customId != null" >
+        CUSTOM_ID = #{customId,jdbcType=DECIMAL},
+      </if>
+      <if test="conperName != null" >
+        CONPER_NAME = #{conperName,jdbcType=VARCHAR},
+      </if>
+      <if test="englishName != null" >
+        ENGLISH_NAME = #{englishName,jdbcType=VARCHAR},
+      </if>
+      <if test="post != null" >
+        POST = #{post,jdbcType=VARCHAR},
+      </if>
+      <if test="dept != null" >
+        DEPT = #{dept,jdbcType=VARCHAR},
+      </if>
+      <if test="cellPhone != null" >
+        CELL_PHONE = #{cellPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        TEL = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        COM_ID = #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where CONPER_ID = #{conperId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.bean.SalConper" >
+    update SAL_CONPER
+    set CUSTOM_ID = #{customId,jdbcType=DECIMAL},
+      CONPER_NAME = #{conperName,jdbcType=VARCHAR},
+      ENGLISH_NAME = #{englishName,jdbcType=VARCHAR},
+      POST = #{post,jdbcType=VARCHAR},
+      DEPT = #{dept,jdbcType=VARCHAR},
+      CELL_PHONE = #{cellPhone,jdbcType=VARCHAR},
+      TEL = #{tel,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      COM_ID = #{comId,jdbcType=DECIMAL},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+    where CONPER_ID = #{conperId,jdbcType=DECIMAL}
+  </update>
+</mapper>

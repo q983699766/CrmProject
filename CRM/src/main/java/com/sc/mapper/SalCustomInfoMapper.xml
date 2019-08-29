@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sc.mapper.SalCustomInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.sc.bean.SalCustomInfo" >
+    <constructor >
+      <idArg column="CUSTOM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="CUSTOM_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CUSTOM_PROPERTIES" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="WEBSITE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="TICKET_CODE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SUPERIOR_UNITS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="OWNER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="STAFF" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="TRADE_NUMBER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CUSTOM_TYPE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CUSTOM_STATE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CUSTOM_SOURCE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="HEAD_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="FIXED_PHONE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CELL_PHONE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CUSTOM_FAX" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="DEPOSIT_BANK" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="BANK_ACCOUT" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="NEXTCONTACT_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="EMAIL" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SIC_CODE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="PAY_WAY" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="EFFECTIVITY" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="DETAIL_ADDRESS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="REMARK" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="LAST_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CUSTOM_ID, CUSTOM_NAME, CUSTOM_PROPERTIES, WEBSITE, TICKET_CODE, SUPERIOR_UNITS, 
+    OWNER, STAFF, TRADE_NUMBER, CUSTOM_TYPE, CUSTOM_STATE, CUSTOM_SOURCE, HEAD_ID, FIXED_PHONE, 
+    CELL_PHONE, CUSTOM_FAX, DEPOSIT_BANK, BANK_ACCOUT, NEXTCONTACT_TIME, EMAIL, SIC_CODE, 
+    PAY_WAY, EFFECTIVITY, DETAIL_ADDRESS, REMARK, COM_ID, LAST_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sc.bean.SalCustomInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from SAL_CUSTOM_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from SAL_CUSTOM_INFO
+    where CUSTOM_ID = #{customId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from SAL_CUSTOM_INFO
+    where CUSTOM_ID = #{customId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.bean.SalCustomInfoExample" >
+    delete from SAL_CUSTOM_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sc.bean.SalCustomInfo" >
+    insert into SAL_CUSTOM_INFO (CUSTOM_ID, CUSTOM_NAME, CUSTOM_PROPERTIES, 
+      WEBSITE, TICKET_CODE, SUPERIOR_UNITS, 
+      OWNER, STAFF, TRADE_NUMBER, 
+      CUSTOM_TYPE, CUSTOM_STATE, CUSTOM_SOURCE, 
+      HEAD_ID, FIXED_PHONE, CELL_PHONE, 
+      CUSTOM_FAX, DEPOSIT_BANK, BANK_ACCOUT, 
+      NEXTCONTACT_TIME, EMAIL, SIC_CODE, 
+      PAY_WAY, EFFECTIVITY, DETAIL_ADDRESS, 
+      REMARK, COM_ID, LAST_TIME
+      )
+    values (#{customId,jdbcType=DECIMAL}, #{customName,jdbcType=VARCHAR}, #{customProperties,jdbcType=VARCHAR}, 
+      #{website,jdbcType=VARCHAR}, #{ticketCode,jdbcType=VARCHAR}, #{superiorUnits,jdbcType=VARCHAR}, 
+      #{owner,jdbcType=VARCHAR}, #{staff,jdbcType=DECIMAL}, #{tradeNumber,jdbcType=VARCHAR}, 
+      #{customType,jdbcType=VARCHAR}, #{customState,jdbcType=VARCHAR}, #{customSource,jdbcType=VARCHAR}, 
+      #{headId,jdbcType=DECIMAL}, #{fixedPhone,jdbcType=VARCHAR}, #{cellPhone,jdbcType=VARCHAR}, 
+      #{customFax,jdbcType=VARCHAR}, #{depositBank,jdbcType=VARCHAR}, #{bankAccout,jdbcType=DECIMAL}, 
+      #{nextcontactTime,jdbcType=TIMESTAMP}, #{email,jdbcType=VARCHAR}, #{sicCode,jdbcType=VARCHAR}, 
+      #{payWay,jdbcType=VARCHAR}, #{effectivity,jdbcType=VARCHAR}, #{detailAddress,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{comId,jdbcType=DECIMAL}, #{lastTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sc.bean.SalCustomInfo" >
+    insert into SAL_CUSTOM_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="customId != null" >
+        CUSTOM_ID,
+      </if>
+      <if test="customName != null" >
+        CUSTOM_NAME,
+      </if>
+      <if test="customProperties != null" >
+        CUSTOM_PROPERTIES,
+      </if>
+      <if test="website != null" >
+        WEBSITE,
+      </if>
+      <if test="ticketCode != null" >
+        TICKET_CODE,
+      </if>
+      <if test="superiorUnits != null" >
+        SUPERIOR_UNITS,
+      </if>
+      <if test="owner != null" >
+        OWNER,
+      </if>
+      <if test="staff != null" >
+        STAFF,
+      </if>
+      <if test="tradeNumber != null" >
+        TRADE_NUMBER,
+      </if>
+      <if test="customType != null" >
+        CUSTOM_TYPE,
+      </if>
+      <if test="customState != null" >
+        CUSTOM_STATE,
+      </if>
+      <if test="customSource != null" >
+        CUSTOM_SOURCE,
+      </if>
+      <if test="headId != null" >
+        HEAD_ID,
+      </if>
+      <if test="fixedPhone != null" >
+        FIXED_PHONE,
+      </if>
+      <if test="cellPhone != null" >
+        CELL_PHONE,
+      </if>
+      <if test="customFax != null" >
+        CUSTOM_FAX,
+      </if>
+      <if test="depositBank != null" >
+        DEPOSIT_BANK,
+      </if>
+      <if test="bankAccout != null" >
+        BANK_ACCOUT,
+      </if>
+      <if test="nextcontactTime != null" >
+        NEXTCONTACT_TIME,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="sicCode != null" >
+        SIC_CODE,
+      </if>
+      <if test="payWay != null" >
+        PAY_WAY,
+      </if>
+      <if test="effectivity != null" >
+        EFFECTIVITY,
+      </if>
+      <if test="detailAddress != null" >
+        DETAIL_ADDRESS,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="comId != null" >
+        COM_ID,
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="customId != null" >
+        #{customId,jdbcType=DECIMAL},
+      </if>
+      <if test="customName != null" >
+        #{customName,jdbcType=VARCHAR},
+      </if>
+      <if test="customProperties != null" >
+        #{customProperties,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null" >
+        #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketCode != null" >
+        #{ticketCode,jdbcType=VARCHAR},
+      </if>
+      <if test="superiorUnits != null" >
+        #{superiorUnits,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null" >
+        #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="staff != null" >
+        #{staff,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeNumber != null" >
+        #{tradeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="customType != null" >
+        #{customType,jdbcType=VARCHAR},
+      </if>
+      <if test="customState != null" >
+        #{customState,jdbcType=VARCHAR},
+      </if>
+      <if test="customSource != null" >
+        #{customSource,jdbcType=VARCHAR},
+      </if>
+      <if test="headId != null" >
+        #{headId,jdbcType=DECIMAL},
+      </if>
+      <if test="fixedPhone != null" >
+        #{fixedPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cellPhone != null" >
+        #{cellPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="customFax != null" >
+        #{customFax,jdbcType=VARCHAR},
+      </if>
+      <if test="depositBank != null" >
+        #{depositBank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccout != null" >
+        #{bankAccout,jdbcType=DECIMAL},
+      </if>
+      <if test="nextcontactTime != null" >
+        #{nextcontactTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="sicCode != null" >
+        #{sicCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payWay != null" >
+        #{payWay,jdbcType=VARCHAR},
+      </if>
+      <if test="effectivity != null" >
+        #{effectivity,jdbcType=VARCHAR},
+      </if>
+      <if test="detailAddress != null" >
+        #{detailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.bean.SalCustomInfoExample" resultType="java.lang.Integer" >
+    select count(*) from SAL_CUSTOM_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SAL_CUSTOM_INFO
+    <set >
+      <if test="record.customId != null" >
+        CUSTOM_ID = #{record.customId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.customName != null" >
+        CUSTOM_NAME = #{record.customName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customProperties != null" >
+        CUSTOM_PROPERTIES = #{record.customProperties,jdbcType=VARCHAR},
+      </if>
+      <if test="record.website != null" >
+        WEBSITE = #{record.website,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ticketCode != null" >
+        TICKET_CODE = #{record.ticketCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.superiorUnits != null" >
+        SUPERIOR_UNITS = #{record.superiorUnits,jdbcType=VARCHAR},
+      </if>
+      <if test="record.owner != null" >
+        OWNER = #{record.owner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staff != null" >
+        STAFF = #{record.staff,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tradeNumber != null" >
+        TRADE_NUMBER = #{record.tradeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customType != null" >
+        CUSTOM_TYPE = #{record.customType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customState != null" >
+        CUSTOM_STATE = #{record.customState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customSource != null" >
+        CUSTOM_SOURCE = #{record.customSource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headId != null" >
+        HEAD_ID = #{record.headId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fixedPhone != null" >
+        FIXED_PHONE = #{record.fixedPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cellPhone != null" >
+        CELL_PHONE = #{record.cellPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customFax != null" >
+        CUSTOM_FAX = #{record.customFax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.depositBank != null" >
+        DEPOSIT_BANK = #{record.depositBank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankAccout != null" >
+        BANK_ACCOUT = #{record.bankAccout,jdbcType=DECIMAL},
+      </if>
+      <if test="record.nextcontactTime != null" >
+        NEXTCONTACT_TIME = #{record.nextcontactTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.email != null" >
+        EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sicCode != null" >
+        SIC_CODE = #{record.sicCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payWay != null" >
+        PAY_WAY = #{record.payWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.effectivity != null" >
+        EFFECTIVITY = #{record.effectivity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailAddress != null" >
+        DETAIL_ADDRESS = #{record.detailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comId != null" >
+        COM_ID = #{record.comId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastTime != null" >
+        LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SAL_CUSTOM_INFO
+    set CUSTOM_ID = #{record.customId,jdbcType=DECIMAL},
+      CUSTOM_NAME = #{record.customName,jdbcType=VARCHAR},
+      CUSTOM_PROPERTIES = #{record.customProperties,jdbcType=VARCHAR},
+      WEBSITE = #{record.website,jdbcType=VARCHAR},
+      TICKET_CODE = #{record.ticketCode,jdbcType=VARCHAR},
+      SUPERIOR_UNITS = #{record.superiorUnits,jdbcType=VARCHAR},
+      OWNER = #{record.owner,jdbcType=VARCHAR},
+      STAFF = #{record.staff,jdbcType=DECIMAL},
+      TRADE_NUMBER = #{record.tradeNumber,jdbcType=VARCHAR},
+      CUSTOM_TYPE = #{record.customType,jdbcType=VARCHAR},
+      CUSTOM_STATE = #{record.customState,jdbcType=VARCHAR},
+      CUSTOM_SOURCE = #{record.customSource,jdbcType=VARCHAR},
+      HEAD_ID = #{record.headId,jdbcType=DECIMAL},
+      FIXED_PHONE = #{record.fixedPhone,jdbcType=VARCHAR},
+      CELL_PHONE = #{record.cellPhone,jdbcType=VARCHAR},
+      CUSTOM_FAX = #{record.customFax,jdbcType=VARCHAR},
+      DEPOSIT_BANK = #{record.depositBank,jdbcType=VARCHAR},
+      BANK_ACCOUT = #{record.bankAccout,jdbcType=DECIMAL},
+      NEXTCONTACT_TIME = #{record.nextcontactTime,jdbcType=TIMESTAMP},
+      EMAIL = #{record.email,jdbcType=VARCHAR},
+      SIC_CODE = #{record.sicCode,jdbcType=VARCHAR},
+      PAY_WAY = #{record.payWay,jdbcType=VARCHAR},
+      EFFECTIVITY = #{record.effectivity,jdbcType=VARCHAR},
+      DETAIL_ADDRESS = #{record.detailAddress,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      COM_ID = #{record.comId,jdbcType=DECIMAL},
+      LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.bean.SalCustomInfo" >
+    update SAL_CUSTOM_INFO
+    <set >
+      <if test="customName != null" >
+        CUSTOM_NAME = #{customName,jdbcType=VARCHAR},
+      </if>
+      <if test="customProperties != null" >
+        CUSTOM_PROPERTIES = #{customProperties,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null" >
+        WEBSITE = #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketCode != null" >
+        TICKET_CODE = #{ticketCode,jdbcType=VARCHAR},
+      </if>
+      <if test="superiorUnits != null" >
+        SUPERIOR_UNITS = #{superiorUnits,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null" >
+        OWNER = #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="staff != null" >
+        STAFF = #{staff,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeNumber != null" >
+        TRADE_NUMBER = #{tradeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="customType != null" >
+        CUSTOM_TYPE = #{customType,jdbcType=VARCHAR},
+      </if>
+      <if test="customState != null" >
+        CUSTOM_STATE = #{customState,jdbcType=VARCHAR},
+      </if>
+      <if test="customSource != null" >
+        CUSTOM_SOURCE = #{customSource,jdbcType=VARCHAR},
+      </if>
+      <if test="headId != null" >
+        HEAD_ID = #{headId,jdbcType=DECIMAL},
+      </if>
+      <if test="fixedPhone != null" >
+        FIXED_PHONE = #{fixedPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cellPhone != null" >
+        CELL_PHONE = #{cellPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="customFax != null" >
+        CUSTOM_FAX = #{customFax,jdbcType=VARCHAR},
+      </if>
+      <if test="depositBank != null" >
+        DEPOSIT_BANK = #{depositBank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccout != null" >
+        BANK_ACCOUT = #{bankAccout,jdbcType=DECIMAL},
+      </if>
+      <if test="nextcontactTime != null" >
+        NEXTCONTACT_TIME = #{nextcontactTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="sicCode != null" >
+        SIC_CODE = #{sicCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payWay != null" >
+        PAY_WAY = #{payWay,jdbcType=VARCHAR},
+      </if>
+      <if test="effectivity != null" >
+        EFFECTIVITY = #{effectivity,jdbcType=VARCHAR},
+      </if>
+      <if test="detailAddress != null" >
+        DETAIL_ADDRESS = #{detailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        COM_ID = #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where CUSTOM_ID = #{customId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.bean.SalCustomInfo" >
+    update SAL_CUSTOM_INFO
+    set CUSTOM_NAME = #{customName,jdbcType=VARCHAR},
+      CUSTOM_PROPERTIES = #{customProperties,jdbcType=VARCHAR},
+      WEBSITE = #{website,jdbcType=VARCHAR},
+      TICKET_CODE = #{ticketCode,jdbcType=VARCHAR},
+      SUPERIOR_UNITS = #{superiorUnits,jdbcType=VARCHAR},
+      OWNER = #{owner,jdbcType=VARCHAR},
+      STAFF = #{staff,jdbcType=DECIMAL},
+      TRADE_NUMBER = #{tradeNumber,jdbcType=VARCHAR},
+      CUSTOM_TYPE = #{customType,jdbcType=VARCHAR},
+      CUSTOM_STATE = #{customState,jdbcType=VARCHAR},
+      CUSTOM_SOURCE = #{customSource,jdbcType=VARCHAR},
+      HEAD_ID = #{headId,jdbcType=DECIMAL},
+      FIXED_PHONE = #{fixedPhone,jdbcType=VARCHAR},
+      CELL_PHONE = #{cellPhone,jdbcType=VARCHAR},
+      CUSTOM_FAX = #{customFax,jdbcType=VARCHAR},
+      DEPOSIT_BANK = #{depositBank,jdbcType=VARCHAR},
+      BANK_ACCOUT = #{bankAccout,jdbcType=DECIMAL},
+      NEXTCONTACT_TIME = #{nextcontactTime,jdbcType=TIMESTAMP},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      SIC_CODE = #{sicCode,jdbcType=VARCHAR},
+      PAY_WAY = #{payWay,jdbcType=VARCHAR},
+      EFFECTIVITY = #{effectivity,jdbcType=VARCHAR},
+      DETAIL_ADDRESS = #{detailAddress,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      COM_ID = #{comId,jdbcType=DECIMAL},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+    where CUSTOM_ID = #{customId,jdbcType=DECIMAL}
+  </update>
+</mapper>
