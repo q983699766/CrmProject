@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sc.mapper.OfficePersonalAgendaMapper" >
+  <resultMap id="BaseResultMap" type="com.sc.bean.OfficePersonalAgenda" >
+    <constructor >
+      <idArg column="SCHEDULE_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="SCHEDULE_CLASSES" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SCHEDULE_THEME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="START_DATE" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="START_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="WRITER_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="SCHEDULE_DESCRIBE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="LAST_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SCHEDULE_ID, SCHEDULE_CLASSES, SCHEDULE_THEME, START_DATE, START_TIME, WRITER_ID, 
+    SCHEDULE_DESCRIBE, COM_ID, LAST_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sc.bean.OfficePersonalAgendaExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from OFFICE_PERSONAL_AGENDA
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from OFFICE_PERSONAL_AGENDA
+    where SCHEDULE_ID = #{scheduleId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from OFFICE_PERSONAL_AGENDA
+    where SCHEDULE_ID = #{scheduleId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.bean.OfficePersonalAgendaExample" >
+    delete from OFFICE_PERSONAL_AGENDA
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sc.bean.OfficePersonalAgenda" >
+    insert into OFFICE_PERSONAL_AGENDA (SCHEDULE_ID, SCHEDULE_CLASSES, SCHEDULE_THEME, 
+      START_DATE, START_TIME, WRITER_ID, 
+      SCHEDULE_DESCRIBE, COM_ID, LAST_TIME
+      )
+    values (#{scheduleId,jdbcType=DECIMAL}, #{scheduleClasses,jdbcType=VARCHAR}, #{scheduleTheme,jdbcType=VARCHAR}, 
+      #{startDate,jdbcType=TIMESTAMP}, #{startTime,jdbcType=TIMESTAMP}, #{writerId,jdbcType=DECIMAL}, 
+      #{scheduleDescribe,jdbcType=VARCHAR}, #{comId,jdbcType=DECIMAL}, #{lastTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sc.bean.OfficePersonalAgenda" >
+    insert into OFFICE_PERSONAL_AGENDA
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scheduleId != null" >
+        SCHEDULE_ID,
+      </if>
+      <if test="scheduleClasses != null" >
+        SCHEDULE_CLASSES,
+      </if>
+      <if test="scheduleTheme != null" >
+        SCHEDULE_THEME,
+      </if>
+      <if test="startDate != null" >
+        START_DATE,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="writerId != null" >
+        WRITER_ID,
+      </if>
+      <if test="scheduleDescribe != null" >
+        SCHEDULE_DESCRIBE,
+      </if>
+      <if test="comId != null" >
+        COM_ID,
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scheduleId != null" >
+        #{scheduleId,jdbcType=DECIMAL},
+      </if>
+      <if test="scheduleClasses != null" >
+        #{scheduleClasses,jdbcType=VARCHAR},
+      </if>
+      <if test="scheduleTheme != null" >
+        #{scheduleTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="writerId != null" >
+        #{writerId,jdbcType=DECIMAL},
+      </if>
+      <if test="scheduleDescribe != null" >
+        #{scheduleDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.bean.OfficePersonalAgendaExample" resultType="java.lang.Integer" >
+    select count(*) from OFFICE_PERSONAL_AGENDA
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update OFFICE_PERSONAL_AGENDA
+    <set >
+      <if test="record.scheduleId != null" >
+        SCHEDULE_ID = #{record.scheduleId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.scheduleClasses != null" >
+        SCHEDULE_CLASSES = #{record.scheduleClasses,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scheduleTheme != null" >
+        SCHEDULE_THEME = #{record.scheduleTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startDate != null" >
+        START_DATE = #{record.startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.startTime != null" >
+        START_TIME = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.writerId != null" >
+        WRITER_ID = #{record.writerId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.scheduleDescribe != null" >
+        SCHEDULE_DESCRIBE = #{record.scheduleDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comId != null" >
+        COM_ID = #{record.comId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastTime != null" >
+        LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update OFFICE_PERSONAL_AGENDA
+    set SCHEDULE_ID = #{record.scheduleId,jdbcType=DECIMAL},
+      SCHEDULE_CLASSES = #{record.scheduleClasses,jdbcType=VARCHAR},
+      SCHEDULE_THEME = #{record.scheduleTheme,jdbcType=VARCHAR},
+      START_DATE = #{record.startDate,jdbcType=TIMESTAMP},
+      START_TIME = #{record.startTime,jdbcType=TIMESTAMP},
+      WRITER_ID = #{record.writerId,jdbcType=DECIMAL},
+      SCHEDULE_DESCRIBE = #{record.scheduleDescribe,jdbcType=VARCHAR},
+      COM_ID = #{record.comId,jdbcType=DECIMAL},
+      LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.bean.OfficePersonalAgenda" >
+    update OFFICE_PERSONAL_AGENDA
+    <set >
+      <if test="scheduleClasses != null" >
+        SCHEDULE_CLASSES = #{scheduleClasses,jdbcType=VARCHAR},
+      </if>
+      <if test="scheduleTheme != null" >
+        SCHEDULE_THEME = #{scheduleTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="writerId != null" >
+        WRITER_ID = #{writerId,jdbcType=DECIMAL},
+      </if>
+      <if test="scheduleDescribe != null" >
+        SCHEDULE_DESCRIBE = #{scheduleDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        COM_ID = #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SCHEDULE_ID = #{scheduleId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.bean.OfficePersonalAgenda" >
+    update OFFICE_PERSONAL_AGENDA
+    set SCHEDULE_CLASSES = #{scheduleClasses,jdbcType=VARCHAR},
+      SCHEDULE_THEME = #{scheduleTheme,jdbcType=VARCHAR},
+      START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      WRITER_ID = #{writerId,jdbcType=DECIMAL},
+      SCHEDULE_DESCRIBE = #{scheduleDescribe,jdbcType=VARCHAR},
+      COM_ID = #{comId,jdbcType=DECIMAL},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+    where SCHEDULE_ID = #{scheduleId,jdbcType=DECIMAL}
+  </update>
+</mapper>
