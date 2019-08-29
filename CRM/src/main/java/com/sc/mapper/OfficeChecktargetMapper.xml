@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sc.mapper.OfficeChecktargetMapper" >
+  <resultMap id="BaseResultMap" type="com.sc.bean.OfficeChecktarget" >
+    <constructor >
+      <idArg column="TARGET_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="CHECK_TARGET" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="REMARK" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="LAST_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TARGET_ID, CHECK_TARGET, REMARK, COM_ID, LAST_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sc.bean.OfficeChecktargetExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from OFFICE_CHECKTARGET
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from OFFICE_CHECKTARGET
+    where TARGET_ID = #{targetId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from OFFICE_CHECKTARGET
+    where TARGET_ID = #{targetId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.bean.OfficeChecktargetExample" >
+    delete from OFFICE_CHECKTARGET
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sc.bean.OfficeChecktarget" >
+    insert into OFFICE_CHECKTARGET (TARGET_ID, CHECK_TARGET, REMARK, 
+      COM_ID, LAST_TIME)
+    values (#{targetId,jdbcType=DECIMAL}, #{checkTarget,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{comId,jdbcType=DECIMAL}, #{lastTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sc.bean.OfficeChecktarget" >
+    insert into OFFICE_CHECKTARGET
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="targetId != null" >
+        TARGET_ID,
+      </if>
+      <if test="checkTarget != null" >
+        CHECK_TARGET,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="comId != null" >
+        COM_ID,
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="targetId != null" >
+        #{targetId,jdbcType=DECIMAL},
+      </if>
+      <if test="checkTarget != null" >
+        #{checkTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.bean.OfficeChecktargetExample" resultType="java.lang.Integer" >
+    select count(*) from OFFICE_CHECKTARGET
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update OFFICE_CHECKTARGET
+    <set >
+      <if test="record.targetId != null" >
+        TARGET_ID = #{record.targetId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.checkTarget != null" >
+        CHECK_TARGET = #{record.checkTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comId != null" >
+        COM_ID = #{record.comId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastTime != null" >
+        LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update OFFICE_CHECKTARGET
+    set TARGET_ID = #{record.targetId,jdbcType=DECIMAL},
+      CHECK_TARGET = #{record.checkTarget,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      COM_ID = #{record.comId,jdbcType=DECIMAL},
+      LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.bean.OfficeChecktarget" >
+    update OFFICE_CHECKTARGET
+    <set >
+      <if test="checkTarget != null" >
+        CHECK_TARGET = #{checkTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        COM_ID = #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where TARGET_ID = #{targetId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.bean.OfficeChecktarget" >
+    update OFFICE_CHECKTARGET
+    set CHECK_TARGET = #{checkTarget,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      COM_ID = #{comId,jdbcType=DECIMAL},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+    where TARGET_ID = #{targetId,jdbcType=DECIMAL}
+  </update>
+</mapper>
