@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sc.mapper.SalOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.sc.bean.SalOrder" >
+    <constructor >
+      <idArg column="ORDER_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="CREATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="INVOICE_NUMBER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="USER_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="CUSTOM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="SAL_MONEY" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="ORDER_OUT_STATE" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="REBATE" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="ORDER_STATE" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="REMARK" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="LAST_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ORDER_ID, CREATE_TIME, INVOICE_NUMBER, USER_ID, CUSTOM_ID, SAL_MONEY, ORDER_OUT_STATE, 
+    REBATE, ORDER_STATE, REMARK, COM_ID, LAST_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sc.bean.SalOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from SAL_ORDER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from SAL_ORDER
+    where ORDER_ID = #{orderId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from SAL_ORDER
+    where ORDER_ID = #{orderId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.bean.SalOrderExample" >
+    delete from SAL_ORDER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sc.bean.SalOrder" >
+    insert into SAL_ORDER (ORDER_ID, CREATE_TIME, INVOICE_NUMBER, 
+      USER_ID, CUSTOM_ID, SAL_MONEY, 
+      ORDER_OUT_STATE, REBATE, ORDER_STATE, 
+      REMARK, COM_ID, LAST_TIME
+      )
+    values (#{orderId,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{invoiceNumber,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=DECIMAL}, #{customId,jdbcType=DECIMAL}, #{salMoney,jdbcType=DECIMAL}, 
+      #{orderOutState,jdbcType=DECIMAL}, #{rebate,jdbcType=DECIMAL}, #{orderState,jdbcType=DECIMAL}, 
+      #{remark,jdbcType=VARCHAR}, #{comId,jdbcType=DECIMAL}, #{lastTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sc.bean.SalOrder" >
+    insert into SAL_ORDER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        ORDER_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="invoiceNumber != null" >
+        INVOICE_NUMBER,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="customId != null" >
+        CUSTOM_ID,
+      </if>
+      <if test="salMoney != null" >
+        SAL_MONEY,
+      </if>
+      <if test="orderOutState != null" >
+        ORDER_OUT_STATE,
+      </if>
+      <if test="rebate != null" >
+        REBATE,
+      </if>
+      <if test="orderState != null" >
+        ORDER_STATE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="comId != null" >
+        COM_ID,
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invoiceNumber != null" >
+        #{invoiceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="customId != null" >
+        #{customId,jdbcType=DECIMAL},
+      </if>
+      <if test="salMoney != null" >
+        #{salMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="orderOutState != null" >
+        #{orderOutState,jdbcType=DECIMAL},
+      </if>
+      <if test="rebate != null" >
+        #{rebate,jdbcType=DECIMAL},
+      </if>
+      <if test="orderState != null" >
+        #{orderState,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.bean.SalOrderExample" resultType="java.lang.Integer" >
+    select count(*) from SAL_ORDER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SAL_ORDER
+    <set >
+      <if test="record.orderId != null" >
+        ORDER_ID = #{record.orderId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.invoiceNumber != null" >
+        INVOICE_NUMBER = #{record.invoiceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        USER_ID = #{record.userId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.customId != null" >
+        CUSTOM_ID = #{record.customId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.salMoney != null" >
+        SAL_MONEY = #{record.salMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderOutState != null" >
+        ORDER_OUT_STATE = #{record.orderOutState,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rebate != null" >
+        REBATE = #{record.rebate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderState != null" >
+        ORDER_STATE = #{record.orderState,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comId != null" >
+        COM_ID = #{record.comId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastTime != null" >
+        LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SAL_ORDER
+    set ORDER_ID = #{record.orderId,jdbcType=DECIMAL},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      INVOICE_NUMBER = #{record.invoiceNumber,jdbcType=VARCHAR},
+      USER_ID = #{record.userId,jdbcType=DECIMAL},
+      CUSTOM_ID = #{record.customId,jdbcType=DECIMAL},
+      SAL_MONEY = #{record.salMoney,jdbcType=DECIMAL},
+      ORDER_OUT_STATE = #{record.orderOutState,jdbcType=DECIMAL},
+      REBATE = #{record.rebate,jdbcType=DECIMAL},
+      ORDER_STATE = #{record.orderState,jdbcType=DECIMAL},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      COM_ID = #{record.comId,jdbcType=DECIMAL},
+      LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.bean.SalOrder" >
+    update SAL_ORDER
+    <set >
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invoiceNumber != null" >
+        INVOICE_NUMBER = #{invoiceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="customId != null" >
+        CUSTOM_ID = #{customId,jdbcType=DECIMAL},
+      </if>
+      <if test="salMoney != null" >
+        SAL_MONEY = #{salMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="orderOutState != null" >
+        ORDER_OUT_STATE = #{orderOutState,jdbcType=DECIMAL},
+      </if>
+      <if test="rebate != null" >
+        REBATE = #{rebate,jdbcType=DECIMAL},
+      </if>
+      <if test="orderState != null" >
+        ORDER_STATE = #{orderState,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        COM_ID = #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ORDER_ID = #{orderId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.bean.SalOrder" >
+    update SAL_ORDER
+    set CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      INVOICE_NUMBER = #{invoiceNumber,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      CUSTOM_ID = #{customId,jdbcType=DECIMAL},
+      SAL_MONEY = #{salMoney,jdbcType=DECIMAL},
+      ORDER_OUT_STATE = #{orderOutState,jdbcType=DECIMAL},
+      REBATE = #{rebate,jdbcType=DECIMAL},
+      ORDER_STATE = #{orderState,jdbcType=DECIMAL},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      COM_ID = #{comId,jdbcType=DECIMAL},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+    where ORDER_ID = #{orderId,jdbcType=DECIMAL}
+  </update>
+</mapper>
