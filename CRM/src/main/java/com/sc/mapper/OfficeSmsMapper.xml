@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sc.mapper.OfficeSmsMapper" >
+  <resultMap id="BaseResultMap" type="com.sc.bean.OfficeSms" >
+    <constructor >
+      <idArg column="SMS_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="SMS_HEADLINE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SMS_CONTENT" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SMS_SENDER" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="COM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="LAST_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SMS_ID, SMS_HEADLINE, SMS_CONTENT, SMS_SENDER, COM_ID, LAST_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sc.bean.OfficeSmsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from OFFICE_SMS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from OFFICE_SMS
+    where SMS_ID = #{smsId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from OFFICE_SMS
+    where SMS_ID = #{smsId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.bean.OfficeSmsExample" >
+    delete from OFFICE_SMS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sc.bean.OfficeSms" >
+    insert into OFFICE_SMS (SMS_ID, SMS_HEADLINE, SMS_CONTENT, 
+      SMS_SENDER, COM_ID, LAST_TIME
+      )
+    values (#{smsId,jdbcType=DECIMAL}, #{smsHeadline,jdbcType=VARCHAR}, #{smsContent,jdbcType=VARCHAR}, 
+      #{smsSender,jdbcType=DECIMAL}, #{comId,jdbcType=DECIMAL}, #{lastTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sc.bean.OfficeSms" >
+    insert into OFFICE_SMS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="smsId != null" >
+        SMS_ID,
+      </if>
+      <if test="smsHeadline != null" >
+        SMS_HEADLINE,
+      </if>
+      <if test="smsContent != null" >
+        SMS_CONTENT,
+      </if>
+      <if test="smsSender != null" >
+        SMS_SENDER,
+      </if>
+      <if test="comId != null" >
+        COM_ID,
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="smsId != null" >
+        #{smsId,jdbcType=DECIMAL},
+      </if>
+      <if test="smsHeadline != null" >
+        #{smsHeadline,jdbcType=VARCHAR},
+      </if>
+      <if test="smsContent != null" >
+        #{smsContent,jdbcType=VARCHAR},
+      </if>
+      <if test="smsSender != null" >
+        #{smsSender,jdbcType=DECIMAL},
+      </if>
+      <if test="comId != null" >
+        #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.bean.OfficeSmsExample" resultType="java.lang.Integer" >
+    select count(*) from OFFICE_SMS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update OFFICE_SMS
+    <set >
+      <if test="record.smsId != null" >
+        SMS_ID = #{record.smsId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.smsHeadline != null" >
+        SMS_HEADLINE = #{record.smsHeadline,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smsContent != null" >
+        SMS_CONTENT = #{record.smsContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smsSender != null" >
+        SMS_SENDER = #{record.smsSender,jdbcType=DECIMAL},
+      </if>
+      <if test="record.comId != null" >
+        COM_ID = #{record.comId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastTime != null" >
+        LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update OFFICE_SMS
+    set SMS_ID = #{record.smsId,jdbcType=DECIMAL},
+      SMS_HEADLINE = #{record.smsHeadline,jdbcType=VARCHAR},
+      SMS_CONTENT = #{record.smsContent,jdbcType=VARCHAR},
+      SMS_SENDER = #{record.smsSender,jdbcType=DECIMAL},
+      COM_ID = #{record.comId,jdbcType=DECIMAL},
+      LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.bean.OfficeSms" >
+    update OFFICE_SMS
+    <set >
+      <if test="smsHeadline != null" >
+        SMS_HEADLINE = #{smsHeadline,jdbcType=VARCHAR},
+      </if>
+      <if test="smsContent != null" >
+        SMS_CONTENT = #{smsContent,jdbcType=VARCHAR},
+      </if>
+      <if test="smsSender != null" >
+        SMS_SENDER = #{smsSender,jdbcType=DECIMAL},
+      </if>
+      <if test="comId != null" >
+        COM_ID = #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SMS_ID = #{smsId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.bean.OfficeSms" >
+    update OFFICE_SMS
+    set SMS_HEADLINE = #{smsHeadline,jdbcType=VARCHAR},
+      SMS_CONTENT = #{smsContent,jdbcType=VARCHAR},
+      SMS_SENDER = #{smsSender,jdbcType=DECIMAL},
+      COM_ID = #{comId,jdbcType=DECIMAL},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+    where SMS_ID = #{smsId,jdbcType=DECIMAL}
+  </update>
+</mapper>
