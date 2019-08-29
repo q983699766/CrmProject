@@ -33,6 +33,7 @@ public class SysUsers implements Serializable {
         this.lastTime = lastTime;
     }
 
+    
     public SysUsers() {
         super();
     }
