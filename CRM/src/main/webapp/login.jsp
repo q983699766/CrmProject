@@ -6,6 +6,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -29,6 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>        
         <script type="text/javascript" src="assets/layer/layer.js"></script>
 <title>登陆</title>
+
 </head>
 
 <body class="login-layout">
@@ -45,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="center">
 	<h1>
 									<i class="icon-leaf green"></i>
-									<span class="orange">思美软件</span>
+									<span class="orange">DB1901CRM</span>
 									<span class="white">后台管理系统</span>
 								</h1>
 								<h4 class="white">Background Management System</h4>
@@ -54,8 +56,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="space-6"></div>
 
 							<div class="position-relative">
-								<div id="login-box" class="login-box widget-box no-border visible">
-									<div class="widget-body">
+								<div id="login-box" class="login-box widget-box no-border visible" style="height: 312px;">
+									<div class="widget-body" style="height: 301px;">
 										<div class="widget-main">
 											<h4 class="header blue lighter bigger">
 												<i class="icon-coffee green"></i>
@@ -64,18 +66,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 											<div class="login_icon"><img src="images/login.png" /></div>
 
-											<form class="">
+											<form action="loginctlr/login.do" method="post">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="登录名"  name="登录名">
+															<input type="text" class="form-control" placeholder="登录名"  name="uname">
 															<i class="icon-user"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="密码" name="密码">
+															<input type="password" class="form-control" placeholder="密码" name="upass">
 															<i class="icon-lock"></i>
 														</span>
 													</label>
@@ -120,32 +122,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="loginbm">版权所有  2016  <a href="">南京思美软件系统有限公司</a> </div><strong></strong>
 </body>
 </html>
-<script>
-$('#login_btn').on('click', function(){
-	     var num=0;
+<script  type="text/javascript">
+$('#login_btn').on('click',function(){
+         var num=0;
 		 var str="";
-     $("input[type$='text']").each(function(n){
-          if($(this).val()=="")
-          {
-               
-			   layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
-                title: '提示框',				
-				icon:0,								
-          }); 
-		    num++;
-            return false;            
-          } 
-		 });
-		  if(num>0){  return false;}	 	
-          else{
-			  layer.alert('登陆成功！',{
-               title: '提示框',				
-			   icon:1,		
-			  });
-	          location.href="index.html";
-			   layer.close(index);	
-		  }		  		     						
-		
+	     $("input[type$='text']").each(function(n){
+		          if($(this).val()==""){
+					   layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
+			                title: '提示框',				
+							icon:0,								
+			          }); 
+				    num++;
+		            return false;            
+		          } 
+			 });
+		 $("form").submit();
 	})
-
+	
+	var isfail ='${param.fail=="nouser" ? "用户名不存在！":"" }${param.fail=="error" ? "用户名或密码错误！":"" }${param.fail=="codeerror" ? "验证码错误！":"" }${param.fail=="unknown" ? "用户名不存在！":""}';
+	function result(){
+		if(isfail != ""){
+			layer.alert(isfail,{
+	                title: '提示框',				
+					icon:0,								
+	          });
+		}			
+	};
+	result();
 </script>
