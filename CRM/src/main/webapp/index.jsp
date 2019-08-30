@@ -369,12 +369,12 @@ $('.change_Password').on('click', function(){
                                 <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="分类分类" class="iframeurl"><i class="icon-double-angle-right"></i>分类分类</a></li>
 							</ul>
 						</li>
-                        	<li><a href="#" class="dropdown-toggle"><i class="icon-cogs"></i><span class="menu-text"> 钟鹏鹏 </span><b class="arrow icon-angle-down"></b></a>
+                        	<li><a href="#" class="dropdown-toggle"><i class="icon-cogs"></i><span class="menu-text"> 采购管理 </span><b class="arrow icon-angle-down"></b></a>
 							<ul class="submenu">
-								<li class="home"><a href="javascript:void(0)" name="Systems.html" title="系统设置" class="iframeurl"><i class="icon-double-angle-right"></i>系统设置</a></li>
-								<li class="home"><a href="javascript:void(0)" name="菜单管理.html" title="栏目管理" class="iframeurl"><i class="icon-double-angle-right"></i>栏目管理</a></li>
+								<li class="home"><a href="javascript:void(0)" name="pursupinfo/selectinfo.do" title="供应商管理" class="iframeurl"><i class="icon-double-angle-right"></i>供应商管理</a></li>
+								<li class="home"><a href="javascript:void(0)" name="pursupinfo/selectinfo.do" title="采购单" class="iframeurl"><i class="icon-double-angle-right"></i>采购单</a></li>
 							
-                                <li class="home"><a href="javascript:void(0)" name="用户管理.html" title="系统日志" class="iframeurl"><i class="icon-double-angle-right"></i>系统日志</a></li>
+                                <li class="home"><a href="javascript:void(0)" name="用户管理.html" title="待采购列表" class="iframeurl"><i class="icon-double-angle-right"></i>待采购列表</a></li>
 							</ul>
 						</li>
                         <li><a href="#" class="dropdown-toggle"><i class="icon-group"></i><span class="menu-text"> 管维阳 </span><b class="arrow icon-angle-down"></b></a>
