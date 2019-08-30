@@ -69,6 +69,7 @@ public class ShiroConfiguration {
 	
 	@Bean("shiroFilter")
 	public ShiroFilterFactoryBean shiroFilter(){
+		
 		CustomFormAuthenticationFilter formAuthenticationFilter=new CustomFormAuthenticationFilter();
 		formAuthenticationFilter.setLoginUrl("/loginctlr/login.do");
 		formAuthenticationFilter.setUsernameParam("uname");
@@ -102,10 +103,13 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/static/**", "anon");
 		filterChainDefinitionMap.put("/temp/**", "anon");
 		filterChainDefinitionMap.put("/upload/**", "anon");
+		filterChainDefinitionMap.put("/assets/**", "anon");
+		filterChainDefinitionMap.put("/font/**", "anon");
+		filterChainDefinitionMap.put("/products/**", "anon");
 		
 		filterChainDefinitionMap.put("/validatecode.jsp", "anon");
 		filterChainDefinitionMap.put("/login.jsp", "anon");
-		filterChainDefinitionMap.put("/main.jsp", "anon");
+		filterChainDefinitionMap.put("/index.jsp", "anon");
 		filterChainDefinitionMap.put("/logout", "logout");
 		
 		
