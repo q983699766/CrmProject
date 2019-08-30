@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sc.mapper.PurOrderInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.sc.bean.PurOrderInfo" >
+    <constructor >
+      <idArg column="PUR_INFO_NUMBER" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="PUR_NUMBER" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="PRODUCT_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="PRO_PRICE" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="WAREHOUSE_ORNOT" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="OPERATOR_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="REMARKS_INFOM" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="LAST_DATE" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="PRODUCT_COUNT" jdbcType="DECIMAL" javaType="java.lang.Long" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PUR_INFO_NUMBER, PUR_NUMBER, PRODUCT_ID, PRO_PRICE, WAREHOUSE_ORNOT, OPERATOR_ID, 
+    REMARKS_INFOM, COM_ID, LAST_DATE, PRODUCT_COUNT
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sc.bean.PurOrderInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from PUR_ORDER_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from PUR_ORDER_INFO
+    where PUR_INFO_NUMBER = #{purInfoNumber,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from PUR_ORDER_INFO
+    where PUR_INFO_NUMBER = #{purInfoNumber,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.bean.PurOrderInfoExample" >
+    delete from PUR_ORDER_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sc.bean.PurOrderInfo" >
+    insert into PUR_ORDER_INFO (PUR_INFO_NUMBER, PUR_NUMBER, PRODUCT_ID, 
+      PRO_PRICE, WAREHOUSE_ORNOT, OPERATOR_ID, 
+      REMARKS_INFOM, COM_ID, LAST_DATE, 
+      PRODUCT_COUNT)
+    values (#{purInfoNumber,jdbcType=DECIMAL}, #{purNumber,jdbcType=DECIMAL}, #{productId,jdbcType=DECIMAL}, 
+      #{proPrice,jdbcType=DECIMAL}, #{warehouseOrnot,jdbcType=VARCHAR}, #{operatorId,jdbcType=DECIMAL}, 
+      #{remarksInfom,jdbcType=VARCHAR}, #{comId,jdbcType=DECIMAL}, #{lastDate,jdbcType=TIMESTAMP}, 
+      #{productCount,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sc.bean.PurOrderInfo" >
+    insert into PUR_ORDER_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="purInfoNumber != null" >
+        PUR_INFO_NUMBER,
+      </if>
+      <if test="purNumber != null" >
+        PUR_NUMBER,
+      </if>
+      <if test="productId != null" >
+        PRODUCT_ID,
+      </if>
+      <if test="proPrice != null" >
+        PRO_PRICE,
+      </if>
+      <if test="warehouseOrnot != null" >
+        WAREHOUSE_ORNOT,
+      </if>
+      <if test="operatorId != null" >
+        OPERATOR_ID,
+      </if>
+      <if test="remarksInfom != null" >
+        REMARKS_INFOM,
+      </if>
+      <if test="comId != null" >
+        COM_ID,
+      </if>
+      <if test="lastDate != null" >
+        LAST_DATE,
+      </if>
+      <if test="productCount != null" >
+        PRODUCT_COUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="purInfoNumber != null" >
+        #{purInfoNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="purNumber != null" >
+        #{purNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=DECIMAL},
+      </if>
+      <if test="proPrice != null" >
+        #{proPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="warehouseOrnot != null" >
+        #{warehouseOrnot,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null" >
+        #{operatorId,jdbcType=DECIMAL},
+      </if>
+      <if test="remarksInfom != null" >
+        #{remarksInfom,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastDate != null" >
+        #{lastDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productCount != null" >
+        #{productCount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.bean.PurOrderInfoExample" resultType="java.lang.Integer" >
+    select count(*) from PUR_ORDER_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PUR_ORDER_INFO
+    <set >
+      <if test="record.purInfoNumber != null" >
+        PUR_INFO_NUMBER = #{record.purInfoNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="record.purNumber != null" >
+        PUR_NUMBER = #{record.purNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="record.productId != null" >
+        PRODUCT_ID = #{record.productId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.proPrice != null" >
+        PRO_PRICE = #{record.proPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.warehouseOrnot != null" >
+        WAREHOUSE_ORNOT = #{record.warehouseOrnot,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatorId != null" >
+        OPERATOR_ID = #{record.operatorId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remarksInfom != null" >
+        REMARKS_INFOM = #{record.remarksInfom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comId != null" >
+        COM_ID = #{record.comId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastDate != null" >
+        LAST_DATE = #{record.lastDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.productCount != null" >
+        PRODUCT_COUNT = #{record.productCount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PUR_ORDER_INFO
+    set PUR_INFO_NUMBER = #{record.purInfoNumber,jdbcType=DECIMAL},
+      PUR_NUMBER = #{record.purNumber,jdbcType=DECIMAL},
+      PRODUCT_ID = #{record.productId,jdbcType=DECIMAL},
+      PRO_PRICE = #{record.proPrice,jdbcType=DECIMAL},
+      WAREHOUSE_ORNOT = #{record.warehouseOrnot,jdbcType=VARCHAR},
+      OPERATOR_ID = #{record.operatorId,jdbcType=DECIMAL},
+      REMARKS_INFOM = #{record.remarksInfom,jdbcType=VARCHAR},
+      COM_ID = #{record.comId,jdbcType=DECIMAL},
+      LAST_DATE = #{record.lastDate,jdbcType=TIMESTAMP},
+      PRODUCT_COUNT = #{record.productCount,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.bean.PurOrderInfo" >
+    update PUR_ORDER_INFO
+    <set >
+      <if test="purNumber != null" >
+        PUR_NUMBER = #{purNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="productId != null" >
+        PRODUCT_ID = #{productId,jdbcType=DECIMAL},
+      </if>
+      <if test="proPrice != null" >
+        PRO_PRICE = #{proPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="warehouseOrnot != null" >
+        WAREHOUSE_ORNOT = #{warehouseOrnot,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null" >
+        OPERATOR_ID = #{operatorId,jdbcType=DECIMAL},
+      </if>
+      <if test="remarksInfom != null" >
+        REMARKS_INFOM = #{remarksInfom,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        COM_ID = #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastDate != null" >
+        LAST_DATE = #{lastDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productCount != null" >
+        PRODUCT_COUNT = #{productCount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where PUR_INFO_NUMBER = #{purInfoNumber,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.bean.PurOrderInfo" >
+    update PUR_ORDER_INFO
+    set PUR_NUMBER = #{purNumber,jdbcType=DECIMAL},
+      PRODUCT_ID = #{productId,jdbcType=DECIMAL},
+      PRO_PRICE = #{proPrice,jdbcType=DECIMAL},
+      WAREHOUSE_ORNOT = #{warehouseOrnot,jdbcType=VARCHAR},
+      OPERATOR_ID = #{operatorId,jdbcType=DECIMAL},
+      REMARKS_INFOM = #{remarksInfom,jdbcType=VARCHAR},
+      COM_ID = #{comId,jdbcType=DECIMAL},
+      LAST_DATE = #{lastDate,jdbcType=TIMESTAMP},
+      PRODUCT_COUNT = #{productCount,jdbcType=DECIMAL}
+    where PUR_INFO_NUMBER = #{purInfoNumber,jdbcType=DECIMAL}
+  </update>
+</mapper>
