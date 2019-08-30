@@ -332,10 +332,10 @@ $('.change_Password').on('click', function(){
 						</ul>
 					</li>
 					<li>
-					<a href="#" class="dropdown-toggle"><i class="icon-picture "></i><span class="menu-text"> 刘志杰 </span><b class="arrow icon-angle-down"></b></a>
+					<a href="#" class="dropdown-toggle"><i class="icon-picture "></i><span class="menu-text">仓库</span><b class="arrow icon-angle-down"></b></a>
 						<ul class="submenu">
-						<li class="home"><a href="javascript:void(0)" name="advertising.html" title="广告管理" class="iframeurl"><i class="icon-double-angle-right"></i>广告管理</a></li>
-						<li class="home"><a href="javascript:void(0)" name="Sort_ads.html" title="分类管理"  class="iframeurl"><i class="icon-double-angle-right"></i>分类管理</a></li>
+						<li class="home"><a href="javascript:void(0)" name="advertising.html" title="库存信息" class="iframeurl"><i class="icon-double-angle-right"></i>库存信息</a></li>
+						<li class="home"><a href="javascript:void(0)" name="ccxxctlr/list.do" title="库存商品信息"  class="iframeurl"><i class="icon-double-angle-right"></i>库存商品信息</a></li>
 							</ul>
 						</li>
 					<li>
