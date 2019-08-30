@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sc.mapper.PurOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.sc.bean.PurOrder" >
+    <constructor >
+      <idArg column="PUR_NUMBER" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="PUR_TITLE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="PUR_DATE" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="SUP_INFO_NUM" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="PAY_AMOUNT" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="INVOICE_NUMBER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="PAY_STATUS" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="PUR_PROGREES" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="DELIVERY_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="DELIVERY_ADDRESS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="DELIVERY_MODE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="OPERATOR_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="REMARKS_INFO" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="LAST_DATE" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PUR_NUMBER, PUR_TITLE, PUR_DATE, SUP_INFO_NUM, PAY_AMOUNT, INVOICE_NUMBER, PAY_STATUS, 
+    PUR_PROGREES, DELIVERY_TIME, DELIVERY_ADDRESS, DELIVERY_MODE, OPERATOR_ID, REMARKS_INFO, 
+    COM_ID, LAST_DATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sc.bean.PurOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from PUR_ORDER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from PUR_ORDER
+    where PUR_NUMBER = #{purNumber,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from PUR_ORDER
+    where PUR_NUMBER = #{purNumber,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.bean.PurOrderExample" >
+    delete from PUR_ORDER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sc.bean.PurOrder" >
+    insert into PUR_ORDER (PUR_NUMBER, PUR_TITLE, PUR_DATE, 
+      SUP_INFO_NUM, PAY_AMOUNT, INVOICE_NUMBER, 
+      PAY_STATUS, PUR_PROGREES, DELIVERY_TIME, 
+      DELIVERY_ADDRESS, DELIVERY_MODE, OPERATOR_ID, 
+      REMARKS_INFO, COM_ID, LAST_DATE
+      )
+    values (#{purNumber,jdbcType=DECIMAL}, #{purTitle,jdbcType=VARCHAR}, #{purDate,jdbcType=TIMESTAMP}, 
+      #{supInfoNum,jdbcType=DECIMAL}, #{payAmount,jdbcType=DECIMAL}, #{invoiceNumber,jdbcType=VARCHAR}, 
+      #{payStatus,jdbcType=DECIMAL}, #{purProgrees,jdbcType=DECIMAL}, #{deliveryTime,jdbcType=TIMESTAMP}, 
+      #{deliveryAddress,jdbcType=VARCHAR}, #{deliveryMode,jdbcType=VARCHAR}, #{operatorId,jdbcType=DECIMAL}, 
+      #{remarksInfo,jdbcType=VARCHAR}, #{comId,jdbcType=DECIMAL}, #{lastDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sc.bean.PurOrder" >
+    insert into PUR_ORDER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="purNumber != null" >
+        PUR_NUMBER,
+      </if>
+      <if test="purTitle != null" >
+        PUR_TITLE,
+      </if>
+      <if test="purDate != null" >
+        PUR_DATE,
+      </if>
+      <if test="supInfoNum != null" >
+        SUP_INFO_NUM,
+      </if>
+      <if test="payAmount != null" >
+        PAY_AMOUNT,
+      </if>
+      <if test="invoiceNumber != null" >
+        INVOICE_NUMBER,
+      </if>
+      <if test="payStatus != null" >
+        PAY_STATUS,
+      </if>
+      <if test="purProgrees != null" >
+        PUR_PROGREES,
+      </if>
+      <if test="deliveryTime != null" >
+        DELIVERY_TIME,
+      </if>
+      <if test="deliveryAddress != null" >
+        DELIVERY_ADDRESS,
+      </if>
+      <if test="deliveryMode != null" >
+        DELIVERY_MODE,
+      </if>
+      <if test="operatorId != null" >
+        OPERATOR_ID,
+      </if>
+      <if test="remarksInfo != null" >
+        REMARKS_INFO,
+      </if>
+      <if test="comId != null" >
+        COM_ID,
+      </if>
+      <if test="lastDate != null" >
+        LAST_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="purNumber != null" >
+        #{purNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="purTitle != null" >
+        #{purTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="purDate != null" >
+        #{purDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supInfoNum != null" >
+        #{supInfoNum,jdbcType=DECIMAL},
+      </if>
+      <if test="payAmount != null" >
+        #{payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceNumber != null" >
+        #{invoiceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null" >
+        #{payStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="purProgrees != null" >
+        #{purProgrees,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryTime != null" >
+        #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryAddress != null" >
+        #{deliveryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryMode != null" >
+        #{deliveryMode,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null" >
+        #{operatorId,jdbcType=DECIMAL},
+      </if>
+      <if test="remarksInfo != null" >
+        #{remarksInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastDate != null" >
+        #{lastDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.bean.PurOrderExample" resultType="java.lang.Integer" >
+    select count(*) from PUR_ORDER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PUR_ORDER
+    <set >
+      <if test="record.purNumber != null" >
+        PUR_NUMBER = #{record.purNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="record.purTitle != null" >
+        PUR_TITLE = #{record.purTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purDate != null" >
+        PUR_DATE = #{record.purDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.supInfoNum != null" >
+        SUP_INFO_NUM = #{record.supInfoNum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payAmount != null" >
+        PAY_AMOUNT = #{record.payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.invoiceNumber != null" >
+        INVOICE_NUMBER = #{record.invoiceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payStatus != null" >
+        PAY_STATUS = #{record.payStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="record.purProgrees != null" >
+        PUR_PROGREES = #{record.purProgrees,jdbcType=DECIMAL},
+      </if>
+      <if test="record.deliveryTime != null" >
+        DELIVERY_TIME = #{record.deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deliveryAddress != null" >
+        DELIVERY_ADDRESS = #{record.deliveryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryMode != null" >
+        DELIVERY_MODE = #{record.deliveryMode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatorId != null" >
+        OPERATOR_ID = #{record.operatorId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remarksInfo != null" >
+        REMARKS_INFO = #{record.remarksInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comId != null" >
+        COM_ID = #{record.comId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastDate != null" >
+        LAST_DATE = #{record.lastDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PUR_ORDER
+    set PUR_NUMBER = #{record.purNumber,jdbcType=DECIMAL},
+      PUR_TITLE = #{record.purTitle,jdbcType=VARCHAR},
+      PUR_DATE = #{record.purDate,jdbcType=TIMESTAMP},
+      SUP_INFO_NUM = #{record.supInfoNum,jdbcType=DECIMAL},
+      PAY_AMOUNT = #{record.payAmount,jdbcType=DECIMAL},
+      INVOICE_NUMBER = #{record.invoiceNumber,jdbcType=VARCHAR},
+      PAY_STATUS = #{record.payStatus,jdbcType=DECIMAL},
+      PUR_PROGREES = #{record.purProgrees,jdbcType=DECIMAL},
+      DELIVERY_TIME = #{record.deliveryTime,jdbcType=TIMESTAMP},
+      DELIVERY_ADDRESS = #{record.deliveryAddress,jdbcType=VARCHAR},
+      DELIVERY_MODE = #{record.deliveryMode,jdbcType=VARCHAR},
+      OPERATOR_ID = #{record.operatorId,jdbcType=DECIMAL},
+      REMARKS_INFO = #{record.remarksInfo,jdbcType=VARCHAR},
+      COM_ID = #{record.comId,jdbcType=DECIMAL},
+      LAST_DATE = #{record.lastDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.bean.PurOrder" >
+    update PUR_ORDER
+    <set >
+      <if test="purTitle != null" >
+        PUR_TITLE = #{purTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="purDate != null" >
+        PUR_DATE = #{purDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supInfoNum != null" >
+        SUP_INFO_NUM = #{supInfoNum,jdbcType=DECIMAL},
+      </if>
+      <if test="payAmount != null" >
+        PAY_AMOUNT = #{payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceNumber != null" >
+        INVOICE_NUMBER = #{invoiceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null" >
+        PAY_STATUS = #{payStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="purProgrees != null" >
+        PUR_PROGREES = #{purProgrees,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryTime != null" >
+        DELIVERY_TIME = #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryAddress != null" >
+        DELIVERY_ADDRESS = #{deliveryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryMode != null" >
+        DELIVERY_MODE = #{deliveryMode,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null" >
+        OPERATOR_ID = #{operatorId,jdbcType=DECIMAL},
+      </if>
+      <if test="remarksInfo != null" >
+        REMARKS_INFO = #{remarksInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        COM_ID = #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastDate != null" >
+        LAST_DATE = #{lastDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where PUR_NUMBER = #{purNumber,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.bean.PurOrder" >
+    update PUR_ORDER
+    set PUR_TITLE = #{purTitle,jdbcType=VARCHAR},
+      PUR_DATE = #{purDate,jdbcType=TIMESTAMP},
+      SUP_INFO_NUM = #{supInfoNum,jdbcType=DECIMAL},
+      PAY_AMOUNT = #{payAmount,jdbcType=DECIMAL},
+      INVOICE_NUMBER = #{invoiceNumber,jdbcType=VARCHAR},
+      PAY_STATUS = #{payStatus,jdbcType=DECIMAL},
+      PUR_PROGREES = #{purProgrees,jdbcType=DECIMAL},
+      DELIVERY_TIME = #{deliveryTime,jdbcType=TIMESTAMP},
+      DELIVERY_ADDRESS = #{deliveryAddress,jdbcType=VARCHAR},
+      DELIVERY_MODE = #{deliveryMode,jdbcType=VARCHAR},
+      OPERATOR_ID = #{operatorId,jdbcType=DECIMAL},
+      REMARKS_INFO = #{remarksInfo,jdbcType=VARCHAR},
+      COM_ID = #{comId,jdbcType=DECIMAL},
+      LAST_DATE = #{lastDate,jdbcType=TIMESTAMP}
+    where PUR_NUMBER = #{purNumber,jdbcType=DECIMAL}
+  </update>
+</mapper>

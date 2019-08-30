@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sc.mapper.PurProductsMapper" >
+  <resultMap id="BaseResultMap" type="com.sc.bean.PurProducts" >
+    <constructor >
+      <idArg column="PRO_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="PRODUCT_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="DELIVERY_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="ACTIVE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="OPERATOR_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="REMARKS_INFO" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="LAST_DATE" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PRO_ID, PRODUCT_ID, DELIVERY_TIME, ACTIVE, OPERATOR_ID, REMARKS_INFO, COM_ID, LAST_DATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sc.bean.PurProductsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from PUR_PRODUCTS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from PUR_PRODUCTS
+    where PRO_ID = #{proId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from PUR_PRODUCTS
+    where PRO_ID = #{proId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.bean.PurProductsExample" >
+    delete from PUR_PRODUCTS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sc.bean.PurProducts" >
+    insert into PUR_PRODUCTS (PRO_ID, PRODUCT_ID, DELIVERY_TIME, 
+      ACTIVE, OPERATOR_ID, REMARKS_INFO, 
+      COM_ID, LAST_DATE)
+    values (#{proId,jdbcType=DECIMAL}, #{productId,jdbcType=DECIMAL}, #{deliveryTime,jdbcType=TIMESTAMP}, 
+      #{active,jdbcType=VARCHAR}, #{operatorId,jdbcType=DECIMAL}, #{remarksInfo,jdbcType=VARCHAR}, 
+      #{comId,jdbcType=DECIMAL}, #{lastDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sc.bean.PurProducts" >
+    insert into PUR_PRODUCTS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="proId != null" >
+        PRO_ID,
+      </if>
+      <if test="productId != null" >
+        PRODUCT_ID,
+      </if>
+      <if test="deliveryTime != null" >
+        DELIVERY_TIME,
+      </if>
+      <if test="active != null" >
+        ACTIVE,
+      </if>
+      <if test="operatorId != null" >
+        OPERATOR_ID,
+      </if>
+      <if test="remarksInfo != null" >
+        REMARKS_INFO,
+      </if>
+      <if test="comId != null" >
+        COM_ID,
+      </if>
+      <if test="lastDate != null" >
+        LAST_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="proId != null" >
+        #{proId,jdbcType=DECIMAL},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryTime != null" >
+        #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null" >
+        #{active,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null" >
+        #{operatorId,jdbcType=DECIMAL},
+      </if>
+      <if test="remarksInfo != null" >
+        #{remarksInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastDate != null" >
+        #{lastDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.bean.PurProductsExample" resultType="java.lang.Integer" >
+    select count(*) from PUR_PRODUCTS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PUR_PRODUCTS
+    <set >
+      <if test="record.proId != null" >
+        PRO_ID = #{record.proId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.productId != null" >
+        PRODUCT_ID = #{record.productId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.deliveryTime != null" >
+        DELIVERY_TIME = #{record.deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.active != null" >
+        ACTIVE = #{record.active,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatorId != null" >
+        OPERATOR_ID = #{record.operatorId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remarksInfo != null" >
+        REMARKS_INFO = #{record.remarksInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comId != null" >
+        COM_ID = #{record.comId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastDate != null" >
+        LAST_DATE = #{record.lastDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PUR_PRODUCTS
+    set PRO_ID = #{record.proId,jdbcType=DECIMAL},
+      PRODUCT_ID = #{record.productId,jdbcType=DECIMAL},
+      DELIVERY_TIME = #{record.deliveryTime,jdbcType=TIMESTAMP},
+      ACTIVE = #{record.active,jdbcType=VARCHAR},
+      OPERATOR_ID = #{record.operatorId,jdbcType=DECIMAL},
+      REMARKS_INFO = #{record.remarksInfo,jdbcType=VARCHAR},
+      COM_ID = #{record.comId,jdbcType=DECIMAL},
+      LAST_DATE = #{record.lastDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.bean.PurProducts" >
+    update PUR_PRODUCTS
+    <set >
+      <if test="productId != null" >
+        PRODUCT_ID = #{productId,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryTime != null" >
+        DELIVERY_TIME = #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null" >
+        ACTIVE = #{active,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null" >
+        OPERATOR_ID = #{operatorId,jdbcType=DECIMAL},
+      </if>
+      <if test="remarksInfo != null" >
+        REMARKS_INFO = #{remarksInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        COM_ID = #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastDate != null" >
+        LAST_DATE = #{lastDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where PRO_ID = #{proId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.bean.PurProducts" >
+    update PUR_PRODUCTS
+    set PRODUCT_ID = #{productId,jdbcType=DECIMAL},
+      DELIVERY_TIME = #{deliveryTime,jdbcType=TIMESTAMP},
+      ACTIVE = #{active,jdbcType=VARCHAR},
+      OPERATOR_ID = #{operatorId,jdbcType=DECIMAL},
+      REMARKS_INFO = #{remarksInfo,jdbcType=VARCHAR},
+      COM_ID = #{comId,jdbcType=DECIMAL},
+      LAST_DATE = #{lastDate,jdbcType=TIMESTAMP}
+    where PRO_ID = #{proId,jdbcType=DECIMAL}
+  </update>
+</mapper>
