@@ -42,7 +42,7 @@ public class LoginController {
 			}
 		}
 		
-		mav.setViewName("redirect:../login.jsp?isfail="+fail);
+		mav.setViewName("redirect:../login.jsp?fail="+fail);
 		return mav;
 	}
 	
@@ -58,7 +58,7 @@ public class LoginController {
 		session.setAttribute("nowuser", sysusers);
 		
 		
-		mav.setViewName("redirect:../main.jsp");
+		mav.setViewName("redirect:../index.jsp");
 		return mav;
 	}
 	
