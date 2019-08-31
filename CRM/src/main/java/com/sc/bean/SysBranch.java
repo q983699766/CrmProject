@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class SysBranch implements Serializable {
-    private BigDecimal secId;
+    private Long secId;
 
     private String secName;
 
@@ -17,7 +17,7 @@ public class SysBranch implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public SysBranch(BigDecimal secId, String secName, String secComment, BigDecimal comId, Date lastTime) {
+    public SysBranch(Long secId, String secName, String secComment, BigDecimal comId, Date lastTime) {
         this.secId = secId;
         this.secName = secName;
         this.secComment = secComment;
@@ -29,11 +29,11 @@ public class SysBranch implements Serializable {
         super();
     }
 
-    public BigDecimal getSecId() {
+    public Long getSecId() {
         return secId;
     }
 
-    public void setSecId(BigDecimal secId) {
+    public void setSecId(Long secId) {
         this.secId = secId;
     }
 

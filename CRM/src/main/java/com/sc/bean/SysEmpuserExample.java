@@ -116,52 +116,52 @@ public class SysEmpuserExample {
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdEqualTo(BigDecimal value) {
+        public Criteria andEmpIdEqualTo(Long value) {
             addCriterion("EMP_ID =", value, "empId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdNotEqualTo(BigDecimal value) {
+        public Criteria andEmpIdNotEqualTo(Long value) {
             addCriterion("EMP_ID <>", value, "empId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdGreaterThan(BigDecimal value) {
+        public Criteria andEmpIdGreaterThan(Long value) {
             addCriterion("EMP_ID >", value, "empId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdGreaterThanOrEqualTo(BigDecimal value) {
+        public Criteria andEmpIdGreaterThanOrEqualTo(Long value) {
             addCriterion("EMP_ID >=", value, "empId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdLessThan(BigDecimal value) {
+        public Criteria andEmpIdLessThan(Long value) {
             addCriterion("EMP_ID <", value, "empId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdLessThanOrEqualTo(BigDecimal value) {
+        public Criteria andEmpIdLessThanOrEqualTo(Long value) {
             addCriterion("EMP_ID <=", value, "empId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdIn(List<BigDecimal> values) {
+        public Criteria andEmpIdIn(List<Long> values) {
             addCriterion("EMP_ID in", values, "empId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdNotIn(List<BigDecimal> values) {
+        public Criteria andEmpIdNotIn(List<Long> values) {
             addCriterion("EMP_ID not in", values, "empId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andEmpIdBetween(Long value1, Long value2) {
             addCriterion("EMP_ID between", value1, value2, "empId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdNotBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andEmpIdNotBetween(Long value1, Long value2) {
             addCriterion("EMP_ID not between", value1, value2, "empId");
             return (Criteria) this;
         }

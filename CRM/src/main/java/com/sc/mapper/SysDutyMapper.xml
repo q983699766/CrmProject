@@ -3,7 +3,7 @@
 <mapper namespace="com.sc.mapper.SysDutyMapper" >
   <resultMap id="BaseResultMap" type="com.sc.bean.SysDuty" >
     <constructor >
-      <idArg column="DUT_ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <idArg column="DUT_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
       <arg column="DUT_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="SEC_ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="DUT_REMARK" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -87,13 +87,13 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from SYS_DUTY
     where DUT_ID = #{dutId,jdbcType=DECIMAL}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from SYS_DUTY
     where DUT_ID = #{dutId,jdbcType=DECIMAL}
   </delete>

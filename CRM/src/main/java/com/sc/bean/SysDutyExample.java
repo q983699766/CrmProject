@@ -116,52 +116,52 @@ public class SysDutyExample {
             return (Criteria) this;
         }
 
-        public Criteria andDutIdEqualTo(BigDecimal value) {
+        public Criteria andDutIdEqualTo(Long value) {
             addCriterion("DUT_ID =", value, "dutId");
             return (Criteria) this;
         }
 
-        public Criteria andDutIdNotEqualTo(BigDecimal value) {
+        public Criteria andDutIdNotEqualTo(Long value) {
             addCriterion("DUT_ID <>", value, "dutId");
             return (Criteria) this;
         }
 
-        public Criteria andDutIdGreaterThan(BigDecimal value) {
+        public Criteria andDutIdGreaterThan(Long value) {
             addCriterion("DUT_ID >", value, "dutId");
             return (Criteria) this;
         }
 
-        public Criteria andDutIdGreaterThanOrEqualTo(BigDecimal value) {
+        public Criteria andDutIdGreaterThanOrEqualTo(Long value) {
             addCriterion("DUT_ID >=", value, "dutId");
             return (Criteria) this;
         }
 
-        public Criteria andDutIdLessThan(BigDecimal value) {
+        public Criteria andDutIdLessThan(Long value) {
             addCriterion("DUT_ID <", value, "dutId");
             return (Criteria) this;
         }
 
-        public Criteria andDutIdLessThanOrEqualTo(BigDecimal value) {
+        public Criteria andDutIdLessThanOrEqualTo(Long value) {
             addCriterion("DUT_ID <=", value, "dutId");
             return (Criteria) this;
         }
 
-        public Criteria andDutIdIn(List<BigDecimal> values) {
+        public Criteria andDutIdIn(List<Long> values) {
             addCriterion("DUT_ID in", values, "dutId");
             return (Criteria) this;
         }
 
-        public Criteria andDutIdNotIn(List<BigDecimal> values) {
+        public Criteria andDutIdNotIn(List<Long> values) {
             addCriterion("DUT_ID not in", values, "dutId");
             return (Criteria) this;
         }
 
-        public Criteria andDutIdBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andDutIdBetween(Long value1, Long value2) {
             addCriterion("DUT_ID between", value1, value2, "dutId");
             return (Criteria) this;
         }
 
-        public Criteria andDutIdNotBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andDutIdNotBetween(Long value1, Long value2) {
             addCriterion("DUT_ID not between", value1, value2, "dutId");
             return (Criteria) this;
         }

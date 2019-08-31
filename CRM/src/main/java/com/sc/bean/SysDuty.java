@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class SysDuty implements Serializable {
-    private BigDecimal dutId;
+    private Long dutId;
 
     private String dutName;
 
@@ -19,13 +19,7 @@ public class SysDuty implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Override
-	public String toString() {
-		return "SysDuty [dutId=" + dutId + ", dutName=" + dutName + ", secId=" + secId + ", dutRemark=" + dutRemark
-				+ ", comId=" + comId + ", lastTime=" + lastTime + "]";
-	}
-
-	public SysDuty(BigDecimal dutId, String dutName, BigDecimal secId, String dutRemark, BigDecimal comId, Date lastTime) {
+    public SysDuty(Long dutId, String dutName, BigDecimal secId, String dutRemark, BigDecimal comId, Date lastTime) {
         this.dutId = dutId;
         this.dutName = dutName;
         this.secId = secId;
@@ -38,11 +32,11 @@ public class SysDuty implements Serializable {
         super();
     }
 
-    public BigDecimal getDutId() {
+    public Long getDutId() {
         return dutId;
     }
 
-    public void setDutId(BigDecimal dutId) {
+    public void setDutId(Long dutId) {
         this.dutId = dutId;
     }
 
