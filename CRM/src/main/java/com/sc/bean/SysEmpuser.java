@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class SysEmpuser implements Serializable {
-    private BigDecimal empId;
+    private Long empId;
 
     private String empName;
 
@@ -45,7 +45,7 @@ public class SysEmpuser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public SysEmpuser(BigDecimal empId, String empName, String empSix, String empPrice, String empNumber, String empAddress, String empTadayadd, String empEduca, String empFace, String empSchool, String empPhone, String empMeshphone, String empContact, String empState, BigDecimal dutId, String empSysstate, String empRemark, BigDecimal comId, Date lastTime) {
+    public SysEmpuser(Long empId, String empName, String empSix, String empPrice, String empNumber, String empAddress, String empTadayadd, String empEduca, String empFace, String empSchool, String empPhone, String empMeshphone, String empContact, String empState, BigDecimal dutId, String empSysstate, String empRemark, BigDecimal comId, Date lastTime) {
         this.empId = empId;
         this.empName = empName;
         this.empSix = empSix;
@@ -71,11 +71,11 @@ public class SysEmpuser implements Serializable {
         super();
     }
 
-    public BigDecimal getEmpId() {
+    public Long getEmpId() {
         return empId;
     }
 
-    public void setEmpId(BigDecimal empId) {
+    public void setEmpId(Long empId) {
         this.empId = empId;
     }
 
