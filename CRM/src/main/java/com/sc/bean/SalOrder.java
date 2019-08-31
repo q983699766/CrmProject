@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class SalOrder implements Serializable {
     private Long orderId;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String invoiceNumber;
@@ -27,6 +30,7 @@ public class SalOrder implements Serializable {
 
     private Long comId;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastTime;
 
     private static final long serialVersionUID = 1L;
