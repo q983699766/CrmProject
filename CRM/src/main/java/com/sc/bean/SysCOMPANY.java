@@ -3,6 +3,8 @@ package com.sc.bean;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class SysCOMPANY implements Serializable {
     private Long comId;
 
@@ -29,7 +31,8 @@ public class SysCOMPANY implements Serializable {
     private String comYesandno;
 
     private String comRemark;
-
+    
+    @DateTimeFormat(pattern ="yyyy-MM-dd")
     private Date lastTime;
 
     private static final long serialVersionUID = 1L;
