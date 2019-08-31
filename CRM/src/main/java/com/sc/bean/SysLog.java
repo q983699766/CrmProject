@@ -3,6 +3,8 @@ package com.sc.bean;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class SysLog implements Serializable {
     private Long logId;
 
@@ -12,6 +14,7 @@ public class SysLog implements Serializable {
 
     private String permission;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date accessTime;
 
     private Long comId;
