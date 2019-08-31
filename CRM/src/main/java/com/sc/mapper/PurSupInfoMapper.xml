@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sc.mapper.PurSupInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.sc.bean.PurSupInfo" >
+    <constructor >
+      <idArg column="SUP_INFO_NUM" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="SUP_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SUP_UNAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CONTACTS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="FIXED_TEL" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="TELPHONE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="FAX" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="EMAIL" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="OPEN_BANK" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="BANK_NATURE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_INDEX" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="EFFECTIVE_ORNOT" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="OPERATOR_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="REMARKS_INFO" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="LAST_DATE" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="BANK_NUMBER" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SUP_INFO_NUM, SUP_NAME, SUP_UNAME, CONTACTS, FIXED_TEL, TELPHONE, FAX, EMAIL, OPEN_BANK, 
+    BANK_NATURE, COM_INDEX, EFFECTIVE_ORNOT, OPERATOR_ID, REMARKS_INFO, COM_ID, LAST_DATE, 
+    BANK_NUMBER
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sc.bean.PurSupInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from PUR_SUP_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from PUR_SUP_INFO
+    where SUP_INFO_NUM = #{supInfoNum,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from PUR_SUP_INFO
+    where SUP_INFO_NUM = #{supInfoNum,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.bean.PurSupInfoExample" >
+    delete from PUR_SUP_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sc.bean.PurSupInfo" >
+    insert into PUR_SUP_INFO (SUP_INFO_NUM, SUP_NAME, SUP_UNAME, 
+      CONTACTS, FIXED_TEL, TELPHONE, 
+      FAX, EMAIL, OPEN_BANK, 
+      BANK_NATURE, COM_INDEX, EFFECTIVE_ORNOT, 
+      OPERATOR_ID, REMARKS_INFO, COM_ID, 
+      LAST_DATE, BANK_NUMBER)
+    values (#{supInfoNum,jdbcType=DECIMAL}, #{supName,jdbcType=VARCHAR}, #{supUname,jdbcType=VARCHAR}, 
+      #{contacts,jdbcType=VARCHAR}, #{fixedTel,jdbcType=VARCHAR}, #{telphone,jdbcType=VARCHAR}, 
+      #{fax,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{openBank,jdbcType=VARCHAR}, 
+      #{bankNature,jdbcType=VARCHAR}, #{comIndex,jdbcType=VARCHAR}, #{effectiveOrnot,jdbcType=VARCHAR}, 
+      #{operatorId,jdbcType=DECIMAL}, #{remarksInfo,jdbcType=VARCHAR}, #{comId,jdbcType=DECIMAL}, 
+      #{lastDate,jdbcType=TIMESTAMP}, #{bankNumber,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sc.bean.PurSupInfo" >
+    insert into PUR_SUP_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supInfoNum != null" >
+        SUP_INFO_NUM,
+      </if>
+      <if test="supName != null" >
+        SUP_NAME,
+      </if>
+      <if test="supUname != null" >
+        SUP_UNAME,
+      </if>
+      <if test="contacts != null" >
+        CONTACTS,
+      </if>
+      <if test="fixedTel != null" >
+        FIXED_TEL,
+      </if>
+      <if test="telphone != null" >
+        TELPHONE,
+      </if>
+      <if test="fax != null" >
+        FAX,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="openBank != null" >
+        OPEN_BANK,
+      </if>
+      <if test="bankNature != null" >
+        BANK_NATURE,
+      </if>
+      <if test="comIndex != null" >
+        COM_INDEX,
+      </if>
+      <if test="effectiveOrnot != null" >
+        EFFECTIVE_ORNOT,
+      </if>
+      <if test="operatorId != null" >
+        OPERATOR_ID,
+      </if>
+      <if test="remarksInfo != null" >
+        REMARKS_INFO,
+      </if>
+      <if test="comId != null" >
+        COM_ID,
+      </if>
+      <if test="lastDate != null" >
+        LAST_DATE,
+      </if>
+      <if test="bankNumber != null" >
+        BANK_NUMBER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supInfoNum != null" >
+        #{supInfoNum,jdbcType=DECIMAL},
+      </if>
+      <if test="supName != null" >
+        #{supName,jdbcType=VARCHAR},
+      </if>
+      <if test="supUname != null" >
+        #{supUname,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null" >
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="fixedTel != null" >
+        #{fixedTel,jdbcType=VARCHAR},
+      </if>
+      <if test="telphone != null" >
+        #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="openBank != null" >
+        #{openBank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankNature != null" >
+        #{bankNature,jdbcType=VARCHAR},
+      </if>
+      <if test="comIndex != null" >
+        #{comIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="effectiveOrnot != null" >
+        #{effectiveOrnot,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null" >
+        #{operatorId,jdbcType=DECIMAL},
+      </if>
+      <if test="remarksInfo != null" >
+        #{remarksInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastDate != null" >
+        #{lastDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bankNumber != null" >
+        #{bankNumber,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.bean.PurSupInfoExample" resultType="java.lang.Integer" >
+    select count(*) from PUR_SUP_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PUR_SUP_INFO
+    <set >
+      <if test="record.supInfoNum != null" >
+        SUP_INFO_NUM = #{record.supInfoNum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.supName != null" >
+        SUP_NAME = #{record.supName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supUname != null" >
+        SUP_UNAME = #{record.supUname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contacts != null" >
+        CONTACTS = #{record.contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fixedTel != null" >
+        FIXED_TEL = #{record.fixedTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telphone != null" >
+        TELPHONE = #{record.telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fax != null" >
+        FAX = #{record.fax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openBank != null" >
+        OPEN_BANK = #{record.openBank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankNature != null" >
+        BANK_NATURE = #{record.bankNature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comIndex != null" >
+        COM_INDEX = #{record.comIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.effectiveOrnot != null" >
+        EFFECTIVE_ORNOT = #{record.effectiveOrnot,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatorId != null" >
+        OPERATOR_ID = #{record.operatorId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remarksInfo != null" >
+        REMARKS_INFO = #{record.remarksInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comId != null" >
+        COM_ID = #{record.comId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastDate != null" >
+        LAST_DATE = #{record.lastDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.bankNumber != null" >
+        BANK_NUMBER = #{record.bankNumber,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PUR_SUP_INFO
+    set SUP_INFO_NUM = #{record.supInfoNum,jdbcType=DECIMAL},
+      SUP_NAME = #{record.supName,jdbcType=VARCHAR},
+      SUP_UNAME = #{record.supUname,jdbcType=VARCHAR},
+      CONTACTS = #{record.contacts,jdbcType=VARCHAR},
+      FIXED_TEL = #{record.fixedTel,jdbcType=VARCHAR},
+      TELPHONE = #{record.telphone,jdbcType=VARCHAR},
+      FAX = #{record.fax,jdbcType=VARCHAR},
+      EMAIL = #{record.email,jdbcType=VARCHAR},
+      OPEN_BANK = #{record.openBank,jdbcType=VARCHAR},
+      BANK_NATURE = #{record.bankNature,jdbcType=VARCHAR},
+      COM_INDEX = #{record.comIndex,jdbcType=VARCHAR},
+      EFFECTIVE_ORNOT = #{record.effectiveOrnot,jdbcType=VARCHAR},
+      OPERATOR_ID = #{record.operatorId,jdbcType=DECIMAL},
+      REMARKS_INFO = #{record.remarksInfo,jdbcType=VARCHAR},
+      COM_ID = #{record.comId,jdbcType=DECIMAL},
+      LAST_DATE = #{record.lastDate,jdbcType=TIMESTAMP},
+      BANK_NUMBER = #{record.bankNumber,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.bean.PurSupInfo" >
+    update PUR_SUP_INFO
+    <set >
+      <if test="supName != null" >
+        SUP_NAME = #{supName,jdbcType=VARCHAR},
+      </if>
+      <if test="supUname != null" >
+        SUP_UNAME = #{supUname,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null" >
+        CONTACTS = #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="fixedTel != null" >
+        FIXED_TEL = #{fixedTel,jdbcType=VARCHAR},
+      </if>
+      <if test="telphone != null" >
+        TELPHONE = #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        FAX = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="openBank != null" >
+        OPEN_BANK = #{openBank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankNature != null" >
+        BANK_NATURE = #{bankNature,jdbcType=VARCHAR},
+      </if>
+      <if test="comIndex != null" >
+        COM_INDEX = #{comIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="effectiveOrnot != null" >
+        EFFECTIVE_ORNOT = #{effectiveOrnot,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null" >
+        OPERATOR_ID = #{operatorId,jdbcType=DECIMAL},
+      </if>
+      <if test="remarksInfo != null" >
+        REMARKS_INFO = #{remarksInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        COM_ID = #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastDate != null" >
+        LAST_DATE = #{lastDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bankNumber != null" >
+        BANK_NUMBER = #{bankNumber,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where SUP_INFO_NUM = #{supInfoNum,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.bean.PurSupInfo" >
+    update PUR_SUP_INFO
+    set SUP_NAME = #{supName,jdbcType=VARCHAR},
+      SUP_UNAME = #{supUname,jdbcType=VARCHAR},
+      CONTACTS = #{contacts,jdbcType=VARCHAR},
+      FIXED_TEL = #{fixedTel,jdbcType=VARCHAR},
+      TELPHONE = #{telphone,jdbcType=VARCHAR},
+      FAX = #{fax,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      OPEN_BANK = #{openBank,jdbcType=VARCHAR},
+      BANK_NATURE = #{bankNature,jdbcType=VARCHAR},
+      COM_INDEX = #{comIndex,jdbcType=VARCHAR},
+      EFFECTIVE_ORNOT = #{effectiveOrnot,jdbcType=VARCHAR},
+      OPERATOR_ID = #{operatorId,jdbcType=DECIMAL},
+      REMARKS_INFO = #{remarksInfo,jdbcType=VARCHAR},
+      COM_ID = #{comId,jdbcType=DECIMAL},
+      LAST_DATE = #{lastDate,jdbcType=TIMESTAMP},
+      BANK_NUMBER = #{bankNumber,jdbcType=DECIMAL}
+    where SUP_INFO_NUM = #{supInfoNum,jdbcType=DECIMAL}
+  </update>
+</mapper>

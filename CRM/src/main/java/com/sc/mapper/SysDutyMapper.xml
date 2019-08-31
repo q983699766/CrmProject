@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sc.mapper.SysDutyMapper" >
+  <resultMap id="BaseResultMap" type="com.sc.bean.SysDuty" >
+    <constructor >
+      <idArg column="DUT_ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="DUT_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SEC_ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="DUT_REMARK" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="LAST_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    DUT_ID, DUT_NAME, SEC_ID, DUT_REMARK, COM_ID, LAST_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sc.bean.SysDutyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from SYS_DUTY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_DUTY
+    where DUT_ID = #{dutId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from SYS_DUTY
+    where DUT_ID = #{dutId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.bean.SysDutyExample" >
+    delete from SYS_DUTY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sc.bean.SysDuty" >
+    insert into SYS_DUTY (DUT_ID, DUT_NAME, SEC_ID, 
+      DUT_REMARK, COM_ID, LAST_TIME
+      )
+    values (#{dutId,jdbcType=DECIMAL}, #{dutName,jdbcType=VARCHAR}, #{secId,jdbcType=DECIMAL}, 
+      #{dutRemark,jdbcType=VARCHAR}, #{comId,jdbcType=DECIMAL}, #{lastTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sc.bean.SysDuty" >
+    insert into SYS_DUTY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dutId != null" >
+        DUT_ID,
+      </if>
+      <if test="dutName != null" >
+        DUT_NAME,
+      </if>
+      <if test="secId != null" >
+        SEC_ID,
+      </if>
+      <if test="dutRemark != null" >
+        DUT_REMARK,
+      </if>
+      <if test="comId != null" >
+        COM_ID,
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dutId != null" >
+        #{dutId,jdbcType=DECIMAL},
+      </if>
+      <if test="dutName != null" >
+        #{dutName,jdbcType=VARCHAR},
+      </if>
+      <if test="secId != null" >
+        #{secId,jdbcType=DECIMAL},
+      </if>
+      <if test="dutRemark != null" >
+        #{dutRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.bean.SysDutyExample" resultType="java.lang.Integer" >
+    select count(*) from SYS_DUTY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SYS_DUTY
+    <set >
+      <if test="record.dutId != null" >
+        DUT_ID = #{record.dutId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dutName != null" >
+        DUT_NAME = #{record.dutName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secId != null" >
+        SEC_ID = #{record.secId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dutRemark != null" >
+        DUT_REMARK = #{record.dutRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comId != null" >
+        COM_ID = #{record.comId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastTime != null" >
+        LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SYS_DUTY
+    set DUT_ID = #{record.dutId,jdbcType=DECIMAL},
+      DUT_NAME = #{record.dutName,jdbcType=VARCHAR},
+      SEC_ID = #{record.secId,jdbcType=DECIMAL},
+      DUT_REMARK = #{record.dutRemark,jdbcType=VARCHAR},
+      COM_ID = #{record.comId,jdbcType=DECIMAL},
+      LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.bean.SysDuty" >
+    update SYS_DUTY
+    <set >
+      <if test="dutName != null" >
+        DUT_NAME = #{dutName,jdbcType=VARCHAR},
+      </if>
+      <if test="secId != null" >
+        SEC_ID = #{secId,jdbcType=DECIMAL},
+      </if>
+      <if test="dutRemark != null" >
+        DUT_REMARK = #{dutRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        COM_ID = #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where DUT_ID = #{dutId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.bean.SysDuty" >
+    update SYS_DUTY
+    set DUT_NAME = #{dutName,jdbcType=VARCHAR},
+      SEC_ID = #{secId,jdbcType=DECIMAL},
+      DUT_REMARK = #{dutRemark,jdbcType=VARCHAR},
+      COM_ID = #{comId,jdbcType=DECIMAL},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+    where DUT_ID = #{dutId,jdbcType=DECIMAL}
+  </update>
+</mapper>

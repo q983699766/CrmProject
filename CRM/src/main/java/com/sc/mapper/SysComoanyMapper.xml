@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sc.mapper.SysComoanyMapper" >
+  <resultMap id="BaseResultMap" type="com.sc.bean.SysComoany" >
+    <constructor >
+      <idArg column="COM_ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="COM_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_CODE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_EMAIL" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_LINKMAN" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_ADDRESS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_PHONE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_YPHONE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_FAX" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_BANK" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_BANKUSER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_YESANDNO" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_REMARK" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="LAST_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    COM_ID, COM_NAME, COM_CODE, COM_EMAIL, COM_LINKMAN, COM_ADDRESS, COM_PHONE, COM_YPHONE, 
+    COM_FAX, COM_BANK, COM_BANKUSER, COM_YESANDNO, COM_REMARK, LAST_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sc.bean.SysComoanyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from SYS_COMPANY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_COMPANY
+    where COM_ID = #{comId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from SYS_COMPANY
+    where COM_ID = #{comId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.bean.SysComoanyExample" >
+    delete from SYS_COMPANY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sc.bean.SysComoany" >
+    insert into SYS_COMPANY (COM_ID, COM_NAME, COM_CODE, 
+      COM_EMAIL, COM_LINKMAN, COM_ADDRESS, 
+      COM_PHONE, COM_YPHONE, COM_FAX, 
+      COM_BANK, COM_BANKUSER, COM_YESANDNO, 
+      COM_REMARK, LAST_TIME)
+    values (#{comId,jdbcType=DECIMAL}, #{comName,jdbcType=VARCHAR}, #{comCode,jdbcType=VARCHAR}, 
+      #{comEmail,jdbcType=VARCHAR}, #{comLinkman,jdbcType=VARCHAR}, #{comAddress,jdbcType=VARCHAR}, 
+      #{comPhone,jdbcType=VARCHAR}, #{comYphone,jdbcType=VARCHAR}, #{comFax,jdbcType=VARCHAR}, 
+      #{comBank,jdbcType=VARCHAR}, #{comBankuser,jdbcType=VARCHAR}, #{comYesandno,jdbcType=VARCHAR}, 
+      #{comRemark,jdbcType=VARCHAR}, #{lastTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sc.bean.SysComoany" >
+    insert into SYS_COMPANY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="comId != null" >
+        COM_ID,
+      </if>
+      <if test="comName != null" >
+        COM_NAME,
+      </if>
+      <if test="comCode != null" >
+        COM_CODE,
+      </if>
+      <if test="comEmail != null" >
+        COM_EMAIL,
+      </if>
+      <if test="comLinkman != null" >
+        COM_LINKMAN,
+      </if>
+      <if test="comAddress != null" >
+        COM_ADDRESS,
+      </if>
+      <if test="comPhone != null" >
+        COM_PHONE,
+      </if>
+      <if test="comYphone != null" >
+        COM_YPHONE,
+      </if>
+      <if test="comFax != null" >
+        COM_FAX,
+      </if>
+      <if test="comBank != null" >
+        COM_BANK,
+      </if>
+      <if test="comBankuser != null" >
+        COM_BANKUSER,
+      </if>
+      <if test="comYesandno != null" >
+        COM_YESANDNO,
+      </if>
+      <if test="comRemark != null" >
+        COM_REMARK,
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="comId != null" >
+        #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="comName != null" >
+        #{comName,jdbcType=VARCHAR},
+      </if>
+      <if test="comCode != null" >
+        #{comCode,jdbcType=VARCHAR},
+      </if>
+      <if test="comEmail != null" >
+        #{comEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="comLinkman != null" >
+        #{comLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="comAddress != null" >
+        #{comAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="comPhone != null" >
+        #{comPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="comYphone != null" >
+        #{comYphone,jdbcType=VARCHAR},
+      </if>
+      <if test="comFax != null" >
+        #{comFax,jdbcType=VARCHAR},
+      </if>
+      <if test="comBank != null" >
+        #{comBank,jdbcType=VARCHAR},
+      </if>
+      <if test="comBankuser != null" >
+        #{comBankuser,jdbcType=VARCHAR},
+      </if>
+      <if test="comYesandno != null" >
+        #{comYesandno,jdbcType=VARCHAR},
+      </if>
+      <if test="comRemark != null" >
+        #{comRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.bean.SysComoanyExample" resultType="java.lang.Integer" >
+    select count(*) from SYS_COMPANY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SYS_COMPANY
+    <set >
+      <if test="record.comId != null" >
+        COM_ID = #{record.comId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.comName != null" >
+        COM_NAME = #{record.comName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comCode != null" >
+        COM_CODE = #{record.comCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comEmail != null" >
+        COM_EMAIL = #{record.comEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comLinkman != null" >
+        COM_LINKMAN = #{record.comLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comAddress != null" >
+        COM_ADDRESS = #{record.comAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comPhone != null" >
+        COM_PHONE = #{record.comPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comYphone != null" >
+        COM_YPHONE = #{record.comYphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comFax != null" >
+        COM_FAX = #{record.comFax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comBank != null" >
+        COM_BANK = #{record.comBank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comBankuser != null" >
+        COM_BANKUSER = #{record.comBankuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comYesandno != null" >
+        COM_YESANDNO = #{record.comYesandno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comRemark != null" >
+        COM_REMARK = #{record.comRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastTime != null" >
+        LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SYS_COMPANY
+    set COM_ID = #{record.comId,jdbcType=DECIMAL},
+      COM_NAME = #{record.comName,jdbcType=VARCHAR},
+      COM_CODE = #{record.comCode,jdbcType=VARCHAR},
+      COM_EMAIL = #{record.comEmail,jdbcType=VARCHAR},
+      COM_LINKMAN = #{record.comLinkman,jdbcType=VARCHAR},
+      COM_ADDRESS = #{record.comAddress,jdbcType=VARCHAR},
+      COM_PHONE = #{record.comPhone,jdbcType=VARCHAR},
+      COM_YPHONE = #{record.comYphone,jdbcType=VARCHAR},
+      COM_FAX = #{record.comFax,jdbcType=VARCHAR},
+      COM_BANK = #{record.comBank,jdbcType=VARCHAR},
+      COM_BANKUSER = #{record.comBankuser,jdbcType=VARCHAR},
+      COM_YESANDNO = #{record.comYesandno,jdbcType=VARCHAR},
+      COM_REMARK = #{record.comRemark,jdbcType=VARCHAR},
+      LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.bean.SysComoany" >
+    update SYS_COMPANY
+    <set >
+      <if test="comName != null" >
+        COM_NAME = #{comName,jdbcType=VARCHAR},
+      </if>
+      <if test="comCode != null" >
+        COM_CODE = #{comCode,jdbcType=VARCHAR},
+      </if>
+      <if test="comEmail != null" >
+        COM_EMAIL = #{comEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="comLinkman != null" >
+        COM_LINKMAN = #{comLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="comAddress != null" >
+        COM_ADDRESS = #{comAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="comPhone != null" >
+        COM_PHONE = #{comPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="comYphone != null" >
+        COM_YPHONE = #{comYphone,jdbcType=VARCHAR},
+      </if>
+      <if test="comFax != null" >
+        COM_FAX = #{comFax,jdbcType=VARCHAR},
+      </if>
+      <if test="comBank != null" >
+        COM_BANK = #{comBank,jdbcType=VARCHAR},
+      </if>
+      <if test="comBankuser != null" >
+        COM_BANKUSER = #{comBankuser,jdbcType=VARCHAR},
+      </if>
+      <if test="comYesandno != null" >
+        COM_YESANDNO = #{comYesandno,jdbcType=VARCHAR},
+      </if>
+      <if test="comRemark != null" >
+        COM_REMARK = #{comRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where COM_ID = #{comId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.bean.SysComoany" >
+    update SYS_COMPANY
+    set COM_NAME = #{comName,jdbcType=VARCHAR},
+      COM_CODE = #{comCode,jdbcType=VARCHAR},
+      COM_EMAIL = #{comEmail,jdbcType=VARCHAR},
+      COM_LINKMAN = #{comLinkman,jdbcType=VARCHAR},
+      COM_ADDRESS = #{comAddress,jdbcType=VARCHAR},
+      COM_PHONE = #{comPhone,jdbcType=VARCHAR},
+      COM_YPHONE = #{comYphone,jdbcType=VARCHAR},
+      COM_FAX = #{comFax,jdbcType=VARCHAR},
+      COM_BANK = #{comBank,jdbcType=VARCHAR},
+      COM_BANKUSER = #{comBankuser,jdbcType=VARCHAR},
+      COM_YESANDNO = #{comYesandno,jdbcType=VARCHAR},
+      COM_REMARK = #{comRemark,jdbcType=VARCHAR},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+    where COM_ID = #{comId,jdbcType=DECIMAL}
+  </update>
+</mapper>
