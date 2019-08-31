@@ -126,46 +126,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 $('#login_btn').on('click',function(){
          var num=0;
 		 var str="";
-		 $.ajax({
-			type:"post",
-			url:"loginctlr/islogin.do",
-			dateType:"json",
-			success:function(m){
-				if(m.code == "200"){
-					layer.confirm('检测到已有登录用户', {
-				     btn: ['继续登录','取消登录'] ,//按钮
-					 icon:2,
-				    }, 
-					function(){
-					  $.ajax({
-						type:"post",
-						url:"loginctlr/ajaxlogout.do",
-						success:function(){
-							$("form").submit();
-						}
-					  });
-				 	},
-				 	function(){
-				 		location.href="index.jsp";
-				 	}
-				 );
-				}else{
-					$("form").submit();
-				};
-			}
-		});
-		 
-		 
-	     $("input[type$='text']").each(function(n){
-	          if($(this).val()==""){
-				   layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
+	     $(".form-control").each(function(n){
+	        if($(this).val()==""){
+				layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
 		                title: '提示框',				
 						icon:0,								
 		          }); 
-			    num++;
+		        num++;
 	            return false;            
-	          } 
+	        }
 		});
+		if(num == 0){
+	        $.ajax({
+				type:"post",
+				url:"loginctlr/islogin.do",
+				dateType:"json",
+				success:function(m){
+					if(m.code == "200"){
+						layer.confirm('检测到已有登录用户', {
+					     btn: ['继续登录','取消登录'] ,//按钮
+						 icon:2,
+					    }, 
+						function(){
+						  $.ajax({
+							type:"post",
+							url:"loginctlr/ajaxlogout.do",
+							success:function(){
+								$("form").submit();
+							}
+						  });
+					 	},
+					 	function(){
+					 		location.href="index.jsp";
+					 	}
+					 );
+					}else{
+						$("form").submit();
+					};
+				}
+			});
+		};
 	});
 	
 	var isfail ='${param.fail=="nouser" ? "用户名不存在！":"" }${param.fail=="error" ? "用户名或密码错误！":"" }${param.fail=="codeerror" ? "验证码错误！":"" }${param.fail=="unknown" ? "用户名不存在！":""}';
