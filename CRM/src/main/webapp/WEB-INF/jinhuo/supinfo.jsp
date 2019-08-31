@@ -1,6 +1,13 @@
-<!DOCTYPE HTML>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+ String path = request.getContextPath();
+ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
 <html>
+
 <head>
+<base href="<%=basePath%>">
 <meta charset="utf-8">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -11,17 +18,17 @@
 <script type="text/javascript" src="js/respond.min.js"></script>
 <script type="text/javascript" src="js/PIE_IE678.js"></script>
 <![endif]-->
-<link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="../../css/style.css"/>       
-<link href="../../assets/css/codemirror.css" rel="stylesheet">
-<link rel="stylesheet" href="../../assets/css/ace.min.css" />
-      <link rel="stylesheet" href="../../Widget/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
-<link rel="stylesheet" href="../../assets/css/font-awesome.min.css" />
+<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css"/>       
+<link href="assets/css/codemirror.css" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/ace.min.css" />
+      <link rel="stylesheet" href="Widget/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
 <!--[if IE 7]>
 		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
 		<![endif]-->
-<link href="../../Widget/icheck/icheck.css" rel="stylesheet" type="text/css" />
-<link href="../../Widget/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+<link href="Widget/icheck/icheck.css" rel="stylesheet" type="text/css" />
+<link href="Widget/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
 
 <title>采购详情单</title>
 </head>
