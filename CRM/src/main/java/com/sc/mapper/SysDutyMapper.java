@@ -2,7 +2,6 @@ package com.sc.mapper;
 
 import com.sc.bean.SysDuty;
 import com.sc.bean.SysDutyExample;
-import java.math.BigDecimal;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,7 +10,7 @@ public interface SysDutyMapper {
 
     int deleteByExample(SysDutyExample example);
 
-    int deleteByPrimaryKey(BigDecimal dutId);
+    int deleteByPrimaryKey(Long dutId);
 
     int insert(SysDuty record);
 
@@ -19,7 +18,7 @@ public interface SysDutyMapper {
 
     List<SysDuty> selectByExample(SysDutyExample example);
 
-    SysDuty selectByPrimaryKey(BigDecimal dutId);
+    SysDuty selectByPrimaryKey(Long dutId);
 
     int updateByExampleSelective(@Param("record") SysDuty record, @Param("example") SysDutyExample example);
 

@@ -1,20 +1,22 @@
 package com.sc.bean;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class SysDuty implements Serializable {
-    private BigDecimal dutId;
+    private Long dutId;
 
     private String dutName;
 
-    private BigDecimal secId;
+    private Long secId;
 
     private String dutRemark;
 
-    private BigDecimal comId;
-
+    private Long comId;
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date lastTime;
 
     private static final long serialVersionUID = 1L;
@@ -25,7 +27,7 @@ public class SysDuty implements Serializable {
 				+ ", comId=" + comId + ", lastTime=" + lastTime + "]";
 	}
 
-	public SysDuty(BigDecimal dutId, String dutName, BigDecimal secId, String dutRemark, BigDecimal comId, Date lastTime) {
+	public SysDuty(Long dutId, String dutName, Long secId, String dutRemark, Long comId, Date lastTime) {
         this.dutId = dutId;
         this.dutName = dutName;
         this.secId = secId;
@@ -38,11 +40,11 @@ public class SysDuty implements Serializable {
         super();
     }
 
-    public BigDecimal getDutId() {
+    public Long getDutId() {
         return dutId;
     }
 
-    public void setDutId(BigDecimal dutId) {
+    public void setDutId(Long dutId) {
         this.dutId = dutId;
     }
 
@@ -54,11 +56,11 @@ public class SysDuty implements Serializable {
         this.dutName = dutName == null ? null : dutName.trim();
     }
 
-    public BigDecimal getSecId() {
+    public Long getSecId() {
         return secId;
     }
 
-    public void setSecId(BigDecimal secId) {
+    public void setSecId(Long secId) {
         this.secId = secId;
     }
 
@@ -70,11 +72,11 @@ public class SysDuty implements Serializable {
         this.dutRemark = dutRemark == null ? null : dutRemark.trim();
     }
 
-    public BigDecimal getComId() {
+    public Long getComId() {
         return comId;
     }
 
-    public void setComId(BigDecimal comId) {
+    public void setComId(Long comId) {
         this.comId = comId;
     }
 
