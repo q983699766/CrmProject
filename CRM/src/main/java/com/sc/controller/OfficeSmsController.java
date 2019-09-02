@@ -15,5 +15,12 @@ public class OfficeSmsController {
 		mav.setViewName("wanchenglong/guestbook");
 		return mav;
 	}
+	
+	@RequestMapping("/agenda.do")
+	public ModelAndView agenda(ModelAndView mav){
+//		mav.setViewName("custom/conper");
+		mav.setViewName("wanchenglong/agenda");
+		return mav;
+	}
 
 }
