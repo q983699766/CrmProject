@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  <th class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
 			  <th>权限名称</th>
 			  <th>人数</th>
-              <th>用户名称</th>
+              <th>拥有该权限的职位名称</th>
 			  <th class="hidden-480">描述</th>             
 			  <th class="hidden-480">操作</th>
              </tr>
@@ -60,28 +60,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
                  <a title="编辑" onclick="Competence_modify('560')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
                  <a title="删除" href="javascript:;"  onclick="Competence_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
-				</td>
-			   </tr>
-               <tr>
-				<td class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-				<td>普通管理员</td>
-				<td>3</td>
-				<td class="hidden-480">admin123 , 张小泉 ,克雷鲍</td>
-				<td>拥有网站的系统大部分使用权限，没有权限管理功能。</td>
-				<td>
-                 <a title="编辑" onclick="Competence_modify('561')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
-                 <a title="删除" href="javascript:;"  onclick="Competence_del(this,'2')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
-				</td>
-			   </tr>	
-               <tr>
-				<td class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-				<td>编辑管理员</td>
-				<td>5</td>
-				<td class="hidden-480">admin345,stysty,adminstyle,admin45678,admin123455</td>
-				<td>拥有部分权限，主要进行编辑功能，无边界订单功能，权限分配功能。</td>
-				<td>
-                 <a title="编辑" onclick="Competence_modify('562')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
-                 <a title="删除" href="javascript:;"  onclick="Competence_del(this,'3')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
 				</td>
 			   </tr>												
 		      </tbody>
