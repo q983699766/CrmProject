@@ -3,10 +3,10 @@
 <mapper namespace="com.sc.mapper.SysBranchMapper" >
   <resultMap id="BaseResultMap" type="com.sc.bean.SysBranch" >
     <constructor >
-      <idArg column="SEC_ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <idArg column="SEC_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
       <arg column="SEC_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="SEC_COMMENT" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="COM_ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="COM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
       <arg column="LAST_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
@@ -86,13 +86,13 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from SYS_BRANCH
     where SEC_ID = #{secId,jdbcType=DECIMAL}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from SYS_BRANCH
     where SEC_ID = #{secId,jdbcType=DECIMAL}
   </delete>
