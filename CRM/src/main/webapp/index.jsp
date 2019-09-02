@@ -373,7 +373,7 @@ $('.change_Password').on('click', function(){
 								<li class="home"><a href="javascript:void(0)" name="pursupinfo/selectinfo.do" title="供应商管理" class="iframeurl"><i class="icon-double-angle-right"></i>供应商管理</a></li>
 								<li class="home"><a href="javascript:void(0)" name="pursupinfo/selectinfo.do" title="采购单" class="iframeurl"><i class="icon-double-angle-right"></i>采购单</a></li>
 							
-                                <li class="home"><a href="javascript:void(0)" name="用户管理.html" title="待采购列表" class="iframeurl"><i class="icon-double-angle-right"></i>待采购列表</a></li>
+                                <li class="home"><a href="javascript:void(0)" name="products/selectproducts.do" title="待采购列表" class="iframeurl"><i class="icon-double-angle-right"></i>待采购列表</a></li>
 							</ul>
 						</li>
                         <li><a href="#" class="dropdown-toggle"><i class="icon-group"></i><span class="menu-text"> 管维阳 </span><b class="arrow icon-angle-down"></b></a>
