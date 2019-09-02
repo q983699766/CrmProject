@@ -1,6 +1,5 @@
 package com.sc.bean;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -116,52 +115,52 @@ public class SysBranchExample {
             return (Criteria) this;
         }
 
-        public Criteria andSecIdEqualTo(BigDecimal value) {
+        public Criteria andSecIdEqualTo(Long value) {
             addCriterion("SEC_ID =", value, "secId");
             return (Criteria) this;
         }
 
-        public Criteria andSecIdNotEqualTo(BigDecimal value) {
+        public Criteria andSecIdNotEqualTo(Long value) {
             addCriterion("SEC_ID <>", value, "secId");
             return (Criteria) this;
         }
 
-        public Criteria andSecIdGreaterThan(BigDecimal value) {
+        public Criteria andSecIdGreaterThan(Long value) {
             addCriterion("SEC_ID >", value, "secId");
             return (Criteria) this;
         }
 
-        public Criteria andSecIdGreaterThanOrEqualTo(BigDecimal value) {
+        public Criteria andSecIdGreaterThanOrEqualTo(Long value) {
             addCriterion("SEC_ID >=", value, "secId");
             return (Criteria) this;
         }
 
-        public Criteria andSecIdLessThan(BigDecimal value) {
+        public Criteria andSecIdLessThan(Long value) {
             addCriterion("SEC_ID <", value, "secId");
             return (Criteria) this;
         }
 
-        public Criteria andSecIdLessThanOrEqualTo(BigDecimal value) {
+        public Criteria andSecIdLessThanOrEqualTo(Long value) {
             addCriterion("SEC_ID <=", value, "secId");
             return (Criteria) this;
         }
 
-        public Criteria andSecIdIn(List<BigDecimal> values) {
+        public Criteria andSecIdIn(List<Long> values) {
             addCriterion("SEC_ID in", values, "secId");
             return (Criteria) this;
         }
 
-        public Criteria andSecIdNotIn(List<BigDecimal> values) {
+        public Criteria andSecIdNotIn(List<Long> values) {
             addCriterion("SEC_ID not in", values, "secId");
             return (Criteria) this;
         }
 
-        public Criteria andSecIdBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andSecIdBetween(Long value1, Long value2) {
             addCriterion("SEC_ID between", value1, value2, "secId");
             return (Criteria) this;
         }
 
-        public Criteria andSecIdNotBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andSecIdNotBetween(Long value1, Long value2) {
             addCriterion("SEC_ID not between", value1, value2, "secId");
             return (Criteria) this;
         }
@@ -316,52 +315,52 @@ public class SysBranchExample {
             return (Criteria) this;
         }
 
-        public Criteria andComIdEqualTo(BigDecimal value) {
+        public Criteria andComIdEqualTo(Long value) {
             addCriterion("COM_ID =", value, "comId");
             return (Criteria) this;
         }
 
-        public Criteria andComIdNotEqualTo(BigDecimal value) {
+        public Criteria andComIdNotEqualTo(Long value) {
             addCriterion("COM_ID <>", value, "comId");
             return (Criteria) this;
         }
 
-        public Criteria andComIdGreaterThan(BigDecimal value) {
+        public Criteria andComIdGreaterThan(Long value) {
             addCriterion("COM_ID >", value, "comId");
             return (Criteria) this;
         }
 
-        public Criteria andComIdGreaterThanOrEqualTo(BigDecimal value) {
+        public Criteria andComIdGreaterThanOrEqualTo(Long value) {
             addCriterion("COM_ID >=", value, "comId");
             return (Criteria) this;
         }
 
-        public Criteria andComIdLessThan(BigDecimal value) {
+        public Criteria andComIdLessThan(Long value) {
             addCriterion("COM_ID <", value, "comId");
             return (Criteria) this;
         }
 
-        public Criteria andComIdLessThanOrEqualTo(BigDecimal value) {
+        public Criteria andComIdLessThanOrEqualTo(Long value) {
             addCriterion("COM_ID <=", value, "comId");
             return (Criteria) this;
         }
 
-        public Criteria andComIdIn(List<BigDecimal> values) {
+        public Criteria andComIdIn(List<Long> values) {
             addCriterion("COM_ID in", values, "comId");
             return (Criteria) this;
         }
 
-        public Criteria andComIdNotIn(List<BigDecimal> values) {
+        public Criteria andComIdNotIn(List<Long> values) {
             addCriterion("COM_ID not in", values, "comId");
             return (Criteria) this;
         }
 
-        public Criteria andComIdBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andComIdBetween(Long value1, Long value2) {
             addCriterion("COM_ID between", value1, value2, "comId");
             return (Criteria) this;
         }
 
-        public Criteria andComIdNotBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andComIdNotBetween(Long value1, Long value2) {
             addCriterion("COM_ID not between", value1, value2, "comId");
             return (Criteria) this;
         }

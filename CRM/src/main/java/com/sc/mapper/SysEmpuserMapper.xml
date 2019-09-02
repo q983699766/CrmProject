@@ -3,7 +3,7 @@
 <mapper namespace="com.sc.mapper.SysEmpuserMapper" >
   <resultMap id="BaseResultMap" type="com.sc.bean.SysEmpuser" >
     <constructor >
-      <idArg column="EMP_ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <idArg column="EMP_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
       <arg column="EMP_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="EMP_SIX" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="EMP_PRICE" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -17,10 +17,10 @@
       <arg column="EMP_MESHPHONE" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="EMP_CONTACT" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="EMP_STATE" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="DUT_ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="DUT_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
       <arg column="EMP_SYSSTATE" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="EMP_REMARK" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="COM_ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="COM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
       <arg column="LAST_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
@@ -102,13 +102,13 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from SYS_EMPUSER
     where EMP_ID = #{empId,jdbcType=DECIMAL}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from SYS_EMPUSER
     where EMP_ID = #{empId,jdbcType=DECIMAL}
   </delete>

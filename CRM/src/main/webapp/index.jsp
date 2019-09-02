@@ -324,10 +324,10 @@ $('.change_Password').on('click', function(){
 				     <li class="home"><a href="javascript:void(0)" name="home.html" class="iframeurl" title=""><i class="icon-dashboard"></i><span class="menu-text"> 系统首页 </span></a></li>
                      <li><a href="#" class="dropdown-toggle"><i class="icon-desktop"></i><span class="menu-text"> 唐硕 </span><b class="arrow icon-angle-down"></b></a>
 					   <ul class="submenu">
-                         <li class="home"><a  href="javascript:void(0)" name="Products_List.html"  title="产品类表" class="iframeurl"><i class="icon-double-angle-right"></i>产品类表</a></li>
-						 <li class="home"><a  href="javascript:void(0)" name="Brand_Manage.html" title="品牌管理"  class="iframeurl"><i class="icon-double-angle-right"></i>品牌管理</a></li>
-						 <li class="home"><a href="javascript:void(0)" name="Category_Manage.html" title="分类管理"  class="iframeurl"><i class="icon-double-angle-right"></i>分类管理</a></li>
-
+                         <li class="home"><a  href="javascript:void(0)" name="sysdutyctlr/list.do"  class="iframeurl"><i class="icon-double-angle-right"></i>职位管理</a></li>
+						 <li class="home"><a  href="javascript:void(0)" name="Brand_Manage.html"  class="iframeurl"><i class="icon-double-angle-right"></i>公司管理</a></li>
+						 <li class="home"><a href="javascript:void(0)" name="Category_Manage.html"  class="iframeurl"><i class="icon-double-angle-right"></i>员工管理</a></li>
+						<li class="home"><a href="javascript:void(0)" name="Category_Manage.html"   class="iframeurl"><i class="icon-double-angle-right"></i>部门管理</a></li>
 						</ul>
 					</li>
 					<li>
@@ -350,8 +350,8 @@ $('.change_Password').on('click', function(){
                   <li>
 					<a href="#" class="dropdown-toggle"><i class="icon-user"></i><span class="menu-text"> 客户管理 </span><b class="arrow icon-angle-down"></b></a>
                     <ul class="submenu">
-                    <li class="home"><a href="conperctlr/conper.do" name="user_list.html" title="客户信息"  class="iframeurl"><i class="icon-double-angle-right"></i>客户信息</a></li>
-                    <li class="home"><a href="javascript:void(0)" name="member-Grading.html" title="等级管理"  class="iframeurl"><i class="icon-double-angle-right"></i>等级管理</a></li>
+                    <li class="home"><a href="javascript:void(0)" name="conperctlr/conper.do" title="客户信息"  class="iframeurl"><i class="icon-double-angle-right"></i>客户信息</a></li>
+                    <li class="home"><a href="javascript:void(0)" name="conperctlr/bleed.do" title="联系记录管理"  class="iframeurl"><i class="icon-double-angle-right"></i>联系记录管理</a></li>
                     <li class="home"><a href="javascript:void(0)" name="integration.html" title="会员记录管理"  class="iframeurl"><i class="icon-double-angle-right"></i>会员记录管理</a></li>
 
                    </ul>

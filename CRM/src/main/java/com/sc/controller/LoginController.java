@@ -10,8 +10,10 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sc.bean.Message;
 import com.sc.bean.SysUsers;
 import com.sc.service.SysUsersService;
 
@@ -62,4 +64,25 @@ public class LoginController {
 		return mav;
 	}
 	
+	@RequestMapping("/islogin.do")
+	@ResponseBody
+	public Message islogin(){
+		System.out.println("进来了1");
+		Message m = null;
+		Subject subject = SecurityUtils.getSubject();
+		boolean islogin = subject.isAuthenticated();
+		if(islogin){
+			m = new Message("200", "yes", "已有登录用户");
+		}else{
+			m = new Message("100", "no", "可正常登录");
+		}
+		return m;
+	}
+	@RequestMapping("/ajaxlogout.do")
+	@ResponseBody
+	public void ajaxlogout(){
+		System.out.println("进来了2");
+		Subject subject = SecurityUtils.getSubject();
+		subject.logout();
+	}
 }
