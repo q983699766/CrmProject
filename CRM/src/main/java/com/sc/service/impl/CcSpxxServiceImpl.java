@@ -9,6 +9,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sc.bean.CcCkxxb;
 import com.sc.bean.CcCkxxbExample;
+import com.sc.bean.Ccspxxb;
 import com.sc.mapper.CcCkxxbMapper;
 import com.sc.service.CcSpxxService;
 @Service

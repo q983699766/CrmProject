@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.github.pagehelper.PageInfo;
 import com.sc.bean.CcCkxxb;
+import com.sc.bean.Ccspxxb;
 
 public interface CcSpxxService {
 
