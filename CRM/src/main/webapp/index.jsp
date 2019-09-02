@@ -358,8 +358,9 @@ $('.change_Password').on('click', function(){
 				  </li>
 						<li><a href="#" class="dropdown-toggle"><i class="icon-edit"></i><span class="menu-text"> 万成龙</span><b class="arrow icon-angle-down"></b></a>
 							<ul class="submenu">
-								<li class="home"><a href="javascript:void(0)" name="Guestbook.html" title="留言列表" class="iframeurl"><i class="icon-double-angle-right"></i>留言列表</a></li>
+								<li class="home"><a href="javascript:void(0)" name="officectlr/sms.do" title="消息列表" class="iframeurl"><i class="icon-double-angle-right"></i>消息列表</a></li>
                                 <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="意见反馈" class="iframeurl"><i class="icon-double-angle-right"></i>意见反馈</a></li>
+                                <li class="home"><a href="javascript:void(0)" name="officectlr/agenda.do" title="日程安排" class="iframeurl"><i class="icon-double-angle-right"></i>日程安排</a></li>
 							</ul>
 						</li>
 						<li><a href="#" class="dropdown-toggle"><i class="icon-edit"></i><span class="menu-text"> 范宇星 </span><b class="arrow icon-angle-down"></b></a>
