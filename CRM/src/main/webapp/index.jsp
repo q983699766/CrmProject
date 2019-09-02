@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -8,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>网站后台管理系统  </title>
+		<title>1901后台管理系统  </title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
@@ -218,7 +219,7 @@ $('.change_Password').on('click', function(){
                <ul class="nav ace-nav">	
                 <li class="light-blue">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<span  class="time"><em id="time"></em></span><span class="user-info"><small>欢迎光临,</small>ADMIN	</span>
+								<span  class="time"><em id="time"></em></span><span class="user-info"><small>欢迎光临,</small>${nowuser.userName}	</span>
 								<i class="icon-caret-down"></i>
 							</a>
 							<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
@@ -249,7 +250,7 @@ $('.change_Password').on('click', function(){
 										<i class="btn btn-xs btn-primary icon-user"></i>
 										切换为编辑登录..
 									</a>
-								</li>
+								</li> 
 
 								<li>
 									<a href="#">
@@ -266,10 +267,8 @@ $('.change_Password').on('click', function(){
 								<li>
 									<a href="#">
 										<div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-xs no-hover btn-info icon-twitter"></i>
-												粉丝
-											</span>
+											<i class="btn btn-xs no-hover btn-info icon-twitter"></i>
+											粉丝
 											<span class="pull-right badge badge-info">+11</span>
 										</div>
 									</a>
@@ -312,7 +311,7 @@ $('.change_Password').on('click', function(){
 					</script>
 					<div class="sidebar-shortcuts" id="sidebar-shortcuts">
                      <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-						网站后台管理系统  
+						1901后台管理系统  
 						</div>
 						<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
 							<span class="btn btn-success"></span>
@@ -325,17 +324,17 @@ $('.change_Password').on('click', function(){
 				     <li class="home"><a href="javascript:void(0)" name="home.html" class="iframeurl" title=""><i class="icon-dashboard"></i><span class="menu-text"> 系统首页 </span></a></li>
                      <li><a href="#" class="dropdown-toggle"><i class="icon-desktop"></i><span class="menu-text"> 唐硕 </span><b class="arrow icon-angle-down"></b></a>
 					   <ul class="submenu">
-                         <li class="home"><a  href="javascript:void(0)" name="Products_List.html"  title="产品类表" class="iframeurl"><i class="icon-double-angle-right"></i>产品类表</a></li>
-						 <li class="home"><a  href="javascript:void(0)" name="Brand_Manage.html" title="品牌管理"  class="iframeurl"><i class="icon-double-angle-right"></i>品牌管理</a></li>
-						 <li class="home"><a href="javascript:void(0)" name="Category_Manage.html" title="分类管理"  class="iframeurl"><i class="icon-double-angle-right"></i>分类管理</a></li>
-
+                         <li class="home"><a  href="javascript:void(0)" name="sysdutyctlr/list.do"  class="iframeurl"><i class="icon-double-angle-right"></i>职位管理</a></li>
+						 <li class="home"><a  href="javascript:void(0)" name="Brand_Manage.html"  class="iframeurl"><i class="icon-double-angle-right"></i>公司管理</a></li>
+						 <li class="home"><a href="javascript:void(0)" name="Category_Manage.html"  class="iframeurl"><i class="icon-double-angle-right"></i>员工管理</a></li>
+						<li class="home"><a href="javascript:void(0)" name="Category_Manage.html"   class="iframeurl"><i class="icon-double-angle-right"></i>部门管理</a></li>
 						</ul>
 					</li>
 					<li>
-					<a href="#" class="dropdown-toggle"><i class="icon-picture "></i><span class="menu-text"> 刘志杰 </span><b class="arrow icon-angle-down"></b></a>
+					<a href="#" class="dropdown-toggle"><i class="icon-picture "></i><span class="menu-text">仓库</span><b class="arrow icon-angle-down"></b></a>
 						<ul class="submenu">
-						<li class="home"><a href="javascript:void(0)" name="advertising.html" title="广告管理" class="iframeurl"><i class="icon-double-angle-right"></i>广告管理</a></li>
-						<li class="home"><a href="javascript:void(0)" name="Sort_ads.html" title="分类管理"  class="iframeurl"><i class="icon-double-angle-right"></i>分类管理</a></li>
+						<li class="home"><a href="javascript:void(0)" name="advertising.html" title="库存信息" class="iframeurl"><i class="icon-double-angle-right"></i>库存信息</a></li>
+						<li class="home"><a href="javascript:void(0)" name="ccxxctlr/list.do" title="库存商品信息"  class="iframeurl"><i class="icon-double-angle-right"></i>库存商品信息</a></li>
 							</ul>
 						</li>
 					<li>
@@ -369,20 +368,20 @@ $('.change_Password').on('click', function(){
                                 <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="分类分类" class="iframeurl"><i class="icon-double-angle-right"></i>分类分类</a></li>
 							</ul>
 						</li>
-                        	<li><a href="#" class="dropdown-toggle"><i class="icon-cogs"></i><span class="menu-text"> 钟鹏鹏 </span><b class="arrow icon-angle-down"></b></a>
+                        	<li><a href="#" class="dropdown-toggle"><i class="icon-cogs"></i><span class="menu-text"> 采购管理 </span><b class="arrow icon-angle-down"></b></a>
 							<ul class="submenu">
-								<li class="home"><a href="javascript:void(0)" name="Systems.html" title="系统设置" class="iframeurl"><i class="icon-double-angle-right"></i>系统设置</a></li>
-								<li class="home"><a href="javascript:void(0)" name="菜单管理.html" title="栏目管理" class="iframeurl"><i class="icon-double-angle-right"></i>栏目管理</a></li>
+								<li class="home"><a href="javascript:void(0)" name="pursupinfo/selectinfo.do" title="供应商管理" class="iframeurl"><i class="icon-double-angle-right"></i>供应商管理</a></li>
+								<li class="home"><a href="javascript:void(0)" name="pursupinfo/selectinfo.do" title="采购单" class="iframeurl"><i class="icon-double-angle-right"></i>采购单</a></li>
 							
-                                <li class="home"><a href="javascript:void(0)" name="用户管理.html" title="系统日志" class="iframeurl"><i class="icon-double-angle-right"></i>系统日志</a></li>
+                                <li class="home"><a href="javascript:void(0)" name="用户管理.html" title="待采购列表" class="iframeurl"><i class="icon-double-angle-right"></i>待采购列表</a></li>
 							</ul>
 						</li>
                         <li><a href="#" class="dropdown-toggle"><i class="icon-group"></i><span class="menu-text"> 管维阳 </span><b class="arrow icon-angle-down"></b></a>
 							<ul class="submenu">
-							
-								<li class="home"><a href="javascript:void(0)" name="admin_Competence.html" title="权限管理"  class="iframeurl"><i class="icon-double-angle-right"></i>权限管理</a></li>
-                                <li class="home"><a href="javascript:void(0)" name="administrator.html" title="管理员列表" class="iframeurl"><i class="icon-double-angle-right"></i>管理员列表</a></li>
-								  <li class="home"><a href="javascript:void(0)" name="admin_info.html" title="个人信息" class="iframeurl"><i class="icon-double-angle-right"></i>个人信息</a></li>
+					
+								<li class="home"><a href="javascript:void(0)" name="permisctlr/getPermission.do" title="权限管理"  class="iframeurl"><i class="icon-double-angle-right"></i>权限管理</a></li>
+                   
+								  <li class="home"><a href="javascript:void(0)" name="userinfoctlr/getinfo.do" title="个人信息" class="iframeurl"><i class="icon-double-angle-right"></i>账户信息</a></li>
 							</ul>
 						</li>
 					</ul>

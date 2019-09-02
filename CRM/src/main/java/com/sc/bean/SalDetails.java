@@ -3,6 +3,9 @@ package com.sc.bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.regex.Pattern;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class SalDetails implements Serializable {
     private Long detailsId;
@@ -19,6 +22,7 @@ public class SalDetails implements Serializable {
 
     private Long comId;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastDate;
 
     private static final long serialVersionUID = 1L;

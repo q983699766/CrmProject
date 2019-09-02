@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sc.mapper.SysEmpuserMapper" >
+  <resultMap id="BaseResultMap" type="com.sc.bean.SysEmpuser" >
+    <constructor >
+      <idArg column="EMP_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="EMP_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="EMP_SIX" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="EMP_PRICE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="EMP_NUMBER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="EMP_ADDRESS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="EMP_TADAYADD" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="EMP_EDUCA" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="EMP_FACE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="EMP_SCHOOL" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="EMP_PHONE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="EMP_MESHPHONE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="EMP_CONTACT" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="EMP_STATE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="DUT_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="EMP_SYSSTATE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="EMP_REMARK" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="LAST_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    EMP_ID, EMP_NAME, EMP_SIX, EMP_PRICE, EMP_NUMBER, EMP_ADDRESS, EMP_TADAYADD, EMP_EDUCA, 
+    EMP_FACE, EMP_SCHOOL, EMP_PHONE, EMP_MESHPHONE, EMP_CONTACT, EMP_STATE, DUT_ID, EMP_SYSSTATE, 
+    EMP_REMARK, COM_ID, LAST_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sc.bean.SysEmpuserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from SYS_EMPUSER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_EMPUSER
+    where EMP_ID = #{empId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from SYS_EMPUSER
+    where EMP_ID = #{empId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.bean.SysEmpuserExample" >
+    delete from SYS_EMPUSER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sc.bean.SysEmpuser" >
+    insert into SYS_EMPUSER (EMP_ID, EMP_NAME, EMP_SIX, 
+      EMP_PRICE, EMP_NUMBER, EMP_ADDRESS, 
+      EMP_TADAYADD, EMP_EDUCA, EMP_FACE, 
+      EMP_SCHOOL, EMP_PHONE, EMP_MESHPHONE, 
+      EMP_CONTACT, EMP_STATE, DUT_ID, 
+      EMP_SYSSTATE, EMP_REMARK, COM_ID, 
+      LAST_TIME)
+    values (#{empId,jdbcType=DECIMAL}, #{empName,jdbcType=VARCHAR}, #{empSix,jdbcType=VARCHAR}, 
+      #{empPrice,jdbcType=VARCHAR}, #{empNumber,jdbcType=VARCHAR}, #{empAddress,jdbcType=VARCHAR}, 
+      #{empTadayadd,jdbcType=VARCHAR}, #{empEduca,jdbcType=VARCHAR}, #{empFace,jdbcType=VARCHAR}, 
+      #{empSchool,jdbcType=VARCHAR}, #{empPhone,jdbcType=VARCHAR}, #{empMeshphone,jdbcType=VARCHAR}, 
+      #{empContact,jdbcType=VARCHAR}, #{empState,jdbcType=VARCHAR}, #{dutId,jdbcType=DECIMAL}, 
+      #{empSysstate,jdbcType=VARCHAR}, #{empRemark,jdbcType=VARCHAR}, #{comId,jdbcType=DECIMAL}, 
+      #{lastTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sc.bean.SysEmpuser" >
+    insert into SYS_EMPUSER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="empId != null" >
+        EMP_ID,
+      </if>
+      <if test="empName != null" >
+        EMP_NAME,
+      </if>
+      <if test="empSix != null" >
+        EMP_SIX,
+      </if>
+      <if test="empPrice != null" >
+        EMP_PRICE,
+      </if>
+      <if test="empNumber != null" >
+        EMP_NUMBER,
+      </if>
+      <if test="empAddress != null" >
+        EMP_ADDRESS,
+      </if>
+      <if test="empTadayadd != null" >
+        EMP_TADAYADD,
+      </if>
+      <if test="empEduca != null" >
+        EMP_EDUCA,
+      </if>
+      <if test="empFace != null" >
+        EMP_FACE,
+      </if>
+      <if test="empSchool != null" >
+        EMP_SCHOOL,
+      </if>
+      <if test="empPhone != null" >
+        EMP_PHONE,
+      </if>
+      <if test="empMeshphone != null" >
+        EMP_MESHPHONE,
+      </if>
+      <if test="empContact != null" >
+        EMP_CONTACT,
+      </if>
+      <if test="empState != null" >
+        EMP_STATE,
+      </if>
+      <if test="dutId != null" >
+        DUT_ID,
+      </if>
+      <if test="empSysstate != null" >
+        EMP_SYSSTATE,
+      </if>
+      <if test="empRemark != null" >
+        EMP_REMARK,
+      </if>
+      <if test="comId != null" >
+        COM_ID,
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="empId != null" >
+        #{empId,jdbcType=DECIMAL},
+      </if>
+      <if test="empName != null" >
+        #{empName,jdbcType=VARCHAR},
+      </if>
+      <if test="empSix != null" >
+        #{empSix,jdbcType=VARCHAR},
+      </if>
+      <if test="empPrice != null" >
+        #{empPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="empNumber != null" >
+        #{empNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="empAddress != null" >
+        #{empAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="empTadayadd != null" >
+        #{empTadayadd,jdbcType=VARCHAR},
+      </if>
+      <if test="empEduca != null" >
+        #{empEduca,jdbcType=VARCHAR},
+      </if>
+      <if test="empFace != null" >
+        #{empFace,jdbcType=VARCHAR},
+      </if>
+      <if test="empSchool != null" >
+        #{empSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="empPhone != null" >
+        #{empPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="empMeshphone != null" >
+        #{empMeshphone,jdbcType=VARCHAR},
+      </if>
+      <if test="empContact != null" >
+        #{empContact,jdbcType=VARCHAR},
+      </if>
+      <if test="empState != null" >
+        #{empState,jdbcType=VARCHAR},
+      </if>
+      <if test="dutId != null" >
+        #{dutId,jdbcType=DECIMAL},
+      </if>
+      <if test="empSysstate != null" >
+        #{empSysstate,jdbcType=VARCHAR},
+      </if>
+      <if test="empRemark != null" >
+        #{empRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.bean.SysEmpuserExample" resultType="java.lang.Integer" >
+    select count(*) from SYS_EMPUSER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SYS_EMPUSER
+    <set >
+      <if test="record.empId != null" >
+        EMP_ID = #{record.empId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.empName != null" >
+        EMP_NAME = #{record.empName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.empSix != null" >
+        EMP_SIX = #{record.empSix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.empPrice != null" >
+        EMP_PRICE = #{record.empPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.empNumber != null" >
+        EMP_NUMBER = #{record.empNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.empAddress != null" >
+        EMP_ADDRESS = #{record.empAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.empTadayadd != null" >
+        EMP_TADAYADD = #{record.empTadayadd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.empEduca != null" >
+        EMP_EDUCA = #{record.empEduca,jdbcType=VARCHAR},
+      </if>
+      <if test="record.empFace != null" >
+        EMP_FACE = #{record.empFace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.empSchool != null" >
+        EMP_SCHOOL = #{record.empSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="record.empPhone != null" >
+        EMP_PHONE = #{record.empPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.empMeshphone != null" >
+        EMP_MESHPHONE = #{record.empMeshphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.empContact != null" >
+        EMP_CONTACT = #{record.empContact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.empState != null" >
+        EMP_STATE = #{record.empState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dutId != null" >
+        DUT_ID = #{record.dutId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.empSysstate != null" >
+        EMP_SYSSTATE = #{record.empSysstate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.empRemark != null" >
+        EMP_REMARK = #{record.empRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comId != null" >
+        COM_ID = #{record.comId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastTime != null" >
+        LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SYS_EMPUSER
+    set EMP_ID = #{record.empId,jdbcType=DECIMAL},
+      EMP_NAME = #{record.empName,jdbcType=VARCHAR},
+      EMP_SIX = #{record.empSix,jdbcType=VARCHAR},
+      EMP_PRICE = #{record.empPrice,jdbcType=VARCHAR},
+      EMP_NUMBER = #{record.empNumber,jdbcType=VARCHAR},
+      EMP_ADDRESS = #{record.empAddress,jdbcType=VARCHAR},
+      EMP_TADAYADD = #{record.empTadayadd,jdbcType=VARCHAR},
+      EMP_EDUCA = #{record.empEduca,jdbcType=VARCHAR},
+      EMP_FACE = #{record.empFace,jdbcType=VARCHAR},
+      EMP_SCHOOL = #{record.empSchool,jdbcType=VARCHAR},
+      EMP_PHONE = #{record.empPhone,jdbcType=VARCHAR},
+      EMP_MESHPHONE = #{record.empMeshphone,jdbcType=VARCHAR},
+      EMP_CONTACT = #{record.empContact,jdbcType=VARCHAR},
+      EMP_STATE = #{record.empState,jdbcType=VARCHAR},
+      DUT_ID = #{record.dutId,jdbcType=DECIMAL},
+      EMP_SYSSTATE = #{record.empSysstate,jdbcType=VARCHAR},
+      EMP_REMARK = #{record.empRemark,jdbcType=VARCHAR},
+      COM_ID = #{record.comId,jdbcType=DECIMAL},
+      LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.bean.SysEmpuser" >
+    update SYS_EMPUSER
+    <set >
+      <if test="empName != null" >
+        EMP_NAME = #{empName,jdbcType=VARCHAR},
+      </if>
+      <if test="empSix != null" >
+        EMP_SIX = #{empSix,jdbcType=VARCHAR},
+      </if>
+      <if test="empPrice != null" >
+        EMP_PRICE = #{empPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="empNumber != null" >
+        EMP_NUMBER = #{empNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="empAddress != null" >
+        EMP_ADDRESS = #{empAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="empTadayadd != null" >
+        EMP_TADAYADD = #{empTadayadd,jdbcType=VARCHAR},
+      </if>
+      <if test="empEduca != null" >
+        EMP_EDUCA = #{empEduca,jdbcType=VARCHAR},
+      </if>
+      <if test="empFace != null" >
+        EMP_FACE = #{empFace,jdbcType=VARCHAR},
+      </if>
+      <if test="empSchool != null" >
+        EMP_SCHOOL = #{empSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="empPhone != null" >
+        EMP_PHONE = #{empPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="empMeshphone != null" >
+        EMP_MESHPHONE = #{empMeshphone,jdbcType=VARCHAR},
+      </if>
+      <if test="empContact != null" >
+        EMP_CONTACT = #{empContact,jdbcType=VARCHAR},
+      </if>
+      <if test="empState != null" >
+        EMP_STATE = #{empState,jdbcType=VARCHAR},
+      </if>
+      <if test="dutId != null" >
+        DUT_ID = #{dutId,jdbcType=DECIMAL},
+      </if>
+      <if test="empSysstate != null" >
+        EMP_SYSSTATE = #{empSysstate,jdbcType=VARCHAR},
+      </if>
+      <if test="empRemark != null" >
+        EMP_REMARK = #{empRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        COM_ID = #{comId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where EMP_ID = #{empId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.bean.SysEmpuser" >
+    update SYS_EMPUSER
+    set EMP_NAME = #{empName,jdbcType=VARCHAR},
+      EMP_SIX = #{empSix,jdbcType=VARCHAR},
+      EMP_PRICE = #{empPrice,jdbcType=VARCHAR},
+      EMP_NUMBER = #{empNumber,jdbcType=VARCHAR},
+      EMP_ADDRESS = #{empAddress,jdbcType=VARCHAR},
+      EMP_TADAYADD = #{empTadayadd,jdbcType=VARCHAR},
+      EMP_EDUCA = #{empEduca,jdbcType=VARCHAR},
+      EMP_FACE = #{empFace,jdbcType=VARCHAR},
+      EMP_SCHOOL = #{empSchool,jdbcType=VARCHAR},
+      EMP_PHONE = #{empPhone,jdbcType=VARCHAR},
+      EMP_MESHPHONE = #{empMeshphone,jdbcType=VARCHAR},
+      EMP_CONTACT = #{empContact,jdbcType=VARCHAR},
+      EMP_STATE = #{empState,jdbcType=VARCHAR},
+      DUT_ID = #{dutId,jdbcType=DECIMAL},
+      EMP_SYSSTATE = #{empSysstate,jdbcType=VARCHAR},
+      EMP_REMARK = #{empRemark,jdbcType=VARCHAR},
+      COM_ID = #{comId,jdbcType=DECIMAL},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+    where EMP_ID = #{empId,jdbcType=DECIMAL}
+  </update>
+</mapper>
