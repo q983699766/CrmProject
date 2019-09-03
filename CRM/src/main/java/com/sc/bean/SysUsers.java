@@ -17,8 +17,19 @@ public class SysUsers implements Serializable {
     private Long comId;
 
     private String userState;
+    
+    private String empName;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    public String getEmpName() {
+		return empName;
+	}
+
+
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastTime;
 
     private static final long serialVersionUID = 1L;
