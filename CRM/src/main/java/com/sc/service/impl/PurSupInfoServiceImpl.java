@@ -55,7 +55,7 @@ public class PurSupInfoServiceImpl implements PurSupInfoService {
 		}
 	}
 
-
+	
 	@Override
 	public void updateinfo(Long supInfoNum) {
 		if(supInfoNum!=null){
