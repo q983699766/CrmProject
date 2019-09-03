@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sc.bean.SysEmpuser;
 import com.sc.bean.SysRole;
 import com.sc.bean.SysUsers;
+import com.sc.service.RolesService;
 import com.sc.service.UserInfoService;
 
 @Controller
@@ -24,6 +25,9 @@ public class UserInfoController {
 	@Autowired
 	UserInfoService userInfoService;
 	
+	@Autowired
+	RolesService RolesService;
+	
 	@RequestMapping("/getinfo.do")
 	public ModelAndView getUserInfo(ModelAndView mav , HttpServletRequest req, HttpSession session){
 		SysUsers user = (SysUsers)session.getAttribute("nowuser");
@@ -32,7 +36,7 @@ public class UserInfoController {
 		
 		mav.addObject("role", userInfoService.getMyRole(userId));
 		
-		mav.addObject("roles", userInfoService.getRoleLst());
+		mav.addObject("roles", RolesService.getRoleList());
 		
 		mav.setViewName("permission/admin_info");
 		return mav;
