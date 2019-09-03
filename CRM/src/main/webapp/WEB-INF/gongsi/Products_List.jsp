@@ -30,18 +30,26 @@
         <script type="text/javascript" src="Widget/zTree/js/jquery.ztree.all-3.5.min.js"></script> 
         <script src="js/lrtk.js" type="text/javascript" ></script>
 	<title>产品列表</title>
+	<style type="text/css">
+	.page{
+		margin-left: 1166px;
+		color: red;
+	}
+	</style>
 </head>
 <body>
 		
 <div class=" page-content clearfix">
  <div id="products_style">
     <div class="search_style">
-     
+     <form action="sysdutyctlr/selects.do">
       <ul class="search_content clearfix">
-       <li><label class="l_f">职位名称</label><input name="" type="text"  class="text_add" placeholder="输入品牌名称"  style=" width:250px"/></li>
-       <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li>
-       <li style="width:90px;"><button type="button" class="btn_search"><i class="icon-search"></i>查询</button></li>
+       <li><label class="l_f">职位名称</label><input name="dutName" type="text" class="text_add" placeholder="输入职位名称"  style=" width:250px"/></li>
+       <li><label class="l_f">添加时间</label><input  name="lastTime" readonly="true" class="inline laydate-icon" id="start" style=" margin-left:10px;"></li>
+       <li style="width:90px;">
+       <input type="submit" class="btn_search" value="查找"></li>
       </ul>
+      </form>
     </div>
      <div class="border clearfix">
        <span class="l_f">
@@ -68,7 +76,7 @@
 			</tr>
 		</thead>
 	<tbody>
-	<c:forEach items="${look }" var="t" >
+	<c:forEach items="${pi.list }" var="t" >
      <tr>
         <td width="25px"><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
         <td width="80px">${t.dutId }</td>               
@@ -100,11 +108,17 @@
     </c:forEach>
     </tbody>
     </table>
+    	<div class="page">
+    	<a href="sysdutyctlr/listpage.do?pageNum=${pi.firstPage }">首页</a>
+           <a href="sysdutyctlr/listpage.do?pageNum=${pi.prePage }">上页</a>
+           <a href="sysdutyctlr/listpage.do?pageNum=${pi.nextPage }">下页</a>
+           <a href="sysdutyctlr/listpage.do?pageNum=${pi.lastPage }">尾页</a>
+           	当前第${pi.pageNum }/ ${pi.pages }页，共${pi.total } 条数据。
+          </div>
     </div>     
   </div>
  </div>
 </div>
-
 </body>
 </html>
 <script>

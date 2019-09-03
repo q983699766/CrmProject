@@ -322,10 +322,10 @@ $('.change_Password').on('click', function(){
 					</div><!-- #sidebar-shortcuts -->
 					<ul class="nav nav-list" id="nav_list">
 				     <li class="home"><a href="javascript:void(0)" name="home.html" class="iframeurl" title=""><i class="icon-dashboard"></i><span class="menu-text"> 系统首页 </span></a></li>
-                     <li><a href="#" class="dropdown-toggle"><i class="icon-desktop"></i><span class="menu-text"> 唐硕 </span><b class="arrow icon-angle-down"></b></a>
+                     <li><a href="#" class="dropdown-toggle"><i class="icon-desktop"></i><span class="menu-text"> 公司管理</span><b class="arrow icon-angle-down"></b></a>
 					   <ul class="submenu">
-                         <li class="home"><a  href="javascript:void(0)" name="sysdutyctlr/list.do"  class="iframeurl"><i class="icon-double-angle-right"></i>职位管理</a></li>
-						 <li class="home"><a  href="javascript:void(0)" name="Brand_Manage.html"  class="iframeurl"><i class="icon-double-angle-right"></i>公司管理</a></li>
+                         <li class="home"><a  href="javascript:void(0)" name="sysdutyctlr/listpage.do"  class="iframeurl"><i class="icon-double-angle-right"></i>职位管理</a></li>
+						 <li class="home"><a  href="javascript:void(0)" name="sycompanyctlr/list.do"  class="iframeurl"><i class="icon-double-angle-right"></i>公司管理</a></li>
 						 <li class="home"><a href="javascript:void(0)" name="Category_Manage.html"  class="iframeurl"><i class="icon-double-angle-right"></i>员工管理</a></li>
 						<li class="home"><a href="javascript:void(0)" name="Category_Manage.html"   class="iframeurl"><i class="icon-double-angle-right"></i>部门管理</a></li>
 						</ul>

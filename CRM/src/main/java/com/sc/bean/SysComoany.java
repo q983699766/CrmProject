@@ -36,7 +36,15 @@ public class SysComoany implements Serializable {
    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date lastTime;
 
-    private static final long serialVersionUID = 1L;
+    @Override
+public String toString() {
+	return "SysComoany [comId=" + comId + ", comName=" + comName + ", comCode=" + comCode + ", comEmail=" + comEmail
+			+ ", comLinkman=" + comLinkman + ", comAddress=" + comAddress + ", comPhone=" + comPhone + ", comYphone="
+			+ comYphone + ", comFax=" + comFax + ", comBank=" + comBank + ", comBankuser=" + comBankuser
+			+ ", comYesandno=" + comYesandno + ", comRemark=" + comRemark + ", lastTime=" + lastTime + "]";
+}
+
+	private static final long serialVersionUID = 1L;
 
     public SysComoany(BigDecimal comId, String comName, String comCode, String comEmail, String comLinkman, String comAddress, String comPhone, String comYphone, String comFax, String comBank, String comBankuser, String comYesandno, String comRemark, Date lastTime) {
         this.comId = comId;

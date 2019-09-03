@@ -2,6 +2,7 @@ package com.sc.service;
 
 import java.util.List;
 
+import com.github.pagehelper.PageInfo;
 import com.sc.bean.SysBranch;
 import com.sc.bean.SysComoany;
 import com.sc.bean.SysDuty;
@@ -18,7 +19,12 @@ public interface SysDutyService {
 	//修改用户信息
 	public void updatee(SysDuty u);
 	
+	public PageInfo<SysDuty> selectUsersPage
+	(Integer pageNum,Integer pageSize,SysDuty u);
+	
 	public  List<SysBranch> selesetSysBranch();
 	
 	public  List<SysComoany> selectSysComoany();
+	
+
 }

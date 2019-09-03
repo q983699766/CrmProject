@@ -1,205 +1,229 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@  taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%
+    String path = request.getContextPath();
+    String basepath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <html>
-  <head>
-    <base href="<%=basePath%>">
-    
-    <title>My JSP 'company.jsp' starting page</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+<head>
+	<base href="<%=basepath %>" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="css/style.css"/>       
-        <link href="assets/css/codemirror.css" rel="stylesheet">
         <link rel="stylesheet" href="assets/css/ace.min.css" />
-        <link rel="stylesheet" href="font/css/font-awesome.min.css" />
-        
-        <script src="js/jquery-1.9.1.min.js"></script>
+        <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="Widget/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+        <link href="Widget/icheck/icheck.css" rel="stylesheet" type="text/css" />   
+		
+	    <script src="js/jquery-1.9.1.min.js"></script>   
         <script src="assets/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="Widget/Validform/5.3.2/Validform.min.js"></script>
-		<script src="assets/js/typeahead-bs2.min.js"></script>           	
+        <script src="assets/js/typeahead-bs2.min.js"></script>
+		
 		<script src="assets/js/jquery.dataTables.min.js"></script>
 		<script src="assets/js/jquery.dataTables.bootstrap.js"></script>
-        <script src="assets/layer/layer.js" type="text/javascript" ></script>          
-		<script src="js/lrtk.js" type="text/javascript" ></script>
-         <script src="assets/layer/layer.js" type="text/javascript"></script>	
+        <script type="text/javascript" src="js/H-ui.js"></script> 
+        <script type="text/javascript" src="js/H-ui.admin.js"></script> 
+        <script src="assets/layer/layer.js" type="text/javascript" ></script>
         <script src="assets/laydate/laydate.js" type="text/javascript"></script>
-  </head>
-  
-  <body>
-   <div class="page-content clearfix">
-  <div class="administrator">
-       <div class="d_Confirm_Order_style">
+        <script type="text/javascript" src="Widget/zTree/js/jquery.ztree.all-3.5.min.js"></script> 
+        <script src="js/lrtk.js" type="text/javascript" ></script>
+	<title>产品列表</title>
+</head>
+<body>
+		
+<div class=" page-content clearfix">
+ <div id="products_style">
     <div class="search_style">
-      <div class="title_names">搜索查询</div>
+     
       <ul class="search_content clearfix">
-       <li><label class="l_f">管理员名称</label><input name="" type="text"  class="text_add" placeholder=""  style=" width:400px"/></li>
+       <li><label class="l_f">职位名称</label><input name="" type="text"  class="text_add" placeholder="输入品牌名称"  style=" width:250px"/></li>
        <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li>
-       <li style="width:90px;"><button type="button" class="btn_search"><i class="fa fa-search"></i>查询</button></li>
+       <li style="width:90px;"><button type="button" class="btn_search"><i class="icon-search"></i>查询</button></li>
       </ul>
     </div>
-    <!--操作-->
      <div class="border clearfix">
        <span class="l_f">
-        <a href="javascript:ovid()" id="administrator_add" class="btn btn-warning"><i class="fa fa-plus"></i> 添加管理员</a>
-        <a href="javascript:ovid()" class="btn btn-danger"><i class="fa fa-trash"></i> 批量删除</a>
+        <a href="sycompanyctlr/goadd.do" class="btn btn-warning Order_form"><i class="icon-plus"></i>添加公司信息</a>
        </span>
-       <span class="r_f">共：<b>5</b>人</span>
      </div>
-     <!--管理员列表-->
-     <div class="clearfix administrator_style" id="administrator">
-      <div class="left_style">
-      <div id="scrollsidebar" class="left_Treeview">
-        <div class="show_btn" id="rightArrow"><span></span></div>
-        <div class="widget-box side_content" >
-         <div class="side_title"><a title="隐藏" class="close_btn"><span></span></a></div>
-         <div class="side_list"><div class="widget-header header-color-green2"><h4 class="lighter smaller">管理员分类列表</h4></div>
-         <div class="widget-body">
-           <ul class="b_P_Sort_list">
-           <li><i class="fa fa-users green"></i> <a href="#">全部管理员（13）</a></li>
-            <li><i class="fa fa-users orange"></i> <a href="#">超级管理员（1）</a></li>
-            <li><i class="fa fa-users orange"></i> <a href="#">普通管理员（5）</a></li>
-            <li><i class="fa fa-users orange"></i> <a href="#">产品编辑管理员（4）</a></li>
-            <li><i class="fa fa-users orange"></i> <a href="#">管理员（1）</a></li>
-           </ul>
-        </div>
-       </div>
+     <!--产品列表展示-->
+     <div class="h_products_list clearfix" id="products_list">
+       <div id="scrollsidebar" class="left_Treeview">
       </div>  
-      </div>
-      </div>
-      <div class="table_menu_list"  id="testIframe">
-           <table class="table table-striped table-bordered table-hover" id="sample_table">
+     </div>
+         <div class="table_menu_list" id="testIframe">
+       <table class="table table-striped table-bordered table-hover" id="sample-table">
 		<thead>
 		 <tr>
 				<th width="25px"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
-				<th width="80px">编号</th>
-				<th width="250px">登录名</th>
-				<th width="100px">手机</th>
-				<th width="100px">邮箱</th>
-                <th width="100px">角色</th>				
-				<th width="180px">加入时间</th>
-				<th width="70px">状态</th>                
+				<th width="80px">公司编号</th>
+				<th width="80px">公司名称</th>
+				<th width="80px">联系人</th>
+				<th width="80px">公司地址</th> 
+				<th width="80px">公司电话</th>
+				<th width="80px">开户银行</th>
+				<th width="80px">备注信息</th>
+				<th width="80px">修改时间</th>  
 				<th width="200px">操作</th>
 			</tr>
 		</thead>
 	<tbody>
+	<c:forEach items="${selectComoany }" var="t" >
      <tr>
-      <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-      <td>1</td>
-      <td>admin</td>
-      <td>18934334544</td>
-      <td>2345454@qq.com</td>
-      <td>超级管理员</td>
-      <td>2016-6-29 12:34</td>
-      <td class="td-status"><span class="label label-success radius">已启用</span></td>
-      <td class="td-manage">
-        <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="fa fa-check  bigger-120"></i></a>  
-        <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>       
-        <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
+        <td width="25px"><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
+        <td width="80px">${t.comId }</td>               
+        <td width="150px"><u style="cursor:pointer" class="text-primary" onclick="">${t.comName}</u></td>
+         <td width="100px">${t.comLinkman}</td>
+        <td width="100px">${t.comAddress}</td>
+        <td width="100px">${t.comPhone }</td> 
+        <td width="100px">${t.comBank }</td>   
+        <td width="100px">${t.comRemark }</td>    
+        <td width="180px"><fmt:formatDate value="${t.lastTime}" pattern="yyyy-MM-dd" /></td>
+        </td>
+        <td class="td-manage"> 
+        <a title="编辑"  href='sycompanyctlr/update.do?comId=${t.comId}' class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
+        <a title="删除" href='sycompanyctlr/del.do?comId=${t.comId}' class="btn btn-xs btn-warning" onclick="return window.confirm('是否确定删除此用户?')"><i class="icon-trash  bigger-120"></i></a>
        </td>
-     </tr>
-       <tr>
-      <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-      <td>2</td>
-      <td>admin12345</td>
-      <td>18934334544</td>
-      <td>2345454@qq.com</td>
-      <td>管理员</td>
-      <td>2016-6-29 12:34</td>
-      <td class="td-status"><span class="label label-success radius">已启用</span></td>
-      <td class="td-manage">
-        <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="fa fa-check  bigger-120"></i></a>   
-        <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>      
-        <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
-       </td>
-     </tr>    
+	  </tr>
+    </c:forEach>
     </tbody>
     </table>
-      </div>
-     </div>
+    </div>     
   </div>
-</div>
- <!--添加管理员-->
- <div id="add_administrator_style" class="add_menber" style="display:none">
-    <form action="" method="post" id="form-admin-add">
-		<div class="form-group">
-			<label class="form-label"><span class="c-red">*</span>管理员：</label>
-			<div class="formControls">
-				<input type="text" class="input-text" value="" placeholder="" id="user-name" name="user-name" datatype="*2-16" nullmsg="用户名不能为空">
-			</div>
-			<div class="col-4"> <span class="Validform_checktip"></span></div>
-		</div>
-		<div class="form-group">
-			<label class="form-label"><span class="c-red">*</span>初始密码：</label>
-			<div class="formControls">
-			<input type="password" placeholder="密码" name="userpassword" autocomplete="off" value="" class="input-text" datatype="*6-20" nullmsg="密码不能为空">
-			</div>
-			<div class="col-4"> <span class="Validform_checktip"></span></div>
-		</div>
-		<div class="form-group">
-			<label class="form-label "><span class="c-red">*</span>确认密码：</label>
-			<div class="formControls ">
-		<input type="password" placeholder="确认新密码" autocomplete="off" class="input-text Validform_error" errormsg="您两次输入的新密码不一致！" datatype="*" nullmsg="请再输入一次新密码！" recheck="userpassword" id="newpassword2" name="newpassword2">
-			</div>
-			<div class="col-4"> <span class="Validform_checktip"></span></div>
-		</div>
-		<div class="form-group">
-			<label class="form-label "><span class="c-red">*</span>性别：</label>
-			<div class="formControls  skin-minimal">
-		      <label><input name="form-field-radio" type="radio" class="ace" checked="checked"><span class="lbl">保密</span></label>&nbsp;&nbsp;
-            <label><input name="form-field-radio" type="radio" class="ace"><span class="lbl">男</span></label>&nbsp;&nbsp;
-            <label><input name="form-field-radio" type="radio" class="ace"><span class="lbl">女</span></label>
-			</div>
-			<div class="col-4"> <span class="Validform_checktip"></span></div>
-		</div>
-		<div class="form-group">
-			<label class="form-label "><span class="c-red">*</span>手机：</label>
-			<div class="formControls ">
-				<input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="手机不能为空">
-			</div>
-			<div class="col-4"> <span class="Validform_checktip"></span></div>
-		</div>
-		<div class="form-group">
-			<label class="form-label"><span class="c-red">*</span>邮箱：</label>
-			<div class="formControls ">
-				<input type="text" class="input-text" placeholder="@" name="email" id="email" datatype="e" nullmsg="请输入邮箱！">
-			</div>
-			<div class="col-4"> <span class="Validform_checktip"></span></div>
-		</div>
-		<div class="form-group">
-			<label class="form-label">角色：</label>
-			<div class="formControls "> <span class="select-box" style="width:150px;">
-				<select class="select" name="admin-role" size="1">
-					<option value="0">超级管理员</option>
-					<option value="1">管理员</option>
-					<option value="2">栏目主辑</option>
-					<option value="3">栏目编辑</option>
-				</select>
-				</span> </div>
-		</div>
-		<div class="form-group">
-			<label class="form-label">备注：</label>
-			<div class="formControls">
-				<textarea name="" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" onkeyup="checkLength(this);"></textarea>
-				<span class="wordage">剩余字数：<span id="sy" style="color:Red;">100</span>字</span>
-			</div>
-			<div class="col-4"> </div>
-		</div>
-		<div> 
-        <input class="btn btn-primary radius" type="submit" id="Add_Administrator" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-	</form>
-   </div>
  </div>
-  </body>
+</div>
+
+</body>
 </html>
+<script>
+jQuery(function($) {
+		var oTable1 = $('#sample-table').dataTable( {
+		"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+		"bStateSave": true,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  {"orderable":false,"aTargets":[0,2,3,4,5,8,9]}// 制定列不参与排序
+		] } );
+				
+				
+				$('table th input:checkbox').on('click' , function(){
+					var that = this;
+					$(this).closest('table').find('tr > td:first-child input:checkbox')
+					.each(function(){
+						this.checked = that.checked;
+						$(this).closest('tr').toggleClass('selected');
+					});
+						
+				});
+			
+			
+				$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
+				function tooltip_placement(context, source) {
+					var $source = $(source);
+					var $parent = $source.closest('table')
+					var off1 = $parent.offset();
+					var w1 = $parent.width();
+			
+					var off2 = $source.offset();
+					var w2 = $source.width();
+			
+					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
+					return 'left';
+				}
+			});
+ laydate({
+    elem: '#start',
+    event: 'focus' 
+});
+$(function() { 
+	$("#products_style").fix({
+		float : 'left',
+		//minStatue : true,
+		skin : 'green',	
+		durationTime :false,
+		spacingw:30,//设置隐藏时的距离
+	    spacingh:260,//设置显示时间距
+	});
+});
+</script>
+<script type="text/javascript">
+//初始化宽度、高度  
+ $(".widget-box").height($(window).height()-215); 
+$(".table_menu_list").width($(window).width()-260);
+ $(".table_menu_list").height($(window).height()-215);
+  //当文档窗口发生改变时 触发  
+    $(window).resize(function(){
+	$(".widget-box").height($(window).height()-215);
+	 $(".table_menu_list").width($(window).width()-260);
+	  $(".table_menu_list").height($(window).height()-215);
+	})
+ 
+/*******树状图*******/
+var setting = {
+	view: {
+		dblClickExpand: false,
+		showLine: false,
+		selectedMulti: false
+	},
+	data: {
+		simpleData: {
+			enable:true,
+			idKey: "id",
+			pIdKey: "pId",
+			rootPId: ""
+		}
+	},
+	callback: {
+		beforeClick: function(treeId, treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj("tree");
+			if (treeNode.isParent) {
+				zTree.expandNode(treeNode);
+				return false;
+			} else {
+				demoIframe.attr("src",treeNode.file + ".html");
+				return true;
+			}
+		}
+	}
+};	
+var code;
+		
+function showCode(str) {
+	if (!code) code = $("#code");
+	code.empty();
+	code.append("<li>"+str+"</li>");
+}
+		
+$(document).ready(function(){
+	var t = $("#treeDemo");
+	t = $.fn.zTree.init(t, setting, zNodes);
+	demoIframe = $("#testIframe");
+	demoIframe.bind("load", loadReady);
+	var zTree = $.fn.zTree.getZTreeObj("tree");
+	zTree.selectNode(zTree.getNodeByParam("id",'11'));
+});	
+
+/*产品-编辑*/
+function member_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+
+//面包屑返回值
+var index = parent.layer.getFrameIndex(window.name);
+parent.layer.iframeAuto(index);
+$('.Order_form').on('click', function(){
+	var cname = $(this).attr("title");
+	var chref = $(this).attr("href");
+	var cnames = parent.$('.Current_page').html();
+	var herf = parent.$("#iframe").attr("src");
+    parent.$('#parentIframe').html(cname);
+    parent.$('#iframe').attr("src",chref).ready();;
+	parent.$('#parentIframe').css("display","inline-block");
+	parent.$('.Current_page').attr({"name":herf,"href":"javascript:void(0)"}).css({"color":"#4c8fbd","cursor":"pointer"});
+	//parent.$('.Current_page').html("<a href='javascript:void(0)' name="+herf+" class='iframeurl'>" + cnames + "</a>");
+    parent.layer.close(index);
+	
+});
+</script> 
