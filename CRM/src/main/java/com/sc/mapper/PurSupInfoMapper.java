@@ -10,17 +10,19 @@ public interface PurSupInfoMapper {
 
     int deleteByExample(PurSupInfoExample example);
 
-     //删除供应商信息 通过ID
-    int deleteByPrimaryKey(Integer supInfoNum);
+    //通过id删除
+    int deleteByPrimaryKey(Long supInfoNum);
 
-    int insert(PurSupInfo record);
+     //添加
+    int insert(PurSupInfo pursupinfo);
 
     int insertSelective(PurSupInfo record);
 
+     //查询所有
     List<PurSupInfo> selectByExample(PurSupInfoExample example);
 
-    //通过id 查询供应商信息
-    PurSupInfo selectByPrimaryKey(Integer supInfoNum);
+     //通过id查询
+    PurSupInfo selectByPrimaryKey(Long supInfoNum);
 
     int updateByExampleSelective(@Param("record") PurSupInfo record, @Param("example") PurSupInfoExample example);
 
@@ -28,6 +30,9 @@ public interface PurSupInfoMapper {
 
     int updateByPrimaryKeySelective(PurSupInfo record);
 
-     //通过id修改供应商信息
-    int updateByPrimaryKey(Integer supInfoNum);
+     //通过id更新
+    int updateByPrimaryKey(PurSupInfo pursupinfo);
+
+
+	
 }
