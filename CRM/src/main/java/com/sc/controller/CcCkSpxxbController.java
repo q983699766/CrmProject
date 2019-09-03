@@ -24,7 +24,7 @@ public class CcCkSpxxbController {
 			   mav.addObject("pi", ccSpxxService.selectCcspxxPage(pageNum, pageSize));
 			   
 				//设置视图名称         转发
-				mav.setViewName("Ck/cclb");//响应的视图名称，路径是：/WEB-INF/users/list.jsp
+				mav.setViewName("Ck/aaa");//响应的视图名称，路径是：/WEB-INF/users/list.jsp
 				return mav;
 			}
 }
