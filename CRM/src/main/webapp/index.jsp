@@ -379,10 +379,12 @@ $('.change_Password').on('click', function(){
 						</li>
                         <li><a href="#" class="dropdown-toggle"><i class="icon-group"></i><span class="menu-text"> 管维阳 </span><b class="arrow icon-angle-down"></b></a>
 							<ul class="submenu">
-					
+								<li class="home"><a href="javascript:void(0)" name="userinfoctlr/getinfo.do" title="个人信息" class="iframeurl"><i class="icon-double-angle-right"></i>账户信息</a></li>
+								<li class="home"><a href="javascript:void(0)" name="usersctlr/getlist.do" title="账户管理"  class="iframeurl"><i class="icon-double-angle-right"></i>账户管理</a></li>
+								<li class="home"><a href="javascript:void(0)" name="rolesctlr/getlist.do" title="角色管理"  class="iframeurl"><i class="icon-double-angle-right"></i>角色管理</a></li>
 								<li class="home"><a href="javascript:void(0)" name="permisctlr/getPermission.do" title="权限管理"  class="iframeurl"><i class="icon-double-angle-right"></i>权限管理</a></li>
                    
-								  <li class="home"><a href="javascript:void(0)" name="userinfoctlr/getinfo.do" title="个人信息" class="iframeurl"><i class="icon-double-angle-right"></i>账户信息</a></li>
+								  
 							</ul>
 						</li>
 					</ul>

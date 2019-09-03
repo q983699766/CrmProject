@@ -28,14 +28,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="../assets/js/jquery.dataTables.bootstrap.js"></script>
         <script src="../assets/layer/layer.js" type="text/javascript" ></script>          
         <script src="../assets/laydate/laydate.js" type="text/javascript"></script>
-<title>管理权限</title>
+<title>管理角色</title>
 </head>
 
 <body>
  <div class="margin clearfix">
    <div class="border clearfix">
        <span class="l_f">
-        <a href="Competence.html" id="Competence_add" class="btn btn-warning" title="添加权限"><i class="fa fa-plus"></i> 添加权限</a>
+        <a href="Competence.html" id="Competence_add" class="btn btn-warning" title="添加权限"><i class="fa fa-plus"></i> 添加角色</a>
         
        </span>
        
@@ -45,26 +45,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 <thead>
 			<tr>
 			  <!-- <th class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th> -->
-			  <th>权限名称</th>
-              <th>权限分栏</th>
-			  <th class="hidden-480">描述</th>             
+			  <th>角色名称</th>
+			  <th>上级角色</th>
+              <th style="width:15%;">该角色拥有的权限</th>
+			  <th class="hidden-480" style="width:50%;">描述</th>             
 			  <th class="hidden-480">操作</th>
              </tr>
 		    </thead>
              <tbody>
-             <c:forEach items="${perms }" var="p">
 			  <tr>
+			  <c:forEach items="${roles }" var="r">
 				<!-- <td class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td> -->
-				<td>${p.permissionName }</td>
-				
-				<td class="hidden-480">${p.permissionColumn }</td>
-				<td>${p.remark }</td>
+				<td>${r.roleName }</td>
+				<td>${r.highRoleName == null ? "无":r.highRoleName }</td>
+				<td class="hidden-480"><c:forEach items="${r.perms }" var="p"><p>${p.permissionName}</p></c:forEach></td>
+				<td>${r.roleDescribe }</td>
 				<td>
                  <a title="编辑" onclick="Competence_modify('560')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
                  <a title="删除" href="javascript:;"  onclick="Competence_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
 				</td>
-			   </tr>
-			   </c:forEach>				
+			   </tr>	
+			   </c:forEach>											
 		      </tbody>
 	        </table>
      </div>

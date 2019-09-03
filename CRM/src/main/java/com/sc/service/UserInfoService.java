@@ -2,7 +2,6 @@ package com.sc.service;
 
 import java.util.List;
 
-import com.sc.bean.SysEmpuser;
 import com.sc.bean.SysRole;
 import com.sc.bean.SysUsers;
 
