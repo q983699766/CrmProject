@@ -3,6 +3,8 @@ package com.sc.bean;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class OfficePersonalAgenda implements Serializable {
     private Long scheduleId;
 
@@ -10,8 +12,10 @@ public class OfficePersonalAgenda implements Serializable {
 
     private String scheduleTheme;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date startDate;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date startTime;
 
     private Long writerId;
@@ -20,6 +24,7 @@ public class OfficePersonalAgenda implements Serializable {
 
     private Long comId;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastTime;
 
     private static final long serialVersionUID = 1L;
@@ -111,4 +116,16 @@ public class OfficePersonalAgenda implements Serializable {
     public void setLastTime(Date lastTime) {
         this.lastTime = lastTime;
     }
+
+	@Override
+	public String toString() {
+		return "OfficePersonalAgenda [scheduleId=" + scheduleId + ", scheduleClasses=" + scheduleClasses
+				+ ", scheduleTheme=" + scheduleTheme + ", startDate=" + startDate + ", startTime=" + startTime
+				+ ", writerId=" + writerId + ", scheduleDescribe=" + scheduleDescribe + ", comId=" + comId
+				+ ", lastTime=" + lastTime + "]";
+	}
+    
+    
+    
+    
 }

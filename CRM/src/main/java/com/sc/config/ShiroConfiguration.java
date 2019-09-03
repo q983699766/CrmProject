@@ -106,6 +106,10 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/assets/**", "anon");
 		filterChainDefinitionMap.put("/font/**", "anon");
 		filterChainDefinitionMap.put("/products/**", "anon");
+		filterChainDefinitionMap.put("/Widget/**", "anon");
+		
+		
+		
 		filterChainDefinitionMap.put("loginctlr/ajaxlogout.do", "anon");
 		filterChainDefinitionMap.put("loginctlr/islogin.do", "anon");
 		

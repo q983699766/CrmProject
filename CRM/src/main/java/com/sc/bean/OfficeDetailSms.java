@@ -3,6 +3,8 @@ package com.sc.bean;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class OfficeDetailSms implements Serializable {
     private Long detailId;
 
@@ -14,6 +16,7 @@ public class OfficeDetailSms implements Serializable {
 
     private Long comId;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastTime;
 
     private static final long serialVersionUID = 1L;
@@ -78,4 +81,12 @@ public class OfficeDetailSms implements Serializable {
     public void setLastTime(Date lastTime) {
         this.lastTime = lastTime;
     }
+
+	@Override
+	public String toString() {
+		return "OfficeDetailSms [detailId=" + detailId + ", smsId=" + smsId + ", receiverId=" + receiverId
+				+ ", smsState=" + smsState + ", comId=" + comId + ", lastTime=" + lastTime + "]";
+	}
+    
+    
 }
