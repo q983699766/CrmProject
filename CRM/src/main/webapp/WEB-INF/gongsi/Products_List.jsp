@@ -1,6 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@  taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
     String path = request.getContextPath();
     String basepath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -37,17 +38,15 @@
     <div class="search_style">
      
       <ul class="search_content clearfix">
-       <li><label class="l_f">产品名称</label><input name="" type="text"  class="text_add" placeholder="输入品牌名称"  style=" width:250px"/></li>
+       <li><label class="l_f">职位名称</label><input name="" type="text"  class="text_add" placeholder="输入品牌名称"  style=" width:250px"/></li>
        <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li>
        <li style="width:90px;"><button type="button" class="btn_search"><i class="icon-search"></i>查询</button></li>
       </ul>
     </div>
      <div class="border clearfix">
        <span class="l_f">
-        <a href="tianjia" title="添加商品" class="btn btn-warning Order_form"><i class="icon-plus"></i>添加商品</a>
-        <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
+        <a href="sysdutyctlr/goadd.do" class="btn btn-warning Order_form"><i class="icon-plus"></i>添加职位信息</a>
        </span>
-       <span class="r_f">共：<b>2334</b>件商品</span>
      </div>
      <!--产品列表展示-->
      <div class="h_products_list clearfix" id="products_list">
@@ -64,8 +63,7 @@
 				<th width="80px">所属部门</th> 
 				<th width="80px">备注说明</th>
 				<th width="80px">所属公司</th>
-				<th width="80px">修改时间</th>
-				<th width="200px">状态</th>                     
+				<th width="80px">修改时间</th> 
 				<th width="200px">操作</th>
 			</tr>
 		</thead>
@@ -75,16 +73,28 @@
         <td width="25px"><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
         <td width="80px">${t.dutId }</td>               
         <td width="150px"><u style="cursor:pointer" class="text-primary" onclick="">${t.dutName}</u></td>
-        <td width="100px"><c:if test="${t.secId==1 }">客服部</c:if></td>
+        <td width="100px">
+        <c:if test="${t.secId==1 }">物流部</c:if>
+        <c:if test="${t.secId==2 }">客服部</c:if>
+        <c:if test="${t.secId==7 }">人事部</c:if>
+        <c:if test="${t.secId==8 }">决策部</c:if>
+        </td>
         <td width="100px">${t.dutRemark }</td> 
-        <td width="100px">${t.comId }</td>         
-        <td width="180px">${t.lastTime}</td>
-        <td class="td-status"><span class="label label-success radius">已启用</span>
+        <td width="100px">
+         <c:if test="${t.comId==1}">小管有限公司</c:if>
+       	 <c:if test="${t.comId==2}">小唐有限公司</c:if>
+       	 <c:if test="${t.comId==3}">小余有限公司</c:if>
+       	 <c:if test="${t.comId==10}">小万有限公司</c:if>
+       	 <c:if test="${t.comId==11}">小陈有限公司</c:if>
+       	 <c:if test="${t.comId==12}">小钟有限公司</c:if>
+       	 <c:if test="${t.comId==13}">小樊有限公司</c:if>
+       	 <c:if test="${t.comId==14}">小刘有限公司</c:if>
+        </td>         
+        <td width="180px"><fmt:formatDate value="${t.lastTime}" pattern="yyyy-MM-dd" /></td>
         </td>
         <td class="td-manage">
-        <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-        <a title="编辑"  href='bjgoods?id=${ t.dutId}'  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        <a title="删除" href='Sgoods?id=${ t.dutId}' class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
+        <a title="编辑"  href='sysdutyctlr/upadte.do?dutId=${ t.dutId}'  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
+        <a title="删除" href='sysdutyctlr/del.do?dutId=${t.dutId}' class="btn btn-xs btn-warning" onclick="return window.confirm('是否确定删除此用户?')"><i class="icon-trash  bigger-120"></i></a>
        </td>
 	  </tr>
     </c:forEach>
@@ -94,6 +104,7 @@
   </div>
  </div>
 </div>
+
 </body>
 </html>
 <script>
@@ -203,38 +214,12 @@ $(document).ready(function(){
 	var zTree = $.fn.zTree.getZTreeObj("tree");
 	zTree.selectNode(zTree.getNodeByParam("id",'11'));
 });	
-/*产品-停用*/
-function member_stop(obj,id){
-	layer.confirm('确认要停用吗？',function(index){
-		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" class="btn btn-xs " onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="icon-ok bigger-120"></i></a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
-		$(obj).remove();
-		layer.msg('已停用!',{icon: 5,time:1000});
-		
-	});
-}
 
-/*产品-启用*/
-function member_start(obj,id){
-	layer.confirm('确认要启用吗？',function(index){
-		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" class="btn btn-xs btn-success" onClick="member_stop(this,id)" href="javascript:;" title="停用"><i class="icon-ok bigger-120"></i></a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
-		$(obj).remove();
-		layer.msg('已启用!',{icon: 6,time:1000});
-	});
-}
 /*产品-编辑*/
 function member_edit(title,url,id,w,h){
 	layer_show(title,url,w,h);
 }
 
-/*产品-删除*/
-function member_del(obj,id){
-	layer.confirm('确认要删除吗？',function(index){
-		$(obj).parents("tr").remove();
-		layer.msg('已删除!',{icon:1,time:1000});
-	});
-}
 //面包屑返回值
 var index = parent.layer.getFrameIndex(window.name);
 parent.layer.iframeAuto(index);

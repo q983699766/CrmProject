@@ -1,11 +1,12 @@
 package com.sc.bean;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class SysEmpuser implements Serializable {
-    private BigDecimal empId;
+    private Long empId;
 
     private String empName;
 
@@ -33,19 +34,20 @@ public class SysEmpuser implements Serializable {
 
     private String empState;
 
-    private BigDecimal dutId;
+    private Long dutId;
 
     private String empSysstate;
 
     private String empRemark;
 
-    private BigDecimal comId;
-
+    private Long comId;
+    
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date lastTime;
 
     private static final long serialVersionUID = 1L;
 
-    public SysEmpuser(BigDecimal empId, String empName, String empSix, String empPrice, String empNumber, String empAddress, String empTadayadd, String empEduca, String empFace, String empSchool, String empPhone, String empMeshphone, String empContact, String empState, BigDecimal dutId, String empSysstate, String empRemark, BigDecimal comId, Date lastTime) {
+    public SysEmpuser(Long empId, String empName, String empSix, String empPrice, String empNumber, String empAddress, String empTadayadd, String empEduca, String empFace, String empSchool, String empPhone, String empMeshphone, String empContact, String empState, Long dutId, String empSysstate, String empRemark, Long comId, Date lastTime) {
         this.empId = empId;
         this.empName = empName;
         this.empSix = empSix;
@@ -71,11 +73,11 @@ public class SysEmpuser implements Serializable {
         super();
     }
 
-    public BigDecimal getEmpId() {
+    public Long getEmpId() {
         return empId;
     }
 
-    public void setEmpId(BigDecimal empId) {
+    public void setEmpId(Long empId) {
         this.empId = empId;
     }
 
@@ -183,11 +185,11 @@ public class SysEmpuser implements Serializable {
         this.empState = empState == null ? null : empState.trim();
     }
 
-    public BigDecimal getDutId() {
+    public Long getDutId() {
         return dutId;
     }
 
-    public void setDutId(BigDecimal dutId) {
+    public void setDutId(Long dutId) {
         this.dutId = dutId;
     }
 
@@ -207,11 +209,11 @@ public class SysEmpuser implements Serializable {
         this.empRemark = empRemark == null ? null : empRemark.trim();
     }
 
-    public BigDecimal getComId() {
+    public Long getComId() {
         return comId;
     }
 
-    public void setComId(BigDecimal comId) {
+    public void setComId(Long comId) {
         this.comId = comId;
     }
 

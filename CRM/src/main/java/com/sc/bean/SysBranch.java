@@ -1,23 +1,25 @@
 package com.sc.bean;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class SysBranch implements Serializable {
-    private BigDecimal secId;
+    private Long secId;
 
     private String secName;
 
     private String secComment;
 
-    private BigDecimal comId;
-
+    private Long comId;
+    
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date lastTime;
 
     private static final long serialVersionUID = 1L;
 
-    public SysBranch(BigDecimal secId, String secName, String secComment, BigDecimal comId, Date lastTime) {
+    public SysBranch(Long secId, String secName, String secComment, Long comId, Date lastTime) {
         this.secId = secId;
         this.secName = secName;
         this.secComment = secComment;
@@ -29,11 +31,11 @@ public class SysBranch implements Serializable {
         super();
     }
 
-    public BigDecimal getSecId() {
+    public Long getSecId() {
         return secId;
     }
 
-    public void setSecId(BigDecimal secId) {
+    public void setSecId(Long secId) {
         this.secId = secId;
     }
 
@@ -53,11 +55,11 @@ public class SysBranch implements Serializable {
         this.secComment = secComment == null ? null : secComment.trim();
     }
 
-    public BigDecimal getComId() {
+    public Long getComId() {
         return comId;
     }
 
-    public void setComId(BigDecimal comId) {
+    public void setComId(Long comId) {
         this.comId = comId;
     }
 

@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -19,6 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
 		<![endif]-->
+		<script type="text/javascript" src="assets/js/ace-extra.min.js"></script>
 		<script src="../js/jquery-1.9.1.min.js"></script>
 		<script src="../assets/layer/layer.js" type="text/javascript" ></script>
         <script src="../assets/laydate/laydate.js" type="text/javascript"></script>  
@@ -31,97 +34,81 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
+<script>
+function(){
+
+	var success = "${success}";
+	if(success=="success"){
+			layer.alert('修改密码成功，点击确定返回登录页面！',{
+               title: '提示框',				
+			   icon:1,			   		
+			  });
+	}
+}
+</script>
+
 <div class="clearfix">
  <div class="admin_info_style">
    <div class="admin_modify_style" id="Personal">
      <div class="type_title">个人账户信息 </div>
       <div class="xinxi">
-        <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">用户名： </label>
-          <div class="col-sm-9"><input type="text" name="用户名" id="website-title" value="张小泉" class="col-xs-7 text_info" disabled="disabled">
+        <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">用&nbsp;户&nbsp;名： </label>
+          <div class="col-sm-9"><input type="text" name="用户名" id="website-title" value="${nowuser.userName }" class="col-xs-7 text_info" disabled="disabled">
           &nbsp;&nbsp;&nbsp;<a href="javascript:ovid()" onclick="change_Password()" class="btn btn-warning btn-xs">修改密码</a></div>
           
           </div>
-          <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">性别： </label>
-          <div class="col-sm-9">
-          <span class="sex">男</span>
-            <div class="add_sex">
-            <label><input name="form-field-radio" type="radio" class="ace" checked="checked"><span class="lbl">保密</span></label>&nbsp;&nbsp;
-            <label><input name="form-field-radio" type="radio" class="ace"><span class="lbl">男</span></label>&nbsp;&nbsp;
-            <label><input name="form-field-radio" type="radio" class="ace"><span class="lbl">女</span></label>
-            </div>
-           </div>
+  			<form action="updatePassword.do" method="get" >
+          	</form>
+          <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">账户角色： </label>
+          <div class="col-sm-9" > <span>${role.roleName == null ? "无":role.roleName }</span></div>
           </div>
-          <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">年龄： </label>
-          <div class="col-sm-9"><input type="text" name="年龄" id="website-title" value="24" class="col-xs-7 text_info" disabled="disabled"></div>
+          
+          <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">员工编号： </label>
+          <div class="col-sm-9" > <span>${nowuser.empId }</span></div>
           </div>
-          <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">移动电话： </label>
-          <div class="col-sm-9"><input type="text" name="移动电话" id="website-title" value="13567878908" class="col-xs-7 text_info" disabled="disabled"></div>
+          <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">公司编号： </label>
+          <div class="col-sm-9" > <span>${nowuser.comId }</span></div>
           </div>
-          <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">电子邮箱： </label>
-          <div class="col-sm-9"><input type="text" name="电子邮箱" id="website-title" value="567890@qq.com" class="col-xs-7 text_info" disabled="disabled"></div>
-          </div>
-          <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">QQ： </label>
-          <div class="col-sm-9"><input type="text" name="QQ" id="website-title" value="456789787" class="col-xs-7 text_info" disabled="disabled"> </div>
-          </div>
-           <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">权限： </label>
-          <div class="col-sm-9" > <span>普通管理员</span></div>
+           <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">账户状态： </label>
+          <div class="col-sm-9" > <span>${nowuser.userState == '0' ? "可用":"不可用" }</span></div>
           </div>
            <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">注册时间： </label>
-          <div class="col-sm-9" > <span>2016-7-5</span></div>
+          <div class="col-sm-9" > <span><fmt:formatDate value="${nowuser.lastTime }" pattern="yyyy-MM-dd"/></span></div>
           </div>
            <div class="Button_operation clearfix"> 
-				<button onclick="modify();" class="btn btn-danger radius" type="submit">修改信息</button>				
+								
 				<button onclick="save_info();" class="btn btn-success radius" type="button">保存修改</button>              
 			</div>
             </div>
     </div>
     <div class="recording_style">
-    <div class="type_title">个人角色职位及相应权限说明 </div>
+    <div class="type_title">角色及相应权限说明 </div>
     <div class="recording_list">
      <table class="table table-border table-bordered table-bg table-hover table-sort" id="sample-table">
     <thead>
       <tr class="text-c">
-        <th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
-        <th width="80">ID</th>
-        <th width="100">类型</th>
-        <th>内容</th>
-        <th width="17%">登陆地点</th>
-        <th width="10%">用户名</th>
-        <th width="120">客户端IP</th>
-        <th width="150">时间</th>
+        
+        <th width="80">角色编号</th>
+        <th width="100">角色名称</th>
+        <th>角色描述</th>
+        <th width="25%">拥有权限</th>
+        <th width="80">上级角色编号</th>
+        <th width="120">创建时间</th>
       </tr>
     </thead>
     <tbody>
+    <c:forEach items="${roles }" var="r">
       <tr>
-        <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-        <td>15686</td>
-        <td>1</td>
-        <td>登录成功!</td>
-        <td>江苏南京</td>
-        <td>admin</td>
-        <td>61.233.7.80</td>
-        <td>2014-6-11 11:11:42</td>      
+        
+        <td>${r.roleId }</td>
+        <td>${r.roleName }</td>
+        <td>${r.roleDescribe }</td>
+        <td>${r.roleId }</td>
+        <td>${r.higherRoleId }</td>
+        <td><fmt:formatDate value="${r.lastTime }" pattern="yyyy-MM-dd"/></td>      
       </tr>
-         <tr>
-        <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-        <td>15686</td>
-        <td>1</td>
-        <td>登录成功!</td>
-        <td>江苏南京</td>
-        <td>admin</td>
-        <td>61.233.7.80</td>
-        <td>2014-6-11 11:11:42</td>      
-      </tr>
-         <tr>
-        <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-        <td>15686</td>
-        <td>1</td>
-        <td>登录成功!</td>
-        <td>江苏南京</td>
-        <td>admin</td>
-        <td>61.233.7.80</td>
-        <td>2014-6-11 11:11:42</td>      
-      </tr>
+   	</c:forEach>           
+    
     </tbody>
   </table>
     </div>
@@ -129,17 +116,63 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </div>
 </div>
  <!--修改密码样式-->
+ <form action="updatePassword.do" method="post" onsubmit="return t()">
          <div class="change_Pass_style" id="change_Pass">
             <ul class="xg_style">
-             <li><label class="label_name">原&nbsp;&nbsp;密&nbsp;码</label><input name="原密码" type="password" class="" id="password"></li>
-             <li><label class="label_name">新&nbsp;&nbsp;密&nbsp;码</label><input name="新密码" type="password" class="" id="Nes_pas"></li>
+             <li><label class="label_name">原&nbsp;&nbsp;密&nbsp;码</label><input name="oldpass" type="password" class="" id="password" ></li>
+             <li><label class="label_name">新&nbsp;&nbsp;密&nbsp;码</label><input name="password" type="password" class="" id="Nes_pas"></li>
              <li><label class="label_name">确认密码</label><input name="再次确认密码" type="password" class="" id="c_mew_pas"></li>
               
             </ul>
-     <!--       <div class="center"> <button class="btn btn-primary" type="button" id="submit">确认修改</button></div>-->
+           <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="确认修改">
          </div>
+         </form>
 </body>
 </html>
+
+<script>
+	function t(){
+		var pass1 = document.getElementById("password").value;
+		var pass2 = document.getElementById("Nes_pas").value;
+		var pass3 = document.getElementById("c_mew_pas").value;
+		if (pass1==""){
+			  layer.alert('原密码不能为空!',{
+              title: '提示框',				
+				icon:0,
+			    
+			 });
+			return false;
+          } 
+		  if (pass2==""){
+			  layer.alert('新密码不能为空!',{
+              title: '提示框',				
+				icon:0,
+			    
+			 });
+			return false;
+          } 
+		   
+		  if (pass3==""){
+			  layer.alert('确认新密码不能为空!',{
+              title: '提示框',				
+				icon:0,
+			    
+			 });
+			return false;
+          }
+		    if(pass2 != pass3 )
+        {
+            layer.alert('密码不一致!',{
+              title: '提示框',				
+				icon:0,
+			    
+			 });
+			 return false;
+        }
+	}	
+</script>
+
+
 <script>
 
  //按钮点击事件
@@ -194,7 +227,7 @@ function save_info(){
 	area: ['300px','300px'],
 	shadeClose: true,
 	content: $('#change_Pass'),
-	btn:['确认修改'],
+	
 	yes:function(index, layero){		
 		   if ($("#password").val()==""){
 			  layer.alert('原密码不能为空!',{
@@ -230,16 +263,31 @@ function save_info(){
 			 });
 			 return false;
         }   
-		 else{			  
-			  layer.alert('修改成功！',{
-               title: '提示框',				
-			icon:1,		
-			  }); 
-			  layer.close(index);      
+		 else{
+		 var params = {};
+	
+			params.password = $("#c_mew_pas").val();		
+		 
+		  /* $.ajax({
+				type:"post",
+				url:"userinfoctlr/updatePassword.do",
+				date:params,
+				dataType:"json",
+				success:function(m){
+					if(m.code == "200"){
+						layer.alert('修改成功！',{
+		               	title: '提示框',				
+						icon:1,		
+			  					}); 
+			 			 layer.close(index);
+						}	
+				}
+			}); */
+			      
 		  }	 
 	}
     });
-	  }
+	}
 </script>
 <script>
 jQuery(function($) {
