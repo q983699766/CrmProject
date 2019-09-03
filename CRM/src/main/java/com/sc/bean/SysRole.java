@@ -2,6 +2,7 @@ package com.sc.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,8 +16,28 @@ public class SysRole implements Serializable {
     private Long higherRoleId;
 
     private Long operatorId;
+    
+    private String highRoleName;
+    
+    private List<SysPermission> perms;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    public List<SysPermission> getPerms() {
+		return perms;
+	}
+
+	public void setPerms(List<SysPermission> perms) {
+		this.perms = perms;
+	}
+
+	public String getHighRoleName() {
+		return highRoleName;
+	}
+
+	public void setHighRoleName(String highRoleName) {
+		this.highRoleName = highRoleName;
+	}
+
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastTime;
 
     private static final long serialVersionUID = 1L;

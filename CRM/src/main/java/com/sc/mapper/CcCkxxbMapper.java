@@ -17,6 +17,7 @@ public interface CcCkxxbMapper {
     int insertSelective(CcCkxxb record);
 
     List<CcCkxxb> selectByExample(CcCkxxbExample example);
+    
 
     CcCkxxb selectByPrimaryKey(Long ckBh);
 

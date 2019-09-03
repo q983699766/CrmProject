@@ -59,7 +59,7 @@ function(){
           </div>
   			<form action="updatePassword.do" method="get" >
           	</form>
-          <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">员工职位： </label>
+          <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">账户角色： </label>
           <div class="col-sm-9" > <span>${role.roleName == null ? "无":role.roleName }</span></div>
           </div>
           
@@ -70,7 +70,7 @@ function(){
           <div class="col-sm-9" > <span>${nowuser.comId }</span></div>
           </div>
            <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">账户状态： </label>
-          <div class="col-sm-9" > <span>${nowuser.userState == '0' ? "在职":"已离职" }</span></div>
+          <div class="col-sm-9" > <span>${nowuser.userState == '0' ? "可用":"不可用" }</span></div>
           </div>
            <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">注册时间： </label>
           <div class="col-sm-9" > <span><fmt:formatDate value="${nowuser.lastTime }" pattern="yyyy-MM-dd"/></span></div>
@@ -82,17 +82,17 @@ function(){
             </div>
     </div>
     <div class="recording_style">
-    <div class="type_title">职位及相应权限说明 </div>
+    <div class="type_title">角色及相应权限说明 </div>
     <div class="recording_list">
      <table class="table table-border table-bordered table-bg table-hover table-sort" id="sample-table">
     <thead>
       <tr class="text-c">
         
-        <th width="80">职位编号</th>
-        <th width="100">职位名称</th>
-        <th>职位描述</th>
+        <th width="80">角色编号</th>
+        <th width="100">角色名称</th>
+        <th>角色描述</th>
         <th width="25%">拥有权限</th>
-        <th width="80">上级职位编号</th>
+        <th width="80">上级角色编号</th>
         <th width="120">创建时间</th>
       </tr>
     </thead>
@@ -103,7 +103,7 @@ function(){
         <td>${r.roleId }</td>
         <td>${r.roleName }</td>
         <td>${r.roleDescribe }</td>
-        <td>${r.roleId }</td>
+        <td><c:forEach items="${r.perms }" var="p"><p>${p.permissionName}</p></c:forEach></td>
         <td>${r.higherRoleId }</td>
         <td><fmt:formatDate value="${r.lastTime }" pattern="yyyy-MM-dd"/></td>      
       </tr>
@@ -116,7 +116,7 @@ function(){
  </div>
 </div>
  <!--修改密码样式-->
- <form action="updatePassword.do" method="post" onsubmit="return t()">
+ 		<form action="updatePassword.do" method="post" onsubmit="return t()">
          <div class="change_Pass_style" id="change_Pass">
             <ul class="xg_style">
              <li><label class="label_name">原&nbsp;&nbsp;密&nbsp;码</label><input name="oldpass" type="password" class="" id="password" ></li>
