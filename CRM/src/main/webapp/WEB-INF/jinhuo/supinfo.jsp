@@ -84,7 +84,7 @@
      <!---->
      <div class="border clearfix">
        <span class="l_f">
-        <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加供应商信息</a>
+        <a href="javascript:ovid()" name="pursupinfo/goaddinfo.do" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加供应商信息</a>
         <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
        </span>
        <span class="r_f">共：<b>2345</b>条</span>
@@ -182,7 +182,7 @@
      <li><label class="label_name" style="width: 100px;">公司编号：</label><span class="add_name"><input  type="text"  name="公司编号"class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name" style="width: 100px;">状态：</label><span class="add_name">
      <label><input name="form-field-radio1" type="radio" checked="checked" class="ace"><span class="lbl">启用</span></label>&nbsp;&nbsp;&nbsp;
-     <label><input name="form-field-radio1"type="radio" class="ace"><span class="lbl">禁止</span></label></span><div class="prompt r_f"></div></li>
+     <label><input name="form-field-radio1"type="radio" class="ace"><span class="lbl">停止</span></label></span><div class="prompt r_f"></div></li>
     </ul>
  </div>
 </form>

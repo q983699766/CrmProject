@@ -21,6 +21,8 @@ public interface PurSupInfoService {
 	//通过id修改供应商信息
 	public void updateinfo(PurSupInfo pursupinfo);
 
+	public void updateinfo(Long supInfoNum);
+
 
 
 
