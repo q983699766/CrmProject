@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sc.bean.SysBranch;
 import com.sc.bean.SysComoany;
 import com.sc.bean.SysDuty;
@@ -66,6 +68,15 @@ public class SysDutyServiceImpl implements SysDutyService {
 		
 		return this.sysComoanyMapper.selectByExample(null);
 	}
-	
+
+	@Override
+	public PageInfo<SysDuty> selectUsersPage(Integer pageNum, Integer pageSize, SysDuty u) {
+		PageHelper.startPage(pageNum, pageSize);
+		
+		List<SysDuty> list = this.sysdutymapper.selectByExample(null);
+		PageInfo<SysDuty> pi= new PageInfo<SysDuty>(list);
+		return pi;
+	}
+
 	
 }

@@ -47,7 +47,17 @@ public class SysEmpuser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public SysEmpuser(Long empId, String empName, String empSix, String empPrice, String empNumber, String empAddress, String empTadayadd, String empEduca, String empFace, String empSchool, String empPhone, String empMeshphone, String empContact, String empState, Long dutId, String empSysstate, String empRemark, Long comId, Date lastTime) {
+    @Override
+	public String toString() {
+		return "SysEmpuser [empId=" + empId + ", empName=" + empName + ", empSix=" + empSix + ", empPrice=" + empPrice
+				+ ", empNumber=" + empNumber + ", empAddress=" + empAddress + ", empTadayadd=" + empTadayadd
+				+ ", empEduca=" + empEduca + ", empFace=" + empFace + ", empSchool=" + empSchool + ", empPhone="
+				+ empPhone + ", empMeshphone=" + empMeshphone + ", empContact=" + empContact + ", empState=" + empState
+				+ ", dutId=" + dutId + ", empSysstate=" + empSysstate + ", empRemark=" + empRemark + ", comId=" + comId
+				+ ", lastTime=" + lastTime + "]";
+	}
+
+	public SysEmpuser(Long empId, String empName, String empSix, String empPrice, String empNumber, String empAddress, String empTadayadd, String empEduca, String empFace, String empSchool, String empPhone, String empMeshphone, String empContact, String empState, Long dutId, String empSysstate, String empRemark, Long comId, Date lastTime) {
         this.empId = empId;
         this.empName = empName;
         this.empSix = empSix;

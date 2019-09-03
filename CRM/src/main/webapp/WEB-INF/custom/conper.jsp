@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -77,9 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <div class="title_names">搜索查询</div>
       <ul class="search_content clearfix">
        <li><label class="l_f">客户名称</label><input name="" type="text"  class="text_add" placeholder="输入客户名称、电话、邮箱"  style=" width:400px"/></li>
-       <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li>
        <li style="width:90px;"><button type="button" class="btn_search"><i class="icon-search"></i>查询</button></li>
-       <li><a href="index.jsp">返回首页</a></li>
       </ul>
     </div>
      <!---->
@@ -118,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <td>13478965432</td>
           <td class="text-l">2</td>
           <td>2014-6-11 11:11:42</td>
-          <td><a href="#">查看用户</a></td>
+          <td><a href="javascript:ovid()" id="member_show" >查看客户</a></td>
           <td class="td-status"><span class="label label-success radius">正在合作</span></td>
           <td class="td-manage">
           <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
@@ -210,10 +209,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </div>
 </div>
 <!--添加用户图层-->
+<form action="#" method="post">
 <div class="add_menber" id="add_menber_style" style="display:none">
   
     <ul class=" page-content">
-     <li><label class="label_name">客户编号：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <!-- <li style="display:hidden"><label class="label_name">客户编号：</label><span class="add_name"><input  type="text" id="customId" class="text_add"/></span><div class="prompt r_f"></div></li> -->
+     <li><label class="label_name">客户名称：</label><span class="add_name"><input  type="text" name="客户名称" id="customName" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">客户属性：</label><span class="add_name"><input  type="text" name="客户属性" id="customProperties" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">网&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;站：</label><span class="add_name"><input  type="text" name="网站" id="website" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">股票代码：</label><span class="add_name"><input  type="text" name="股票代码" id="ticketCode" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">上级单位：</label><span class="add_name"><input name="上级单位" id="superiorUnits" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">所&nbsp;&nbsp;有&nbsp;&nbsp;者：</label><span class="add_name"><input  type="text" name="所有者" id="owner" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">员&nbsp;&nbsp;工&nbsp;&nbsp;数：</label><span class="add_name"><input  type="text" name="员工数" id="staff" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">行业编号：</label><span class="add_name"><input  type="text" name="行业编号" id="tradeNumber" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">客户类型：</label><span class="add_name"><input  type="text" name="客户类型" id="customType" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">客户来源：</label><span class="add_name"><input  type="text" name="客户来源" id="customSource" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">固定电话：</label><span class="add_name"><input  type="text" name="固定电话" id="fixedPhone" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">移动电话：</label><span class="add_name"><input  type="text" name="移动电话" id="cellPhone" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">客户传真：</label><span class="add_name"><input  type="text" name="客户传真" id="customFax" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">开户银行：</label><span class="add_name"><input  type="text" name="开户银行" id="depositBank" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">银行账户：</label><span class="add_name"><input  type="text" name="银行帐户" id="bankAccout" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">下次联系：</label><span class="add_name"><input  type="DATE" name="下次联系" id="nextcontactTime" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">电子邮件：</label><span class="add_name"><input  type="text" name="电子邮件" id="email" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">S&nbsp;I&nbsp;C编码：</label><span class="add_name"><input  type="text" name="SIC编码" id="sicCode" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">支付方式：</label><span class="add_name"><input  type="text" name="支付方式" id="payWay" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">是否有效：</label><span class="add_name"><input  type="text" name="是否有效" id="effectivity" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">详细地址：</label><span class="add_name"><input  type="text" name="详细地址" id="detailAddress" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">备注信息：</label><span class="add_name"><input  type="text" name="备注信息" id="remark" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">公司编号：</label><span class="add_name"><input  type="text" name="公司编号" id="comId" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">客户状态：</label><span class="add_name">
+     <label><input name="form-field-radio1" type="radio" checked="checked" class="ace"><span class="lbl">正在合作</span></label>&nbsp;&nbsp;&nbsp;
+     <label><input name="form-field-radio1"type="radio" class="ace"><span class="lbl">暂缓流失</span></label></span><div class="prompt r_f"></div></li>
+    </ul>
+ </div>
+ </form>
+ 
+ <!--修改用户图层-->
+ <form action="#" method="post">
+<div class="update_menber" id="update_menber_style" style="display:none"> 
+    <ul class=" page-content">
+     <!-- <li><label class="label_name">客户编号：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li> -->
      <li><label class="label_name">客户名称：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">客户属性：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">网&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;站：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
@@ -242,9 +277,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <label><input name="form-field-radio1"type="radio" class="ace"><span class="lbl">暂缓流失</span></label></span><div class="prompt r_f"></div></li>
     </ul>
  </div>
+ </form>
  
- <!--修改用户图层-->
-<div class="update_menber" id="update_menber_style" style="display:none">
+  <!--查看用户图层-->
+  <form action="#" method="post"></form>
+<div class="show_menber" id="show_menber_style" style="display:none">
   
     <ul class=" page-content">
      <li><label class="label_name">客户编号：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
@@ -276,7 +313,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <label><input name="form-field-radio1"type="radio" class="ace"><span class="lbl">暂缓流失</span></label></span><div class="prompt r_f"></div></li>
     </ul>
  </div>
- 
+ </form>
    	
   </body>
 </html>
@@ -317,7 +354,7 @@ jQuery(function($) {
 				}
 			})
 /*用户-添加*/
- $('#member_add').on('click', function(){
+  $('#member_add').on('click', function(){
     layer.open({
         type: 1,
         title: '添加客户',
@@ -351,11 +388,43 @@ jQuery(function($) {
 		  }		  		     				
 		}
     });
-});
+}); 
 /*用户-查看*/
-function member_show(title,url,id,w,h){
-	layer_show(title,url+'#?='+id,w,h);
-}
+  $('#member_show').on('click', function(){
+    layer.open({
+        type: 1,
+        title: '添加客户',
+		maxmin: true, 
+		shadeClose: true, //点击遮罩关闭层
+        area : ['800px' , ''],
+        content:$('#show_menber_style'),
+		
+		yes:function(index,layero){	
+		 var num=0;
+		 var str="";
+     $(".show_menber input[type$='text']").each(function(n){
+          if($(this).val()=="")
+          {
+               
+			   layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
+                title: '提示框',				
+				icon:0,								
+          }); 
+		    num++;
+            return false;            
+          } 
+		 });
+		  if(num>0){  return false;}	 	
+          else{
+			  layer.alert('添加成功！',{
+               title: '提示框',				
+			icon:1,		
+			  });
+			   layer.close(index);	
+		  }		  		     				
+		}
+    });
+}); 
 /*用户-停用*/
 function member_stop(obj,id){
 	layer.confirm('确认要停用吗？',function(index){
@@ -434,4 +503,13 @@ laydate({
 .member_content li .label_name { width:80px; text-align:right; float:left; line-height:30px;}
 .update_menber li .add_name{ float:left; margin-left:10px; line-height:30px;}
 .update_menber li .add_name .lbl{ top:-5px; left:10px;}
+
+
+.show_menber{}
+.show_menber li{ margin:10px 0px; height:40px; line-height:40px; float:left; width:50%}
+.show_menber li.adderss{ width:100%}
+.show_menber li .label_name,
+.member_content li .label_name { width:80px; text-align:right; float:left; line-height:30px;}
+.show_menber li .add_name{ float:left; margin-left:10px; line-height:30px;}
+.show_menber li .add_name .lbl{ top:-5px; left:10px;}
 </style>
