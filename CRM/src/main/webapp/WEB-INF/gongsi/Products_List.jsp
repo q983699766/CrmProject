@@ -35,22 +35,15 @@
 		margin-left: 1166px;
 		color: red;
 	}
+	.table table-striped table-bordered table-hover{
+	width: 1400px;
+	}
 	</style>
 </head>
 <body>
 		
 <div class=" page-content clearfix">
  <div id="products_style">
-    <div class="search_style">
-     <form action="sysdutyctlr/selects.do">
-      <ul class="search_content clearfix">
-       <li><label class="l_f">职位名称</label><input name="dutName" type="text" class="text_add" placeholder="输入职位名称"  style=" width:250px"/></li>
-       <li><label class="l_f">添加时间</label><input  name="lastTime" readonly="true" class="inline laydate-icon" id="start" style=" margin-left:10px;"></li>
-       <li style="width:90px;">
-       <input type="submit" class="btn_search" value="查找"></li>
-      </ul>
-      </form>
-    </div>
      <div class="border clearfix">
        <span class="l_f">
         <a href="sysdutyctlr/goadd.do" class="btn btn-warning Order_form"><i class="icon-plus"></i>添加职位信息</a>
@@ -61,34 +54,34 @@
        <div id="scrollsidebar" class="left_Treeview">
       </div>  
      </div>
-         <div class="table_menu_list" id="testIframe">
+       
        <table class="table table-striped table-bordered table-hover" id="sample-table">
 		<thead>
 		 <tr>
-				<th width="25px"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
-				<th width="80px">职位编号</th>
-				<th width="80px">职位名称</th> 
-				<th width="80px">所属部门</th> 
-				<th width="80px">备注说明</th>
-				<th width="80px">所属公司</th>
-				<th width="80px">修改时间</th> 
-				<th width="200px">操作</th>
+				<th width="10%"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
+				<th width="10%">职位编号</th>
+				<th width="10%">职位名称</th> 
+				<th width="10%">所属部门</th> 
+				<th width="20%">备注说明</th>
+				<th width="10%">所属公司</th>
+				<th width="10%">修改时间</th> 
+				<th width="60%">操作</th>
 			</tr>
 		</thead>
 	<tbody>
 	<c:forEach items="${pi.list }" var="t" >
      <tr>
-        <td width="25px"><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-        <td width="80px">${t.dutId }</td>               
-        <td width="150px"><u style="cursor:pointer" class="text-primary" onclick="">${t.dutName}</u></td>
-        <td width="100px">
+        <td width="10%"><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
+        <td width="10%">${t.dutId }</td>               
+        <td width="10%"><u style="cursor:pointer" class="text-primary" onclick="">${t.dutName}</u></td>
+        <td width="10%">
         <c:if test="${t.secId==1 }">物流部</c:if>
         <c:if test="${t.secId==2 }">客服部</c:if>
         <c:if test="${t.secId==7 }">人事部</c:if>
         <c:if test="${t.secId==8 }">决策部</c:if>
         </td>
-        <td width="100px">${t.dutRemark }</td> 
-        <td width="100px">
+        <td width="10%">${t.dutRemark }</td> 
+        <td width="10%">
          <c:if test="${t.comId==1}">小管有限公司</c:if>
        	 <c:if test="${t.comId==2}">小唐有限公司</c:if>
        	 <c:if test="${t.comId==3}">小余有限公司</c:if>
@@ -98,7 +91,7 @@
        	 <c:if test="${t.comId==13}">小樊有限公司</c:if>
        	 <c:if test="${t.comId==14}">小刘有限公司</c:if>
         </td>         
-        <td width="180px"><fmt:formatDate value="${t.lastTime}" pattern="yyyy-MM-dd" /></td>
+        <td width="10%"><fmt:formatDate value="${t.lastTime}" pattern="yyyy-MM-dd" /></td>
         </td>
         <td class="td-manage">
         <a title="编辑"  href='sysdutyctlr/upadte.do?dutId=${ t.dutId}'  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
@@ -118,7 +111,6 @@
     </div>     
   </div>
  </div>
-</div>
 </body>
 </html>
 <script>

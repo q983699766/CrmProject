@@ -30,22 +30,23 @@
         <script type="text/javascript" src="Widget/zTree/js/jquery.ztree.all-3.5.min.js"></script> 
         <script src="js/lrtk.js" type="text/javascript" ></script>
 	<title>产品列表</title>
+	<style type="text/css">
+	.page{
+		margin-left: 1166px;
+		color: red;
+	}
+	.table table-striped table-bordered table-hover{
+	width: 1400px;
+	}
+	</style>
 </head>
 <body>
 		
 <div class=" page-content clearfix">
  <div id="products_style">
-    <div class="search_style">
-     
-      <ul class="search_content clearfix">
-       <li><label class="l_f">职位名称</label><input name="" type="text"  class="text_add" placeholder="输入品牌名称"  style=" width:250px"/></li>
-       <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li>
-       <li style="width:90px;"><button type="button" class="btn_search"><i class="icon-search"></i>查询</button></li>
-      </ul>
-    </div>
      <div class="border clearfix">
        <span class="l_f">
-        <a href="sycompanyctlr/goadd.do" class="btn btn-warning Order_form"><i class="icon-plus"></i>添加公司信息</a>
+        <a href="sysEmpuser/list1.do" class="btn btn-warning Order_form"><i class="icon-plus"></i>添加员工信息</a>
        </span>
      </div>
      <!--产品列表展示-->
@@ -53,38 +54,46 @@
        <div id="scrollsidebar" class="left_Treeview">
       </div>  
      </div>
- 
+       
        <table class="table table-striped table-bordered table-hover" id="sample-table">
 		<thead>
 		 <tr>
-				<th width="25px"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
-				<th width="80px">公司编号</th>
-				<th width="80px">公司名称</th>
-				<th width="80px">联系人</th>
-				<th width="80px">公司地址</th> 
-				<th width="80px">公司电话</th>
-				<th width="80px">开户银行</th>
-				<th width="80px">备注信息</th>
-				<th width="80px">修改时间</th>  
-				<th width="200px">操作</th>
+				<th width="5%">员工编号</th>
+				<th width="8%">员工姓名</th> 
+				<th width="5%">性别</th> 
+				<th width="5%">照片</th>
+				<th width="8%">家庭地址</th>
+				<th width="5%">学历</th>
+				<th width="8%">毕业院校</th>
+				<th width="8%">联系方式</th>
+				<th width="8%">职务编号</th>
+				<th width="5%">状态</th>
+				<th width="8%">备注信息</th>
+				<th width="5%">公司编号</th>
+				<th width="5%">修改时间</th> 
+				<th width="8%">操作</th>
 			</tr>
 		</thead>
 	<tbody>
-	<c:forEach items="${selectComoany }" var="t" >
+	<c:forEach items="${Empuser }" var="t" >
      <tr>
-        <td width="25px"><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-        <td width="80px">${t.comId }</td>               
-        <td width="150px"><u style="cursor:pointer" class="text-primary" onclick="">${t.comName}</u></td>
-         <td width="100px">${t.comLinkman}</td>
-        <td width="100px">${t.comAddress}</td>
-        <td width="100px">${t.comPhone }</td> 
-        <td width="100px">${t.comBank }</td>   
-        <td width="100px">${t.comRemark }</td>    
-        <td width="180px"><fmt:formatDate value="${t.lastTime}" pattern="yyyy-MM-dd" /></td>
+        <td width="8%">${t.empId }</td>               
+        <td width="8%">${t.empName}</td>
+        <td width="5%">${t.empSix}</td>
+        <td width="8%"><a href="sysEmpuser/xz.do?empPrice=${t.empPrice}"><img src="upload/${t.empPrice}" width="60px" height="50px"></a> </td> 
+        <td width="8%">${t.empAddress}</td>
+        <td width="8%">${t.empEduca }</td> 
+        <td width="8%">${t.empSchool }</td> 
+        <td width="5%">${t.empPhone }</td> 
+         <td width="5%">${t.dutId }</td> 
+         <td width="8%">${t.empSysstate }</td> 
+         <td width="5%">${t.empRemark }</td> 
+         <td width="5%">${t.comId }</td> 
+        <td width="8%"><fmt:formatDate value="${t.lastTime}" pattern="yyyy-MM-dd" /></td>
         </td>
-        <td class="td-manage"> 
-        <a title="编辑"  href='sycompanyctlr/update.do?comId=${t.comId}' class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        <a title="删除" href='sycompanyctlr/del.do?comId=${t.comId}' class="btn btn-xs btn-warning" onclick="return window.confirm('是否确定删除此用户?')"><i class="icon-trash  bigger-120"></i></a>
+        <td class="td-manage">
+        <a title="编辑"  href='sysEmpuser/selectEmpuser.do?empId=${ t.empId}'  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
+        <a title="删除" href='sysEmpuser/delEmpuser.do?empId=${t.empId}' class="btn btn-xs btn-warning" onclick="return window.confirm('是否确定删除此用户?')"><i class="icon-trash  bigger-120"></i></a>
        </td>
 	  </tr>
     </c:forEach>
@@ -224,4 +233,4 @@ $('.Order_form').on('click', function(){
     parent.layer.close(index);
 	
 });
-</script> 
+</script>
