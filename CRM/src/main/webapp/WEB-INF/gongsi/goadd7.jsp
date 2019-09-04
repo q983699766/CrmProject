@@ -37,37 +37,29 @@ h1
    color: red;
 }
 </style>
-<center><h1>添加职务信息</h1></center> 
-    <form action="sysdutyctlr/updataduty.do" method="post"enctype="multipart/form-data" >
+
+
+		<center><h1>添加部门信息</h1></center> 
+    <form action="syBranchctlr/addBranch.do" method="post" >
+   
         <table>
             <tr>
-                <td>职务名称</td>
+                <td>部门名称</td>
                 <td>
-                <input type="text" name="dutName"  >
-                <input type="hidden" name="dutId" >
+                <input type="text" name="secName"  >
+                <input type="hidden" name="secId" >
                 </td>
             </tr>
             <tr>
-                <td>所属部门</td>
-                <td>
-                  <select name="secId" style="width: 300px;height: 40px;font-size:27px;color:green;">
-                  <option value="0">部门类型</option>
-                  <c:forEach items="${ls }" var="u">
-    			<option value="${u.secId}">${u.secName}</option>
-    			  </c:forEach>
- 				 </select>
-                </td>
-            </tr>
-            <tr>
-                <td>备注说明</td>
-                <td><input type="text" name="dutRemark"></td>
+                <td>备注信息</td>
+                <td><input type="text" name="secComment"></td>
             </tr>
             <tr>
                 <td>所属公司</td>
                 <td>
                  <select name="comId" style="width: 300px;height: 40px;font-size:27px;color:green;">
                   <option value="0">选择公司</option>
-                  <c:forEach items="${cs }" var="k">
+                  <c:forEach items="${as }" var="k">
     			<option value="${k.comId}">${k.comName}</option>
     			  </c:forEach>
  				 </select>

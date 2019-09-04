@@ -31,8 +31,13 @@ input
     outline: none;
     border:1px solid grey;
 }
+h1
+{
+   font-size: 40px;
+   color: red;
+}
 </style>
-
+			<center><h1>添加员工信息</h1></center> 
     <form action="sysEmpuser/add.do" method="post" enctype="multipart/form-data" >
         <table>
             <tr>
