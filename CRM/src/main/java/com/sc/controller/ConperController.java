@@ -30,4 +30,11 @@ public class ConperController {
 		return mav;
 	}
 	
+	
+	@RequestMapping("/record.do")
+	public ModelAndView record(ModelAndView mav){
+		mav.setViewName("custom/record");
+		return mav;
+	}
+	
 }

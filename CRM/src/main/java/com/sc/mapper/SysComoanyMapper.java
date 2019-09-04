@@ -19,7 +19,7 @@ public interface SysComoanyMapper {
 
     List<SysComoany> selectByExample(SysComoanyExample example);
 
-    SysComoany selectByPrimaryKey(BigDecimal comId);
+    SysComoany selectByPrimaryKey(Long comId);
 
     int updateByExampleSelective(@Param("record") SysComoany record, @Param("example") SysComoanyExample example);
 

@@ -5,11 +5,11 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sc.bean.SysBranch;
 import com.sc.bean.SysDuty;
-import com.sc.bean.Users;
 import com.sc.service.SysDutyService;
 
 @Controller
@@ -18,11 +18,14 @@ public class sysDutyController {
 	@Autowired
 	SysDutyService sysDutyService;
 	//查询职务信息
-	@RequestMapping("/list.do")
-	public ModelAndView test(ModelAndView mav){
-		System.out.println("进来啦！");
-		mav.addObject("look", sysDutyService.selectDuty());
-		mav.setViewName("gongsi/Products_List");
+	@RequestMapping("/listpage.do")
+	public ModelAndView listpage(ModelAndView mav,
+			@RequestParam(defaultValue="1")Integer pageNum,
+			@RequestParam(defaultValue="5")Integer pageSize){
+		//添加模型数据
+	    mav.addObject("pi", sysDutyService.selectUsersPage(pageNum, pageSize, null));//循环${pi.list}  ${pi.pageNum}
+		//设置视图名称
+		mav.setViewName("gongsi/Products_List");//响应的视图名称，路径是：/WEB-INF/users/listpage.jsp
 		return mav;
 	}
 	//删除职务信息
@@ -30,7 +33,7 @@ public class sysDutyController {
 	public ModelAndView delduty(ModelAndView mav,SysDuty dutId){
 		System.out.println("进来删除啦！");
 		sysDutyService.delduty(dutId);
-		mav.setViewName("redirect:list.do");
+		mav.setViewName("redirect:listpage.do");
 		return mav;
 	}
 	//添加职位信息
@@ -49,7 +52,7 @@ public class sysDutyController {
 		Date date = new Date();
 		u.setLastTime(date);
 		sysDutyService.upadtaduty(u);
-		mav.setViewName("redirect:list.do");
+		mav.setViewName("redirect:listpage.do");
 		return mav;
 	}
 	//查询要修改的信息
@@ -69,7 +72,8 @@ public class sysDutyController {
 		Date date = new Date();
 		u.setLastTime(date);
 		sysDutyService.updatee(u);
-		mav.setViewName("redirect:list.do");
+		mav.setViewName("redirect:listpage.do");
 		return mav;
 	}
+
 }
