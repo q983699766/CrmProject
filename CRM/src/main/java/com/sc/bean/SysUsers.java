@@ -1,5 +1,6 @@
 package com.sc.bean;
 
+import java.awt.List;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -19,8 +20,22 @@ public class SysUsers implements Serializable {
     private String userState;
     
     private String empName;
+    
+    private java.util.List<SysRole> roles;
 
-    public String getEmpName() {
+
+
+	public java.util.List<SysRole> getRoles() {
+		return roles;
+	}
+
+
+	public void setRoles(java.util.List<SysRole> roles) {
+		this.roles = roles;
+	}
+
+
+	public String getEmpName() {
 		return empName;
 	}
 

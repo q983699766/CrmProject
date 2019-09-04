@@ -21,4 +21,7 @@ public interface UsersService {
 	//添加用户
 	public void addUser(SysUsers user);
 	
+	//查找用户
+	public SysUsers selectById(Long usersId);
+	
 }

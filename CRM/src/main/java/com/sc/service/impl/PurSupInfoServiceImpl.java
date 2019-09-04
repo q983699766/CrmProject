@@ -44,7 +44,7 @@ public class PurSupInfoServiceImpl implements PurSupInfoService {
 	public void delinfo(Long supinfonum) {
 		if(supinfonum!=null){
 		this.purSupInfoMapper.deleteByPrimaryKey(supinfonum);
-	}
+	  }
 	}
 
 	 //id更新

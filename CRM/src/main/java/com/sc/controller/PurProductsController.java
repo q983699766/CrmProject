@@ -22,10 +22,11 @@ public class PurProductsController {
 		//查询所有待采购产品库存信息
 		@RequestMapping("/selectproducts.do")
 		public ModelAndView selectproducts (ModelAndView mav,Integer pageNum, Integer pageSize){
+
 			System.out.println("查询所有待采购产品库存信息+++++"+ccspxxservice.selectCcspxxPage(pageNum, pageSize));
 			mav.addObject("pi", ccspxxservice.selectCcspxxPage(pageNum, pageSize));
 			System.out.println(ccspxxservice.selectCcspxxPage(pageNum, pageSize));
-		    mav.setViewName("jinhuo/productsinfo");
+      mav.setViewName("jinhuo/productsinfo");
 			
 		    return mav;
 		}

@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -87,7 +88,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加客户</a>
         <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
        </span>
-       <span class="r_f">共：<b>2345</b>条</span>
      </div>
      <!---->
      <div class="table_menu_list">
@@ -108,7 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 		</thead>
 	<tbody>
-		<tr>
+		<!-- <tr>
           <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
           <td>1</td>
           <td>张三</td>
@@ -125,83 +125,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
           <a href="javascript:;">联系人</a>
           </td>
-		</tr>
-        <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>2</td>
-          <td>张小泉</td>
-          <td>个体商人</td>
-          <td>VIP客户</td>
-          <td>13878965432</td>
-          <td class="text-l">3</td>
-          <td>2014-6-11 11:11:42</td>
-          <td><a href="#">查看用户</a></td>
-          <td class="td-status"><span class="label label-success radius">正在合作</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('310')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          <a href="javascript:;">联系人</a>
-          </td>
-		</tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>3</td>
-          <td>王辉</td>
-          <td>学生</td>
-          <td>普通客户</td>
-          <td>13778965453</td>
-          <td class="text-l">1</td>
-          <td>2014-6-11 11:11:42</td>
-          <td><a href="#">查看用户</a></td>
-          <td class="td-status"><span class="label label-success radius">正在合作</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit(,'410')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-         
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          <a href="javascript:;">联系人</a>
-          </td>
-		</tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>4</td>
-          <td>张小虎</td>
-          <td>上班族</td>
-          <td>普通客户</td>
-          <td>18878962435</td>
-          <td class="text-l">2</td>
-          <td>2014-6-11 11:11:42</td>
-          <td><a href="#">查看用户</a></td>
-          <td class="td-status"><span class="label label-success radius">正在合作</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('560')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          <a href="javascript:;">联系人</a>
-          </td>
-		</tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>5</td>
-          <td>李斯</td>
-          <td>医生</td>
-          <td>VIP客户</td>
-          <td>18778965432</td>
-          <td class="text-l">3</td>
-          <td>2014-6-11 11:11:42</td>
-          <td><a href="#">查看用户</a></td>
-          <td class="td-status"><span class="label label-success radius">正在合作</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          <a href="javascript:;">联系人</a>
-          </td>
-		</tr>
+		</tr> -->
+		
+		<c:forEach items="${pi.list }" var="per">
+			<tr>
+				<td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
+				<td style="font-size:11px;">${per.customId }</td>
+				<td style="font-size:11px;">${per.customName}</td>
+				<td style="font-size:11px;">${per.customProperties}</td>
+				<td style="font-size:11px;">${per.customType}</td>
+				<td style="font-size:11px;">${per.cellPhone}</td>
+				<td style="font-size:11px;">${per.comId}</td>
+				<td style="font-size:11px;"><fmt:formatDate value="${per.nextcontactTime}"
+				pattern="yyyy-MM-dd HH:mm:ss" /></td>
+				<td style="font-size:11px;"><a href="javascript:ovid()" id="member_show" >查看客户</a></td>
+				<td class="td-status"><span class="label label-success radius">${per.customState}</span></td>
+				<td class="td-manage">
+		          <a title="编辑" onclick="jia(${per.customId });member_edit('550');" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
+		          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
+		          <a href="javascript:;">联系人</a>
+		        </td>
+			</tr>
+			</c:forEach>
+			<tr>
+	           			<td colspan="12" style="text-align: center">
+	           			<a href="conctrl/custom.do?pageNum=${pi.firstPage }">首页</a>
+	           			<a href="conctrl/custom.do?pageNum=${pi.prePage }">上一页</a>
+	           			<a href="conctrl/custom.do?pageNum=${pi.nextPage }">下一页</a>
+	           			<a href="conctrl/custom.do?pageNum=${pi.lastPage }">尾页</a>
+	           			当前${pi.pageNum}/${pi.pages}页,共${pi.total}条
+	           		</td>
+	           </tr>
       </tbody>
 	</table>
    </div>
@@ -241,6 +195,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <label><input name="form-field-radio1" type="radio" checked="checked" class="ace"><span class="lbl">正在合作</span></label>&nbsp;&nbsp;&nbsp;
      <label><input name="form-field-radio1"type="radio" class="ace"><span class="lbl">暂缓流失</span></label></span><div class="prompt r_f"></div></li>
     </ul>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div>
  </div>
  </form>
  
@@ -276,6 +231,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <label><input name="form-field-radio1" type="radio" checked="checked" class="ace"><span class="lbl">正在合作</span></label>&nbsp;&nbsp;&nbsp;
      <label><input name="form-field-radio1"type="radio" class="ace"><span class="lbl">暂缓流失</span></label></span><div class="prompt r_f"></div></li>
     </ul>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div>
  </div>
  </form>
  
@@ -362,7 +318,6 @@ jQuery(function($) {
 		shadeClose: true, //点击遮罩关闭层
         area : ['800px' , ''],
         content:$('#add_menber_style'),
-		btn:['提交','取消'],
 		yes:function(index,layero){	
 		 var num=0;
 		 var str="";
@@ -453,7 +408,6 @@ function member_edit(id){
 		shadeClose:false, //点击遮罩关闭层
         area : ['800px' , ''],
         content:$('#update_menber_style'),
-		btn:['提交','取消'],
 		yes:function(index,layero){	
 		 var num=0;
 		 var str="";
@@ -480,6 +434,24 @@ function member_edit(id){
 		}
     });
 }
+
+function jia(customId)
+    {
+        var url="conctlr/selectById.do?customId="+customId;
+   //ajax异步请求
+   $.ajax
+   ({
+      type:"post",
+      url:url,
+      dataType:"json",
+      success:function(data)
+      {//从前台回调回来的数组，处理后的数据
+       //alert(JSON.stringify(data));
+         $("#customNamex").val(data.customName);//将取出的值覆盖原来的值 （val对值进行操作)			   
+      }
+    });
+       
+    }
 /*用户-删除*/
 function member_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){

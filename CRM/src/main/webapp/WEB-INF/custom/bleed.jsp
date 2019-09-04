@@ -79,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <div class="border clearfix">
        <span class="l_f">
       	<p class="btn btn-danger">客户：张三</p>
-        <a href="#"  class="btn btn-warning"><i class="icon-plus"></i>添加联系人</a>
+        <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加联系人</a>
         <a href="javascript:ovid()" class="btn btn-danger">查看联系记录</a>
        </span>
        <span class="r_f">共：<b>2345</b>条</span>
@@ -126,7 +126,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </div>
 </div>
 
- 
  <!--修改用户图层-->
  <form action="#" method="post">
 <div class="update_menber" id="update_menber_style" style="display:none"> 
@@ -246,6 +245,5 @@ laydate({
 .member_content li .label_name { width:80px; text-align:right; float:left; line-height:30px;}
 .update_menber li .add_name{ float:left; margin-left:10px; line-height:30px;}
 .update_menber li .add_name .lbl{ top:-5px; left:10px;}
-
 
 </style>

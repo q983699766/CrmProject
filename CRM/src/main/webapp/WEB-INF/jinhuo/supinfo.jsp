@@ -182,7 +182,7 @@
      <li><label class="label_name" style="width: 100px;">公司编号：</label><span class="add_name"><input  type="text"  name="公司编号"class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name" style="width: 100px;">状态：</label><span class="add_name">
      <label><input name="form-field-radio1" type="radio" checked="checked" class="ace"><span class="lbl">启用</span></label>&nbsp;&nbsp;&nbsp;
-     <label><input name="form-field-radio1"type="radio" class="ace"><span class="lbl">停止</span></label></span><div class="prompt r_f"></div></li>
+     <label><input name="form-field-radio1"type="radio" class="ace"><span class="lbl">禁止</span></label></span><div class="prompt r_f"></div></li>
     </ul>
  </div>
 </form>

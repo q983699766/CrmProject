@@ -31,7 +31,8 @@ public interface PurSupInfoMapper {
     int updateByPrimaryKeySelective(PurSupInfo record);
 
      //通过id更新
-    int updateByPrimaryKey(Long supinfonum);
+    int updateByPrimaryKey(PurSupInfo pursupinfo);
+
 
 
 	

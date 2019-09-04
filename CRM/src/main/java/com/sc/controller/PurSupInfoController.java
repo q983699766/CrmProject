@@ -32,6 +32,7 @@ public class PurSupInfoController {
 	
 
 
+
 	//跳转到添加页面
 		@RequestMapping("/goaddinfo.do")
 		public ModelAndView goadd(ModelAndView mav){
@@ -56,20 +57,9 @@ public class PurSupInfoController {
 	
 	
 	
-	//跳转到修改供应商信息表
-	@RequestMapping("/goupdateinfo.do")
-	@ResponseBody
-	public PurSupInfo goupdateinfo (ModelAndView mav,Long  supinfonum ){
-		System.out.println("进入跳转修改供应商信息页面的方法");
-		
-		return  pursupinfoservice.SelectById(supinfonum);
-	}
-	
-	
 	//修改用户
 	@RequestMapping("/updateinfo.do")
 	public ModelAndView updateinfo(ModelAndView mav,
-		
 			PurSupInfo pursupinfo){ 
 		System.out.println("修改的的用户信息是："+pursupinfo);
 	    pursupinfoservice.updateinfo(pursupinfo.getSupInfoNum());
