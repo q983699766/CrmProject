@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sc.bean.SysRole;
@@ -21,6 +22,36 @@ public class RoleController {
 	
 	@Autowired
 	RolesService RolesService;
+	
+	@RequestMapping("/update.do")
+	public ModelAndView update111(ModelAndView mav, HttpSession session , HttpServletRequest req, SysRole role){
+		
+		Date date = new Date();
+		role.setLastTime(date);
+		SysUsers u = (SysUsers)session.getAttribute("nowuser");
+		
+		Long uid = u.getUserId();
+		role.setOperatorId(uid);
+		
+		RolesService.updateRole(role);
+		List<SysRole> list = RolesService.getRoleList();
+		
+		mav.addObject("roles", list);
+		
+		mav.setViewName("permission/roles");
+		return mav;
+	}
+	
+	
+	@RequestMapping("/selectById.do")
+	@ResponseBody//比如异步获取json数据，加上@responsebody后，会直接返回json数据
+	public SysRole selectById(ModelAndView mav , HttpServletRequest req){
+		String shiidstr = req.getParameter("roleId");
+		Long roleId =(long) Integer.parseInt(shiidstr);
+		
+		SysRole role = RolesService.selectById(roleId);
+		return role;
+	}
 	
 	
 	@RequestMapping("/add.do")

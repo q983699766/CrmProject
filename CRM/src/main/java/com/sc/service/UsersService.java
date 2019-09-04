@@ -15,6 +15,9 @@ public interface UsersService {
 	//修改用户
 	public void updateUser(SysUsers user);
 	
+	//修改用户
+	public void updateUserRole(SysUsers user, Long roleId, Long uid);
+	
 	//删除用户
 	public void delUser(Long userId);
 	
@@ -24,4 +27,6 @@ public interface UsersService {
 	//查找用户
 	public SysUsers selectById(Long usersId);
 	
+	//查找用户-用户名
+	public SysUsers selectByName(String userName);
 }

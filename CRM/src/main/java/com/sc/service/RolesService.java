@@ -22,4 +22,6 @@ public interface RolesService {
 	//添加角色
 	public void addRole(SysRole role);
 	
+	
+	public SysRole selectById(Long roleId);
 }
