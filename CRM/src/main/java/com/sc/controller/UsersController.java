@@ -1,5 +1,6 @@
 package com.sc.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +21,68 @@ public class UsersController {
 	@Autowired
 	UsersService UsersService;
 	
+	@RequestMapping("/add.do")
+	public ModelAndView update(ModelAndView mav , HttpServletRequest req, SysUsers user){
+		
+		Date date = new Date();
+		user.setLastTime(date);
+		
+		UsersService.addUser(user);
+		List<SysUsers> list = UsersService.getUsersList();
+		
+		mav.addObject("users", list);
+		
+		mav.setViewName("permission/users");
+		return mav;
+	}
+	
+	
+	@RequestMapping("/del.do")
+	public ModelAndView delById(ModelAndView mav , HttpServletRequest req, Long userId){
+		
+		UsersService.delUser(userId);
+		
+		List<SysUsers> list = UsersService.getUsersList();
+		
+		mav.addObject("users", list);
+		mav.setViewName("permission/users");
+		
+		return mav;
+	}
+	
+	
+	@RequestMapping("/updatesta.do")
+	public ModelAndView getUserInfo(ModelAndView mav , HttpServletRequest req, Long userId){
+		
+
+		SysUsers user = UsersService.selectById(userId);
+		
+		String userState = user.getUserState();
+		
+		if(userState.equals("0")){
+			user.setUserState("1");
+			Date date = new Date();
+			user.setLastTime(date);
+			UsersService.updateUser(user);
+			
+		}else{
+			user.setUserState("0");
+			Date date = new Date();
+			user.setLastTime(date);
+			UsersService.updateUser(user);
+		}
+		
+		List<SysUsers> list = UsersService.getUsersList();
+		
+		mav.addObject("users", list);
+		mav.setViewName("permission/users");
+		return mav;
+	
+	}
+	
+	
 	@RequestMapping("/getlist.do")
-	public ModelAndView getUserInfo(ModelAndView mav , HttpServletRequest req, HttpSession session){
+	public ModelAndView updateUserSta(ModelAndView mav , HttpServletRequest req, HttpSession session){
 		
 		List<SysUsers> list = UsersService.getUsersList();
 		
@@ -31,5 +92,4 @@ public class UsersController {
 		return mav;
 	
 	}
-	
 }
