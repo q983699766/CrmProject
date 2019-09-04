@@ -79,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <div class="border clearfix">
        <span class="l_f">
       	<p class="btn btn-danger">客户：张三</p>
-        <a href="#"  class="btn btn-warning"><i class="icon-plus"></i>添加联系人</a>
+        <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加联系人</a>
         <a href="javascript:ovid()" class="btn btn-danger">查看联系记录</a>
        </span>
        <span class="r_f">共：<b>2345</b>条</span>
@@ -126,6 +126,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </div>
 </div>
 
+ 
+ <!--添加用户图层-->
+ <form action="#" method="post">
+<div class="add_menber" id="add_menber_style" style="display:none"> 
+    <ul class=" page-content">
+     <!-- <li><label class="label_name">客户编号：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li> -->
+     <li><label class="label_name">联系姓名：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">英&nbsp;&nbsp;文&nbsp;&nbsp;名：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;务：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">办公电话：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">电子邮件：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">备注信息：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+    </ul>
+ </div>
+ </form>
+ 
+ 
  
  <!--修改用户图层-->
  <form action="#" method="post">
@@ -187,11 +207,49 @@ jQuery(function($) {
 			})
 
 
+/*用户-添加*/
+ $('#member_add').on('click', function(){
+    layer.open({
+        type: 1,
+        title: '添加联系人',
+		maxmin: true, 
+		shadeClose: true, //点击遮罩关闭层
+        area : ['800px' , ''],
+        content:$('#add_menber_style'),
+		btn:['提交','取消'],
+		yes:function(index,layero){	
+		 var num=0;
+		 var str="";
+     $(".add_menber input[type$='text']").each(function(n){
+          if($(this).val()=="")
+          {
+               
+			   layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
+                title: '提示框',				
+				icon:0,								
+          }); 
+		    num++;
+            return false;            
+          } 
+		 });
+		  if(num>0){  return false;}	 	
+          else{
+			  layer.alert('添加成功！',{
+               title: '提示框',				
+			icon:1,		
+			  });
+			   layer.close(index);	
+		  }		  		     				
+		}
+    });
+ });
+
+
 /*用户-编辑*/
 function member_edit(id){
 	  layer.open({
         type: 1,
-        title: '修改用户信息',
+        title: '修改联系人',
 		maxmin: true, 
 		shadeClose:false, //点击遮罩关闭层
         area : ['800px' , ''],
@@ -246,6 +304,7 @@ laydate({
 .member_content li .label_name { width:80px; text-align:right; float:left; line-height:30px;}
 .update_menber li .add_name{ float:left; margin-left:10px; line-height:30px;}
 .update_menber li .add_name .lbl{ top:-5px; left:10px;}
+
 
 
 </style>

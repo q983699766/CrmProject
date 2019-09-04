@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="search_style">
       <div class="title_names">搜索查询</div>
       <ul class="search_content clearfix">
-       <li><label class="l_f">会员名称</label><input name="" type="text"  class="text_add" placeholder="输入会员名称、电话、邮箱"  style=" width:400px"/></li>
+       <li><label class="l_f">产品名称</label><input name="" type="text"  class="text_add" placeholder="输入会员名称、电话、邮箱"  style=" width:400px"/></li>
        <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li>
        <li style="width:90px;"><button type="button" class="btn_search"><i class="icon-search"></i>查询</button></li>
       </ul>
@@ -76,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加用户</a>
         <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
        </span>
-       <span class="r_f">共：<b>2345</b>条</span>
+       <span class="r_f">共：<b>${pi.total }</b>条</span>
      </div>
      <!---->
      <div class="table_menu_list">
@@ -120,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <td class="td-manage">
           <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
           <a title="编辑" onclick="member_edit('550')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
+          <a title="删除" href="ccxxctlr/del.do?productId=${u.productId }"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
           </td>
 		</tr>
        </c:forEach>
@@ -143,27 +143,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </div>
 </div>
 <!--添加用户图层-->
+<form action="ccxxctlr/add.do" method="post">
 <div class="add_menber" id="add_menber_style" style="display:none">
   
     <ul class=" page-content">
-     <li><label class="label_name">用&nbsp;&nbsp;户 &nbsp;名：</label><span class="add_name"><input value="" name="用户名" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">真实姓名：</label><span class="add_name"><input name="真实姓名" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</label><span class="add_name">
-     <label><input name="form-field-radio" type="radio" checked="checked" class="ace"><span class="lbl">男</span></label>&nbsp;&nbsp;&nbsp;
-     <label><input name="form-field-radio" type="radio" class="ace"><span class="lbl">女</span></label>&nbsp;&nbsp;&nbsp;
-     <label><input name="form-field-radio" type="radio" class="ace"><span class="lbl">保密</span></label>
-     </span>
+     <li><label class="label_name">商&nbsp;&nbsp;品 &nbsp;名：</label><span class="add_name"><input  name="spMc" type="text" class="text_add"  required /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">商品类型</label><span class="add_name"><input name="spLb" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">规格说明</label><span class="add_name"><input name="ggSm" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">单位</label><span class="add_name"><input name="dw" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">仓库编号</label><span class="add_name"><input name="ckBh" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">库存数量</label><span class="add_name"><input name="kcSl" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">成本价</label><span class="add_name"><input name="cbj" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">零售价</label><span class="add_name"><input name="lsj" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">经销价</label><span class="add_name"><input name="jxj" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">备注信息</label><span class="add_name"><input name="bzxx" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">公司编号</label><span class="add_name"><input name="comId" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
      <div class="prompt r_f"></div>
-     </li>
-     <li><label class="label_name">固定电话：</label><span class="add_name"><input name="固定电话" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">移动电话：</label><span class="add_name"><input name="移动电话" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">电子邮箱：</label><span class="add_name"><input name="电子邮箱" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li class="adderss"><label class="label_name">家庭住址：</label><span class="add_name"><input name="家庭住址" type="text"  class="text_add" style=" width:350px"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</label><span class="add_name">
-     <label><input name="form-field-radio1" type="radio" checked="checked" class="ace"><span class="lbl">开启</span></label>&nbsp;&nbsp;&nbsp;
-     <label><input name="form-field-radio1"type="radio" class="ace"><span class="lbl">关闭</span></label></span><div class="prompt r_f"></div></li>
-    </ul>
+     </li> 
+    
+    <center>
+    <label><input name="form-field-radio1"type="submit"  value="提交" class="btn btn-prompt r_f"><span class="lbl"></span></label></span><div class="prompt r_f"></div></li>   
+ 	</center>
  </div>
+
+ </form>
 </body>
 </html>
 <script>
@@ -172,8 +175,8 @@ jQuery(function($) {
 				"aaSorting": [[ 1, "desc" ]],//默认第几个排序
 		"bStateSave": true,//状态保存
 		"aoColumnDefs": [
-		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		//{"bVisible": false, "aTargets": [ 3 ]}, //控制列的隐藏显示
+		{"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序 
 		] } );
 				
 				
@@ -211,7 +214,7 @@ jQuery(function($) {
 		shadeClose: true, //点击遮罩关闭层
         area : ['800px' , ''],
         content:$('#add_menber_style'),
-		btn:['提交','取消'],
+		/* btn:['提交','取消'], */
 		yes:function(index,layero){	
 		 var num=0;
 		 var str="";
@@ -219,7 +222,7 @@ jQuery(function($) {
           if($(this).val()=="")
           {
                
-			   layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
+			   layer.alert(str+=""+$(this).attr("#name")+"不能为空！\r\n",{
                 title: '提示框',				
 				icon:0,								
           }); 
@@ -270,7 +273,7 @@ function member_edit(id){
 		shadeClose:false, //点击遮罩关闭层
         area : ['800px' , ''],
         content:$('#add_menber_style'),
-		btn:['提交','取消'],
+		//btn:['提交','取消'],
 		yes:function(index,layero){	
 		 var num=0;
 		 var str="";
