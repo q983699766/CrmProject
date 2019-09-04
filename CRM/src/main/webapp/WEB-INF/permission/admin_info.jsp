@@ -103,7 +103,7 @@ function(){
         <td>${r.roleId }</td>
         <td>${r.roleName }</td>
         <td>${r.roleDescribe }</td>
-        <td>${r.roleId }</td>
+        <td><c:forEach items="${r.perms }" var="p"><p>${p.permissionName}</p></c:forEach></td>
         <td>${r.higherRoleId }</td>
         <td><fmt:formatDate value="${r.lastTime }" pattern="yyyy-MM-dd"/></td>      
       </tr>
@@ -116,7 +116,7 @@ function(){
  </div>
 </div>
  <!--修改密码样式-->
- <form action="updatePassword.do" method="post" onsubmit="return t()">
+ 		<form action="updatePassword.do" method="post" onsubmit="return t()">
          <div class="change_Pass_style" id="change_Pass">
             <ul class="xg_style">
              <li><label class="label_name">原&nbsp;&nbsp;密&nbsp;码</label><input name="oldpass" type="password" class="" id="password" ></li>

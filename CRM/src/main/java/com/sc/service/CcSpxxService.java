@@ -17,7 +17,7 @@ public interface CcSpxxService {
 	//通过id管理我的库存商品信息
 	public PageInfo<Ccspxxb> selectCcspxxByUid(Integer pageNum, Integer pageSize,Integer uid);
 	//删除库存该商品
-	public void delCcspxx(Integer fwid);
+	public void delCcspxx(Long productId);
 	//修改库存的商品信息
 	public void updateCcspxx(CcCkxxb u);
 }

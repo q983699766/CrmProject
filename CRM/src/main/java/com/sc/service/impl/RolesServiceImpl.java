@@ -71,13 +71,13 @@ public class RolesServiceImpl implements RolesService{
 
 	@Override
 	public void delRole(Long RoleId) {
-		// TODO Auto-generated method stub
+		SysRoleMapper.deleteByPrimaryKey(RoleId);
 		
 	}
 
 	@Override
 	public void addRole(SysRole role) {
-		// TODO Auto-generated method stub
+		SysRoleMapper.insert(role);
 		
 	}
 
