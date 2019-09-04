@@ -34,5 +34,6 @@ public interface PurSupInfoMapper {
     int updateByPrimaryKey(PurSupInfo pursupinfo);
 
 
+
 	
 }

@@ -84,7 +84,7 @@
      <!---->
      <div class="border clearfix">
        <span class="l_f">
-        <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加供应商信息</a>
+        <a href="javascript:ovid()" name="pursupinfo/goaddinfo.do" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加供应商信息</a>
         <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
        </span>
        <span class="r_f">共：<b>2345</b>条</span>
