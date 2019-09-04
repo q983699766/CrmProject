@@ -1,15 +1,19 @@
 package com.sc.controller;
 
+import java.io.IOException;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sc.bean.PurSupInfo;
+import com.sc.bean.SalCustomInfo;
 import com.sc.service.PurSupInfoService;
 
 @Controller
@@ -21,53 +25,57 @@ public class PurSupInfoController {
 	
 	//查询所有供应商信息
 	@RequestMapping("/selectinfo.do")
-	public ModelAndView selectinfo (ModelAndView mav){
+	public ModelAndView selectinfo (ModelAndView mav,
+			@RequestParam(defaultValue="1")Integer pageNum,
+			@RequestParam(defaultValue="5")Integer pageSize){
 		System.out.println("进入查询供应商信息方法");
-		mav.addObject("info", pursupinfoservice.selectByExample(null));
-		System.out.println(pursupinfoservice.selectByExample(null));
+		mav.addObject("pi", pursupinfoservice.selectall(pageNum, pageSize));
+		System.out.println(pursupinfoservice.selectall(pageNum, pageSize));
 	    mav.setViewName("jinhuo/supinfo");
 		
 	    return mav;
 	}
 	
-
-
-
-	//跳转到添加页面
-		@RequestMapping("/goaddinfo.do")
-		public ModelAndView goadd(ModelAndView mav){
-			mav.setViewName("jinhuo/supinfo");
-			return mav;
-		}
-		
-	
-		//添加用户
+	//添加用户
 		@RequestMapping("/addinfo.do")
-		public ModelAndView add(ModelAndView mav,
-				MultipartFile files,
-				HttpServletRequest req,
-				PurSupInfo pursupinfo){ 
-			System.out.println("添加的用户信息是："+pursupinfo);
-		    pursupinfoservice.addinfo(pursupinfo);
-			
-			//重定向到列表方法
-			mav.setViewName("redirect:selectinfo.do");
-			return mav;
+		public ModelAndView addinfo(ModelAndView mav,PurSupInfo pursupinfo){
+			System.out.println("进入添加供应商信息方法");
+			System.out.println(pursupinfo);
+			Date date=new Date();
+			pursupinfo.setLastDate(date);
+			 pursupinfoservice.addinfo(pursupinfo);
+			 mav.setViewName("redirect:selectinfo.do");
+		    return mav;
 		}
 	
+	//查看详情
+	@RequestMapping("/select.do")
+	@ResponseBody
+	public PurSupInfo selectById(ModelAndView mav,HttpServletRequest req) throws IllegalStateException, IOException {
+		String purSupInfoNum = req.getParameter("purSupInfoNum");
+		Long uid =(long) Integer.parseInt(purSupInfoNum);
+		System.out.println("获取到的用户编号为:"+uid);
+		PurSupInfo pursupinfo=pursupinfoservice.SelectById(uid);
+		System.out.println("查出的用户为"+pursupinfo);
+		return pursupinfo;
+		
+	}
 	
 	
+	
+		
 	//修改用户
 	@RequestMapping("/updateinfo.do")
 	public ModelAndView updateinfo(ModelAndView mav,
 			PurSupInfo pursupinfo){ 
 		System.out.println("修改的的用户信息是："+pursupinfo);
-	    pursupinfoservice.updateinfo(pursupinfo.getSupInfoNum());
+	    pursupinfoservice.updateinfo(pursupinfo);
 		
 		//重定向到列表方法
 		mav.setViewName("redirect:selectinfo.do");
 		return mav;
 	}
+	
 	 //删除信息
   @RequestMapping("/delinfo.do")
 	public ModelAndView del(ModelAndView mav,PurSupInfo pursupinfo){

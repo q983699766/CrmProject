@@ -33,6 +33,8 @@ public interface PurSupInfoMapper {
      //通过id更新
     int updateByPrimaryKey(PurSupInfo pursupinfo);
 
+    int updateByid(Long supInfoNum);
+
 
 
 	

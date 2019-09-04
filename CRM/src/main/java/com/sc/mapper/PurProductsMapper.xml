@@ -42,6 +42,16 @@
       </foreach>
     </where>
   </sql>
+  
+  
+  <!--   //模糊查询 -->
+<select id="checkByName" resultMap="BaseResultMap" parameterType="PurProducts" >
+   select * from PUR_PRODUCTSLEFT JOIN CC_SPXXB
+   ON PUR_PRODUCTS.PRODUCT_ID=CC_SPXXB.PRODUCT_ID WHERE CC_SPXXB.KC_SL<5099
+	    
+	 	 	
+  </select>
+  
   <sql id="Update_By_Example_Where_Clause" >
     <where >
       <foreach collection="example.oredCriteria" item="criteria" separator="or" >

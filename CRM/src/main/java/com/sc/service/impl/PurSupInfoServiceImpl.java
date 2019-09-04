@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sc.bean.PurSupInfo;
 import com.sc.bean.PurSupInfoExample;
 import com.sc.mapper.PurSupInfoMapper;
@@ -27,14 +29,22 @@ public class PurSupInfoServiceImpl implements PurSupInfoService {
 
 	//查询所有
 	@Override
-	public List<PurSupInfo> selectByExample(PurSupInfoExample example) {
-		return this.purSupInfoMapper.selectByExample(null); //空对象代表查所有，
-	}
+	public PageInfo<PurSupInfo> selectall(Integer pageNum,Integer pageSize) {
+		   //设置开始分页
+			PageHelper.startPage(pageNum, pageSize);
+			PurSupInfoExample example = new PurSupInfoExample();
+			//调用查询所有的方法
+			List<PurSupInfo> list=this.purSupInfoMapper.selectByExample(example);
+			//封装LIST到pageinfo
+			PageInfo<PurSupInfo> pi = new PageInfo<PurSupInfo>(list);
+			
+			return pi;
+		}
 
 	//添加
 	@Override
 	public void addinfo(PurSupInfo pursupinfo) {
-	if(pursupinfo.getSupInfoNum()!=null){
+	  if(pursupinfo!=null){
 		this.purSupInfoMapper.insert(pursupinfo);
 	   }
 	}
@@ -43,7 +53,7 @@ public class PurSupInfoServiceImpl implements PurSupInfoService {
 	@Override
 	public void delinfo(Long supinfonum) {
 		if(supinfonum!=null){
-		this.purSupInfoMapper.deleteByPrimaryKey(supinfonum);
+	   	this.purSupInfoMapper.deleteByPrimaryKey(supinfonum);
 	  }
 	}
 
@@ -51,18 +61,16 @@ public class PurSupInfoServiceImpl implements PurSupInfoService {
 	@Override
 	public void updateinfo(PurSupInfo pursupinfo) {
 		if(pursupinfo!=null&&pursupinfo.getSupInfoNum()!=null){
-			this.purSupInfoMapper.updateByPrimaryKey(pursupinfo.getSupInfoNum());
+			this.purSupInfoMapper.updateByid(pursupinfo.getSupInfoNum());
 		}
 	}
 
 	
-	@Override
-	public void updateinfo(Long supInfoNum) {
-		if(supInfoNum!=null){
-			this.purSupInfoMapper.updateByPrimaryKey(supInfoNum);
-		}
-		
-	}
+
+
+	
+	
+
 	 
 
 
