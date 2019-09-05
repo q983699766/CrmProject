@@ -48,4 +48,9 @@ public class PermServiceImpl implements PermissionService{
 		SysPermissionRoleMapper.insert(sysPR);
 	}
 
+	@Override
+	public void reset() {
+		SysPermissionRoleMapper.reset();
+	}
+
 }
