@@ -1,9 +1,12 @@
 package com.sc.mapper;
 
+import java.util.Date;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.sc.bean.SysDuty;
 import com.sc.bean.SysDutyExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface SysDutyMapper {
     int countByExample(SysDutyExample example);
@@ -27,4 +30,6 @@ public interface SysDutyMapper {
     int updateByPrimaryKeySelective(SysDuty record);
 
     int updateByPrimaryKey(SysDuty record);
+    
+	List<SysDuty> findByNames(@Param("dutName") String dutName,@Param("lastTime")Date lastTime);
 }
