@@ -24,8 +24,10 @@ public class sysDutyController {
 			@RequestParam(defaultValue="5")Integer pageSize){
 		//添加模型数据
 	    mav.addObject("pi", sysDutyService.selectUsersPage(pageNum, pageSize, null));//循环${pi.list}  ${pi.pageNum}
+	    mav.addObject("ls", sysDutyService.selesetSysBranch());
+		mav.addObject("cs", sysDutyService.selectSysComoany());
 		//设置视图名称
-		mav.setViewName("gongsi/Products_List");//响应的视图名称，路径是：/WEB-INF/users/listpage.jsp
+		mav.setViewName("gongsi/sysduty");//响应的视图名称，路径是：/WEB-INF/users/listpage.jsp
 		return mav;
 	}
 	//删除职务信息
@@ -40,8 +42,6 @@ public class sysDutyController {
 	@RequestMapping("/goadd.do")
 	public ModelAndView goadd(ModelAndView mav,SysBranch u) {
 		System.out.println("来了四弟！");
-		mav.addObject("ls", sysDutyService.selesetSysBranch());
-		mav.addObject("cs", sysDutyService.selectSysComoany());
 		mav.setViewName("gongsi/goadd");
 		return mav;
 	}

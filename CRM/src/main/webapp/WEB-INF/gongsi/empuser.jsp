@@ -46,7 +46,7 @@
  <div id="products_style">
      <div class="border clearfix">
        <span class="l_f">
-        <a href="sysEmpuser/list1.do" class="btn btn-warning Order_form"><i class="icon-plus"></i>添加员工信息</a>
+        <a href="javascript:ovid()" id="member_add" class="btn btn-warning" title="添加员工信息"><i class="fa fa-plus"></i>&nbsp;添加员工信息</a>
        </span>
      </div>
      <!--产品列表展示-->
@@ -102,6 +102,47 @@
     </div>     
   </div>
  </div>
+ <!--添加用户图层--> 
+ <form action="sysEmpuser/add.do" method="post" enctype="multipart/form-data">
+<div class="add_menber" id="add_menber_style" style="display:none">
+  
+    <ul class=" page-content">
+     <li><label class="label_name">员工姓名：</label><span class="add_name"><input  type="hidden" name="empId" ><input value="" name="empName" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">员工性别：</label><span class="add_name"><input name="empSix" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+  	 <li><label class="label_name">员工照片：</label><span class="add_name"><input value="" name="files" type="file"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+  	 <li><label class="label_name">身份证号：</label><span class="add_name"><input value="" name="empNumber" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+  	 <li><label class="label_name">家乡地址：</label><span class="add_name"><input value="" name="empAddress" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+  	 <li><label class="label_name">现在地址：</label><span class="add_name"><input value="" name="empTadayadd" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+  	 <li><label class="label_name">员工学历：</label><span class="add_name"><input value="" name="empEduca" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">政治面貌：</label><span class="add_name"><input value="" name="empFace" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+  	 <li><label class="label_name">毕业学校：</label><span class="add_name"><input value="" name="empSchool" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+  	 <li><label class="label_name">联系电话：</label><span class="add_name"><input value="" name="empPhone" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+  	 <li><label class="label_name">网上联系方式：</label><span class="add_name"><input value="" name="empMeshphone" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+  	 <li><label class="label_name">网上联系详情：</label><span class="add_name"><input value="" name="empContact" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+  	 <li><label class="label_name">审核状态：</label><span class="add_name"><input value="" name="empState" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+  	 <li><label class="label_name">职务编号：</label><span class="add_name">
+  	<select name="dutId" style="width: 170px;color:green;">
+                  <option value="0">选择公司</option>
+                  <c:forEach items="${coom }" var="s">
+    			<option value="${s.dutId}">${s.dutName}</option>
+    			  </c:forEach>
+ 				 </select>
+  	 </span><div class="prompt r_f"></div></li>
+  	 <li><label class="label_name">员工状态：</label><span class="add_name"><input value="" name="empSysstate" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+  	 <li><label class="label_name">备注信息：</label><span class="add_name"><input value="" name="empRemark" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+  	 <li><label class="label_name">公司编号：</label><span class="add_name">
+  	 <select name="comId" style="width: 170px;color:green;">
+                  <option value="0">选择公司</option>
+                  <c:forEach items="${com }" var="k">
+    			<option value="${k.comId}">${k.comName}</option>
+    			  </c:forEach>
+ 				 </select>
+  	 </span><div class="prompt r_f"></div></li>
+  	
+    </ul>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="添加"><br/><br/><br/><br/>
+ </div>
+  </form>
 </body>
 </html>
 <script>
@@ -230,6 +271,87 @@ $('.Order_form').on('click', function(){
 	parent.$('#parentIframe').css("display","inline-block");
 	parent.$('.Current_page').attr({"name":herf,"href":"javascript:void(0)"}).css({"color":"#4c8fbd","cursor":"pointer"});
 	//parent.$('.Current_page').html("<a href='javascript:void(0)' name="+herf+" class='iframeurl'>" + cnames + "</a>");
+    parent.layer.close(index);
+	
+});
+</script>
+<script type="text/javascript">
+/*用户-添加*/
+ $('#member_add').on('click', function(){
+    layer.open({
+        type: 1,
+        title: '添加员工信息',
+		maxmin: true, 
+		shadeClose: true, //点击遮罩关闭层
+        area : ['800px' , ''],
+        content:$('#add_menber_style'),
+		
+		yes:function(index,layero){	
+		 var num=0;
+		 var str="";
+     $(".add_menber input[type$='text']").each(function(n){
+          if($(this).val()=="")
+          {
+			 layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
+             title: '提示框',				
+			icon:0,								
+          }); 
+		    num++;
+            return false;            
+          } 
+		 });
+		  if(num>0){  return false;}	 	
+          else{
+			  layer.alert('添加成功！',{
+               title: '提示框',				
+			icon:1,		
+			  });
+			   layer.close(index);	
+		  }		  		     				
+		}
+    });
+});
+
+ /*权限-删除*/
+function Competence_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$(obj).parents("tr").remove();
+		layer.msg('已删除!',{icon:1,time:1000});
+	});
+}
+/*修改权限*/
+function Competence_del(id){
+		window.location.href ="Competence.html?="+id;
+};	
+/*字数限制*/
+function checkLength(which) {
+	var maxChars = 200; //
+	if(which.value.length > maxChars){
+	   layer.open({
+	   icon:2,
+	   title:'提示框',
+	   content:'您出入的字数超多限制!',	
+    });
+		// 超过限制的字数了就将 文本框中的内容按规定的字数 截取
+		which.value = which.value.substring(0,maxChars);
+		return false;
+	}else{
+		var curr = maxChars - which.value.length; //250 减去 当前输入的
+		document.getElementById("sy").innerHTML = curr.toString();
+		return true;
+	}
+};
+//面包屑返回值
+var index = parent.layer.getFrameIndex(window.name);
+parent.layer.iframeAuto(index);
+$('.Order_form ,#Competence_add').on('click', function(){
+	var cname = $(this).attr("title");
+	var cnames = parent.$('.Current_page').html();
+	var herf = parent.$("#iframe").attr("src");
+    parent.$('#parentIframe span').html(cname);
+	parent.$('#parentIframe').css("display","inline-block");
+    parent.$('.Current_page').attr("name",herf).css({"color":"#4c8fbd","cursor":"pointer"});
+	//parent.$('.Current_page').html("<a href='javascript:void(0)' name="+herf+">" + cnames + "</a>");
     parent.layer.close(index);
 	
 });
