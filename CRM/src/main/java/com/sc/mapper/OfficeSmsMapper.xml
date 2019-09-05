@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sc.mapper.OfficeSmsMapper" >
+  
   <resultMap id="BaseResultMap" type="com.sc.bean.OfficeSms" >
     <constructor >
       <idArg column="SMS_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
@@ -228,4 +229,25 @@
       LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
     where SMS_ID = #{smsId,jdbcType=DECIMAL}
   </update>
+  
+  
+  
+ <!--  <resultMap type="OfficeSms" id="officeSmsMap">
+		<id column="SMS_ID" property="smsId" />
+		<id column="SMS_HEADLINE" property="smsHeadline" />
+		<id column="SMS_CONTENT" property="smsContent" />
+		<id column="SMS_SENDER" property="smsSender" />
+		<id column="COM_ID" property="comId" />
+		<id column="LAST_TIME" property="lastTime" />
+
+		一对一配置
+		<association property="teacher" javaType="Teacher">
+			<id column="teacherId" property="teacherId" />
+			<id column="teacherName" property="teacherName" />
+			<id column="teacherNumber" property="teacherNumber" />
+			<id column="teacherAge" property="teacherAge" />
+
+		</association>
+
+	</resultMap> -->
 </mapper>
