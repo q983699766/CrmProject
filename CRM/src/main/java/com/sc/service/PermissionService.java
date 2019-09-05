@@ -22,6 +22,9 @@ public interface PermissionService {
 		//删除权限
 		public void delPerm(Long permId);
 		
+		//清除权限
+		public void reset();
+		
 		//给角色配置权限
 		public void roleAddPerm(SysPermissionRole sysPR);
 	

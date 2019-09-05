@@ -92,6 +92,13 @@
     from SYS_PERMISSION_ROLE
     where PERMISSION_ROLE_ID = #{permissionRoleId,jdbcType=DECIMAL}
   </select>
+  
+  <delete id="reset">
+    delete from SYS_PERMISSION_ROLE
+    where ROLE_ID != 8
+  </delete>
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from SYS_PERMISSION_ROLE
     where PERMISSION_ROLE_ID = #{permissionRoleId,jdbcType=DECIMAL}

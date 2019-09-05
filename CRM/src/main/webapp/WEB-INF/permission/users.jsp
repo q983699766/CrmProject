@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <div class="margin clearfix">
    <div class="border clearfix">
        <span class="l_f">
-        <a href="javascript:ovid()" id="member_add" class="btn btn-warning" title="添加用户"><i class="fa fa-plus"></i>&nbsp;添加用户</a>
+        <a href="javascript:ovid()" id="member_add" class="btn btn-warning" title="添加用户账号"><i class="fa fa-plus"></i>&nbsp;添加用户</a>
         
        </span>
        
@@ -44,7 +44,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        <table id="sample-table-1" class="table table-striped table-bordered table-hover">
 		 <thead>
 			<tr>
-			  
 			  <th>用户账号</th>
               <th>用户密码</th>
               <th>用户姓名</th>
@@ -62,11 +61,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 				<td>******</td>
 				<td>${u.empName }</td>
-				<td><c:forEach items="${u.roles }" var="r"><p>${r.roleName }</p></c:forEach></td>
+				<td>${u.roleName }</td>
 				<td><fmt:formatDate value="${u.lastTime }" pattern="yyyy-MM-dd HH:mm"/></td>
 				<td>${u.userState=='0' ? "可用":"不可用"}</td>
 				<td>
-                 <a title="编辑" onclick="Competence_modify('560')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
+                 <a title="编辑" onclick="jia(${u.userId },${r.roleName });member_edit('550');" href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
                  <a title="删除" href="del.do?userId=${u.userId }"  onclick="Competence_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
                   <a title="切换状态" href="updatesta.do?userId=${u.userId }"  onclick="Competence_del(this,'1')" class="btn btn-xs btn-info" ><i class="fa fa-exchange  bigger-120"></i></a>
 				</td>
@@ -87,7 +86,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
    </div> 
   </div>-->
-  
+
+
+<!--修改用户图层-->
+ <form action="update.do" method="post">
+ <input type="hidden" name="userId" id="userId"/>
+ <input type="hidden" name="userPassword" id="userPassword"/>
+ <input type="hidden" name="empId" id="empId"/>
+ <input type="hidden" name="comId" id="comId"/>
+ <input type="hidden" name="userState" id="userState"/>
+<div class="add_menber" id="update_menber_style" style="display:none"> 
+    <ul class=" page-content">
+     <!-- <li><label class="label_name">客户编号：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li> -->
+     <li><label class="label_name">用户账号：</label><span class="add_name"><input  type="text" name="userName" id="userName" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">用户密码：</label><span class="add_name">&nbsp;&nbsp;&nbsp;●●●●●●<!-- <input  type="password" name="userPassword" id="userPassword" class="text_add"/> --></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">用户角色：</label><span class="add_name">
+     		&nbsp;&nbsp;&nbsp;&nbsp;<select id="roles" name="roleId">
+                <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
+            </select></span><div class="prompt r_f"></div></li>
+    </ul><br/><br/><br/><br/><br/><br/><br/><br/>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br/><br/>
+ </div>
+</form>
+
+
  <!--添加用户图层--> 
  <form action="add.do" method="post">
 <div class="add_menber" id="add_menber_style" style="display:none">
@@ -98,9 +120,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      
      <div class="prompt r_f"></div>
      </li>
-     <li><label class="label_name">员工编号：</label><span class="add_name"><input name="empId" type="text"  class="text_add" placeholder="选填" /></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">公司编号：</label><span class="add_name"><input name="comId" type="text"  class="text_add" placeholder="选填"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">添加角色：</label><span class="add_name"><input name="roleId" type="text"  class="text_add" placeholder="选填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">员工编号：</label><span class="add_name"><input name="empId" type="text"  class="text_add" placeholder="必填" /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">公司编号：</label><span class="add_name"><input name="comId" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">添加角色：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="roles" name="roleId">
+                <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
+            </select></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</label><span class="add_name">
      <label><input name="userState" value="0" type="radio" checked="checked" class="ace"><span class="lbl">启用</span></label>&nbsp;&nbsp;&nbsp;
      <label><input name="userState" value="1" type="radio" class="ace"><span class="lbl">不启用</span></label></span><div class="prompt r_f"></div></li><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
@@ -113,6 +137,73 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </body>
 </html>
 <script type="text/javascript">
+/*用户-编辑*/
+function member_edit(id){
+	  layer.open({
+        type: 1,
+        title: '修改用户信息',
+		maxmin: true, 
+		shadeClose:false, //点击遮罩关闭层
+        area : ['800px' , ''],
+        content:$('#update_menber_style'),
+		yes:function(index,layero){	
+		 var num=0;
+		 var str="";
+     $(".update_menber input[type$='text']").each(function(n){
+          if($(this).val()=="")
+          {
+               
+			   layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
+                title: '提示框',				
+				icon:0,								
+          }); 
+		    num++;
+            return false;            
+          } 
+		 });
+		  if(num>0){  return false;}	 	
+          else{
+			  layer.alert('添加成功！',{
+               title: '提示框',				
+			icon:1,		
+			  });
+			   layer.close(index);	
+		  }		  		     				
+		}
+    });
+}
+
+function jia(userId,roleName)
+    {
+        var url="selectById.do?userId="+userId;
+   //ajax异步请求
+   $.ajax
+   ({
+      type:"post",
+      url:url,
+      dataType:"json",
+      success:function(data)
+      {//从前台回调回来的数组，处理后的数据
+       //alert(JSON.stringify(data));
+         $("#userName").val(data.userName);//将取出的值覆盖原来的值 （val对值进行操作)	
+         $("#userPassword").val(data.userPassword);
+         $("#empName").val(data.empName);
+         $("#roles").val(data.roleName);
+         $("#userId").val(data.userId);
+         $("#userPassword").val(data.userPassword);
+         $("#empId").val(data.empId);
+         $("#comId").val(data.comId);
+         $("#userState").val(data.userState);
+         var roleName = data.roleName;	
+         $("#roles").children().each(function(i, element) {
+         	if(element.innerHTML == roleName)element.selected = "true";
+         });	   
+      }
+    });
+}
+
+
+
 /*用户-添加*/
  $('#member_add').on('click', function(){
     layer.open({
