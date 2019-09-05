@@ -48,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <th>用户密码</th>
               <th>用户姓名</th>
               <th>用户所拥有角色</th>
-              <th>最后操作时间</th>
+              <th>上次操作时间</th>
 			  <th class="hidden-480">用户状态</th>             
 			  <th class="hidden-480">操作</th>
              </tr>

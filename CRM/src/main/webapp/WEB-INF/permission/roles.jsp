@@ -83,6 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      		&nbsp;&nbsp;&nbsp;&nbsp;<select id="roles" name="higherRoleId">
                 <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
+    <li><label class="label_name">操&nbsp;作&nbsp;人：</label><span class="add_name">${nowuser.userName }</span><div class="prompt r_f"></div></li>
     </ul><br/><br/><br/><br/><br/><br/><br/><br/>
     <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br/><br/>
  </div>
