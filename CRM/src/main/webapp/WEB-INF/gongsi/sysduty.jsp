@@ -29,13 +29,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <script src="../assets/layer/layer.js" type="text/javascript" ></script>          
         <script src="../assets/laydate/laydate.js" type="text/javascript"></script>
 <title>管理用户</title>
+<style type="">
+.page{
+		margin-left: 1400px;
+		color: red;
+	}
+</style>
 </head>
 
 <body>
  <div class="margin clearfix">
    <div class="border clearfix">
        <span class="l_f">
-        <a href="javascript:ovid()" id="member_add" class="btn btn-warning" title="添加用户"><i class="fa fa-plus"></i>&nbsp;添加部门</a>
+        <a href="javascript:ovid()" id="member_add" class="btn btn-warning" title="添加用户"><i class="fa fa-plus"></i>&nbsp;添加职位信息</a>
         
        </span>
        
@@ -45,45 +51,74 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 <thead>
 			<tr>
 			  
-			  <th>部门编号</th>
-              <th>部门名称</th>
-              <th>备注信息</th>
-               <th>所属公司</th>
-              <th>最后操作时间</th>           
-			  <th class="hidden-480">操作</th>
+				<th width="10%">职位编号</th>
+				<th width="10%">职位名称</th> 
+				<th width="10%">所属部门</th> 
+				<th width="20%">备注说明</th>
+				<th width="10%">所属公司</th>
+				<th width="10%">修改时间</th> 
+				<th width="60%">操作</th>
              </tr>
 		    </thead>
              <tbody>
-             <c:forEach items="${branch }" var="u">
-			  <tr>
-				
-				<td>${u.secId }</td>
-				<td>${u.secName }</td>
-				<td>${u.secComment }</td>
-				<td>${u.comId }</td>
-				<td><fmt:formatDate value="${u.lastTime }" pattern="yyyy-MM-dd HH:mm"/></td>
-				<td>
-                 <a title="编辑" onclick="Competence_modify('560')" href='selectBranch.do?secId=${u.secId}'  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
-                 <a title="删除" href='delBranch.do?secId=${u.secId}'  onclick="Competence_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
+           <c:forEach items="${pi.list }" var="t" >
+     	<tr>
+        <td width="10%">${t.dutId }</td>               
+        <td width="10%"><u style="cursor:pointer" class="text-primary" onclick="">${t.dutName}</u></td>
+        <td width="10%">
+        <c:if test="${t.secId==1 }">物流部</c:if>
+        <c:if test="${t.secId==2 }">客服部</c:if>
+        <c:if test="${t.secId==7 }">人事部</c:if>
+        <c:if test="${t.secId==8 }">决策部</c:if>
+        </td>
+        <td width="10%">${t.dutRemark }</td> 
+        <td width="10%">
+         <c:if test="${t.comId==1}">小管有限公司</c:if>
+       	 <c:if test="${t.comId==2}">小唐有限公司</c:if>
+       	 <c:if test="${t.comId==3}">小余有限公司</c:if>
+       	 <c:if test="${t.comId==10}">小万有限公司</c:if>
+       	 <c:if test="${t.comId==11}">小陈有限公司</c:if>
+       	 <c:if test="${t.comId==12}">小钟有限公司</c:if>
+       	 <c:if test="${t.comId==13}">小樊有限公司</c:if>
+       	 <c:if test="${t.comId==14}">小刘有限公司</c:if>
+        </td>         
+        <td width="10%"><fmt:formatDate value="${t.lastTime}" pattern="yyyy-MM-dd" /></td>
+        <td>
+               <a title="编辑" onclick="Competence_modify('560')" href='upadte.do?dutId=${ t.dutId}'  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
+                <a title="删除" href='del.do?dutId=${t.dutId}'  onclick="Competence_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
 				</td>
 			   </tr>
 			   </c:forEach>												
 		      </tbody>
 	        </table>
+	        <div class="page">
+    	<a href="listpage.do?pageNum=${pi.firstPage }">首页</a>
+           <a href="listpage.do?pageNum=${pi.prePage }">上页</a>
+           <a href="listpage.do?pageNum=${pi.nextPage }">下页</a>
+           <a href="listpage.do?pageNum=${pi.lastPage }">尾页</a>
+           	当前第${pi.pageNum }/ ${pi.pages }页，共${pi.total } 条数据。
+          </div>
      </div>
  </div>
 
   
  <!--添加用户图层--> 
- <form action="addBranch.do" method="post">
+ <form action="updataduty.do" method="post">
 <div class="add_menber" id="add_menber_style" style="display:none">
-  
     <ul class=" page-content">
-     <li><label class="label_name">职务名称：</label><span class="add_name"><input value="" name="secName" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">备注信息：</label><span class="add_name"><input name="secComment" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">公司编号：</label><span class="add_name"><select name="comId" style="width: 170px;color:green;">
+     <li><label class="label_name">职位名称：</label><span class="add_name"><input value="" name="dutName" type="text"  class="text_add" placeholder="必填"/><input type="hidden" name="dutId" ></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">所属部门：</label><span class="add_name">
+      <select name="secId" style="width: 170px;color:green;">
+                  <option value="0">部门类型</option>
+                  <c:forEach items="${ls }" var="u">
+    			<option value="${u.secId}">${u.secName}</option>
+    			  </c:forEach>
+ 				 </select>
+     </span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">备注信息：</label><span class="add_name"><input name="dutRemark" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+	 <li><label class="label_name">所属公司：</label><span class="add_name"><select name="comId" style="width: 170px;color:green;">
                   <option value="0">选择公司</option>
-                  <c:forEach items="${as }" var="k">
+                  <c:forEach items="${cs }" var="k">
     			<option value="${k.comId}">${k.comName}</option>
     			  </c:forEach>
  				 </select>
@@ -100,7 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  $('#member_add').on('click', function(){
     layer.open({
         type: 1,
-        title: '添加职务',
+        title: '添加职位',
 		maxmin: true, 
 		shadeClose: true, //点击遮罩关闭层
         area : ['800px' , ''],
@@ -133,8 +168,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     });
 });
 
-
-
+ /*权限-删除*/
+function Competence_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$(obj).parents("tr").remove();
+		layer.msg('已删除!',{icon:1,time:1000});
+	});
+}
+/*修改权限*/
+function Competence_del(id){
+		window.location.href ="Competence.html?="+id;
+};	
 /*字数限制*/
 function checkLength(which) {
 	var maxChars = 200; //

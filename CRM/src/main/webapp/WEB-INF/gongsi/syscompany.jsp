@@ -29,13 +29,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <script src="../assets/layer/layer.js" type="text/javascript" ></script>          
         <script src="../assets/laydate/laydate.js" type="text/javascript"></script>
 <title>管理用户</title>
+<style type="">
+.page{
+		margin-left: 1400px;
+		color: red;
+	}
+</style>
 </head>
 
 <body>
  <div class="margin clearfix">
    <div class="border clearfix">
        <span class="l_f">
-        <a href="javascript:ovid()" id="member_add" class="btn btn-warning" title="添加用户"><i class="fa fa-plus"></i>&nbsp;添加部门</a>
+        <a href="javascript:ovid()" id="member_add" class="btn btn-warning" title="添加用户"><i class="fa fa-plus"></i>&nbsp;添加公司信息</a>
         
        </span>
        
@@ -44,30 +50,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        <table id="sample-table-1" class="table table-striped table-bordered table-hover">
 		 <thead>
 			<tr>
-			  
-			  <th>部门编号</th>
-              <th>部门名称</th>
-              <th>备注信息</th>
-               <th>所属公司</th>
-              <th>最后操作时间</th>           
-			  <th class="hidden-480">操作</th>
+				<th width="80px">公司编号</th>
+				<th width="80px">公司名称</th>
+				<th width="80px">联系人</th>
+				<th width="80px">公司地址</th> 
+				<th width="80px">公司电话</th>
+				<th width="80px">开户银行</th>
+				<th width="80px">备注信息</th>
+				<th width="80px">修改时间</th>  
+				<th width="200px">操作</th>
              </tr>
 		    </thead>
              <tbody>
-             <c:forEach items="${branch }" var="u">
-			  <tr>
-				
-				<td>${u.secId }</td>
-				<td>${u.secName }</td>
-				<td>${u.secComment }</td>
-				<td>${u.comId }</td>
-				<td><fmt:formatDate value="${u.lastTime }" pattern="yyyy-MM-dd HH:mm"/></td>
-				<td>
-                 <a title="编辑" onclick="Competence_modify('560')" href='selectBranch.do?secId=${u.secId}'  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
-                 <a title="删除" href='delBranch.do?secId=${u.secId}'  onclick="Competence_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
-				</td>
-			   </tr>
-			   </c:forEach>												
+      	<c:forEach items="${selectComoany }" var="t" >
+     <tr>
+        
+        <td width="80px">${t.comId }</td>               
+        <td width="150px"><u style="cursor:pointer" class="text-primary" onclick="">${t.comName}</u></td>
+         <td width="100px">${t.comLinkman}</td>
+        <td width="100px">${t.comAddress}</td>
+        <td width="100px">${t.comPhone }</td> 
+        <td width="100px">${t.comBank }</td>   
+        <td width="100px">${t.comRemark }</td>    
+        <td width="180px"><fmt:formatDate value="${t.lastTime}" pattern="yyyy-MM-dd" /></td>
+        <td class="td-manage"> 
+        <a title="编辑" onclick="Competence_modify('560')" href='update.do?comId=${t.comId}'  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
+        <a title="删除" href='del.do?comId=${t.comId}' onclick="Competence_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
+		</tr>
+    </c:forEach>											
 		      </tbody>
 	        </table>
      </div>
@@ -75,19 +85,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   
  <!--添加用户图层--> 
- <form action="addBranch.do" method="post">
+ <form action="goadde.do" method="post">
 <div class="add_menber" id="add_menber_style" style="display:none">
-  
     <ul class=" page-content">
-     <li><label class="label_name">职务名称：</label><span class="add_name"><input value="" name="secName" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">备注信息：</label><span class="add_name"><input name="secComment" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">公司编号：</label><span class="add_name"><select name="comId" style="width: 170px;color:green;">
-                  <option value="0">选择公司</option>
-                  <c:forEach items="${as }" var="k">
-    			<option value="${k.comId}">${k.comName}</option>
-    			  </c:forEach>
- 				 </select>
-     </span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">公司名称：</label><span class="add_name"><input value="" name="comName" type="text"  class="text_add" placeholder="必填"/><input type="hidden" name="comId"></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">公司代码：</label><span class="add_name"><input name="comCode" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">公司邮箱：</label><span class="add_name"><input name="comEmail" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">联系人：</label><span class="add_name"><input name="comLinkman" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+   	 <li><label class="label_name">公司地址：</label><span class="add_name"><input name="comAddress" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">固定电话：</label><span class="add_name"><input name="comPhone" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">移动电话：</label><span class="add_name"><input name="comYphone" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">传真：</label><span class="add_name"><input name="comFax" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">开户银行：</label><span class="add_name"><input name="comBank" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">银行账户：</label><span class="add_name"><input name="comBankuser" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">是否有效：</label><span class="add_name"><input name="comYesandno" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">备注信息：</label><span class="add_name"><input name="comRemark" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+    
     </ul>
     <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="添加"><br/><br/><br/><br/>
  </div>
@@ -100,7 +113,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  $('#member_add').on('click', function(){
     layer.open({
         type: 1,
-        title: '添加职务',
+        title: '添加公司',
 		maxmin: true, 
 		shadeClose: true, //点击遮罩关闭层
         area : ['800px' , ''],
@@ -133,8 +146,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     });
 });
 
-
-
+ /*权限-删除*/
+function Competence_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$(obj).parents("tr").remove();
+		layer.msg('已删除!',{icon:1,time:1000});
+	});
+}
+/*修改权限*/
+function Competence_del(id){
+		window.location.href ="Competence.html?="+id;
+};	
 /*字数限制*/
 function checkLength(which) {
 	var maxChars = 200; //
