@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%
 String path = request.getContextPath();
@@ -78,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <!---->
      <div class="border clearfix">
        <span class="l_f">
-      	<p class="btn btn-danger">客户：张三</p>
+      	<p class="btn btn-danger">客户：${conper.customName }</p>
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加联系人</a>
         <a href="javascript:ovid()" class="btn btn-danger">查看联系记录</a>
        </span>
@@ -103,7 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 		</thead>
 	<tbody>
-		<tr>
+		<!-- <tr>
           <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
           <td style="font-size:13px;">张三</td>
           <td style="font-size:13px;">SanZhang</td>
@@ -118,7 +119,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <a title="编辑" onclick="member_edit('550')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
           <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
           </td>
+		</tr> -->
+		<c:forEach items="${conper.salconper}" var="a">
+		<tr>
+		<td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>	
+		 <td style="font-size:13px;">${a.conperName}</td>
+          <td style="font-size:13px;">${a.englishName}</td>
+          <td style="font-size:13px;">${a.post}</td>
+          <td style="font-size:13px;w">${a.dept}</td>
+          <td style="font-size:13px;">${a.cellPhone}</td>
+          <td style="font-size:13px;">${a.tel}</td>
+          <td style="font-size:13px;">${a.email}</td>
+          <td style="font-size:13px;">${a.address}</td>
+          <td style="font-size:13px;">${a.remark}</td>
+          <td class="td-manage">
+          <a title="编辑" onclick="member_edit('550')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
+          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
+          </td>
 		</tr>
+		</c:forEach>
       </tbody>
 	</table>
    </div>
