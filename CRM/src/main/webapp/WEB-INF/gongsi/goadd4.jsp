@@ -33,6 +33,11 @@ h1
    font-size: 40px;
    color: red;
 }
+select {
+	 width: 300px;
+    height: 30px;
+	color:green;
+}
 </style>
 				  <center><h1>修改公司信息</h1></center> 
     <form action="sycompanyctlr/updatee.do" method="post">
@@ -76,7 +81,15 @@ h1
             </tr>
              <tr>
                 <td>开户银行</td>
-                <td><input type="text" name="comBank" value="${ update.comBank}"></td>
+                <td>
+                  <select   name="comBank">
+      <option value="0">请选择--</option>
+      <option value="1">招商银行</option>
+      <option value="2">中国银行</option>
+      <option value="3">建设银行</option>
+      <option value="4">邮政银行</option>
+      <option value="5">平安银行</option>
+      </select>
             </tr>
              <tr>
                 <td>银行账户</td>
@@ -84,7 +97,13 @@ h1
             </tr>
              <tr>
                 <td>是否有效</td>
-                <td><input type="text" name="comYesandno" value="${update.comYesandno }"></td>
+                <td>
+                <select   name="comYesandno">
+      			<option value="0">请选择--</option>
+      			<option value="1">有效</option>
+      			<option value="2">无效</option>
+     			 </select>
+                </td>
             </tr>
              <tr>
                 <td>备注信息</td>
