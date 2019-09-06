@@ -22,6 +22,28 @@
       <arg column="BANK_NUMBER" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
     </constructor>
   </resultMap>
+  <!--   //模糊查询 -->
+<select id="checkByName" resultMap="BaseResultMap" parameterType="com.sc.bean.PurSupInfo" >
+   select * from PUR_SUP_INFO 
+	     <where>
+	 	 	<if test="supName != null and supName != ''">
+                 SUP_NAME LIKE CONCAT('%',#{supName },'%' )
+             </if>
+             <if test="supUname != null and supUname != ''">
+                 SUP_UNAME LIKE CONCAT('%',#{supUname },'%' )
+             </if>
+             <if test="contacts != null and contacts != ''">
+                 CONTACTS LIKE CONCAT('%',#{contacts,jdbcType="VARCHAR" },'%' )
+             </if>
+           <!--  <if test="telphone != ''">
+                and TELPHONE=#{TELPHONE}
+            </if> -->
+            <if test="supInfoNum != 0">
+                and SUP_INFO_NUM=#{supInfoNum}
+            </if>
+            
+         </where> 
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

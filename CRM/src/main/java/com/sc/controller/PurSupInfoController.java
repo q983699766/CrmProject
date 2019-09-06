@@ -2,6 +2,7 @@ package com.sc.controller;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,10 +28,11 @@ public class PurSupInfoController {
 	@RequestMapping("/selectinfo.do")
 	public ModelAndView selectinfo (ModelAndView mav,
 			@RequestParam(defaultValue="1")Integer pageNum,
-			@RequestParam(defaultValue="5")Integer pageSize){
+			@RequestParam(defaultValue="5")Integer pageSize,PurSupInfo pursupinfo){
+		
 		System.out.println("进入查询供应商信息方法");
-		mav.addObject("pi", pursupinfoservice.selectall(pageNum, pageSize));
-		System.out.println(pursupinfoservice.selectall(pageNum, pageSize));
+		mav.addObject("pi", pursupinfoservice.selectall(pageNum, pageSize,pursupinfo));
+		System.out.println(pursupinfoservice.selectall(pageNum, pageSize,pursupinfo));
 	    mav.setViewName("jinhuo/supinfo");
 		
 	    return mav;
@@ -52,7 +54,9 @@ public class PurSupInfoController {
 	@RequestMapping("/select.do")
 	@ResponseBody
 	public PurSupInfo selectById(ModelAndView mav,HttpServletRequest req) throws IllegalStateException, IOException {
-		String purSupInfoNum = req.getParameter("purSupInfoNum");
+		System.out.println("进入查看弹层页面");
+		String purSupInfoNum = req.getParameter("supInfoNum");
+		System.out.println(purSupInfoNum);
 		Long uid =(long) Integer.parseInt(purSupInfoNum);
 		System.out.println("获取到的用户编号为:"+uid);
 		PurSupInfo pursupinfo=pursupinfoservice.SelectById(uid);
@@ -62,13 +66,13 @@ public class PurSupInfoController {
 	}
 	
 	
-	
-		
 	//修改用户
 	@RequestMapping("/updateinfo.do")
 	public ModelAndView updateinfo(ModelAndView mav,
 			PurSupInfo pursupinfo){ 
 		System.out.println("修改的的用户信息是："+pursupinfo);
+		Date date = new Date();
+		pursupinfo.setLastDate(date);
 	    pursupinfoservice.updateinfo(pursupinfo);
 		
 		//重定向到列表方法
@@ -86,5 +90,5 @@ public class PurSupInfoController {
 		return mav;
 	}
 	
-	
+
 }
