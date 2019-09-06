@@ -77,7 +77,7 @@
     <form action="pursupinfo/selectinfo.do" method="post">
       <div class="title_names">搜索查询</div>
       <ul class="search_content clearfix">
-       <li><label class="l_f">供应商编号</label><input name="aaa" type="text"  class="text_add" placeholder="输入供应商名称、电话、联系人"  style=" width:400px"/></li>
+       <li><label class="l_f">供应商编号</label><input name="supName" type="text"  class="text_add" placeholder="输入供应商名称、电话、联系人"  style=" width:400px"/></li>
        <!-- <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li> -->
        <li style="width:90px;"><input type="submit" value="查询" class="btn_search"> </li>
       </ul>
@@ -295,6 +295,8 @@ return false;
      <li><label class="label_name" style="width: 100px;">备&nbsp;注&nbsp;信&nbsp;息：</label><span class="add_name" id="remarksInfo1" name="remarksInfo"></span><div class="prompt r_f"></div></li>
      <li><label class="label_name" style="width: 100px;">公&nbsp;司&nbsp;编&nbsp;号：</label><span class="add_name" id="comId1" name="comId"></span><div class="prompt r_f"></div></li>
      <li><label class="label_name" style="width: 100px;">状&nbsp;&nbsp;&nbsp;&nbsp;态：</label><span class="add_name" id="effectiveOrnot1" name="effectiveOrnot"></span></li>
+      <li><label class="label_name" style="width: 100px;">账&nbsp;户&nbsp;类&nbsp;型：</label><span class="add_name" id="bankNature1" name="bankNature"></span></li>
+    
     </ul>
  </div>	
    	
@@ -532,7 +534,10 @@ function member_edit(id){
         $("#bankNumber1").text(data.bankNumber);
         $("#comIndex1").text(data.comIndex);
         $("#remarksInfo1").text(data.remarksInfo);
-        $("#effectiveOrnot1").text(data.effectiveOrnot);//将取出的值覆盖原来的值 （val对值进行操作)			   
+        $("#effectiveOrnot1").text(data.effectiveOrnot);bankNature1
+            $("#bankNature1").text(data.bankNature);
+             $("#comId1").text(data.comId);
+        //将取出的值覆盖原来的值 （val对值进行操作)			   
   }
     });
        

@@ -17,6 +17,8 @@ public interface PurProductsMapper {
     int insertSelective(PurProducts record);
 
     List<PurProducts> selectByExample(PurProductsExample example);
+    
+    List<PurProducts> selectByExamplel(PurProductsExample example);
 
     PurProducts selectByPrimaryKey(Long proId);
 
