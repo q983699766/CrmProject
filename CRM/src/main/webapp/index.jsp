@@ -327,7 +327,7 @@ $('.change_Password').on('click', function(){
                          <li class="home"><a  href="javascript:void(0)" name="sysdutyctlr/listpage.do"  class="iframeurl"><i class="icon-double-angle-right"></i>职位管理</a></li>
 						 <li class="home"><a  href="javascript:void(0)" name="sycompanyctlr/list.do"  class="iframeurl"><i class="icon-double-angle-right"></i>公司管理</a></li>
 						 <li class="home"><a href="javascript:void(0)" name="sysEmpuser/list.do"  class="iframeurl"><i class="icon-double-angle-right"></i>员工管理</a></li>
-						<li class="home"><a href="javascript:void(0)" name="Category_Manage.html"   class="iframeurl"><i class="icon-double-angle-right"></i>部门管理</a></li>
+						<li class="home"><a href="javascript:void(0)" name="syBranchctlr/tiao.do"   class="iframeurl"><i class="icon-double-angle-right"></i>部门管理</a></li>
 						</ul>
 					</li>
 					<li>
