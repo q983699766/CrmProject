@@ -28,5 +28,16 @@ public interface ConperService {
 	/*//分页查询所有联系人信息
 	public PageInfo<SalConper> selectSalConper(Integer pageNum, Integer pageSize,SalConper con);*/
 	
+	//添加联系人信息
+	public void addSalConper(SalConper con);
+	
+	//修改联系人信息
+	public void updateSalConper(SalConper con);
+	
+	//根据联系人ID查询当前联系人的信息
+	public SalConper selectSalConperById(Long conperId);
+	
+	//删除联系人信息
+	public void delSalConper(SalConper con);
 
 }
