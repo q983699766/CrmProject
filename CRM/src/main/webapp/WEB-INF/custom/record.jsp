@@ -78,7 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <!---->
      <div class="border clearfix">
        <span class="l_f">
-      	<p class="btn btn-danger">客户：张三</p>
+      	<p class="btn btn-danger">客户：${conper.customName }</p>
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加联系记录</a>
        
        </span>

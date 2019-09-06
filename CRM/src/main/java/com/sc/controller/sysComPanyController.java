@@ -22,7 +22,7 @@ public class sysComPanyController {
 	public ModelAndView test(ModelAndView mav){
 		System.out.println("部门进来了！"+sysComPanyService.selectComoany());
 		mav.addObject("selectComoany",sysComPanyService.selectComoany());
-		mav.setViewName("gongsi/company");
+		mav.setViewName("gongsi/syscompany");
 		return mav;
 	}
 	@RequestMapping("/del.do")
