@@ -333,8 +333,8 @@ $('.change_Password').on('click', function(){
 					<li>
 					<a href="#" class="dropdown-toggle"><i class="icon-picture "></i><span class="menu-text">仓库</span><b class="arrow icon-angle-down"></b></a>
 						<ul class="submenu">
-						<li class="home"><a href="javascript:void(0)" name="advertising.html" title="库存信息" class="iframeurl"><i class="icon-double-angle-right"></i>库存信息</a></li>
-						<li class="home"><a href="javascript:void(0)" name="ccxxctlr/list.do" title="库存商品信息"  class="iframeurl"><i class="icon-double-angle-right"></i>库存商品信息</a></li>
+						<li class="home"><a href="javascript:void(0)" name="ccckxxctlr/ck.do" title="库存信息" class="iframeurl"><i class="icon-double-angle-right"></i>库存信息</a></li>
+						<li class="home"><a href="javascript:void(0)" name="ccspxxctlr/list.do" title="库存商品信息"  class="iframeurl"><i class="icon-double-angle-right"></i>库存商品信息</a></li>
 							</ul>
 						</li>
 					<li>

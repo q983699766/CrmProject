@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.sc.bean.CcCkxxb;
 import com.sc.bean.Ccspxxb;
 import com.sc.bean.CcspxxbExample;
 import com.sc.mapper.CcspxxbMapper;
@@ -24,6 +23,7 @@ public class CcSpxxServiceImpl implements CcSpxxService {
 		return null;
 	}
 
+	//添加
 	@Override
 	public void addCcspxx(Ccspxxb u) {
 		
@@ -39,6 +39,7 @@ public class CcSpxxServiceImpl implements CcSpxxService {
 	public PageInfo<Ccspxxb> selectCcspxxPage(Integer pageNum, Integer pageSize) {
 		PageHelper.startPage(pageNum,pageSize);
 		CcspxxbExample example = new CcspxxbExample();
+		example.setOrderByClause("PRODUCT_ID DESC");
 		List<Ccspxxb> list = ccspxxbMapper.selectByExample(example);
 		PageInfo<Ccspxxb> pi = new PageInfo<Ccspxxb>(list);
 		return pi;
@@ -57,8 +58,17 @@ public class CcSpxxServiceImpl implements CcSpxxService {
 	}
 
 	@Override
-	public void updateCcspxx(CcCkxxb u) {
+	public void updateCcspxx(Ccspxxb u) {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
+	@Override
+	public List<Ccspxxb> selectCcspxx(Ccspxxb ccspxx) {
+		
+		return ccspxxbMapper.selectByExample(ccspxx);
+	}
+
+	
 }
