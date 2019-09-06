@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sc.bean.OfficeChecktarget;
 import com.sc.bean.Users;
 import com.sc.service.OfficeChecktargetService;
 import com.sc.service.UsersService;
@@ -34,7 +35,7 @@ public class OfficeChecktargetController {
 	
 	@RequestMapping("/listofficechecktargetall.do")
 	public ModelAndView list(ModelAndView mav) {
-		
+		System.out.println("========================");
 		mav.addObject("list",officeChecktargetService.selectOfficeChecktargetAll());
 		
 		mav.setViewName("fyx/officechecktargetall");//响应视图名称：路径/web-inf/
@@ -46,25 +47,27 @@ public class OfficeChecktargetController {
 	public List<Users> listjson() {
 		
 		return usersService.selectUsers();
-	}
-	
-	@RequestMapping("/listpage.do")
-	public ModelAndView listpage(ModelAndView mav,@RequestParam(defaultValue="1")Integer pageNum,@RequestParam(defaultValue="5")Integer pageSize) {
+	}*/
+	/*
+	@RequestMapping("/listofficechecktargetallpage.do")
+	public ModelAndView listpage(ModelAndView mav,@RequestParam(defaultValue="1")Integer pageNum,@RequestParam(defaultValue="10")Integer pageSize) {
 		
-		mav.addObject("pi", usersService.selectUsersPage(pageNum, pageSize, null));
+		mav.addObject("pi", officeChecktargetService.selectUsersPage(pageNum, pageSize, null));
 		
 		mav.setViewName("users/listpage");//响应视图名称：路径/web-inf/
 		return mav;
 	}
+	*/
 	
-	@RequestMapping("/del.do")
-	public ModelAndView del(ModelAndView mav,Users u) {
-		usersService.delUsers(u);
+	@RequestMapping("/delofficechecktarget.do")
+	public ModelAndView del(ModelAndView mav,OfficeChecktarget offchecktarget) {
+		System.out.println("-----------------------");
+		officeChecktargetService.delOfficeChecktargetById(offchecktarget);
 		
-		mav.setViewName("redirect:listpage.do");
+		mav.setViewName("redirect:listofficechecktargetall.do");
 		return mav;
 	}
-	
+	/*
 	@RequestMapping("/goadd.do")
 	public ModelAndView goadd(ModelAndView mav,Users u) {
 		mav.setViewName("users/add");

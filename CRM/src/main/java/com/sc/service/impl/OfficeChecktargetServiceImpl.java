@@ -25,6 +25,14 @@ public class OfficeChecktargetServiceImpl implements OfficeChecktargetService {
 	public List<OfficeChecktarget> selectOfficeChecktargetAll() {
 		return this.officeChecktargetMapper.selectByExample(null);
 	}
+
+	@Override
+	public void delOfficeChecktargetById(OfficeChecktarget offchecktarget) {
+		// TODO Auto-generated method stub
+		if(offchecktarget!=null && offchecktarget.getTargetId()!=null) {
+			this.officeChecktargetMapper.deleteByPrimaryKey(offchecktarget.getTargetId());
+		}
+	}
 	
 	
 

@@ -86,7 +86,7 @@
           <td class="td-manage">
            <!--<a onClick="member_stop(this,'10001')"  href="javascript:;" title="已浏览"  class="btn btn-xs btn-success"><i class="fa fa-check  bigger-120"></i></a>   
         <a  onclick="member_edit('回复','member-add.html','4','','510')" title="回复"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>   -->   
-        <a  href="javascript:;"  onclick="member_del(this,'1')" title="删除" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
+        <a  href="javascript:;"  onclick="member_del(this,'${u.targetId }')" title="删除" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
           </td>
         </tr>
         </c:forEach>
@@ -125,7 +125,15 @@ function member_show(title,url,id,w,h){
 /*留言-删除*/
 function member_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
-		$(obj).parents("tr").remove();
+		/*$(obj).parents("tr").remove();*/
+		/*alert(id);
+		$.ajax({
+			type:"post",
+			url:"officecc.do/delofficechecktarget.do",
+			data:{"targetId":id}
+			
+		});*/
+		document.location.href="officecc.do/delofficechecktarget.do?targetId="+id;
 		layer.msg('已删除!',{icon:1,time:1000});
 	});
 }
