@@ -99,46 +99,36 @@
 				<th style="width:60px;font-size:12px;">产品编号</th>
 				<th style="width:60px;font-size:12px;">产品名称</th>
                 <th style="width:60px;font-size:12px;">单价</th>
-				<th style="width:60px;font-size:12px;">数量</th>
-				<th style="width:30px;font-size:12px;">交货时间</th>
+				<th style="width:60px;font-size:12px;">库存数量</th>
+			    <th style="width:30px;font-size:12px;">交货时间</th>
 				<th style="width:60px;font-size:12px;">备注信息</th>
 				<th style="width:60px;font-size:12px;">状态</th>
-				<th style="width:60px;font-size:12px;">总价</th>
-				<th style="width:60px;font-size:12px;">操作人</th>
+				<th style="width:60px;font-size:12px;">公司编号</th>
 				<th style="width:120px;font-size:12px;">操作</th>
            </tr>
 		</thead>
 	<tbody>
 	 <c:forEach items="${pi.list}" var="i">
+	
 		<tr>
           <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>${i.productId}</td>
-          <td>${i.productId}</td>
-          <td>${i.spMc}</td>
-          <td>${i.cbj}</td>
-          <%-- <td>${i.active}</td> --%>
-           <td>${i.kcSl}</td>
-          <td class="text-l">${i.bzxx}</td> 
-
-         <%--  <td>${i.deliveryTime}</td> --%>
-         <%--  <td>${i.active}</td> --%>
-         <%--  <td>${i.price}</td> --%>
-         <%--   <td class="text-l">${i.remarksInfo}</td>
-          <td>${i.comId}</td> --%>
-
-<%-- 
-           <td>${i.lastDate}</td> 
-          <td><a href="#">产品详情</a></td>--%>
+           <td>${i.proId}</td>
+           <td>${i.productId}</td>
+           <td>${i.ccspxxb.spMc}</td>
+           <td>${i.ccspxxb.cbj}</td>
+           <td>${i.ccspxxb.kcSl}</td>
+           <td>${i.deliveryTime}</td> 
+           <td class="text-l">${i.ccspxxb.bzxx}</td> 
+          <td class="text-l">${i.active}</td>
+           <td>${i.comId}</td>
          <td class="td-manage">
          <a title="生成送货单" href="pursupinfo/delinfo.do?supInfoNum=${i.productId}" class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-           <a title="删除" href="pursupinfo/delinfo.do?supInfoNum=${i.productId}"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-        
+       </td> 
+   </tr>
 
-          </td> 
-		</tr>
-       </c:forEach>
+ </c:forEach>
           <tr >
-              <td colspan="10" style="text-align: center;">
+              <td colspan="11" style="text-align: center;">
                   <a href="products/selectproducts.do?pageNum=${pi.firstPage }">首页</a>
                   <a href="products/selectproducts.do?pageNum=${pi.prePage }">上一页</a>
                   <a href="products/selectproducts.do?pageNum=${pi.nextPage }">下一页</a>

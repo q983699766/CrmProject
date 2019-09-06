@@ -12,8 +12,7 @@
       <arg column="COM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
       <arg column="LAST_DATE" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
-    
-
+</resultMap> 
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -262,4 +261,41 @@
       LAST_DATE = #{lastDate,jdbcType=TIMESTAMP}
     where PRO_ID = #{proId,jdbcType=DECIMAL}
   </update>
+  
+    <resultMap  id="purproducts" type="com.sc.bean.PurProducts">
+    <id column="PRO_ID" property="proId"/> 
+    <result column="PRODUCT_ID" property="productId"/>
+    <result column="DELIVERY_TIME" property="deliveryTime"/>
+    <result column="ACTIVE" property="active"/>
+    <result column="OPERATOR_ID" property="operatorId"/>
+    <result column="REMARKS_INFO" property="teacherId"/>
+    <result column="COM_ID" property="comId"/>
+    <result column="LAST_DATE" property="lastDate"/>
+  
+   
+    <association property="ccspxxb" javaType="com.sc.bean.Ccspxxb">
+      <id column="PRODUCT_ID" property="productId"/>
+     <result column="SP_MC" property="spMc"/>
+     <result column="SP_LB" property="spLb"/>
+     <result column="GG_SM" property="ggSm"/>
+     <result column="DW" property="dw"/>
+     <result column="CK_BH" property="ckBh"/>
+     <result column="KC_SL" property="kcSl"/>
+     <result column="CBJ" property="cbj"/>
+     <result column="LSJ" property="lsj"/>
+     <result column="BZXX" property="bzxx"/>
+     <result column="COM_ID" property="comId"/>
+     <result column="LAST_DATE" property="lastTime"/>
+    </association>
+
+
+  </resultMap>
+  
+  
+  
+  <select id="selectByExamplel" resultMap="purproducts" parameterType="com.sc.bean.PurProductsExample" >
+   SELECT * FROM PUR_PRODUCTS LEFT JOIN CC_SPXXB
+   ON PUR_PRODUCTS.PRODUCT_ID=CC_SPXXB.PRODUCT_ID
+   WHERE 50>CC_SPXXB.KC_SL
+  </select>
 </mapper>
