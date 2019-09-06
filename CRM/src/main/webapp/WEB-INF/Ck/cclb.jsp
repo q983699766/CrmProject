@@ -1,36 +1,53 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
-
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
  <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="renderer" content="webkit|ie-comp|ie-stand">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-<meta http-equiv="Cache-Control" content="no-siteapp" /> 
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="css/style.css"/>       
+        <link href="assets/css/codemirror.css" rel="stylesheet">
         <link rel="stylesheet" href="assets/css/ace.min.css" />
         <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
-        <link rel="stylesheet" href="Widget/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
-        <link href="Widget/icheck/icheck.css" rel="stylesheet" type="text/css" />   
 		<!--[if IE 7]>
 		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
 		<![endif]-->
         <!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
 		<![endif]-->
-	    <script src="js/jquery-1.9.1.min.js"></script>   
-        <script src="assets/js/bootstrap.min.js"></script>
-        <script src="assets/js/typeahead-bs2.min.js"></script>
+			<script src="assets/js/jquery.min.js"></script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<![endif]-->
+
+		<!--[if !IE]> -->
+
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+		</script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+
+		<script type="text/javascript">
+			if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+		</script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/typeahead-bs2.min.js"></script>
 		<!-- page specific plugin scripts -->
 		<script src="assets/js/jquery.dataTables.min.js"></script>
 		<script src="assets/js/jquery.dataTables.bootstrap.js"></script>
@@ -38,111 +55,111 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <script type="text/javascript" src="js/H-ui.admin.js"></script> 
         <script src="assets/layer/layer.js" type="text/javascript" ></script>
         <script src="assets/laydate/laydate.js" type="text/javascript"></script>
-        <script type="text/javascript" src="Widget/zTree/js/jquery.ztree.all-3.5.min.js"></script> 
-        <script src="js/lrtk.js" type="text/javascript" ></script>
-<title>产品库存列表</title>
+<title>用户列表</title>
 </head>
+
 <body>
-<div class=" page-content clearfix">
- <div id="products_style">
+<div class="page-content clearfix">
+    <div id="Member_Ratings">
+      <div class="d_Confirm_Order_style">
     <div class="search_style">
       <div class="title_names">搜索查询</div>
       <ul class="search_content clearfix">
-       <li><label class="l_f">产品名称</label><input name="" type="text"  class="text_add" placeholder="输入品牌名称"  style=" width:250px"/></li>
+       <li><label class="l_f">仓库编号</label><input name="" type="text"  class="text_add" placeholder="输入会员名称、电话、邮箱"  style=" width:400px"/></li>
        <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li>
        <li style="width:90px;"><button type="button" class="btn_search"><i class="icon-search"></i>查询</button></li>
       </ul>
     </div>
+     <!---->
      <div class="border clearfix">
        <span class="l_f">
-        <a href="picture-add.html" title="添加商品" class="btn btn-warning Order_form"><i class="icon-plus"></i>添加商品</a>
+        <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加用户</a>
         <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
        </span>
-       <span class="r_f">共：<b>2334</b>件商品</span>
+       <span class="r_f">共：<b>${pi.total }</b>条</span>
      </div>
-     <!--产品列表展示-->
-     <div class="h_products_list clearfix" id="products_list">
-       <div id="scrollsidebar" class="left_Treeview">
-        <div class="show_btn" id="rightArrow"><span></span></div>
-        <div class="widget-box side_content" >
-         <div class="side_title"><a title="隐藏" class="close_btn"><span></span></a></div>
-         <div class="side_list"><div class="widget-header header-color-green2"><h4 class="lighter smaller">产品类型列表</h4></div>
-         <div class="widget-body">
-          <div class="widget-main padding-8"><div id="treeDemo" class="ztree"></div></div>
-        </div>
-       </div>
-      </div>  
-     </div>
-         <div class="table_menu_list" id="testIframe">
+     <!---->
+     <div class="table_menu_list">
        <table class="table table-striped table-bordered table-hover" id="sample-table">
 		<thead>
+		 
 		 <tr>
 				<th width="25px"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
-				<th width="80px">产品编号</th>
-				<th width="250px">产品名称</th>
-				<th width="100px">商品类型</th>
-				<th width="100px">规格说明</th>
-                <th width="100px">单位</th>				
-				<th width="180px">仓库编号</th>
-                <th width="80px">库存数量</th>
-				<th width="70px">成本价</th>
-				<th width="70px">零售价</th>  
-				<th width="70px">经销价</th>
-				<th width="250px">备注信息</th>
-				<th width="70px">公司编号</th> 
-				<th width="100px">最后修改时间</th>                 
+				<th width="80px">仓库编号</th>
+				<th width="250px">仓库名</th>
+				<th width="100px">备注信息</th>
+				<th width="100px">公司编号</th>
+                <th width="100px">最后修改时间</th>				            
 				<th width="200px">操作</th>
 			</tr>
 		</thead>
 	<tbody>
-     <tr>
-        <td width="25px"><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-        <td width="80px">45631</td>               
-        <td width="250px"><u style="cursor:pointer" class="text-primary" onclick="">小米 Max 全网通 高配版 3GB内存 64GB ROM 金色 移动联通电信4G手机Y</u></td>
-        <td width="100px">5467</td>
-        <td width="100px">4525</td> 
-        <td width="100px">法国</td>         
-        <td width="180px">2014-6-11 11:11:42</td>
-        <td class="text-l">通过</td>
-        <td class="td-status"><span class="label label-success radius">已启用</span></td>
-        <td>111</td>
-             <td>111</td>
-                   <td>111</td>
-                         <td>111</td>
-                               <td>111</td>
-        <td class="td-manage">
-        <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-        <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-       </td>
-	  </tr>
-    
-	
+    <c:forEach items="${pi.list }" var="u">
+		<tr>
+          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
+          <td>${u.ckBh }</td>
+          <td>${u.ckM }</td>
+          <td>${u.bzxx }</td>
+          <td>${u.comId }</td>
+          <td><fmt:formatDate value="${u.lastTime}" pattern="yyyy-MM-dd" /></td>         
+         
+          <td class="td-manage">          
+          <a title="编辑" onclick="member_edit('550')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
+          <a title="删除" href="ccckxxctlr/del.do?uid=${u.ckBh }"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
+          </td>
+		</tr>
+       </c:forEach>
       
       
        
-
+	 <tr>
+              <td colspan="15" style="text-align: center;">
+                  <a href="ccckxxctlr/ck.do?pageNum=${pi.firstPage }">首页</a>
+                  <a href="ccckxxctlr/ck.do?pageNum=${pi.prePage }">上一页</a>
+                  <a href="ccckxxctlr/ck.do?pageNum=${pi.nextPage }">下一页</a>
+                  <a href="ccckxxctlr/ck.do?pageNum=${pi.lastPage }">尾页</a>
+                                       当前${pi.pageNum }/${pi.pages }页，共${pi.total }条
+              </td>
+           </tr>
        
-
-
-      
-
-    </tbody>
-    </table>
-    </div>     
+       
+       
+      </tbody>
+	</table>
+   </div>
   </div>
  </div>
 </div>
+<!--添加用户图层-->
+<form action="ccckxxctlr/add.do" method="post">
+<div class="add_menber" id="add_menber_style" style="display:none">
+  
+    <ul class=" page-content">
+     
+     <li><label class="label_name">仓库名</label><span class="add_name"><input name="ckM" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">备注信息</label><span class="add_name"><input name="bzxx" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">公司编号</label><span class="add_name"><input name="comId" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <div class="prompt r_f"></div>
+     </li> 
+    
+    <center>
+    <label><input name="form-field-radio1"type="submit"  value="提交" class="btn btn-prompt r_f"><span class="lbl"></span></label></span><div class="prompt r_f"></div></li>   
+ 	</center>
+ </div>
+
+ </form>
+ 
+ 
 </body>
 </html>
 <script>
 jQuery(function($) {
-		var oTable1 = $('#sample-table').dataTable( {
-		"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+				var oTable1 = $('#sample-table').dataTable( {
+				"aaSorting": [[ 1, "desc" ]],//默认第几个排序
 		"bStateSave": true,//状态保存
 		"aoColumnDefs": [
-		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-		  {"orderable":false,"aTargets":[0,2,3,4,5,8,9]}// 制定列不参与排序
+		//{"bVisible": false, "aTargets": [ 3 ]}, //控制列的隐藏显示
+		{"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序 
 		] } );
 				
 				
@@ -170,99 +187,48 @@ jQuery(function($) {
 					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
 					return 'left';
 				}
-			});
- laydate({
-    elem: '#start',
-    event: 'focus' 
-});
-$(function() { 
-	$("#products_style").fix({
-		float : 'left',
-		//minStatue : true,
-		skin : 'green',	
-		durationTime :false,
-		spacingw:30,//设置隐藏时的距离
-	    spacingh:260,//设置显示时间距
-	});
-});
-</script>
-<script type="text/javascript">
-//初始化宽度、高度  
- $(".widget-box").height($(window).height()-215); 
-$(".table_menu_list").width($(window).width()-260);
- $(".table_menu_list").height($(window).height()-215);
-  //当文档窗口发生改变时 触发  
-    $(window).resize(function(){
-	$(".widget-box").height($(window).height()-215);
-	 $(".table_menu_list").width($(window).width()-260);
-	  $(".table_menu_list").height($(window).height()-215);
-	})
- 
-/*******树状图*******/
-var setting = {
-	view: {
-		dblClickExpand: false,
-		showLine: false,
-		selectedMulti: false
-	},
-	data: {
-		simpleData: {
-			enable:true,
-			idKey: "id",
-			pIdKey: "pId",
-			rootPId: ""
+			})
+/*用户-添加*/
+ $('#member_add').on('click', function(){
+    layer.open({
+        type: 1,
+        title: '添加用户',
+		maxmin: true, 
+		shadeClose: true, //点击遮罩关闭层
+        area : ['800px' , ''],
+        content:$('#add_menber_style'),
+		/* btn:['提交','取消'], */
+		yes:function(index,layero){	
+		 var num=0;
+		 var str="";
+     $(".add_menber input[type$='text']").each(function(n){
+          if($(this).val()=="")
+          {
+               
+			   layer.alert(str+=""+$(this).attr("#name")+"不能为空！\r\n",{
+                title: '提示框',				
+				icon:0,								
+          }); 
+		    num++;
+            return false;            
+          } 
+		 });
+		  if(num>0){  return false;}	 	
+          else{
+			  layer.alert('添加成功！',{
+               title: '提示框',				
+			icon:1,		
+			  });
+			   layer.close(index);	
+		  }		  		     				
 		}
-	},
-	callback: {
-		beforeClick: function(treeId, treeNode) {
-			var zTree = $.fn.zTree.getZTreeObj("tree");
-			if (treeNode.isParent) {
-				zTree.expandNode(treeNode);
-				return false;
-			} else {
-				demoIframe.attr("src",treeNode.file + ".html");
-				return true;
-			}
-		}
-	}
-};
-
-var zNodes =[
-	{ id:1, pId:0, name:"商城分类列表", open:true},
-	{ id:11, pId:1, name:"蔬菜水果"},
-	{ id:111, pId:11, name:"蔬菜"},
-	{ id:112, pId:11, name:"苹果"},
-	{ id:113, pId:11, name:"大蒜"},
-	{ id:114, pId:11, name:"白菜"},
-	{ id:115, pId:11, name:"青菜"},
-	{ id:12, pId:1, name:"手机数码"},
-	{ id:121, pId:12, name:"手机 "},
-	{ id:122, pId:12, name:"照相机 "},
-	{ id:13, pId:1, name:"电脑配件"},
-	{ id:131, pId:13, name:"手机 "},
-	{ id:122, pId:13, name:"照相机 "},
-	{ id:14, pId:1, name:"服装鞋帽"},
-	{ id:141, pId:14, name:"手机 "},
-	{ id:42, pId:14, name:"照相机 "},
-];
-		
-var code;
-		
-function showCode(str) {
-	if (!code) code = $("#code");
-	code.empty();
-	code.append("<li>"+str+"</li>");
+    });
+});
+/*用户-查看*/
+function member_show(title,url,id,w,h){
+	layer_show(title,url+'#?='+id,w,h);
 }
-		
-$(document).ready(function(){
-	var t = $("#treeDemo");
-	t = $.fn.zTree.init(t, setting, zNodes);
-	demoIframe = $("#testIframe");
-	demoIframe.bind("load", loadReady);
-	var zTree = $.fn.zTree.getZTreeObj("tree");
-	zTree.selectNode(zTree.getNodeByParam("id",'11'));
-});	
-/*产品-停用*/
+/*用户-停用*/
 function member_stop(obj,id){
 	layer.confirm('确认要停用吗？',function(index){
 		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" class="btn btn-xs " onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="icon-ok bigger-120"></i></a>');
@@ -272,7 +238,7 @@ function member_stop(obj,id){
 	});
 }
 
-/*产品-启用*/
+/*用户-启用*/
 function member_start(obj,id){
 	layer.confirm('确认要启用吗？',function(index){
 		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" class="btn btn-xs btn-success" onClick="member_stop(this,id)" href="javascript:;" title="停用"><i class="icon-ok bigger-120"></i></a>');
@@ -281,32 +247,52 @@ function member_start(obj,id){
 		layer.msg('已启用!',{icon: 6,time:1000});
 	});
 }
-/*产品-编辑*/
-function member_edit(title,url,id,w,h){
-	layer_show(title,url,w,h);
+/*用户-编辑*/
+function member_edit(id){
+	  layer.open({
+        type: 1,
+        title: '修改用户信息',
+		maxmin: true, 
+		shadeClose:false, //点击遮罩关闭层
+        area : ['800px' , ''],
+        content:$('#add_menber_style'),
+		//btn:['提交','取消'],
+		yes:function(index,layero){	
+		 var num=0;
+		 var str="";
+     $(".add_menber input[type$='text']").each(function(n){
+          if($(this).val()=="")
+          {
+               
+			   layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
+                title: '提示框',				
+				icon:0,								
+          }); 
+		    num++;
+            return false;            
+          } 
+		 });
+		  if(num>0){  return false;}	 	
+          else{
+			  layer.alert('添加成功！',{
+               title: '提示框',				
+			icon:1,		
+			  });
+			   layer.close(index);	
+		  }		  		     				
+		}
+    });
 }
-
-/*产品-删除*/
+/*用户-删除*/
 function member_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
 		$(obj).parents("tr").remove();
 		layer.msg('已删除!',{icon:1,time:1000});
 	});
 }
-//面包屑返回值
-var index = parent.layer.getFrameIndex(window.name);
-parent.layer.iframeAuto(index);
-$('.Order_form').on('click', function(){
-	var cname = $(this).attr("title");
-	var chref = $(this).attr("href");
-	var cnames = parent.$('.Current_page').html();
-	var herf = parent.$("#iframe").attr("src");
-    parent.$('#parentIframe').html(cname);
-    parent.$('#iframe').attr("src",chref).ready();;
-	parent.$('#parentIframe').css("display","inline-block");
-	parent.$('.Current_page').attr({"name":herf,"href":"javascript:void(0)"}).css({"color":"#4c8fbd","cursor":"pointer"});
-	//parent.$('.Current_page').html("<a href='javascript:void(0)' name="+herf+" class='iframeurl'>" + cnames + "</a>");
-    parent.layer.close(index);
-	
+laydate({
+    elem: '#start',
+    event: 'focus' 
 });
+
 </script>
