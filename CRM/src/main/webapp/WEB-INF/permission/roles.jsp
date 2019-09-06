@@ -61,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td class="hidden-480"><c:forEach items="${r.perms }" var="p"><p>${p.permissionName}</p></c:forEach></td>
 				<td>${r.roleDescribe }</td>
 				<td>
-                 <a title="编辑" onclick="Competence_modify('560')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
+                 <a title="编辑" onclick="jia(${r.roleId });member_edit('550');" href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
                  <a title="删除" href="del.do?roleId=${r.roleId }"  onclick="Competence_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
 				</td>
 			   </tr>	
@@ -70,6 +70,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        </table>
      </div>
  </div>
+ 
+ <!--修改角色图层-->
+ <form action="update.do" method="post">
+ <input type="hidden" name="roleId" id="roleId"/>
+<div class="add_menber" id="update_menber_style" style="display:none"> 
+    <ul class=" page-content">
+     <!-- <li><label class="label_name">客户编号：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li> -->
+     <li><label class="label_name">角色名称：</label><span class="add_name"><input  type="text" name="roleName" id="roleName" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">角色描述：</label><span class="add_name"><input  type="text" name="roleDescribe" id="roleDescribe" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">上级角色：</label><span class="add_name">
+     		&nbsp;&nbsp;&nbsp;&nbsp;<select id="roles" name="higherRoleId">
+                <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
+            </select></span><div class="prompt r_f"></div></li>
+    <li><label class="label_name">操&nbsp;作&nbsp;人：</label><span class="add_name">${nowuser.userName }</span><div class="prompt r_f"></div></li>
+    </ul><br/><br/><br/><br/><br/><br/><br/><br/>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br/><br/>
+ </div>
+</form>
  
  
  <!--添加角色图层--> 
@@ -82,7 +100,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      
      <div class="prompt r_f"></div>
      </li>
-     <li><label class="label_name">上级角色：</label><span class="add_name"><input name="higherRoleId" type="text"  class="text_add" placeholder="选填" /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">上级角色：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="roles" name="higherRoleId">
+                <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
+            </select></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">操&nbsp;作&nbsp;人：</label><span class="add_name">${nowuser.userName }</span><div class="prompt r_f"></div></li>
      
      <br/><br/><br/>
@@ -107,6 +127,68 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </body>
 </html>
 <script type="text/javascript">
+/*角色-编辑*/
+function member_edit(id){
+	  layer.open({
+        type: 1,
+        title: '修改角色信息',
+		maxmin: true, 
+		shadeClose:false, //点击遮罩关闭层
+        area : ['800px' , ''],
+        content:$('#update_menber_style'),
+		yes:function(index,layero){	
+		 var num=0;
+		 var str="";
+     $(".update_menber input[type$='text']").each(function(n){
+          if($(this).val()=="")
+          {
+               
+			   layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
+                title: '提示框',				
+				icon:0,								
+          }); 
+		    num++;
+            return false;            
+          } 
+		 });
+		  if(num>0){  return false;}	 	
+          else{
+			  layer.alert('添加成功！',{
+               title: '提示框',				
+			icon:1,		
+			  });
+			   layer.close(index);	
+		  }		  		     				
+		}
+    });
+}
+
+function jia(roleId)
+    {
+        var url="selectById.do?roleId="+roleId;
+   //ajax异步请求
+   $.ajax
+   ({
+      type:"post",
+      url:url,
+      dataType:"json",
+      success:function(data)
+      {//从前台回调回来的数组，处理后的数据
+       //alert(JSON.stringify(data));
+         $("#roleId").val(data.roleId);//将取出的值覆盖原来的值 （val对值进行操作)	
+         $("#roleName").val(data.roleName);
+         $("#roleDescribe").val(data.roleDescribe);
+         $("#higherRoleId").val(data.higherRoleId);
+          $("#highRoleName").val(data.highRoleName);
+         var highRoleName = data.highRoleName;	
+         $("#roles").children().each(function(i, element) {
+         	if(element.innerHTML == highRoleName)element.selected = "true";
+         });	   
+      }
+    });
+}
+
+
 
 /*角色-添加*/
  $('#member_add').on('click', function(){

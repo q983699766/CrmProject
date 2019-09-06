@@ -65,7 +65,7 @@ public class RolesServiceImpl implements RolesService{
 
 	@Override
 	public void updateRole(SysRole role) {
-		// TODO Auto-generated method stub
+		SysRoleMapper.updateByPrimaryKeySelective(role);
 		
 	}
 
@@ -79,6 +79,14 @@ public class RolesServiceImpl implements RolesService{
 	public void addRole(SysRole role) {
 		SysRoleMapper.insert(role);
 		
+	}
+
+	@Override
+	public SysRole selectById(Long roleId) {
+		SysRole sysr = SysRoleMapper.selectByPrimaryKey(roleId);
+		String roleName = SysRoleMapper.selectByPrimaryKey(sysr.getHigherRoleId()).getRoleName();
+		sysr.setHighRoleName(roleName);
+		return sysr;
 	}
 
 }

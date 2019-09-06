@@ -30,8 +30,9 @@ input
     outline: none;
     border:1px solid grey;
 }
-</style>
 
+</style>
+					
     <form action="sysdutyctlr/upadtee.do" method="post"enctype="multipart/form-data" >
         <table>
             <tr>
