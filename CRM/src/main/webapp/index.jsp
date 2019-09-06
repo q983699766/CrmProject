@@ -327,7 +327,7 @@ $('.change_Password').on('click', function(){
                          <li class="home"><a  href="javascript:void(0)" name="sysdutyctlr/listpage.do"  class="iframeurl"><i class="icon-double-angle-right"></i>职位管理</a></li>
 						 <li class="home"><a  href="javascript:void(0)" name="sycompanyctlr/list.do"  class="iframeurl"><i class="icon-double-angle-right"></i>公司管理</a></li>
 						 <li class="home"><a href="javascript:void(0)" name="sysEmpuser/list.do"  class="iframeurl"><i class="icon-double-angle-right"></i>员工管理</a></li>
-						<li class="home"><a href="javascript:void(0)" name="Category_Manage.html"   class="iframeurl"><i class="icon-double-angle-right"></i>部门管理</a></li>
+						<li class="home"><a href="javascript:void(0)" name="syBranchctlr/tiao.do"   class="iframeurl"><i class="icon-double-angle-right"></i>部门管理</a></li>
 						</ul>
 					</li>
 					<li>
@@ -340,19 +340,17 @@ $('.change_Password').on('click', function(){
 					<li>
 					<a href="#" class="dropdown-toggle"><i class="icon-list"></i><span class="menu-text"> 余懿 </span><b class="arrow icon-angle-down"></b></a>
                     <ul class="submenu">
-                    <li class="home"><a href="javascript:void(0)" name="transaction.html" title="交易信息"  class="iframeurl"><i class="icon-double-angle-right"></i>交易信息</a></li>
-                    <li class="home"><a href="javascript:void(0)" name="Orderform.html" title="订单管理"  class="iframeurl"><i class="icon-double-angle-right"></i>订单管理</a></li>
-                    <li class="home"><a href="javascript:void(0)" name="Amounts.html" title="交易金额"  class="iframeurl"><i class="icon-double-angle-right"></i>交易金额</a></li>
+                    <li class="home"><a href="javascript:void(0)" name="salCtl/countSal" title="交易信息"  class="iframeurl"><i class="icon-double-angle-right"></i>交易信息</a></li>
+                    <li class="home"><a href="javascript:void(0)" name="salCtl/salMessCtl" title="订单管理"  class="iframeurl"><i class="icon-double-angle-right"></i>订单管理</a></li>
                     <li class="home"><a href="javascript:void(0)" name="Order_handling.html" title="订单处理"  class="iframeurl"><i class="icon-double-angle-right"></i>订单处理</a></li>
-                    <li class="home"><a href="javascript:void(0)" name="Cover_management.html" title="支付管理"  class="iframeurl"><i class="icon-double-angle-right"></i>支付管理</a></li>
                    </ul>
 				  </li>
                   <li>
 					<a href="#" class="dropdown-toggle"><i class="icon-user"></i><span class="menu-text"> 客户管理 </span><b class="arrow icon-angle-down"></b></a>
                     <ul class="submenu">
                     <li class="home"><a href="javascript:void(0)" name="conctlr/custom.do" title="客户信息"  class="iframeurl"><i class="icon-double-angle-right"></i>客户信息</a></li>
-                    <li class="home"><a href="javascript:void(0)" name="conperctlr/bleed.do" title="联系人管理"  class="iframeurl"><i class="icon-double-angle-right"></i>联系人管理</a></li>
-                    <li class="home"><a href="javascript:void(0)" name="conperctlr/record.do" title="联系记录管理"  class="iframeurl"><i class="icon-double-angle-right"></i>联系记录管理</a></li>
+                   <!--  <li class="home"><a href="javascript:void(0)" name="conperctlr/bleed.do" title="联系人管理"  class="iframeurl"><i class="icon-double-angle-right"></i>联系人管理</a></li>-->
+                    <li class="home"><a href="javascript:void(0)" name="conperctlr/record.do" title="联系记录管理"  class="iframeurl"><i class="icon-double-angle-right"></i>联系记录管理</a></li> 
 
                    </ul>
 				  </li>
@@ -366,7 +364,7 @@ $('.change_Password').on('click', function(){
 						</li>
 						<li><a href="#" class="dropdown-toggle"><i class="icon-edit"></i><span class="menu-text"> 范宇星 </span><b class="arrow icon-angle-down"></b></a>
 							<ul class="submenu">
-								<li class="home"><a href="javascript:void(0)" name="Guestbook.html" title="文章列表" class="iframeurl"><i class="icon-double-angle-right"></i>文章列表</a></li>
+								<li class="home"><a href="javascript:void(0)" name="officecc.do/listofficechecktargetall.do" title="文章列表" class="iframeurl"><i class="icon-double-angle-right"></i>文章列表</a></li>
                                 <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="分类分类" class="iframeurl"><i class="icon-double-angle-right"></i>分类分类</a></li>
 							</ul>
 						</li>

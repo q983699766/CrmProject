@@ -19,7 +19,13 @@ public class SysBranch implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public SysBranch(Long secId, String secName, String secComment, Long comId, Date lastTime) {
+    @Override
+	public String toString() {
+		return "SysBranch [secId=" + secId + ", secName=" + secName + ", secComment=" + secComment + ", comId=" + comId
+				+ ", lastTime=" + lastTime + "]";
+	}
+
+	public SysBranch(Long secId, String secName, String secComment, Long comId, Date lastTime) {
         this.secId = secId;
         this.secName = secName;
         this.secComment = secComment;
