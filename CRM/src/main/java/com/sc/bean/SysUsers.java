@@ -22,6 +22,20 @@ public class SysUsers implements Serializable {
     private String empName;
     
     private String roleName;
+    
+    private java.util.List<SysRole> roles;
+
+
+
+
+	public java.util.List<SysRole> getRoles() {
+		return roles;
+	}
+
+
+	public void setRoles(java.util.List<SysRole> roles) {
+		this.roles = roles;
+	}
 
 
 	public String getRoleName() {

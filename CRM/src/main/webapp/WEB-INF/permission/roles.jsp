@@ -77,12 +77,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="add_menber" id="update_menber_style" style="display:none"> 
     <ul class=" page-content">
      <!-- <li><label class="label_name">客户编号：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li> -->
-     <li><label class="label_name">角色名称：</label><span class="add_name"><input  type="text" name="roleName" id="roleName" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">角色描述：</label><span class="add_name"><input  type="text" name="roleDescribe" id="roleDescribe" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">角色名称：</label><span class="add_name"><input  type="text" name="roleName" id="roleNamex" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">角色描述：</label><span class="add_name"><input  type="text" name="roleDescribe" id="roleDescribex" class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">上级角色：</label><span class="add_name">
      		&nbsp;&nbsp;&nbsp;&nbsp;<select id="roles" name="higherRoleId">
                 <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
+    <li><label class="label_name">操&nbsp;作&nbsp;人：</label><span class="add_name">${nowuser.userName }</span><div class="prompt r_f"></div></li>
     </ul><br/><br/><br/><br/><br/><br/><br/><br/>
     <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br/><br/>
  </div>
@@ -175,8 +176,8 @@ function jia(roleId)
       {//从前台回调回来的数组，处理后的数据
        //alert(JSON.stringify(data));
          $("#roleId").val(data.roleId);//将取出的值覆盖原来的值 （val对值进行操作)	
-         $("#roleName").val(data.roleName);
-         $("#roleDescribe").val(data.roleDescribe);
+         $("#roleNamex").val(data.roleName);
+         $("#roleDescribex").val(data.roleDescribe);
          $("#higherRoleId").val(data.higherRoleId);
           $("#highRoleName").val(data.highRoleName);
          var highRoleName = data.highRoleName;	

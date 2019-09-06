@@ -35,7 +35,7 @@ public class UsersController {
 	SysUsersRoleMapper SysUsersRoleMapper;
 	
 	@RequestMapping("/update.do")
-	public ModelAndView update111(ModelAndView mav, HttpSession session , HttpServletRequest req, SysUsers user, Long roleId){
+	public ModelAndView update111(ModelAndView mav, HttpSession session , HttpServletRequest req, SysUsers user, Long[] roleId){
 		
 		Date date = new Date();
 		user.setLastTime(date);
@@ -45,9 +45,13 @@ public class UsersController {
 		Long uid = u.getUserId();
 		
 		UsersService.updateUserRole(user, roleId, uid);
+		
 		List<SysUsers> list = UsersService.getUsersList();
 		
+		List<SysRole> list2 = RolesService.getRoleList();
+		
 		mav.addObject("users", list);
+		mav.addObject("roles", list2);
 		
 		mav.setViewName("permission/users");
 		return mav;
@@ -65,7 +69,7 @@ public class UsersController {
 	
 	
 	@RequestMapping("/add.do")
-	public ModelAndView update(ModelAndView mav , HttpSession session, HttpServletRequest req, SysUsers user, Long roleId){
+	public ModelAndView update(ModelAndView mav , HttpSession session, HttpServletRequest req, SysUsers user, Long[] roleId){
 		
 		Date date = new Date();
 		user.setLastTime(date);
@@ -78,18 +82,22 @@ public class UsersController {
 		
 		SysUsers u = UsersService.selectByName(userName);
 		Long userId = u.getUserId();
-		
+		for (Long rId : roleId) {
+			
 		SysUsersRole sysUsersRole = new SysUsersRole();
 		sysUsersRole.setLastTime(date);
 		sysUsersRole.setOperatorId(uid);
-		sysUsersRole.setRoleId(roleId);
+		sysUsersRole.setRoleId(rId);
 		sysUsersRole.setUserId(userId);
 		
 		SysUsersRoleMapper.insert(sysUsersRole);
-		
+		}
 		List<SysUsers> list = UsersService.getUsersList();
 		
+		List<SysRole> list2 = RolesService.getRoleList();
+		
 		mav.addObject("users", list);
+		mav.addObject("roles", list2);
 		
 		mav.setViewName("permission/users");
 		return mav;
@@ -100,12 +108,14 @@ public class UsersController {
 	public ModelAndView delById(ModelAndView mav , HttpServletRequest req, Long userId){
 		
 		UsersService.delUser(userId);
+List<SysUsers> list = UsersService.getUsersList();
 		
-		List<SysUsers> list = UsersService.getUsersList();
+		List<SysRole> list2 = RolesService.getRoleList();
 		
 		mav.addObject("users", list);
-		mav.setViewName("permission/users");
+		mav.addObject("roles", list2);
 		
+		mav.setViewName("permission/users");
 		return mav;
 	}
 	
@@ -131,9 +141,13 @@ public class UsersController {
 			UsersService.updateUser(user);
 		}
 		
-		List<SysUsers> list = UsersService.getUsersList();
+List<SysUsers> list = UsersService.getUsersList();
+		
+		List<SysRole> list2 = RolesService.getRoleList();
 		
 		mav.addObject("users", list);
+		mav.addObject("roles", list2);
+		
 		mav.setViewName("permission/users");
 		return mav;
 	

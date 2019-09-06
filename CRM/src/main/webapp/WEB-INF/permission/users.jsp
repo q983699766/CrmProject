@@ -21,6 +21,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
 		<![endif]-->
+		
+		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<script src="../asset/js/area.js"></script>
+		<script src="../asset/js/select.js"></script>
+		<script src="../verSelector/verSelect.js"></script>
+		
 		<script src="../js/jquery-1.9.1.min.js"></script>
         <script src="../assets/js/bootstrap.min.js"></script>
 		<script src="../assets/js/typeahead-bs2.min.js"></script>           	
@@ -48,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <th>用户密码</th>
               <th>用户姓名</th>
               <th>用户所拥有角色</th>
-              <th>最后操作时间</th>
+              <th>上次操作时间</th>
 			  <th class="hidden-480">用户状态</th>             
 			  <th class="hidden-480">操作</th>
              </tr>
@@ -61,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 				<td>******</td>
 				<td>${u.empName }</td>
-				<td>${u.roleName }</td>
+				<td><c:forEach items="${u.roles }" var="rol"><p>${rol.roleName }</p></c:forEach></td>
 				<td><fmt:formatDate value="${u.lastTime }" pattern="yyyy-MM-dd HH:mm"/></td>
 				<td>${u.userState=='0' ? "可用":"不可用"}</td>
 				<td>
@@ -100,8 +106,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <!-- <li><label class="label_name">客户编号：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li> -->
      <li><label class="label_name">用户账号：</label><span class="add_name"><input  type="text" name="userName" id="userName" class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">用户密码：</label><span class="add_name">&nbsp;&nbsp;&nbsp;●●●●●●<!-- <input  type="password" name="userPassword" id="userPassword" class="text_add"/> --></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">用户角色：</label><span class="add_name">
-     		&nbsp;&nbsp;&nbsp;&nbsp;<select id="roles" name="roleId">
+     <li><label class="label_name">用户角色：按住ctrl，点击多选</label><span class="add_name">
+     		&nbsp;&nbsp;&nbsp;&nbsp;<select id="roles" name="roleId" multiple="multiple">
                 <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
     </ul><br/><br/><br/><br/><br/><br/><br/><br/>
@@ -122,7 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      </li>
      <li><label class="label_name">员工编号：</label><span class="add_name"><input name="empId" type="text"  class="text_add" placeholder="必填" /></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">公司编号：</label><span class="add_name"><input name="comId" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">添加角色：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="roles" name="roleId">
+     <li><label class="label_name">添加角色：按住ctrl，点击多选</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="roles" name="roleId" multiple="multiple">
                 <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</label><span class="add_name">
@@ -137,6 +143,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </body>
 </html>
 <script type="text/javascript">
+
+new verSelector();
 /*用户-编辑*/
 function member_edit(id){
 	  layer.open({
@@ -201,7 +209,6 @@ function jia(userId,roleName)
       }
     });
 }
-
 
 
 /*用户-添加*/

@@ -16,7 +16,7 @@ public interface UsersService {
 	public void updateUser(SysUsers user);
 	
 	//修改用户
-	public void updateUserRole(SysUsers user, Long roleId, Long uid);
+	public void updateUserRole(SysUsers user, Long[] roleId, Long uid);
 	
 	//删除用户
 	public void delUser(Long userId);
