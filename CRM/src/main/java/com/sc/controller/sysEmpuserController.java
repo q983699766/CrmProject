@@ -19,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sc.bean.SysEmpuser;
+import com.sc.service.SysComPanyService;
+import com.sc.service.SysDutyService;
 import com.sc.service.SysEmpuserService;
 
 @Controller
@@ -26,12 +28,18 @@ import com.sc.service.SysEmpuserService;
 public class sysEmpuserController {
 	@Autowired
 	SysEmpuserService sysEmpuserService;
+	@Autowired
+	SysComPanyService  sysComPanyService;
+	@Autowired
+	SysDutyService sysDutyService;
 	//查询职务信息
 	@RequestMapping("/list.do")
 	public ModelAndView listpage(ModelAndView mav){
 		//设置视图名称
 		mav.addObject("Empuser", sysEmpuserService.selectSysEmpuser());
 		mav.setViewName("gongsi/empuser");
+		mav.addObject("com", sysComPanyService.selectComoany());
+		mav.addObject("coom", sysDutyService.selectDuty());
 		return mav;
 	}
 	@RequestMapping("/list1.do")
@@ -51,6 +59,7 @@ public class sysEmpuserController {
 	public ModelAndView selectEmpuser(ModelAndView mav,Long empId){
 		//设置视图名称
 		mav.addObject("se", sysEmpuserService.updateSysEmpuser(empId));
+		mav.addObject("m", sysComPanyService.selectComoany());
 		mav.setViewName("gongsi/goadd6");
 		return mav;
 	}

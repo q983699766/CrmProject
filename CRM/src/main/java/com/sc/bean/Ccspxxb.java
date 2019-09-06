@@ -7,31 +7,31 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class Ccspxxb implements Serializable {
-    private Long productId;
+    private Long productId; //商品编号
 
-    private String spMc;
+    private String spMc;	//商品名称
 
-    private String spLb;
+    private String spLb;	//商品类型
 
-    private String ggSm;
+    private String ggSm;	//规格说明
 
-    private String dw;
+    private String dw;		//单位
 
-    private Long ckBh;
+    private Long ckBh;		//仓库编号
 
-    private Long kcSl;
+    private Long kcSl;		//库存数量
 
-    private BigDecimal cbj;
+    private BigDecimal cbj;	//成本价
 
-    private BigDecimal lsj;
+    private BigDecimal lsj;	//零售价
 
-    private BigDecimal jxj;
+    private BigDecimal jxj;	//经销价
 
-    private String bzxx;
+    private String bzxx;	//备注信息
 
-    private Long comId;
+    private Long comId;		//公司编号
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private Date lastTime;
+    private Date lastTime;	//最后修改时间
 
     private static final long serialVersionUID = 1L;
 

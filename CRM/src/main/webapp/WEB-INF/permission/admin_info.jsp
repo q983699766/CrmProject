@@ -139,7 +139,6 @@ function(){
 			  layer.alert('原密码不能为空!',{
               title: '提示框',				
 				icon:0,
-			    
 			 });
 			return false;
           } 

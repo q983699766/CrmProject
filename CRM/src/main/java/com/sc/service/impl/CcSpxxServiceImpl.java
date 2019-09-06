@@ -26,8 +26,12 @@ public class CcSpxxServiceImpl implements CcSpxxService {
 
 	@Override
 	public void addCcspxx(Ccspxxb u) {
-		// TODO Auto-generated method stub
 		
+		if(u!=null){
+			this.ccspxxbMapper.insert(u);
+			
+		}
+	
 	}
 
 	//分页查询所有
@@ -47,9 +51,9 @@ public class CcSpxxServiceImpl implements CcSpxxService {
 	}
 
 	@Override
-	public void delCcspxx(Integer fwid) {
-		// TODO Auto-generated method stub
+	public void delCcspxx(Long productId) {
 		
+		this.ccspxxbMapper.deleteByPrimaryKey(productId);
 	}
 
 	@Override

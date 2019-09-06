@@ -12,6 +12,8 @@ public interface SysPermissionRoleMapper {
 
     int deleteByPrimaryKey(Long permissionRoleId);
 
+    int reset();
+    
     int insert(SysPermissionRole record);
 
     int insertSelective(SysPermissionRole record);
