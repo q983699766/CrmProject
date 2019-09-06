@@ -1,0 +1,39 @@
+package com.sc.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.sc.bean.OfficeChecktarget;
+import com.sc.bean.Users;
+import com.sc.bean.UsersExample;
+import com.sc.bean.UsersExample.Criteria;
+import com.sc.mapper.OfficeChecktargetMapper;
+import com.sc.mapper.UsersMapper;
+import com.sc.service.OfficeChecktargetService;
+import com.sc.service.UsersService;
+
+@Service
+public class OfficeChecktargetServiceImpl implements OfficeChecktargetService {
+	@Autowired
+	OfficeChecktargetMapper officeChecktargetMapper;
+
+	@Override
+	public List<OfficeChecktarget> selectOfficeChecktargetAll() {
+		return this.officeChecktargetMapper.selectByExample(null);
+	}
+
+	@Override
+	public void delOfficeChecktargetById(OfficeChecktarget offchecktarget) {
+		// TODO Auto-generated method stub
+		if(offchecktarget!=null && offchecktarget.getTargetId()!=null) {
+			this.officeChecktargetMapper.deleteByPrimaryKey(offchecktarget.getTargetId());
+		}
+	}
+	
+	
+
+}
