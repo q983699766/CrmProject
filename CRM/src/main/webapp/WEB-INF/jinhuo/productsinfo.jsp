@@ -109,8 +109,7 @@
 		</thead>
 	<tbody>
 	 <c:forEach items="${pi.list}" var="i">
-	
-		<tr>
+	<tr>
           <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
            <td>${i.proId}</td>
            <td>${i.productId}</td>
@@ -125,8 +124,7 @@
          <a title="生成送货单" href="pursupinfo/delinfo.do?supInfoNum=${i.productId}" class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
        </td> 
    </tr>
-
- </c:forEach>
+</c:forEach>
           <tr >
               <td colspan="11" style="text-align: center;">
                   <a href="products/selectproducts.do?pageNum=${pi.firstPage }">首页</a>
