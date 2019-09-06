@@ -204,13 +204,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="update_menber" id="update_menber_style" style="display:none"> 
     <ul class=" page-content">
      <!-- <li><label class="label_name">客户编号：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li> -->
-     <li><label class="label_name">客户名称：</label><span class="add_name"><input  type="text"  id="customNamex" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">客户属性：</label><span class="add_name"><input  type="text" id="customPropertiesx" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">网&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;站：</label><span class="add_name"><input  type="text" id="websitex" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">股票代码：</label><span class="add_name"><input  type="text" id="ticketCodex" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">上级单位：</label><span class="add_name"><input  type="text" id="superiorUnitsx" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">所&nbsp;&nbsp;有&nbsp;&nbsp;者：</label><span class="add_name"><input  type="text" id="ownerx" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">员&nbsp;&nbsp;工&nbsp;&nbsp;数：</label><span class="add_name"><input  type="text" id="staffx" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">客户名称：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">客户属性：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">网&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;站：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">股票代码：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">上机单位：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">所&nbsp;&nbsp;有&nbsp;&nbsp;者：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">员&nbsp;&nbsp;工&nbsp;&nbsp;数：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">行业编号：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">客户类型：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">客户来源：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>

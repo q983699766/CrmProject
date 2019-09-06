@@ -3,6 +3,7 @@ package com.sc.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sc.service.CcSpxxService;
@@ -21,11 +22,13 @@ public class PurProductsController {
 		
 		//查询所有待采购产品库存信息
 		@RequestMapping("/selectproducts.do")
-		public ModelAndView selectproducts (ModelAndView mav,Integer pageNum, Integer pageSize){
-			System.out.println("查询所有待采购产品库存信息+++++"+ccspxxservice.selectCcspxx());
+		public ModelAndView selectproducts (ModelAndView mav,
+				@RequestParam(defaultValue="1")Integer pageNum,
+				@RequestParam(defaultValue="5")Integer pageSize){
+			System.out.println("查询所有待采购产品库存信息+++++"+ccspxxservice.selectCcspxxPage(pageNum, pageSize));
 			mav.addObject("pi", ccspxxservice.selectCcspxxPage(pageNum, pageSize));
-			System.out.println(ccspxxservice.selectCcspxx());
-		    mav.setViewName("jinhuo/productsinfo");
+			System.out.println(ccspxxservice.selectCcspxxPage(pageNum, pageSize)+"xxxxx");
+            mav.setViewName("jinhuo/productsinfo");
 			
 		    return mav;
 		}

@@ -353,7 +353,6 @@ $('.change_Password').on('click', function(){
                     <li class="home"><a href="javascript:void(0)" name="conctlr/custom.do" title="客户信息"  class="iframeurl"><i class="icon-double-angle-right"></i>客户信息</a></li>
                     <li class="home"><a href="javascript:void(0)" name="conperctlr/bleed.do" title="联系人管理"  class="iframeurl"><i class="icon-double-angle-right"></i>联系人管理</a></li>
                     <li class="home"><a href="javascript:void(0)" name="conperctlr/record.do" title="联系记录管理"  class="iframeurl"><i class="icon-double-angle-right"></i>联系记录管理</a></li>
-
                    </ul>
 				  </li>
 						<li><a href="#" class="dropdown-toggle"><i class="icon-edit"></i><span class="menu-text"> 万成龙</span><b class="arrow icon-angle-down"></b></a>

@@ -10,12 +10,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>联系记录列表</title>
+    <title>客户联系记录</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
@@ -66,10 +67,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <script src="assets/layer/layer.js" type="text/javascript" ></script>
         <script src="assets/laydate/laydate.js" type="text/javascript"></script>
 
-	
-
   </head>
-  
+ 
   <body>
    	<div class="page-content clearfix">
     <div id="Member_Ratings">
@@ -287,4 +286,7 @@ laydate({
 
 
 </style>
+    
+  </body>
+</html>
 

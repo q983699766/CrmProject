@@ -12,7 +12,8 @@
       <arg column="COM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
       <arg column="LAST_DATE" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
-  </resultMap>
+    
+
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -42,6 +43,9 @@
       </foreach>
     </where>
   </sql>
+  
+
+  
   <sql id="Update_By_Example_Where_Clause" >
     <where >
       <foreach collection="example.oredCriteria" item="criteria" separator="or" >

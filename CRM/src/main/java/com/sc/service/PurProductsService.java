@@ -12,5 +12,9 @@ public interface PurProductsService {
 		
 		//库存商品信息分页
 		public PageInfo<Ccspxxb> selectCcspxxPage(Integer pageNum, Integer pageSize);	
-	
+		
+		//和商品联合查询
+		public PageInfo<Ccspxxb> selectproandsp(Integer pageNum, Integer pageSize,Ccspxxb ccspxxb);
+
+		
 }
