@@ -76,6 +76,7 @@ public class ConperServiceImpl implements ConperService {
 		}
 	}
 
+	//根据客户ID查询出对应的联系人信息
 	@Override
 	public List<SalConper> selectconperById(Long customId) {
 		
@@ -86,22 +87,36 @@ public class ConperServiceImpl implements ConperService {
 		return list;
 	}
 
-/*	@Override
-	public PageInfo<SalConper> selectSalConper(Integer pageNum, Integer pageSize, SalConper con) {
-		PageHelper.startPage(pageNum,pageSize);
-		SalCustomInfoExample example=new SalCustomInfoExample();
-		if(con!=null&&con.getConperName()!=null){
-		
-		Criteria criteria = example.createCriteria();
-		criteria.and
-		criteria.andEmailEqualTo(sal.getEmail());
-		criteria.andCellPhoneEqualTo(sal.getCellPhone());
+	@Override
+	public void addSalConper(SalConper con) {
+		if(con!=null){
+			this.salConperMapper.insert(con);
 		}
-		List<SalCustomInfo> list = salCustomInfoMapper.selectByExample(example);
-		PageInfo<SalCustomInfo> pi = new PageInfo<SalCustomInfo>(list);
-		return pi;
 		
-	}*/
+	}
+
+	@Override
+	public void updateSalConper(SalConper con) {
+		if(con!=null){
+			this.salConperMapper.updateByPrimaryKey(con);
+		}
+		
+	}
+
+	@Override
+	public SalConper selectSalConperById(Long conperId) {
+		
+		return this.salConperMapper.selectByPrimaryKey(conperId);
+	}
+
+	@Override
+	public void delSalConper(SalConper con) {
+		if(con!=null&&con.getConperId()!=null){
+			this.salConperMapper.deleteByPrimaryKey(con.getConperId());
+		}
+		
+	}
+
 
 	
 	

@@ -79,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="search_style">
       <div class="title_names">搜索查询</div>
       <ul class="search_content clearfix">
-       <li><label class="l_f">客户名称</label><input name="customName" type="text"  class="text_add" placeholder="输入客户名称,手机号，邮箱"  style=" width:400px"/></li>
+       <li><label class="l_f">客户名称</label><input name="customName" type="text"  class="text_add" placeholder="输入客户名称"  style=" width:400px"/></li>
        <li style="width:90px;"><input type="submit"  class="btn_search" value="查询"></li>
       </ul>
     </div>
@@ -194,8 +194,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <li><label class="label_name">备注信息：</label><span class="add_name"><input  type="text" name="remark" id="remark" class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">公司编号：</label><span class="add_name"><input  type="text" name="comId" id="comId" class="text_add"/></span><div class="prompt r_f"></div></li>
 
-    </ul>
-    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div>
+    </ul><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br><br><br><br><br><br>
  </div>
  </form>
  
@@ -229,7 +229,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <li><label class="label_name">详细地址：</label><span class="add_name"><input  type="text" id="detailAddressx" name="detailAddress" class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">备注信息：</label><span class="add_name"><input  type="text" id="remarkx" name="remark" class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">公司编号：</label><span class="add_name"><input  type="text" id="comIdx" name="comId" class="text_add"/></span><div class="prompt r_f"></div></li>
-    </ul>
+    </ul><br><br><br><br><br><br><br><br><br><br><br><br>
     <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br><br><br>
  </div>
  </form>
@@ -430,6 +430,8 @@ function member_edit(id){
     });
 }
 
+
+/* 查看详情的ajax */
 function jia(customId)
     {
         var url="conctlr/selectById.do?customId="+customId;
@@ -479,7 +481,7 @@ function jia(customId)
     }
     
     
-    
+    /* 修改时上传到修改页面的ajax */
  function jia1(customId)
     {
         var url="conctlr/selectById.do?customId="+customId;

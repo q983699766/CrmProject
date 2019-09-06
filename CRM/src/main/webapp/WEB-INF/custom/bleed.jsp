@@ -83,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加联系人</a>
         <a href="javascript:ovid()" class="btn btn-danger">查看联系记录</a>
        </span>
-       <span class="r_f">共：<b>2345</b>条</span>
+     
      </div>
      <!---->
      <div class="table_menu_list">
@@ -92,15 +92,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 <tr>
 				<th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
 				<th style="font-size:12px;width:10%;">联系人名</th>
-				<th style="font-size:12px;width:8%;">英文名</th>
-				<th style="font-size:12px;width:10%;">职务</th>
-				<th style="font-size:12px;width:10%;">部门</th>
-				<th style="font-size:12px;width:12%;">手机</th>
-				<th style="font-size:12px;width:12%;">办公电话</th>
+				<th style="font-size:12px;width:10%;">英文名</th>
+				<th style="font-size:12px;width:8%;">职务</th>
+				<th style="font-size:12px;width:8%;">部门</th>
+				<th style="font-size:12px;width:14%;">手机</th>
+				<th style="font-size:12px;width:14%;">办公电话</th>
                 <th style="font-size:12px;width:12%;">电子邮件</th>
 				<th style="font-size:12px;width:15%;">地址</th>
 				<th style="font-size:12px;width:12%">备注信息</th>                 
-				<th style="font-size:12px;width:40px;">操作</th>
+				<th style="font-size:12px;width:14%;">操作</th>
 			</tr>
 		</thead>
 	<tbody>
@@ -133,11 +133,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <td style="font-size:13px;">${a.address}</td>
           <td style="font-size:13px;">${a.remark}</td>
           <td class="td-manage">
-          <a title="编辑" onclick="member_edit('550')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
+          <a title="编辑" onclick="aaa(${a.conperId});member_edit('550')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
+          <a title="删除" href="javascript:;"  onclick="member_del(this,'1');del(${a.conperId})" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
           </td>
 		</tr>
 		</c:forEach>
+		<%-- <tr>
+       		<td colspan="14" style="text-align: center">
+       			<a href="conctlr/gotoConper.do?pageNum=${pi.firstPage }">首页</a>
+       			<a href="conctlr/gotoConper.do?pageNum=${pi.prePage }">上一页</a>
+       			<a href="conctlr/gotoConper.do?pageNum=${pi.nextPage }">下一页</a>
+       			<a href="conctlr/gotoConper.do?pageNum=${pi.lastPage }">尾页</a>
+       			当前${pi.pageNum}/${pi.pages}页,共${pi.total}条
+       		</td>
+	     </tr> --%>
       </tbody>
 	</table>
    </div>
@@ -147,40 +156,47 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
  
  <!--添加用户图层-->
- <form action="#" method="post">
+ <form action="conctlr/addSalConper.do" method="post">
 <div class="add_menber" id="add_menber_style" style="display:none"> 
     <ul class=" page-content">
+    <input type="hidden" name="customId" value="${conper.customId}" /> 
      <!-- <li><label class="label_name">客户编号：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li> -->
-     <li><label class="label_name">联系姓名：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">英&nbsp;&nbsp;文&nbsp;&nbsp;名：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;务：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">办公电话：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">电子邮件：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">备注信息：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-    </ul>
+     <li><label class="label_name">联系姓名：</label><span class="add_name"><input  type="text" name="conperName"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">英&nbsp;&nbsp;文&nbsp;&nbsp;名：</label><span class="add_name"><input  type="text" name="englishName"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;务：</label><span class="add_name"><input  type="text" name="post"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门：</label><span class="add_name"><input  type="text" name="dept" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机：</label><span class="add_name"><input  type="text" name="cellPhone" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">办公电话：</label><span class="add_name"><input  type="text" name="tel" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">电子邮件：</label><span class="add_name"><input  type="text" name="email" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</label><span class="add_name"><input  type="text" name="address" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">备注信息：</label><span class="add_name"><input  type="text" name="remark" class="text_add"/></span><div class="prompt r_f"></div></li>
+    </ul><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br><br><br>
  </div>
  </form>
  
  
  
  <!--修改用户图层-->
- <form action="#" method="post">
+ <form action="conctlr/updateSalConper.do" method="post">
 <div class="update_menber" id="update_menber_style" style="display:none"> 
     <ul class=" page-content">
+     <input type="hidden" name="conperId" id="conperId"/>  
+    <input type="hidden" name="customId" id="customId" value="${conper.customId}" />  
+    
+<%--     <input type="hidden" name="comId" id="comId" value="${conper.comId}" />  --%>
      <!-- <li><label class="label_name">客户编号：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li> -->
-     <li><label class="label_name">联系姓名：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">英&nbsp;&nbsp;文&nbsp;&nbsp;名：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;务：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">办公电话：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">电子邮件：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">备注信息：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-    </ul>
+     <li><label class="label_name">联系姓名：</label><span class="add_name"><input  type="text" name="conperName" id="conperName"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">英&nbsp;&nbsp;文&nbsp;&nbsp;名：</label><span class="add_name"><input  type="text" name="englishName" id="englishName"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;务：</label><span class="add_name"><input  type="text" name="post" id="post"   class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门：</label><span class="add_name"><input  type="text" name="dept" id="dept" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机：</label><span class="add_name"><input  type="text" name="cellPhone" id="cellPhone" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">办公电话：</label><span class="add_name"><input  type="text" name="tel" id="tel" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">电子邮件：</label><span class="add_name"><input  type="text" name="email" id="email" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</label><span class="add_name"><input  type="text" name="address" id="address" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">备注信息：</label><span class="add_name"><input  type="text" name="remark" id="remark" class="text_add"/></span><div class="prompt r_f"></div></li>
+    </ul><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br><br><br>
  </div>
  </form>
  
@@ -193,6 +209,9 @@ jQuery(function($) {
 				var oTable1 = $('#sample-table').dataTable( {
 				"aaSorting": [[ 1, "desc" ]],//默认第几个排序
 		"bStateSave": true,//状态保存
+		'paging': false,
+		"info": false,
+		"filter": false,
 		"aoColumnDefs": [
 		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
 		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
@@ -235,7 +254,7 @@ jQuery(function($) {
 		shadeClose: true, //点击遮罩关闭层
         area : ['800px' , ''],
         content:$('#add_menber_style'),
-		btn:['提交','取消'],
+		
 		yes:function(index,layero){	
 		 var num=0;
 		 var str="";
@@ -273,7 +292,7 @@ function member_edit(id){
 		shadeClose:false, //点击遮罩关闭层
         area : ['800px' , ''],
         content:$('#update_menber_style'),
-		btn:['提交','取消'],
+		
 		yes:function(index,layero){	
 		 var num=0;
 		 var str="";
@@ -311,6 +330,57 @@ laydate({
     elem: '#start',
     event: 'focus' 
 });
+
+<!--修改时用的ajax  -->
+ function aaa(conperId)
+    {
+        var url="conctlr/selectSalConperById.do?conperId="+conperId;
+   //ajax异步请求
+   $.ajax
+   ({
+      type:"post",
+      url:url,
+      dataType:"json",
+      success:function(data)
+      {//从前台回调回来的数组，处理后的数据
+       //alert(JSON.stringify(data));
+       	 $("#conperId").val(data.conperId);
+         $("#customId").val(data.customId);//将取出的值覆盖原来的值 （val对值进行操作)
+         $("#conperName").val(data.conperName);
+         $("#englishName").val(data.englishName);
+         $("#post").val(data.post);
+         $("#dept").val(data.dept);
+         $("#cellPhone").val(data.cellPhone);
+         $("#tel").val(data.tel);
+         $("#email").val(data.email);
+         $("#address").val(data.address);
+         $("#remark").val(data.remark);
+         $("#comId").val(data.comId);
+        
+      }
+    });
+       
+    } 
+    
+    
+    /*用户-删除ajax*/
+
+ function del(conperId)
+    {
+        var url="conctlr/delSalConper.do?conperId="+conperId;
+        
+	   //ajax异步请求
+	   $.ajax
+	   ({
+	      type:"post",
+	      url:url,
+	      dataType:"json",
+	      success:function(data)
+	      {//从前台回调回来的数组，处理后的数据 
+	      }
+	    });
+       
+    }
 
 </script>
 

@@ -83,7 +83,7 @@ public class ConperController2 {
 			return mav;
 		}
 		
-	//
+	//从a标签“联系人”跳转到联系人页面查看所有信息
 		@RequestMapping("/gotoConper.do")
 		public ModelAndView gotoConper(ModelAndView mav,HttpServletRequest req){
 			String customId = req.getParameter("customId");
@@ -93,10 +93,35 @@ public class ConperController2 {
 			Long id = custom.getCustomId();
 			List<SalConper> list = conperService.selectconperById(id);
 			custom.setSalconper(list);
-			
-			
+
 			for (SalConper salConper : list) {
-				System.out.println("查询出来的联系人信息是"+list);
+				System.out.println("查询出来的联系人信息是"+salConper);
+			}
+			mav.addObject("conper",custom );
+			mav.setViewName("custom/bleed");
+			
+			return mav;
+		}
+		
+		
+		//添加联系人信息
+		@RequestMapping("/addSalConper.do")
+		public ModelAndView addSalConper(ModelAndView mav,
+				SalConper con) throws IllegalStateException, IOException{
+			Date date = new Date();
+			con.setLastTime(date);
+			Long customId = con.getCustomId();
+			con.setCustomId(customId);
+			System.out.println("获取到的客户ID为："+customId);
+			System.out.println("进入到添加控制器了！！");
+			conperService.addSalConper(con);
+			SalCustomInfo custom = conperService.selectById(customId);
+			Long id = custom.getCustomId();
+			List<SalConper> list = conperService.selectconperById(id);
+			custom.setSalconper(list);
+
+			for (SalConper salConper : list) {
+				System.out.println("查询出来的联系人信息是"+salConper);
 			}
 			mav.addObject("conper",custom );
 			mav.setViewName("custom/bleed");
@@ -104,4 +129,61 @@ public class ConperController2 {
 			return mav;
 		}
 	
+		//修改联系人信息
+		@RequestMapping("/updateSalConper.do")
+		public ModelAndView updateSalConper(ModelAndView mav,SalConper con){
+//			System.out.println("sal的数据为："+con);
+//			Long customId = con.getCustomId();
+//			con.setCustomId(customId);
+			conperService.updateSalConper(con);
+			SalCustomInfo custom = conperService.selectById(con.getCustomId());
+			Long id = custom.getCustomId();
+			List<SalConper> list = conperService.selectconperById(id);
+			custom.setSalconper(list);
+
+			for (SalConper salConper : list) {
+				System.out.println("查询出来的联系人信息是"+salConper);
+			}
+			mav.addObject("conper",custom );
+			mav.setViewName("custom/bleed");
+			
+			return mav;
+		}
+		
+		
+		//通过id查询出联系人的所有信息
+		//*****id不能重复
+		@RequestMapping("/selectSalConperById.do")
+		@ResponseBody//比如异步获取json数据，加上@responsebody后，会直接返回json数据
+		public SalConper selectSalConperById(ModelAndView mav,HttpServletRequest req) throws IllegalStateException, IOException {
+			String conperId = req.getParameter("conperId");
+			Long uid =(long) Integer.parseInt(conperId);
+			System.out.println("获取到的用户编号为:"+uid);
+			SalConper conper = conperService.selectSalConperById(uid);
+			System.out.println("获取的联系人ID："+conper.getConperId());  
+			System.out.println("查出的用户信息为"+conper);
+			return conper;
+		}
+		
+		
+		//删除客户信息
+		@RequestMapping("/delSalConper.do")
+		public ModelAndView delSalConper(ModelAndView mav,SalConper con){
+			System.out.println("删除的用户信息是："+con);
+			conperService.delSalConper(con);
+			SalCustomInfo custom = conperService.selectById(con.getCustomId());
+			Long id = custom.getCustomId();
+			List<SalConper> list = conperService.selectconperById(id);
+			custom.setSalconper(list);
+
+			for (SalConper salConper : list) {
+				System.out.println("查询出来的联系人信息是"+salConper);
+			}
+			mav.addObject("conper",custom );
+			mav.setViewName("custom/bleed");
+			
+			return mav;
+		}
+		
+		
 }
