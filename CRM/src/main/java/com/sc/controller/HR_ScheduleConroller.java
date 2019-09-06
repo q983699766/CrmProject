@@ -1,16 +1,20 @@
 package com.sc.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sc.bean.OfficeDetailSms;
 import com.sc.bean.OfficeSms;
+import com.sc.bean.SalCustomInfo;
 import com.sc.bean.SysCOMPANY;
 import com.sc.bean.SysUsers;
 import com.sc.service.HrScheDetailService;
@@ -67,6 +71,7 @@ public class HR_ScheduleConroller {
 			
 		}	
 		
+		
 		//查询所有供应商详细信息
 		@RequestMapping("/selectdetailinfo.do")
 		public ModelAndView selectAlldetailSms1 (ModelAndView mav,OfficeDetailSms officeDetailSms){
@@ -75,7 +80,55 @@ public class HR_ScheduleConroller {
 			 List<OfficeDetailSms> selectsmsByExample1 = hrScheDetailService.selectsmsByExample(null);
 			System.out.println("详细信息"+selectsmsByExample1);
 			
+			for (OfficeDetailSms officeDetailSms2 : selectsmsByExample1) {
+				Long smsId = officeDetailSms2.getSmsId();
+				Long receiverId = officeDetailSms2.getReceiverId();
+				Long comId = officeDetailSms2.getComId();
+				
+				SysCOMPANY seleCOMById = hrScheDetailService.seleCOMById(comId);
+				OfficeSms selesmsById = hrScheDetailService.selesmsById(smsId);
+				SysUsers seleuserById = hrScheDetailService.seleuserById(receiverId);
+				
+				System.out.println(seleCOMById);
+				officeDetailSms2.setSyscompany(seleCOMById);
+				officeDetailSms2.setSysUsers(seleuserById);
+				officeDetailSms2.setOfficeSms(selesmsById);
+				
+				
+			}
+			
+			System.out.println("set后的信息為："+selectsmsByExample1);
+			
+			mav.addObject("smsdetailinfo", selectsmsByExample1);
+			
+			mav.setViewName("wanchenglong/smsdetail");
 			return mav;
 		}	
+		
+		
+		
+		//设置状态
+		@RequestMapping("/Officestate.do")
+		@ResponseBody//比如异步获取json数据，加上@responsebody后，会直接返回json数据
+		public String selectById(ModelAndView mav,HttpServletRequest req,OfficeDetailSms officeDetailSms) throws IllegalStateException, IOException {
+			System.out.println("进入状态改变");
+			 String id = req.getParameter("id");
+			 String sta = req.getParameter("sta");
+			
+			System.out.println("获取到的用户编号为:"+id);
+			System.out.println("获取到的用户状态为:"+sta);
+			
+			officeDetailSms.setDetailId(Long.valueOf(id));
+			officeDetailSms.setSmsState(sta);
+			
+			hrScheDetailService.updatesmsById(officeDetailSms);
+	//		SalCustomInfo custom = conperService.selectById(uid);
+			
+			return "redirect:/Office/selectdetailinfo.do";
+			
+
+		}
+		
+		
 		
 }
