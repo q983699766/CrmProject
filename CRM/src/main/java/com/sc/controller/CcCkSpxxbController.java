@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sc.bean.Ccspxxb;
+import com.sc.bean.PurSupInfo;
 import com.sc.service.CcSpxxService;
 
 @Controller//注册成bean对象
@@ -22,8 +23,7 @@ public class CcCkSpxxbController {
 				
 				System.out.println("aaaaaaa");
 				//添加模型数据
-			   mav.addObject("pi", ccSpxxService.selectCcspxxPage(pageNum, pageSize));
-			   
+			   mav.addObject("pi", ccSpxxService.selectCcspxxPage(pageNum, pageSize));			   
 				//设置视图名称         转发
 				mav.setViewName("Ck/splb");//响应的视图名称，路径是：/WEB-INF/users/list.jsp
 				return mav;
@@ -34,7 +34,7 @@ public class CcCkSpxxbController {
 			@RequestMapping("/del.do")
 			public ModelAndView del(ModelAndView mav,Long productId){
 				
-				System.out.println("接收到的fwid为"+productId);
+				System.out.println("接收到的productId为"+productId);
 				ccSpxxService.delCcspxx(productId);
 				//重定向到列表方法
 				mav.setViewName("redirect:list.do");
@@ -59,15 +59,17 @@ public class CcCkSpxxbController {
 			
 		//模糊查询
 			@RequestMapping("mh.do")
-			public ModelAndView mh(ModelAndView mav,Ccspxxb ccspxx){
+			public ModelAndView selectmh(ModelAndView mav,
+					@RequestParam(defaultValue="1")Integer pageNum,
+					@RequestParam(defaultValue="5")Integer pageSize,Ccspxxb ccspxx){
 				
-				System.out.println("aaaaaaa");
-				//添加模型数据
-			   mav.addObject("pi", ccSpxxService.selectCcspxx(ccspxx));
-			   
-				//设置视图名称         转发
-				mav.setViewName("redirect:list.do");//响应的视图名称，路径是：/WEB-INF/users/list.jsp
-				return mav;
+				System.out.println("进入查询供应商信息方法");
+			
+				mav.addObject("pi", ccSpxxService.selectall(pageNum, pageSize, ccspxx));
+				System.out.println(ccSpxxService.selectall(pageNum, pageSize,ccspxx));
+			    mav.setViewName("jinhuo/supinfo");
+				
+			    return mav;
 			}
 			
 			

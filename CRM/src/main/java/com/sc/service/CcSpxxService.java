@@ -5,6 +5,7 @@ import java.util.List;
 import com.github.pagehelper.PageInfo;
 
 import com.sc.bean.Ccspxxb;
+import com.sc.bean.PurSupInfo;
 
 public interface CcSpxxService {
 
@@ -21,5 +22,6 @@ public interface CcSpxxService {
 	//修改库存的商品信息
 	public void updateCcspxx(Ccspxxb u);
 	//商品模糊查询
-	public List<Ccspxxb> selectCcspxx(Ccspxxb ccspxx );
+	public PageInfo<Ccspxxb> selectall(Integer pageNum,Integer pageSize,Ccspxxb ccspxx);
+	
 }

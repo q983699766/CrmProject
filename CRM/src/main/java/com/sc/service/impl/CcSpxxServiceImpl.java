@@ -9,6 +9,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sc.bean.Ccspxxb;
 import com.sc.bean.CcspxxbExample;
+import com.sc.bean.PurSupInfo;
+import com.sc.bean.PurSupInfoExample;
+import com.sc.bean.PurSupInfoExample.Criteria;
 import com.sc.mapper.CcspxxbMapper;
 import com.sc.service.CcSpxxService;
 @Service
@@ -62,13 +65,34 @@ public class CcSpxxServiceImpl implements CcSpxxService {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
+
+	//模糊查询
 	@Override
-	public List<Ccspxxb> selectCcspxx(Ccspxxb ccspxx) {
+	public PageInfo<Ccspxxb> selectall(Integer pageNum, Integer pageSize, Ccspxxb ccspxx) {
+		PageHelper.startPage(pageNum,pageSize);
+		CcspxxbExample example = new CcspxxbExample();
+		example.setOrderByClause("PRODUCT_ID DESC");
+		if(ccspxx.getSpMc()!=null){
+			com.sc.bean.CcspxxbExample.Criteria criteria = example.createCriteria();
+			criteria.andSpMcLike("%"+ccspxx.getSpMc()+"%");
+			
+		}
 		
-		return ccspxxbMapper.selectByExample(ccspxx);
+		if(ccspxx.getSpLb()!=null){
+			com.sc.bean.CcspxxbExample.Criteria criteria = example.createCriteria();
+			criteria.andSpLbLike("%"+ccspxx.getSpLb()+"%");
+			
+		}
+		
+		List<Ccspxxb> list = ccspxxbMapper.selectByExample(example);
+		PageInfo<Ccspxxb> pi = new PageInfo<Ccspxxb>(list);
+		return pi;
 	}
 
+		
+
+	
+	
+	
 	
 }
