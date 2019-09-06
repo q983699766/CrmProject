@@ -18,9 +18,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <link href="../assets/css/codemirror.css" rel="stylesheet">
         <link rel="stylesheet" href="../assets/css/ace.min.css" />
         <link rel="stylesheet" href="../font/css/font-awesome.min.css" />
+          <link  rel="stylesheet" href="../layui/css/layui.css" />
         <!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
 		<![endif]-->
+				<script src="../layui/layui.js"></script>
+		
 		<script src="../js/jquery-1.9.1.min.js"></script>
         <script src="../assets/js/bootstrap.min.js"></script>
 		<script src="../assets/js/typeahead-bs2.min.js"></script>           	
@@ -64,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            <c:forEach items="${pi.list }" var="t" >
      	<tr>
         <td width="10%">${t.dutId }</td>               
-        <td width="10%"><u style="cursor:pointer" class="text-primary" onclick="">${t.dutName}</u></td>
+        <td width="10%">${t.dutName}</td>
         <td width="10%">
         <c:if test="${t.secId==1 }">物流部</c:if>
         <c:if test="${t.secId==2 }">客服部</c:if>
@@ -103,10 +106,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   
  <!--添加用户图层--> 
- <form action="updataduty.do" method="post">
+ <form action="updataduty.do" method="post" onsubmit=" return t()">
 <div class="add_menber" id="add_menber_style" style="display:none">
     <ul class=" page-content">
-     <li><label class="label_name">职位名称：</label><span class="add_name"><input value="" name="dutName" type="text"  class="text_add" placeholder="必填"/><input type="hidden" name="dutId" ></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">职位名称：</label><span class="add_name">
+     	<input name="dutName" type="text"  class="text_add" placeholder="必填"/>
+     <input type="hidden" name="dutId" ></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">所属部门：</label><span class="add_name">
       <select name="secId" style="width: 170px;color:green;">
                   <option value="0">部门类型</option>
@@ -115,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			  </c:forEach>
  				 </select>
      </span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">备注信息：</label><span class="add_name"><input name="dutRemark" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">备注信息：</label><span class="add_name"><input id="dutRemark" name="dutRemark" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
 	 <li><label class="label_name">所属公司：</label><span class="add_name"><select name="comId" style="width: 170px;color:green;">
                   <option value="0">选择公司</option>
                   <c:forEach items="${cs }" var="k">
@@ -130,6 +135,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
 </body>
 </html>
+<script>
+	function t(){
+		var dutRemark = document.getElementById("dutRemark").value;
+		if (dutRemark==""){
+			  layer.alert('用户名不能为空!',{
+              title: '提示框',				
+				icon:0, 
+			 });
+			return false;
+          } 
+          }
+</script>
 <script type="text/javascript">
 /*用户-添加*/
  $('#member_add').on('click', function(){
