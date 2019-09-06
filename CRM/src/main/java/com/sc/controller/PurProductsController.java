@@ -27,7 +27,7 @@ public class PurProductsController {
 		@Autowired
 		CcSpxxService ccspxxservice;
 		
-		//查询所有待采购产品库存信息
+		//查询所有待采购产品库存信息(没用)
 		@RequestMapping("/selectproducts.do")
 		public ModelAndView selectproducts (ModelAndView mav,
 				@RequestParam(defaultValue="1")Integer pageNum,
@@ -45,6 +45,7 @@ public class PurProductsController {
 				@RequestParam(defaultValue="1")Integer pageNum,
 				@RequestParam(defaultValue="5")Integer pageSize){
 			PageInfo<PurProducts> xx = purproductsservice.selectpurproducts(pageNum, pageSize);
+			
 			mav.addObject("pi",xx);
            mav.setViewName("jinhuo/productsinfo");
 		    return mav;
