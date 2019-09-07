@@ -361,8 +361,10 @@ $('.change_Password').on('click', function(){
 						</li>
 						<li><a href="#" class="dropdown-toggle"><i class="icon-edit"></i><span class="menu-text"> 范宇星 </span><b class="arrow icon-angle-down"></b></a>
 							<ul class="submenu">
-								<li class="home"><a href="javascript:void(0)" name="officecc.do/listofficechecktargetall.do" title="文章列表" class="iframeurl"><i class="icon-double-angle-right"></i>文章列表</a></li>
-                                <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="分类分类" class="iframeurl"><i class="icon-double-angle-right"></i>分类分类</a></li>
+								<li class="home"><a href="javascript:void(0)" name="officecc.do/listofficechecktargetall.do" title="任务指标管理" class="iframeurl"><i class="icon-double-angle-right"></i>任务指标管理</a></li>
+                                <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="任务授权关系" class="iframeurl"><i class="icon-double-angle-right"></i>任务授权关系</a></li>
+                                <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="任务发布管理" class="iframeurl"><i class="icon-double-angle-right"></i>任务发布管理</a></li>
+                                <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="任务接收查询" class="iframeurl"><i class="icon-double-angle-right"></i>任务接收查询</a></li>
 							</ul>
 						</li>
                         	<li><a href="#" class="dropdown-toggle"><i class="icon-cogs"></i><span class="menu-text"> 采购管理 </span><b class="arrow icon-angle-down"></b></a>
