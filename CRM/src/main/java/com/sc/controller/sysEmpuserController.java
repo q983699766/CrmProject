@@ -60,7 +60,7 @@ public class sysEmpuserController {
 		//设置视图名称
 		mav.addObject("se", sysEmpuserService.updateSysEmpuser(empId));
 		mav.addObject("m", sysComPanyService.selectComoany());
-		mav.setViewName("gongsi/goadd6");
+		mav.setViewName("gongsi/eui3");
 		return mav;
 	}
 	@RequestMapping("/update.do")
