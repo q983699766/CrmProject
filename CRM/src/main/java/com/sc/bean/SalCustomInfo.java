@@ -70,8 +70,18 @@ public class SalCustomInfo implements Serializable {
 	public void setSalconper(List<SalConper> salconper) {
 		this.salconper = salconper;
 	}
+	
+	private List<SalRecord> salrecord;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    public List<SalRecord> getSalrecord() {
+		return salrecord;
+	}
+
+	public void setSalrecord(List<SalRecord> salrecord) {
+		this.salrecord = salrecord;
+	}
+
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastTime;
 
     private static final long serialVersionUID = 1L;

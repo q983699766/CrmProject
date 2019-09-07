@@ -5,6 +5,7 @@ import java.util.List;
 import com.github.pagehelper.PageInfo;
 import com.sc.bean.SalConper;
 import com.sc.bean.SalCustomInfo;
+import com.sc.bean.SalRecord;
 
 
 public interface ConperService {
@@ -19,6 +20,9 @@ public interface ConperService {
 	public void addSalCustomInfo(SalCustomInfo sal);
 	//删除客户信息
 	public void delSalCustomInfo(SalCustomInfo sal);
+	//通过ID删除客户信息
+	public void delAll(Long customId);
+	
 	//修改用户信息
 	public void updateSalCustomInfo(SalCustomInfo sal);
 	
@@ -39,5 +43,8 @@ public interface ConperService {
 	
 	//删除联系人信息
 	public void delSalConper(SalConper con);
+	
+	//根据客户ID查询出所有联系记录
+	public List<SalRecord> selectrecordById(Long customId);
 
 }
