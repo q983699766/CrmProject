@@ -34,5 +34,9 @@ public interface PurSupInfoMapper {
     int updateByPrimaryKey(PurSupInfo pursupinfo);
 
 
+  //模糊查询
+  	public List<PurSupInfo> checkByName(@Param("supInfoNum")Long supInfoNum, @Param("supName")String supName, 
+  			@Param("supUname")String supUname,@Param("contacts") String contacts, @Param("telphone") String telphone);
+
 	
 }

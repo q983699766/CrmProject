@@ -10,12 +10,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>联系记录列表</title>
+    <title>客户联系记录</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
@@ -66,10 +67,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <script src="assets/layer/layer.js" type="text/javascript" ></script>
         <script src="assets/laydate/laydate.js" type="text/javascript"></script>
 
-	
-
   </head>
-  
+ 
   <body>
    	<div class="page-content clearfix">
     <div id="Member_Ratings">
@@ -78,7 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <!---->
      <div class="border clearfix">
        <span class="l_f">
-      	<p class="btn btn-danger">客户：张三</p>
+      	<p class="btn btn-danger">客户：${conper.customName }</p>
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加联系记录</a>
        
        </span>
@@ -287,4 +286,7 @@ laydate({
 
 
 </style>
+    
+  </body>
+</html>
 

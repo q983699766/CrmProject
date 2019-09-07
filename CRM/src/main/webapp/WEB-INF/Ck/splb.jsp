@@ -10,18 +10,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
  <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="css/style.css"/>       
-        <link href="assets/css/codemirror.css" rel="stylesheet">
-        <link rel="stylesheet" href="assets/css/ace.min.css" />
-        <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+        <link href="<%=basePath%>assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="<%=basePath%>css/style.css"/>       
+        <link href="<%=basePath%>assets/css/codemirror.css" rel="stylesheet">
+        <link rel="stylesheet" href="<%=basePath%>assets/css/ace.min.css" />
+        <link rel="stylesheet" href="<%=basePath%>assets/css/font-awesome.min.css" />
 		<!--[if IE 7]>
 		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
 		<![endif]-->
         <!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
 		<![endif]-->
-			<script src="assets/js/jquery.min.js"></script>
+			<script src="<%=basePath%>assets/js/jquery.min.js"></script>
 
 		<!-- <![endif]-->
 
@@ -46,15 +46,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript">
 			if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		</script>
-		<script src="assets/js/bootstrap.min.js"></script>
-		<script src="assets/js/typeahead-bs2.min.js"></script>
+		<script src="<%=basePath%>assets/js/bootstrap.min.js"></script>
+		<script src="<%=basePath%>assets/js/typeahead-bs2.min.js"></script>
 		<!-- page specific plugin scripts -->
-		<script src="assets/js/jquery.dataTables.min.js"></script>
-		<script src="assets/js/jquery.dataTables.bootstrap.js"></script>
-        <script type="text/javascript" src="js/H-ui.js"></script> 
-        <script type="text/javascript" src="js/H-ui.admin.js"></script> 
-        <script src="assets/layer/layer.js" type="text/javascript" ></script>
-        <script src="assets/laydate/laydate.js" type="text/javascript"></script>
+		<script src="<%=basePath%>assets/js/jquery.dataTables.min.js"></script>
+		<script src="<%=basePath%>assets/js/jquery.dataTables.bootstrap.js"></script>
+        <script type="text/javascript" src="<%=basePath%>js/H-ui.js"></script> 
+        <script type="text/javascript" src="<%=basePath%>js/H-ui.admin.js"></script> 
+        <script src="<%=basePath%>assets/layer/layer.js" type="text/javascript" ></script>
+        <script src="<%=basePath%>assets/laydate/laydate.js" type="text/javascript"></script>
 <title>用户列表</title>
 </head>
 
@@ -63,13 +63,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div id="Member_Ratings">
       <div class="d_Confirm_Order_style">
     <div class="search_style">
+    
+    <form action="ccspxxctlr/mh.do" method="post">
       <div class="title_names">搜索查询</div>
       <ul class="search_content clearfix">
-       <li><label class="l_f">产品名称</label><input name="" type="text"  class="text_add" placeholder="输入会员名称、电话、邮箱"  style=" width:400px"/></li>
-       <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li>
-       <li style="width:90px;"><button type="button" class="btn_search"><i class="icon-search"></i>查询</button></li>
+       <li><label class="l_f">产品查询</label><input name="" type="text"  class="text_add" placeholder="请输入产品名称:"  style=" width:400px"/></li>
+       <li style="width:90px;"><button type="submit" class="btn_search"><i class="icon-search"></i>查询</button></li>
       </ul>
     </div>
+    </form>
      <!---->
      <div class="border clearfix">
        <span class="l_f">
@@ -120,18 +122,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <td class="td-manage">
           <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
           <a title="编辑" onclick="member_edit('550')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="ccxxctlr/del.do?productId=${u.productId }"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
+          <a title="删除" href="ccspxxctlr/del.do?productId=${u.productId }"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
           </td>
 		</tr>
        </c:forEach>
        		              
            <tr>
               <td colspan="15" style="text-align: center;">
-                  <a href="ccxxctlr/list.do?pageNum=${pi.firstPage }">首页</a>
-                  <a href="ccxxctlr/list.do?pageNum=${pi.prePage }">上一页</a>
-                  <a href="ccxxctlr/list.do?pageNum=${pi.nextPage }">下一页</a>
-                  <a href="ccxxctlr/list.do?pageNum=${pi.lastPage }">尾页</a>
-                                       当前${pi.pageNum }/${pi.pages }页，共${pi.total }条
+                  <a href="ccspxxctlr/list.do?pageNum=${pi.firstPage }">首页</a>
+                  <a href="ccspxxctlr/list.do?pageNum=${pi.prePage }">上一页</a>
+                  <a href="ccspxxctlr/list.do?pageNum=${pi.nextPage }">下一页</a>
+                  <a href="ccspxxctlr/list.do?pageNum=${pi.lastPage }">尾页</a>
+                                       当前${pi.pageNum }/${pi.pages }页
               </td>
            </tr>
        
@@ -143,13 +145,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </div>
 </div>
 <!--添加用户图层-->
-<form action="ccxxctlr/add.do" method="post">
+<form action="ccspxxctlr/add.do" method="post">
 <div class="add_menber" id="add_menber_style" style="display:none">
   
     <ul class=" page-content">
      <li><label class="label_name">商&nbsp;&nbsp;品 &nbsp;名：</label><span class="add_name"><input  name="spMc" type="text" class="text_add"  required /></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">商品类型</label><span class="add_name"><input name="spLb" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">规格说明</label><span class="add_name"><input name="ggSm" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">规格说明</label><span class="add_name"><input name="ggSm" type="text"  class="text_add" /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">单位</label><span class="add_name"><input name="dw" type="text"  class="text_add" /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">仓库编号</label><span class="add_name"><input name="ckBh" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">库存数量</label><span class="add_name"><input name="kcSl" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">成本价</label><span class="add_name"><input name="cbj" type="text"  class="text_add" /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">零售价</label><span class="add_name"><input name="lsj" type="text"  class="text_add" /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">经销价</label><span class="add_name"><input name="jxj" type="text"  class="text_add" /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">备注信息</label><span class="add_name"><input name="bzxx" type="text"  class="text_add" /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">公司编号</label><span class="add_name"><input name="comId" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <div class="prompt r_f"></div>
+     </li> 
+    
+    <center>
+    <label><input name="form-field-radio1"type="submit"  value="提交" class="btn btn-prompt r_f"><span class="lbl"></span></label></span><div class="prompt r_f"></div></li>   
+ 	</center>
+ </div>
+
+ </form>
+ <!--修改用户图层  -->
+ <form action="#" method="post">
+<div class="edit_member" id="edit_member_style" style="display:none">
+  
+    <ul class=" page-content">
+     <li><label class="label_name">商&nbsp;&nbsp;品 &nbsp;名：</label><span class="add_name"><input  name="spMc" type="text" class="text_add"  required /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">商品类型</label><span class="add_name"><input name="spLb" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">规格说明</label><span class="add_name"><input name="ggSm" type="text"  class="text_add" /></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">单位</label><span class="add_name"><input name="dw" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">仓库编号</label><span class="add_name"><input name="ckBh" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">库存数量</label><span class="add_name"><input name="kcSl" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
@@ -162,11 +189,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      </li> 
     
     <center>
-    <label><input name="form-field-radio1"type="submit"  value="提交" class="btn btn-prompt r_f"><span class="lbl"></span></label></span><div class="prompt r_f"></div></li>   
+    <label><input name="form-field-radio1"type="submit"  value="修改" class="btn btn-prompt r_f"><span class="lbl"></span></label></span><div class="prompt r_f"></div></li>   
  	</center>
  </div>
 
  </form>
+ 
 </body>
 </html>
 <script>
