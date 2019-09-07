@@ -10,6 +10,10 @@ public interface OfficeChecktargetService {
 	public void delOfficeChecktargetById(OfficeChecktarget offchecktarget);
 
 	public void addOfficeChecktarget(OfficeChecktarget offchecktarget);
+
+	public OfficeChecktarget updateById(Long targetId);
+
+	public void update(OfficeChecktarget offchecktarget);
 	
 	
 	

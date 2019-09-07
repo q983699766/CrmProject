@@ -85,7 +85,7 @@
           ${u.remark }
           </td>
           <td><fmt:formatDate value="${u.lastTime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-          <td class="td-status"><a onclick="Guestbook_iew('12')" title="修改"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a></td>
+          <td class="td-status"><a onclick="Guestbook_iew('${u.targetId }')" title="修改"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a></td>
           <td class="td-manage">
            <!--<a onClick="member_stop(this,'10001')"  href="javascript:;" title="已浏览"  class="btn btn-xs btn-success"><i class="fa fa-check  bigger-120"></i></a>   
         <a  onclick="member_edit('回复','member-add.html','4','','510')" title="回复"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>   -->   
@@ -101,13 +101,13 @@
 <!--留言详细-->
 <div id="Guestbook" style="display:none">
  <div class="content_style">
-  <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1">留言用户 </label>
-       <div class="col-sm-9">胡海天堂</div>
+  <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1">考核指标集名称</label>
+       <div class="col-sm-9"><input id="checkTarget" name="checkTarget" type="text" class="text_add" style=" width:250px"></div>
 	</div>
-   <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 留言内容 </label>
-       <div class="col-sm-9">三年同窗，一起沐浴了一片金色的阳光，一起度过了一千个日夜，我们共同谱写了多少友谊的篇章?愿逝去的那些闪亮的日子，都化作美好的记忆，永远留在心房。认识您，不论是生命中的一段插曲，还是永久的知已，我都会珍惜，当我疲倦或老去，不再拥有青春的时候，这段旋律会滋润我生命的每一刻。在此我只想说：有您真好!无论你身在何方，我的祝福永远在您身边!</div>
+   <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1">考核指标集描述</label>
+       <div class="col-sm-9"><textarea id="remark" name="remark" class="textarea" style=" margin-left:10px;" cols="50"></textarea></div>
 	</div>
-    <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1">是否回复 </label>
+    <!-- <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1">是否回复 </label>
        <div class="col-sm-9">
        <label><input name="checkbox" type="checkbox" class="ace" id="checkbox"><span class="lbl"> 回复</span></label>
        <div class="Reply_style">
@@ -115,7 +115,7 @@
           <span class="wordage">剩余字数：<span id="sy" style="color:Red;">200</span>字</span>
        </div>
        </div>
-	</div>
+	</div>-->
  </div>
 </div>
 </body>
@@ -153,16 +153,28 @@ $('#checkbox').on('click',function(){
 	})
 /*留言查看*/
 function Guestbook_iew(id){
+	var url="officecc.do/goupdateofficechecktarget.do?targetId="+id;
+	$.ajax({
+		type:"post",
+      	url:url,
+      	dataType:"json",
+      	success:function(data)
+	      {//从前台回调回来的数组，处理后的数据
+	       //alert(JSON.stringify(data));
+	         $("#checkTarget").val(data.checkTarget);//将取出的值覆盖原来的值 （val对值进行操作)	
+	         $("#remark").val(data.remark);
+	      }
+	});
 	var index = layer.open({
         type: 1,
-        title: '留言信息',
+        title: '修改界面',
 		maxmin: true, 
 		shadeClose:false,
         area : ['600px' , ''],
         content:$('#Guestbook'),
-		btn:['确定','取消'],
+		btn:['修改','取消'],
 		yes: function(index, layero){		 
-		  if($('input[name="checkbox"]').prop("checked")){			 
+		  /* if($('input[name="checkbox"]').prop("checked")){			 
 			 if($('.form-control').val()==""){
 				layer.alert('回复内容不能为空！',{
                title: '提示框',				
@@ -184,7 +196,33 @@ function Guestbook_iew(id){
 			icon:0,		
 			  }); 
 			  layer.close(index);      		  
-		  }
+		  } */
+		  if($('#checkTarget').val()=="" || $('#remark').val()==""){
+				layer.alert('修改名称或内容不能为空！',{
+               title: '提示框',				
+			  icon:0,		
+			  }) 
+			 }else{			
+			      layer.alert('确定该修改？',{
+				   title: '提示框',				
+				   icon:0,	
+				   btn:['确定','取消'],	
+				   yes: function(index){					   
+					     
+					     $.ajax({
+					     	type:"post",
+					     	url:"officecc.do/updateofficechecktarget.do",
+					     	data:{"targetId":id,"checkTarget":$('#checkTarget').val(),"remark":$('#remark').val()},
+					     	success:function(data){
+					     		document.location.reload();
+					     	}
+					     });
+					     layer.closeAll();
+					     /*document.location.href="officecc.do/updateofficechecktarget.do?targetId="+id+"&checkTarget="+$('#checkTarget').val()+"&remark="+$('#remark').val();
+					     layer.closeAll();*/
+					   }
+				  }); 		  
+		   }
 	   }
 	})	
 };

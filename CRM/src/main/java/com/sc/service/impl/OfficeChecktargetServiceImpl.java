@@ -51,6 +51,23 @@ public class OfficeChecktargetServiceImpl implements OfficeChecktargetService {
 			this.officeChecktargetMapper.insert(offchecktarget);
 		}
 	}
+
+	@Override
+	public OfficeChecktarget updateById(Long targetId) {
+		// TODO Auto-generated method stub
+		if(targetId!=null) {
+			return this.officeChecktargetMapper.selectByPrimaryKey(targetId);
+		}
+		return null;
+	}
+
+	@Override
+	public void update(OfficeChecktarget offchecktarget) {
+		// TODO Auto-generated method stub
+		if(offchecktarget!=null) {
+			this.officeChecktargetMapper.updateByPrimaryKey(offchecktarget);
+		}
+	}
 	
 	
 

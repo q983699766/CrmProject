@@ -78,18 +78,6 @@ public class OfficeChecktargetController {
 	*/
 	@RequestMapping("/addofficechecktarget.do")
 	public ModelAndView add(ModelAndView mav,OfficeChecktarget offchecktarget,HttpServletRequest req) {
-//		if(files!=null && !StringUtils.isEmpty(files.getOriginalFilename())) {//对象不为空，对象的原始的字符串不为空
-//			String path = req.getSession().getServletContext().getRealPath("upload");
-//			String oldname=files.getOriginalFilename();//原文件名称
-//			String extend=oldname.substring(oldname.lastIndexOf("."));
-//			String newname=System.currentTimeMillis()+extend;
-//			System.out.println("新文件名称"+newname);
-			
-//			File f=new File(path+"/"+newname);//构建目的地文件对象
-//			files.transferTo(f);//拷贝文件
-			
-//			u.setPic(newname);
-//		}
 //		System.out.println("jinrutianjiafangfa");
 		SysUsers nowuser = (SysUsers)req.getSession().getAttribute("nowuser");
 //		System.out.println(nowuser.toString());
@@ -105,36 +93,30 @@ public class OfficeChecktargetController {
 		mav.setViewName("redirect:listofficechecktargetall.do");
 		return mav;
 	}
-	/*
-	@RequestMapping("/goupdate.do")
-	public ModelAndView goupdate(ModelAndView mav,Users u) {
-		Users user = usersService.getUserById(u.getUid());
-		mav.addObject("u", user);
-		mav.setViewName("users/update");
-		return mav;
+	
+	@RequestMapping("/goupdateofficechecktarget.do")
+	@ResponseBody
+	public OfficeChecktarget goupdate(OfficeChecktarget offchecktarget) {
+		return officeChecktargetService.updateById(offchecktarget.getTargetId());
+//		mav.addObject("u", user);
+//		mav.setViewName("users/update");
+//		return mav;
 	}
 	
-	@RequestMapping("/update.do")
-	public ModelAndView update(ModelAndView mav,MultipartFile files,HttpServletRequest req,Users u) throws IllegalStateException, IOException {
-		
-		if(files!=null && !StringUtils.isEmpty(files.getOriginalFilename())) {//对象不为空，对象的原始的字符串不为空
-			String path = req.getSession().getServletContext().getRealPath("upload");
-			String oldname=files.getOriginalFilename();//原文件名称
-			String extend=oldname.substring(oldname.lastIndexOf("."));
-			String newname=System.currentTimeMillis()+extend;
-			System.out.println("新文件名称"+newname);
-			
-			File f=new File(path+"/"+newname);//构建目的地文件对象
-			files.transferTo(f);//拷贝文件
-			
-			u.setPic(newname);
+	@RequestMapping("/updateofficechecktarget.do")
+	@ResponseBody
+	public void update(ModelAndView mav,HttpServletRequest req,OfficeChecktarget offchecktarget) {
+		SysUsers nowuser = (SysUsers)req.getSession().getAttribute("nowuser");
+		if(offchecktarget!=null && offchecktarget.getCheckTarget()!=null && offchecktarget.getRemark()!=null) {
+			offchecktarget.setLastTime(new Date());
+			offchecktarget.setComId(nowuser.getComId());
+			officeChecktargetService.update(offchecktarget);
 		}
-		usersService.updateUsers(u);
 		
-		mav.setViewName("redirect:listpage.do");
-		return mav;
+//		mav.setViewName("redirect:listofficechecktargetall.do");
+//		return mav;
 	}
-	
+	/*
 	@RequestMapping("/download.do")
 	public void download(String fileName,HttpServletResponse resp,HttpServletRequest req) throws IOException {
 		//设置响应头
