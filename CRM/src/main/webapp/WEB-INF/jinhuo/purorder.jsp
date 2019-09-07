@@ -98,42 +98,58 @@
 		<thead>
 		 <tr>
 				<th width="25"><label><input type="checkbox"  class="ace"><span class="lbl"></span></label></th>
-				<th style="width:100px;font-size:12px;">供应商编号</th>
-				<th style="width:60px;font-size:12px;">供应商名称</th>
-				<th style="width:30px;font-size:12px;">联系人</th>
-				<th style="width:60px;font-size:12px;">联系电话</th>
-				<th style="width:80px;font-size:12px;">开户银行</th>
-				<th style="width:100px;font-size:12px;">银行账号</th>
-				<th style="width:90px;font-size:12px;">备注信息</th>
-                <th style="width:50px;font-size:12px;">详细信息</th>
-				<th style="width:50px;font-size:12px;">状态</th>                
-				<th style="width:120px;font-size:12px;">操作</th>
+				<th style="width:100px;font-size:12px;">采购单编号</th>
+				<th style="width:60px;font-size:12px;">采购主题</th>
+				<th style="width:30px;font-size:12px;">采购日期</th>
+				<th style="width:60px;font-size:12px;">供应商编号</th>
+				<th style="width:80px;font-size:12px;">货款金额</th>
+				<th style="width:100px;font-size:12px;">发票号码</th>
+				<th style="width:90px;font-size:12px;">付款情况</th>
+               <!--  <th style="width:50px;font-size:12px;">采购进展</th> -->
+                <th style="width:50px;font-size:12px;">交货时间</th>
+                <th style="width:50px;font-size:12px;">交货地点</th>
+                <th style="width:50px;font-size:12px;">交货方式</th>
+                <th style="width:50px;font-size:12px;">操作人员</th>
+                <th style="width:50px;font-size:12px;">备注信息</th>
+                <th style="width:50px;font-size:12px;">公司编号</th>
+                <th style="width:50px;font-size:12px;">最后修改时间</th>
+                <th style="width:50px;font-size:12px;">采购单详情</th>
+				
 			</tr>
 		</thead>
 	<tbody>
 	 <c:forEach items="${pi.list}" var="i">
 		<tr>
           <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
+          <td>${i.purNumber}</td>
+           <td>${i.purTitle}</td>
+          <td><fmt:formatDate value="${i.purDate}"
+				pattern="yyyy-MM-dd " /></td>
           <td>${i.supInfoNum}</td>
-          <td>${i.supName}</td>
-          <td>${i.contacts}</td>
-          <td>${i.telphone}</td>
-          <td>${i.openBank}</td>
-          <td class="text-l">${i.bankNumber}</td>
+          <td>${i.payAmount=="2" ? "已付款":"未付款"} </td>
+          <td class="text-l">${i.invoiceNumber}</td>
+          <td>${i.purProgrees}</td>
+          <td><fmt:formatDate value="${i.deliveryTime}"
+				pattern="yyyy-MM-dd" /></td>
+          <td>${i.deliveryAddress}</td>
+          <td>${i.deliveryMode}</td>
+          <td>${i.operatorId}</td>
           <td>${i.remarksInfo}</td>
-          <td style="font-size:15px;"><a href="javascript:" onclick="jia1(${i.supInfoNum})" class="member_show" >查看详情</a></td>
-          <td class="td-status"><span class="label label-success radius">${i.effectiveOrnot}</span></td>
-          <td class="td-manage">
+          <td>${i.comId}</td>
+          <td><fmt:formatDate value="${i.lastDate}"
+				pattern="yyyy-MM-dd " /></td>
+		  <td><a href="javascript:ovid()" id="member_show" >查看详情订单</a></td>
+         <%--  <td class="td-manage">
           <a onClick="member_stop(this,'10001')"  href="javascript:;"  title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="jia(${i.supInfoNum });member_edit('550');" href="javascript:"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除"  href="pursupinfo/delinfo.do?supInfoNum=${i.supInfoNum}"  onclick="return window.confirm('是否确定删除此用户?')"class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-         
-          </td>
+          <a title="编辑" onclick="jia(${i.purNumber });member_edit('550');" href="javascript:"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
+          <a title="删除"  href="pursupinfo/delinfo.do?supInfoNum=${i.purNumber}"  onclick="return window.confirm('是否确定删除此用户?')"class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
+          
+          </td> --%>
 		</tr>
        </c:forEach>
         
           <tr>
-             <td colspan="11" style="text-align: center">
+             <td colspan="16" style="text-align: center">
                   <a href="pursupinfo/selectinfo.do?pageNum=${pi.navigateFirstPage}">首页</a>   
                   <a href="pursupinfo/selectinfo.do?pageNum=${pi.prePage }">上一页</a>  
                   <a href="pursupinfo/selectinfo.do?pageNum=${pi.nextPage }">下一页</a>  
