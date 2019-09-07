@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sc.bean.SalConper;
 import com.sc.bean.SalCustomInfo;
+import com.sc.bean.SalRecord;
 import com.sc.service.ConperService;
 
 @Controller
@@ -73,6 +74,22 @@ public class ConperController2 {
 			mav.setViewName("redirect:./custom.do");
 			return mav;
 		}
+		
+	//批量删除
+		@RequestMapping("/delAll.do")
+		public ModelAndView delAll(ModelAndView mav,SalCustomInfo sal,HttpServletRequest req){
+			System.out.println("jingru888888888");
+			String[] values = req.getParameterValues("box");
+			System.out.println("111111111"+values);
+			for (int i = 0; i < values.length; i++) {
+				long parseLong = Long.parseLong(values[i]);
+				conperService.delAll(parseLong);	
+			}
+			//重定向到列表方法
+			mav.setViewName("redirect:./custom.do");
+			return mav;
+		}
+		
 	
 	//修改客户信息
 		@RequestMapping("/updateSalCustomInfo.do")
@@ -175,7 +192,6 @@ public class ConperController2 {
 			Long id = custom.getCustomId();
 			List<SalConper> list = conperService.selectconperById(id);
 			custom.setSalconper(list);
-
 			for (SalConper salConper : list) {
 				System.out.println("查询出来的联系人信息是"+salConper);
 			}
@@ -185,5 +201,25 @@ public class ConperController2 {
 			return mav;
 		}
 		
+		
+		//从a标签“查看联系记录”跳转到联系记录页面查看所有信息
+				@RequestMapping("/gotoRecord.do")
+				public ModelAndView gotoRecord(ModelAndView mav,HttpServletRequest req){
+					String customId = req.getParameter("customId");
+					Long uid =(long) Integer.parseInt(customId);
+					System.out.println("获取到的用户编号为:"+uid);
+					SalCustomInfo custom = conperService.selectById(uid);
+					Long id = custom.getCustomId();
+					List<SalRecord> list = conperService.selectrecordById(id);
+					custom.setSalrecord(list);
+
+					for (SalRecord salConper : list) {
+						System.out.println("查询出来的联系人信息是"+salConper);
+					}
+					mav.addObject("record",custom );
+					mav.setViewName("custom/record");
+					
+					return mav;
+				}
 		
 }
