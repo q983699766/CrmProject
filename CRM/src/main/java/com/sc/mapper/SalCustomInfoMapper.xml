@@ -560,4 +560,5 @@
       LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
     where CUSTOM_ID = #{customId,jdbcType=DECIMAL}
   </update>
+  
 </mapper>

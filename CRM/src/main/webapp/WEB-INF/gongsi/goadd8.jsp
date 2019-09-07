@@ -39,7 +39,7 @@ h1
 </style>
 
 
-		<center><h1>添加部门信息</h1></center> 
+		<center><h1>修改部门信息</h1></center> 
     <form action="syBranchctlr/upBranch.do" method="post" >
    
         <table>

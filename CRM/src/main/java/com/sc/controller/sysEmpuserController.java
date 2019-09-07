@@ -59,6 +59,7 @@ public class sysEmpuserController {
 	public ModelAndView selectEmpuser(ModelAndView mav,Long empId){
 		//设置视图名称
 		mav.addObject("se", sysEmpuserService.updateSysEmpuser(empId));
+		mav.addObject("m", sysComPanyService.selectComoany());
 		mav.setViewName("gongsi/goadd6");
 		return mav;
 	}

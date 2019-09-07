@@ -70,7 +70,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          <td width="100px">${t.comLinkman}</td>
         <td width="100px">${t.comAddress}</td>
         <td width="100px">${t.comPhone }</td> 
-        <td width="100px">${t.comBank }</td>   
+        <td width="100px">
+        ${t.comBank=='1' ? "招商银行":"" }
+		${t.comBank=='2' ? "中国银行":"" }
+		${t.comBank=='3' ? "建设银行":"" }
+		${t.comBank=='4' ? "邮政银行":"" }
+		${t.comBank=='5' ? "平安银行":"" }	
+        </td>   
         <td width="100px">${t.comRemark }</td>    
         <td width="180px"><fmt:formatDate value="${t.lastTime}" pattern="yyyy-MM-dd" /></td>
         <td class="td-manage"> 
@@ -96,9 +102,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <li><label class="label_name">固定电话：</label><span class="add_name"><input name="comPhone" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">移动电话：</label><span class="add_name"><input name="comYphone" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">传真：</label><span class="add_name"><input name="comFax" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-      <li><label class="label_name">开户银行：</label><span class="add_name"><input name="comBank" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">开户银行：</label><span class="add_name">
+       <select   name="comBank"  style="width: 170px;color:green;">
+      <option value="0">请选择--</option>
+      <option value="1">招商银行</option>
+      <option value="2">中国银行</option>
+      <option value="3">建设银行</option>
+      <option value="4">邮政银行</option>
+      <option value="5">平安银行</option>
+      </select>
+      </span><div class="prompt r_f"></div></li>
       <li><label class="label_name">银行账户：</label><span class="add_name"><input name="comBankuser" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-      <li><label class="label_name">是否有效：</label><span class="add_name"><input name="comYesandno" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">是否有效：</label><span class="add_name">
+      <select   name="comYesandno"  style="width: 170px;color:green;">
+      <option value="0">请选择--</option>
+      <option value="1">有效</option>
+      <option value="2">无效</option>
+      </select>
+      </span><div class="prompt r_f"></div></li>
       <li><label class="label_name">备注信息：</label><span class="add_name"><input name="comRemark" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
     
     </ul>
