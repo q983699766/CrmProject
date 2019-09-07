@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sc.bean.OfficeChecktarget;
+import com.sc.bean.OfficeChecktargetExample;
 import com.sc.bean.Users;
 import com.sc.bean.UsersExample;
 import com.sc.bean.UsersExample.Criteria;
@@ -22,8 +23,17 @@ public class OfficeChecktargetServiceImpl implements OfficeChecktargetService {
 	OfficeChecktargetMapper officeChecktargetMapper;
 
 	@Override
-	public List<OfficeChecktarget> selectOfficeChecktargetAll() {
-		return this.officeChecktargetMapper.selectByExample(null);
+	public List<OfficeChecktarget> selectOfficeChecktargetAll(Long comId) {
+		if(comId!=null) {
+			OfficeChecktargetExample example = new OfficeChecktargetExample();
+			com.sc.bean.OfficeChecktargetExample.Criteria criteria = example.createCriteria();
+			criteria.andComIdEqualTo(comId);
+			List<OfficeChecktarget> selectByExample = this.officeChecktargetMapper.selectByExample(example);
+			if(selectByExample!=null) {
+				return selectByExample;
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -31,6 +41,14 @@ public class OfficeChecktargetServiceImpl implements OfficeChecktargetService {
 		// TODO Auto-generated method stub
 		if(offchecktarget!=null && offchecktarget.getTargetId()!=null) {
 			this.officeChecktargetMapper.deleteByPrimaryKey(offchecktarget.getTargetId());
+		}
+	}
+
+	@Override
+	public void addOfficeChecktarget(OfficeChecktarget offchecktarget) {
+		// TODO Auto-generated method stub
+		if(offchecktarget!=null) {
+			this.officeChecktargetMapper.insert(offchecktarget);
 		}
 	}
 	

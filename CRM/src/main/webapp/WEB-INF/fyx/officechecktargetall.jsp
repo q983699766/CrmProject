@@ -44,11 +44,14 @@
     </div>-->
 	 <div class="search_style">
       <div class="title_names">新建考核指标集</div>
+      <form action="officecc.do/addofficechecktarget.do" method="post">
       <ul class="search_content clearfix">
-       <li><label class="l_f">考核指标集名称</label><input name="" type="text" class="text_add" placeholder="添加一个名称" style=" width:250px"></li>
-       <li><label class="l_f">考核指标集描述</label><textarea class="textarea" style=" margin-left:10px;" cols="100"></textarea><!--<input class="inline laydate-icon" id="start" style=" margin-left:10px;">--></li>
-       <li style="width:90px;"><button type="button" class="btn_search"><i class="icon-search"></i>添加</button></li>
+       <li><label class="l_f">考核指标集名称</label><input name="checkTarget" type="text" class="text_add" placeholder="添加一个名称" style=" width:250px"></li>
+       <li><label class="l_f">考核指标集描述</label><textarea name="remark" class="textarea" style=" margin-left:10px;" cols="100"></textarea><!--<input class="inline laydate-icon" id="start" style=" margin-left:10px;">--></li>
+       <li style="width:90px;"><button type="submit" class="btn_search"><i class="icon-search"></i>添加</button></li>
+       
       </ul>
+      </form>
     </div>
     <div class="border clearfix">
        <span class="l_f">
