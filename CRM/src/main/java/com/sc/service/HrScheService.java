@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.sc.bean.OfficeSms;
 import com.sc.bean.OfficeSmsExample;
+import com.sc.bean.SalCustomInfo;
 import com.sc.bean.SysCOMPANY;
 import com.sc.bean.SysUsers;
 
@@ -20,8 +21,8 @@ public interface HrScheService {
 	//通过ID查找用户
 	public SysUsers seleuserById(long userid);
 	
-	
-	
+	//通过信息ID查找信息
+	public OfficeSms selectById(Long smsId);
 	
 	
 }

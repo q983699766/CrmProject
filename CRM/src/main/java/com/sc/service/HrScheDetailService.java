@@ -27,4 +27,6 @@ public interface HrScheDetailService {
 			
 			//通过ID更改状态
 			public int updatesmsById(OfficeDetailSms officeDetailSms);
+			
+			
 }

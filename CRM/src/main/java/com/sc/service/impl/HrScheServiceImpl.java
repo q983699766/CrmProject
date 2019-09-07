@@ -50,4 +50,10 @@ public class HrScheServiceImpl implements HrScheService{
 		
 		return null;
 	}
+
+	@Override
+	public OfficeSms selectById(Long smsId) {
+		
+		return officeSmsMapper.selectByPrimaryKey(smsId);
+	}
 }
