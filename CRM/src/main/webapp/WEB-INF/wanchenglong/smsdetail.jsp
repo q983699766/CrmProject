@@ -76,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <!---->
      <div class="border clearfix">
        <span class="l_f">
-        <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加用户</a>
+        <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>发送信息</a>
         <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
        </span>
        <span class="r_f">共：<b>2345</b>条</span>
@@ -92,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th width="80">接受者</th>
 				
 				<th width="120">公司名称</th>
-				<th width="150">最后时间</th>
+				<th width="150">发送时间</th>
 				<th width="70">信息状态</th> 
 				
                 
@@ -122,7 +122,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		
 		
-		<c:forEach items="${smsdetailinfo }" var="per">
+		<c:forEach items="${smsdetailinfo.list }" var="per">
 			<tr>
 				<td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
 				<td style="font-size:11px;">${per.detailId }</td>
@@ -159,11 +159,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</c:forEach>
 			<tr>
 	           			<td colspan="12" style="text-align: center">
-	           			<a href="conctrl/custom.do?pageNum=${pi.firstPage }">首页</a>
-	           			<a href="conctrl/custom.do?pageNum=${pi.prePage }">上一页</a>
-	           			<a href="conctrl/custom.do?pageNum=${pi.nextPage }">下一页</a>
-	           			<a href="conctrl/custom.do?pageNum=${pi.lastPage }">尾页</a>
-	           			当前${pi.pageNum}/${pi.pages}页,共${pi.total}条
+	           			<a href="Office/selectdetailinfo.do?pageNum=${smsdetailinfo.firstPage }">首页</a>
+	           			<a href="Office/selectdetailinfo.do?pageNum=${smsdetailinfo.prePage }">上一页</a>
+	           			<a href="Office/selectdetailinfo.do?pageNum=${smsdetailinfo.nextPage }">下一页</a>
+	           			<a href="Office/selectdetailinfo.do?pageNum=${smsdetailinfo.lastPage }">尾页</a>
+	           			当前${smsdetailinfo.pageNum}/${smsdetailinfo.pages}页,共${smsdetailinfo.total}条
 	           			</td>
 	           </tr>
       </tbody>
@@ -177,13 +177,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
     <ul class=" page-content">
      <li><label class="label_name">信息标题：</label><span class="add_name"><input readonly="true" id="sms1" value="" name="用户名" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">信息内容：</label><span class="add_name"><input readonly="true" id="sms2"  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name"></label><span class="add_name"></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">信息内容：</label><span class="add_name"><textarea readonly="true" id="sms2"  type="text"  class="text_add"></textarea></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">发送人：</label><span class="add_name"><input readonly="true" id="sms3"  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">公司名字：</label><span class="add_name"><input readonly="true" id="sms4"  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">发送时间：</label><span class="add_name"><input readonly="true" id="sms5"  type="text"  dateFmt="yyyy-MM-dd HH:mm:ss"  class="text_add"/></span><div class="prompt r_f"></div></li>
      
     </ul>
  </div>
+ 
+ 
+ <!--添加用户图层-->
+<form action="detail/addsmsInfo.do" method="post">
+<div class="add_menber" id="add_sms_style" style="display:none">
+  
+    <ul class=" page-content">
+     <!-- <li style="display:hidden"><label class="label_name">客户编号：</label><span class="add_name"><input  type="text" id="customId" class="text_add"/></span><div class="prompt r_f"></div></li> -->
+     <li><label class="label_name">发&nbsp;&nbsp;送&nbsp;&nbsp;人：</label><span class="add_name"><input  type="text" name="smssend" id="website" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">接&nbsp;&nbsp;收&nbsp;&nbsp;者：</label><span class="add_name"><input  type="text" name="smsreciver" id="ticketCode" class="text_add"/></span><div class="prompt r_f"></div></li>
+     
+     <li><label class="label_name">信息标题：</label><span class="add_name"><input  type="text" name="smshidle" id="customName" class="text_add"/></span><div class="prompt r_f"></div></li>
+	<li><label class="label_name"></label><div class="prompt r_f"></div></li>
+
+     <li><label class="label_name">接收者公司：</label><span class="add_name"><input  type="text" name="companyid" id="owner" class="text_add"/></span><div class="prompt r_f"></div></li>
+	<li><label class="label_name"></label><div class="prompt r_f"></div></li>
+     <li><label class="label_name">信息内容：</label><textarea style="width: 100%;height:100px; "   name="smsdetail1" id="customProperties" ></textarea></li>
+
+    </ul><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="发送"></div><br><br><br><br><br><br>
+ </div>
+ </form>
+ 
+ 
+ 
+ 
 </body>
 </html>
 <script>
@@ -226,12 +253,12 @@ jQuery(function($) {
  $('#member_add').on('click', function(){
     layer.open({
         type: 1,
-        title: '添加用户',
+        title: '发送信息',
 		maxmin: true, 
 		shadeClose: true, //点击遮罩关闭层
         area : ['800px' , ''],
-        content:$('#add_menber_style'),
-		btn:['提交','取消'],
+        content:$('#add_sms_style'),
+		//btn:['提交','取消'],
 		yes:function(index,layero){	
 		 var num=0;
 		 var str="";
@@ -290,31 +317,7 @@ function member_edit(id){
 		shadeClose:false, //点击遮罩关闭层
         area : ['800px' , ''],
         content:$('#add_menber_style'),
-		btn:['提交','取消'],
-		yes:function(index,layero){	
-		 var num=0;
-		 var str="";
-     $(".add_menber input[type$='text']").each(function(n){
-          if($(this).val()=="")
-          {
-               
-			   layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
-                title: '提示框',				
-				icon:0,								
-          }); 
-		    num++;
-            return false;            
-          } 
-		 });
-		  if(num>0){  return false;}	 	
-          else{
-			  layer.alert('添加成功！',{
-               title: '提示框',				
-			icon:1,		
-			  });
-			   layer.close(index);	
-		  }		  		     				
-		}
+
     });
 }
 /*用户-删除*/

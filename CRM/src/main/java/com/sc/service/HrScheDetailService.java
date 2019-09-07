@@ -13,7 +13,7 @@ import com.sc.bean.SysUsers;
 public interface HrScheDetailService {
 
 	//查询所有信息详情
-	public List<OfficeDetailSms> selectsmsByExample(OfficeDetailSmsExample example);
+	public List<OfficeDetailSms> selectsmsByExample(OfficeDetailSms OfficeDetailSms);
 	
 	
 	//通过ID查找公司

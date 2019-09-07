@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sc.bean.OfficeDetailSms;
 import com.sc.bean.OfficeSms;
 import com.sc.bean.SalConper;
 import com.sc.bean.SalCustomInfo;
@@ -69,20 +70,42 @@ public class HR_ScheduleController1 {
 	}
 
 	
-	//添加用户信息
-	/*@RequestMapping("/addSalCustomInfo.do")
-	public ModelAndView addSalCustomInfo(ModelAndView mav,
-			SalCustomInfo sal) throws IllegalStateException, IOException{
+	//发送信息
+	@RequestMapping("/addsmsInfo.do")
+	public ModelAndView addsmsInfo(ModelAndView mav,HttpServletRequest req,
+			SalCustomInfo sal,OfficeSms officeSms,OfficeDetailSms officeDetailSms) throws IllegalStateException, IOException{
 		Date date = new Date();
-		sal.setLastTime(date);
-		sal.setCustomState("正在合作");
-		System.out.println("进入到添加控制器了！！");
-		System.out.println(sal.getNextcontactTime());
-		conperService.addSalCustomInfo(sal);
-		mav.setViewName("redirect:./custom.do");
+		System.out.println("进入发送信息！！————————————————————————");
+		System.out.println(officeSms+"+"+officeDetailSms);
+		String smssend = req.getParameter("smssend");
+		String smshidle = req.getParameter("smshidle");
+		String smsreciver = req.getParameter("smsreciver");
+		String companyid = req.getParameter("companyid");
+		String smsdetail1 = req.getParameter("smsdetail1");
+		
+		//System.out.println(smsdetail1+"--");
+		
+		officeSms.setSmsHeadline(smshidle);
+		officeSms.setSmsContent(smsdetail1);
+		officeSms.setSmsSender(Long.valueOf(smssend));
+		//根据发送者id查找发送者公司
+		SysUsers seleuserById = hrScheService.seleuserById(Long.valueOf(smssend));
+		officeSms.setComId(seleuserById.getComId());
+		officeSms.setLastTime(date);
+		//System.out.println(officeSms+"-------------------");
+		//System.out.println(date);
+		
+		
+		
+		//sal.setLastTime(date);
+		//sal.setCustomState("正在合作");
+		//System.out.println("进入到添加控制器了！！");
+		//System.out.println(sal.getNextcontactTime());
+		//conperService.addSalCustomInfo(sal);
+		//mav.setViewName("redirect:./custom.do");
 		return mav;
 	}
-	*/
+	
 	//删除客户信息
 		/*@RequestMapping("/delSalCustomInfo.do")
 		public ModelAndView delSalCustomInfo(ModelAndView mav,SalCustomInfo sal){
