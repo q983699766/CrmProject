@@ -2,6 +2,7 @@ package com.sc.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,6 +24,9 @@ public class PurProducts implements Serializable {
 
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date lastDate;
+    
+   
+	private  Ccspxxb  ccspxxb;  //一对一配置
 
     private static final long serialVersionUID = 1L;
 
@@ -37,78 +41,103 @@ public class PurProducts implements Serializable {
         this.lastDate = lastDate;
     }
 
-    @Override
+   
+    
+    
+    
+
+	public Ccspxxb getCcspxxb() {
+		return ccspxxb;
+	}
+
+
+
+
+
+
+	public void setCcspxxb(Ccspxxb ccspxxb) {
+		this.ccspxxb = ccspxxb;
+	}
+
+
+
+
+
+
+	public Long getProId() {
+		return proId;
+	}
+
+	public void setProId(Long proId) {
+		this.proId = proId;
+	}
+
+	public Long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Long productId) {
+		this.productId = productId;
+	}
+
+	public Date getDeliveryTime() {
+		return deliveryTime;
+	}
+
+	public void setDeliveryTime(Date deliveryTime) {
+		this.deliveryTime = deliveryTime;
+	}
+
+	public String getActive() {
+		return active;
+	}
+
+	public void setActive(String active) {
+		this.active = active;
+	}
+
+	public Long getOperatorId() {
+		return operatorId;
+	}
+
+	public void setOperatorId(Long operatorId) {
+		this.operatorId = operatorId;
+	}
+
+	public String getRemarksInfo() {
+		return remarksInfo;
+	}
+
+	public void setRemarksInfo(String remarksInfo) {
+		this.remarksInfo = remarksInfo;
+	}
+
+	public Long getComId() {
+		return comId;
+	}
+
+	public void setComId(Long comId) {
+		this.comId = comId;
+	}
+
+	public Date getLastDate() {
+		return lastDate;
+	}
+
+	public void setLastDate(Date lastDate) {
+		this.lastDate = lastDate;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	@Override
 	public String toString() {
 		return "PurProducts [proId=" + proId + ", productId=" + productId + ", deliveryTime=" + deliveryTime
 				+ ", active=" + active + ", operatorId=" + operatorId + ", remarksInfo=" + remarksInfo + ", comId="
-				+ comId + ", lastDate=" + lastDate + "]";
+				+ comId + ", lastDate=" + lastDate + ", ccspxxb=" + ccspxxb + "]";
 	}
 
-	public PurProducts() {
-        super();
-    }
-
-    public Long getProId() {
-        return proId;
-    }
-
-    public void setProId(Long proId) {
-        this.proId = proId;
-    }
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public Date getDeliveryTime() {
-        return deliveryTime;
-    }
-
-    public void setDeliveryTime(Date deliveryTime) {
-        this.deliveryTime = deliveryTime;
-    }
-
-    public String getActive() {
-        return active;
-    }
-
-    public void setActive(String active) {
-        this.active = active == null ? null : active.trim();
-    }
-
-    public Long getOperatorId() {
-        return operatorId;
-    }
-
-    public void setOperatorId(Long operatorId) {
-        this.operatorId = operatorId;
-    }
-
-    public String getRemarksInfo() {
-        return remarksInfo;
-    }
-
-    public void setRemarksInfo(String remarksInfo) {
-        this.remarksInfo = remarksInfo == null ? null : remarksInfo.trim();
-    }
-
-    public Long getComId() {
-        return comId;
-    }
-
-    public void setComId(Long comId) {
-        this.comId = comId;
-    }
-
-    public Date getLastDate() {
-        return lastDate;
-    }
-
-    public void setLastDate(Date lastDate) {
-        this.lastDate = lastDate;
-    }
+	
 }
