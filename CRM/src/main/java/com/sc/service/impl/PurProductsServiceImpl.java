@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sc.bean.Ccspxxb;
 import com.sc.bean.CcspxxbExample;
-import com.sc.bean.CcspxxbExample.Criteria;
 import com.sc.bean.PurProducts;
 import com.sc.bean.PurProductsExample;
 import com.sc.mapper.CcspxxbMapper;
