@@ -88,7 +88,7 @@ public class HR_ScheduleController1 {
 		officeSms.setSmsHeadline(smshidle);
 		officeSms.setSmsContent(smsdetail1);
 		officeSms.setSmsSender(Long.valueOf(smssend));
-		//根据发送者id查找发送者公司
+		//根据发送者id查找发送者公司 
 		SysUsers seleuserById = hrScheService.seleuserById(Long.valueOf(smssend));
 		officeSms.setComId(seleuserById.getComId());
 		officeSms.setLastTime(date);
