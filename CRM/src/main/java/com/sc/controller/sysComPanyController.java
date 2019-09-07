@@ -49,7 +49,7 @@ public class sysComPanyController {
 	public ModelAndView upadte(ModelAndView mav ,Long comId){
 		System.out.println("修改信息！"+sysComPanyService.updateComoany(comId));
 		mav.addObject("update", sysComPanyService.updateComoany(comId));
-		mav.setViewName("gongsi/goadd4");
+		mav.setViewName("gongsi/eui2");
 		return mav;
 	}
 		@RequestMapping("/updatee.do")

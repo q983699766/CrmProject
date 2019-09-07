@@ -91,17 +91,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   
  <!--添加用户图层--> 
- <form action="goadde.do" method="post">
+ <form action="goadde.do" method="post"  onsubmit=" return t()">
 <div class="add_menber" id="add_menber_style" style="display:none">
     <ul class=" page-content">
-     <li><label class="label_name">公司名称：</label><span class="add_name"><input value="" name="comName" type="text"  class="text_add" placeholder="必填"/><input type="hidden" name="comId"></span><div class="prompt r_f"></div></li>
-      <li><label class="label_name">公司代码：</label><span class="add_name"><input name="comCode" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">公司邮箱：</label><span class="add_name"><input name="comEmail" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-      <li><label class="label_name">联系人：</label><span class="add_name"><input name="comLinkman" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-   	 <li><label class="label_name">公司地址：</label><span class="add_name"><input name="comAddress" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">固定电话：</label><span class="add_name"><input name="comPhone" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">移动电话：</label><span class="add_name"><input name="comYphone" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">传真：</label><span class="add_name"><input name="comFax" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">公司名称：</label><span class="add_name"><input value="" id="comName" name="comName" type="text"  class="text_add" placeholder="必填"/><input type="hidden" name="comId"></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">公司代码：</label><span class="add_name"><input id="comCode" name="comCode" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">公司邮箱：</label><span class="add_name"><input id="comEmail" name="comEmail" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">联系人：</label><span class="add_name"><input id="comLinkman" name="comLinkman" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+   	 <li><label class="label_name">公司地址：</label><span class="add_name"><input id="comAddress" name="comAddress" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">固定电话：</label><span class="add_name"><input id="comPhone" name="comPhone" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">移动电话：</label><span class="add_name"><input  id="comYphone" name="comYphone" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">传真：</label><span class="add_name"><input  id="comFax" name="comFax" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
       <li><label class="label_name">开户银行：</label><span class="add_name">
        <select   name="comBank"  style="width: 170px;color:green;">
       <option value="0">请选择--</option>
@@ -129,6 +129,67 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
 </body>
 </html>
+<script>
+	function t(){
+		var comName = document.getElementById("comName").value;
+		var comCode = document.getElementById("comCode").value;
+		var comEmail = document.getElementById("comEmail").value;
+		var comLinkman = document.getElementById("comLinkman").value;
+		var comAddress = document.getElementById("comAddress").value;
+		var comPhone = document.getElementById("comPhone").value;
+		var comYphone = document.getElementById("comYphone").value;
+		var comFax = document.getElementById("comFax").value;
+		if (comName==""){
+			  layer.alert('公司名称不能为空!',{
+              title: '提示框',				
+				icon:0, 
+			 });
+			return false;
+          } 
+         if (comCode==""){
+			  layer.alert('公司代码不能为空!',{
+              title: '提示框',				
+				icon:0, 
+			 });
+			return false;
+          } 
+          if (comEmail==""){
+			  layer.alert('公司邮箱不能为空!',{
+              title: '提示框',				
+				icon:0, 
+			 });
+			return false;
+          } 
+           if (comLinkman==""){
+			  layer.alert('公司联系人不能为空!',{
+              title: '提示框',				
+				icon:0, 
+			 });
+			return false;
+          } 
+            if (comAddress==""){
+			  layer.alert('公司地址不能为空!',{
+              title: '提示框',				
+				icon:0, 
+			 });
+			return false;
+          } 
+             if (comPhone==""){
+			  layer.alert('公司电话不能为空!',{
+              title: '提示框',				
+				icon:0, 
+			 });
+			return false;
+          } 
+             if (comFax==""){
+			  layer.alert('公司传真不能为空!',{
+              title: '提示框',				
+				icon:0, 
+			 });
+			return false;
+          } 
+          }
+</script>
 <script type="text/javascript">
 /*用户-添加*/
  $('#member_add').on('click', function(){
