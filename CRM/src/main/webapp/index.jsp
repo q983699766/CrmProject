@@ -333,8 +333,8 @@ $('.change_Password').on('click', function(){
 					<li>
 					<a href="#" class="dropdown-toggle"><i class="icon-picture "></i><span class="menu-text">仓库</span><b class="arrow icon-angle-down"></b></a>
 						<ul class="submenu">
-						<li class="home"><a href="javascript:void(0)" name="advertising.html" title="库存信息" class="iframeurl"><i class="icon-double-angle-right"></i>库存信息</a></li>
-						<li class="home"><a href="javascript:void(0)" name="ccxxctlr/list.do" title="库存商品信息"  class="iframeurl"><i class="icon-double-angle-right"></i>库存商品信息</a></li>
+						<li class="home"><a href="javascript:void(0)" name="ccckxxctlr/ck.do" title="库存信息" class="iframeurl"><i class="icon-double-angle-right"></i>库存信息</a></li>
+						<li class="home"><a href="javascript:void(0)" name="ccspxxctlr/list.do" title="库存商品信息"  class="iframeurl"><i class="icon-double-angle-right"></i>库存商品信息</a></li>
 							</ul>
 						</li>
 					<li>
@@ -349,8 +349,6 @@ $('.change_Password').on('click', function(){
 					<a href="#" class="dropdown-toggle"><i class="icon-user"></i><span class="menu-text"> 客户管理 </span><b class="arrow icon-angle-down"></b></a>
                     <ul class="submenu">
                     <li class="home"><a href="javascript:void(0)" name="conctlr/custom.do" title="客户信息"  class="iframeurl"><i class="icon-double-angle-right"></i>客户信息</a></li>
-                   <!--  <li class="home"><a href="javascript:void(0)" name="conperctlr/bleed.do" title="联系人管理"  class="iframeurl"><i class="icon-double-angle-right"></i>联系人管理</a></li>-->
-                    <li class="home"><a href="javascript:void(0)" name="conperctlr/record.do" title="联系记录管理"  class="iframeurl"><i class="icon-double-angle-right"></i>联系记录管理</a></li> 
 
                    </ul>
 				  </li>
@@ -370,9 +368,9 @@ $('.change_Password').on('click', function(){
                         	<li><a href="#" class="dropdown-toggle"><i class="icon-cogs"></i><span class="menu-text"> 采购管理 </span><b class="arrow icon-angle-down"></b></a>
 							<ul class="submenu">
 								<li class="home"><a href="javascript:void(0)" name="pursupinfo/selectinfo.do" title="供应商管理" class="iframeurl"><i class="icon-double-angle-right"></i>供应商管理</a></li>
-								<li class="home"><a href="javascript:void(0)" name="pursupinfo/selectinfo.do" title="采购单" class="iframeurl"><i class="icon-double-angle-right"></i>采购单</a></li>
+								<li class="home"><a href="javascript:void(0)" name="purorder/selectinfo.do" title="采购单" class="iframeurl"><i class="icon-double-angle-right"></i>采购单</a></li>
 							
-                                <li class="home"><a href="javascript:void(0)" name="products/selectproducts.do" title="待采购列表" class="iframeurl"><i class="icon-double-angle-right"></i>待采购列表</a></li>
+                                <li class="home"><a href="javascript:void(0)" name="products/selectproducts11.do" title="待采购列表" class="iframeurl"><i class="icon-double-angle-right"></i>待采购列表</a></li>
 							</ul>
 						</li>
                         <li><a href="#" class="dropdown-toggle"><i class="icon-group"></i><span class="menu-text"> 管维阳 </span><b class="arrow icon-angle-down"></b></a>

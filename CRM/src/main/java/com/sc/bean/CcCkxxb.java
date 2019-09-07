@@ -6,16 +6,16 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class CcCkxxb implements Serializable {
-    private Long ckBh;
+    private Long ckBh;	//仓库编号
 
-    private String ckM;
+    private String ckM;	//仓库名
 
-    private String bzxx;
+    private String bzxx;//备注信息
 
-    private Long comId;
+    private Long comId;	//公司编号
 
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private Date lastTime;
+    private Date lastTime;	//最后修改时间
 
     private static final long serialVersionUID = 1L;
 
