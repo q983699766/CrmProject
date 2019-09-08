@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <form action="ccspxxctlr/mh.do" method="post">
       <div class="title_names">搜索查询</div>
       <ul class="search_content clearfix">
-       <li><label class="l_f">产品查询</label><input name="" type="text"  class="text_add" placeholder="请输入产品名称:"  style=" width:400px"/></li>
+       <li><label class="l_f">产品查询</label><input name="ccspxx" type="text"  class="text_add" placeholder="请输入产品名称:"  style=" width:400px"/></li>
        <li style="width:90px;"><button type="submit" class="btn_search"><i class="icon-search"></i>查询</button></li>
       </ul>
     </div>
@@ -75,7 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <!---->
      <div class="border clearfix">
        <span class="l_f">
-        <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加用户</a>
+        <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加商品</a>
         <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
        </span>
        <span class="r_f">共：<b>${pi.total }</b>条</span>
@@ -121,8 +121,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <td><fmt:formatDate value="${u.lastTime}" pattern="yyyy-MM-dd" /></td>         
           <td class="td-manage">
           <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('550')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="ccspxxctlr/del.do?productId=${u.productId }"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
+          <a title="编辑" onclick="jia(${u.productId});member_edit('550')" href="javascript:"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
+       	  <a title="删除" href="javascript:;"  onclick="member_del(this,'${u.productId }')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a> 
           </td>
 		</tr>
        </c:forEach>
@@ -170,21 +170,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
  </form>
  <!--修改用户图层  -->
- <form action="#" method="post">
-<div class="edit_member" id="edit_member_style" style="display:none">
+ <form action="ccspxxctlr/updateccspxx.do" method="post">
+<div class="update_menber" id="update_menber_style" style="display:none">
   
     <ul class=" page-content">
-     <li><label class="label_name">商&nbsp;&nbsp;品 &nbsp;名：</label><span class="add_name"><input  name="spMc" type="text" class="text_add"  required /></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">商品类型</label><span class="add_name"><input name="spLb" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">规格说明</label><span class="add_name"><input name="ggSm" type="text"  class="text_add" /></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">单位</label><span class="add_name"><input name="dw" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">仓库编号</label><span class="add_name"><input name="ckBh" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">库存数量</label><span class="add_name"><input name="kcSl" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">成本价</label><span class="add_name"><input name="cbj" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">零售价</label><span class="add_name"><input name="lsj" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">经销价</label><span class="add_name"><input name="jxj" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">备注信息</label><span class="add_name"><input name="bzxx" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">公司编号</label><span class="add_name"><input name="comId" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <input  type="hidden" id="productId2" name="productId" class="text_add"/> 
+     <li><label class="label_name">商&nbsp;&nbsp;品 &nbsp;名：</label><span class="add_name"><input id="spMc11"  name="spMc" type="text" class="text_add"  required /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">商品类别</label><span class="add_name"><input id="spLb2" name="spLb" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">规格说明</label><span class="add_name"><input id="ggSm2" name="ggSm" type="text"  class="text_add" /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">单位</label><span class="add_name"><input id="dw2" name="dw" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">仓库编号</label><span class="add_name"><input id="ckBh2" name="ckBh" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">库存数量</label><span class="add_name"><input id="kcSl2" name="kcSl" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">成本价</label><span class="add_name"><input id="cbj2" name="cbj" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">零售价</label><span class="add_name"><input id="lsj2" name="lsj" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">经销价</label><span class="add_name"><input id="jxj2" name="jxj" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">备注信息</label><span class="add_name"><input id="bzxx2" name="bzxx" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">公司编号</label><span class="add_name"><input id="comId2" name="comId" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
      <div class="prompt r_f"></div>
      </li> 
     
@@ -300,7 +301,7 @@ function member_edit(id){
 		maxmin: true, 
 		shadeClose:false, //点击遮罩关闭层
         area : ['800px' , ''],
-        content:$('#add_menber_style'),
+        content:$('#update_menber_style'),
 		//btn:['提交','取消'],
 		yes:function(index,layero){	
 		 var num=0;
@@ -328,16 +329,71 @@ function member_edit(id){
 		}
     });
 }
+
+//编辑函数
+ function jia(productId)
+    {
+        var url="ccspxxctlr/select.do?productId="+productId;
+   //ajax异步请求
+   $.ajax
+   ({
+      type:"post",
+      url:url,
+      dataType:"json",
+      success:function(data)
+      {//从前台回调回来的数组，处理后的数据
+      	$("#productId2").val(data.productId);
+        $("#spMc11").val(data.spMc);//商品名
+        $("#spLb2").val(data.spLb);//商品类型
+        $("#ggSm2").val(data.ggSm);//规格说明
+        $("#dw2").val(data.dw);//单位
+        $("#ckBh2").val(data.ckBh);//仓库编号
+        $("#kcSl2").val(data.kcSl);//库存数量
+        $("#cbj2").val(data.cbj);//成本价
+        $("#lsj2").val(data.lsj);//零售价
+        $("#jxj2").val(data.jxj);//经销价
+        $("#bzxx2").val(data.bzxx);//备注信息
+        $("#comId2").val(data.comId);//公司编号
+        $("#lastDate").val(data.lastDate);
+      //将取出的值覆盖原来的值 （val对值进行操作)	
+        
+      }
+    });
+       
+    } 
+
+
 /*用户-删除*/
 function member_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
-		$(obj).parents("tr").remove();
+		//$(obj).parents("tr").remove();
+		document.location.href="ccspxxctlr/del.do?productId="+id;
 		layer.msg('已删除!',{icon:1,time:1000});
+		
 	});
 }
+
+
 laydate({
     elem: '#start',
     event: 'focus' 
 });
 
 </script>
+<style>
+.update_menber{}
+.update_menber li{ margin:10px 0px; height:40px; line-height:40px; float:left; width:50%}
+.update_menber li.adderss{ width:100%}
+.update_menber li .label_name,
+.member_content li .label_name { width:80px; text-align:right; float:left; line-height:30px;}
+.update_menber li .add_name{ float:left; margin-left:10px; line-height:30px;}
+.update_menber li .add_name .lbl{ top:-5px; left:10px;}
+
+.show_menber{}
+.show_menber li{ margin:10px 0px; height:40px; line-height:40px; float:left; width:50%}
+.show_menber li.adderss{ width:100%}
+.show_menber li .label_name,
+.member_content li .label_name { width:80px; text-align:right; float:left; line-height:30px;}
+.show_menber li .add_name{ float:left; margin-left:10px; line-height:30px;}
+.show_menber li .add_name .lbl{ top:-5px; left:10px;}
+</style>

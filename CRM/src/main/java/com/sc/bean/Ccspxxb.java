@@ -11,7 +11,7 @@ public class Ccspxxb implements Serializable {
 
     private String spMc;	//商品名称
 
-    private String spLb;	//商品类型
+    private String spLb;	//商品类别
 
     private String ggSm;	//规格说明
 
@@ -32,6 +32,8 @@ public class Ccspxxb implements Serializable {
     private Long comId;		//公司编号
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastTime;	//最后修改时间
+    
+    private PurProducts purproducts;
 
     private static final long serialVersionUID = 1L;
 
@@ -51,7 +53,15 @@ public class Ccspxxb implements Serializable {
         this.lastTime = lastTime;
     }
 
-    public Ccspxxb() {
+    public PurProducts getPurproducts() {
+		return purproducts;
+	}
+
+	public void setPurproducts(PurProducts purproducts) {
+		this.purproducts = purproducts;
+	}
+
+	public Ccspxxb() {
         super();
     }
 
@@ -163,9 +173,10 @@ public class Ccspxxb implements Serializable {
 	public String toString() {
 		return "Ccspxxb [productId=" + productId + ", spMc=" + spMc + ", spLb=" + spLb + ", ggSm=" + ggSm + ", dw=" + dw
 				+ ", ckBh=" + ckBh + ", kcSl=" + kcSl + ", cbj=" + cbj + ", lsj=" + lsj + ", jxj=" + jxj + ", bzxx="
-				+ bzxx + ", comId=" + comId + ", lastTime=" + lastTime + "]";
+				+ bzxx + ", comId=" + comId + ", lastTime=" + lastTime + ", purproducts=" + purproducts + "]";
 	}
-    
+
+	
     
     
     

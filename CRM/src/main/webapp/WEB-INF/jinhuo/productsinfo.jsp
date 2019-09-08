@@ -73,56 +73,56 @@
    	<div class="page-content clearfix">
     <div id="Member_Ratings">
       <div class="d_Confirm_Order_style">
-    <div class="search_style">
+   <!--  <div class="search_style">
       <div class="title_names">搜索查询</div>
       <ul class="search_content clearfix">
        <li><label class="l_f">产品信息</label><input name="" type="text"  class="text_add" placeholder="输入产品编号、名称"  style=" width:400px"/></li>
-       <!-- <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li> -->
+       <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li>
        <li style="width:90px;"><button type="button" class="btn_search"><i class="icon-search"></i>查询</button></li>
       </ul>
     </div>
-     <!---->
+   
      <div class="border clearfix">
        <span class="l_f">
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>生成送货单</a>
         <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量生成送货单</a>
        </span>
     
-     </div>
-     <!---->
-     <div class="table_menu_list">
+     </div> -->
+     
+     <div class="table_menu_list" style="margin-top: 0 auto">
        <table class="table table-striped table-bordered table-hover" id="sample-table">
 		<thead>
 		 <tr>
-				<th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
-				<th style="width:100px;font-size:12px;">编号</th>
-				<th style="width:60px;font-size:12px;">产品编号</th>
-				<th style="width:60px;font-size:12px;">产品名称</th>
+				<!-- <th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th> -->
+				
+				<th style="width:60px;font-size:12px;">编号</th>
+				<th style="width:80px;font-size:12px;">产品编号</th>
+				<th style="width:80px;font-size:12px;">产品名称</th>
                 <th style="width:60px;font-size:12px;">单价</th>
-				<th style="width:60px;font-size:12px;">库存数量</th>
-			    <th style="width:30px;font-size:12px;">交货时间</th>
-				<th style="width:60px;font-size:12px;">备注信息</th>
+				<th style="width:80px;font-size:12px;">库存数量</th>
+			    <th style="width:20%;font-size:12px;">交货时间</th>
+				<th style="width:80px;font-size:12px;">备注信息</th>
 				<th style="width:60px;font-size:12px;">状态</th>
-				<th style="width:60px;font-size:12px;">公司编号</th>
-				<th style="width:120px;font-size:12px;">操作</th>
+				<th style="width:80px;font-size:12px;">公司编号</th>
+				
            </tr>
 		</thead>
 	<tbody>
 	 <c:forEach items="${pi.list}" var="i">
 	<tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-           <td>${i.proId}</td>
+        <!--   <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td> -->
+           <td>${i.purproducts.proId}</td>
            <td>${i.productId}</td>
-           <td>${i.ccspxxb.spMc}</td>
-           <td>${i.ccspxxb.cbj}</td>
-           <td>${i.ccspxxb.kcSl}</td>
-           <td>${i.deliveryTime}</td> 
-           <td class="text-l">${i.ccspxxb.bzxx}</td> 
-          <td class="text-l">${i.active}</td>
+           <td>${i.spMc}</td>
+           <td>${i.cbj}</td>
+           <td>${i.kcSl}</td>
+           <td><fmt:formatDate value="${i.purproducts.deliveryTime}"
+				pattern="yyyy-MM-dd" /></td> 
+           <td class="text-l">${i.bzxx}</td> 
+          <td class="text-l">${i.purproducts.active}</td>
            <td>${i.comId}</td>
-         <td class="td-manage">
-         <a title="生成送货单" href="pursupinfo/delinfo.do?supInfoNum=${i.productId}" class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-       </td> 
+        
    </tr>
 </c:forEach>
           <tr >
