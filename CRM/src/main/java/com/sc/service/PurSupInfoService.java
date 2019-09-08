@@ -18,8 +18,6 @@ public interface PurSupInfoService {
 	public void updateinfo(PurSupInfo pursupinfo);
 	
 	
-	
-	
 
 
 
