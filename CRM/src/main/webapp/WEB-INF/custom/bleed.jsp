@@ -80,8 +80,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <div class="border clearfix">
        <span class="l_f">
       	<p class="btn btn-danger">客户：${conper.customName }</p>
-        <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加联系人</a>
-        <a href="javascript:ovid()" class="btn btn-danger">查看联系记录</a>
+        <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加联系人</a> 
+        <a href="conctlr/custom.do"  class="btn btn-danger"><i class="icon-plus"></i>返回上一级</a>     
        </span>
      
      </div>
@@ -135,6 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <td class="td-manage">
           <a title="编辑" onclick="aaa(${a.conperId});member_edit('550')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
           <a title="删除" href="javascript:;"  onclick="member_del(this,'1');del(${a.conperId})" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
+          <a href="conctlr/gotoRecord.do?customId=${a.customId}">联系记录</a>
           </td>
 		</tr>
 		</c:forEach>
@@ -154,10 +155,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </div>
 </div>
 
+ 
+ <!--添加用户图层-->
+ <form action="conctlr/addSalConper.do" method="post">
+ <center>
+<div class="add_menber" id="add_menber_style" style="display:none"> 
+    <ul class=" page-content">
+    <input type="hidden" name="customId" value="${conper.customId}" /> 
+     <!-- <li><label class="label_name">客户编号：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li> -->
+     <li><label class="label_name">联系姓名：</label><span class="add_name"><input  type="text" name="conperName"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">英&nbsp;&nbsp;文&nbsp;&nbsp;名：</label><span class="add_name"><input  type="text" name="englishName"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;务：</label><span class="add_name"><input  type="text" name="post"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门：</label><span class="add_name"><input  type="text" name="dept" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机：</label><span class="add_name"><input  type="text" name="cellPhone" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">办公电话：</label><span class="add_name"><input  type="text" name="tel" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">电子邮件：</label><span class="add_name"><input  type="text" name="email" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</label><span class="add_name"><input  type="text" name="address" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">备注信息：</label><span class="add_name"><input  type="text" name="remark" class="text_add"/></span><div class="prompt r_f"></div></li>
+    </ul><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br><br><br>
+ </div>
+ </center>
+ </form>
+ 
 
  <!--修改用户图层-->
  <form action="conctlr/updateSalConper.do" method="post">
-<div class="update_menber" id="update_menber_style" style="display:none"> 
+ 
+<div class="update_menber" id="update_menber_style" style="display:none;" > 
     <ul class=" page-content">
      <input type="hidden" name="conperId" id="conperId"/>  
     <input type="hidden" name="customId" id="customId" value="${conper.customId}" />  
@@ -176,6 +201,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </ul><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br><br><br>
  </div>
+ 
  </form>
  
 

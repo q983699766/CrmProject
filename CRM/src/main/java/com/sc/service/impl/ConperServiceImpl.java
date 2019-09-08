@@ -12,8 +12,11 @@ import com.sc.bean.SalConperExample;
 import com.sc.bean.SalCustomInfo;
 import com.sc.bean.SalCustomInfoExample;
 import com.sc.bean.SalCustomInfoExample.Criteria;
+import com.sc.bean.SalRecord;
+import com.sc.bean.SalRecordExample;
 import com.sc.mapper.SalConperMapper;
 import com.sc.mapper.SalCustomInfoMapper;
+import com.sc.mapper.SalRecordMapper;
 import com.sc.service.ConperService;
 
 @Service
@@ -23,6 +26,8 @@ public class ConperServiceImpl implements ConperService {
 	SalCustomInfoMapper salCustomInfoMapper;
 	@Autowired
 	SalConperMapper  salConperMapper;
+	@Autowired
+	SalRecordMapper  salRecordMapper;
 	
 	//分页查询用户信息
 	@Override
@@ -117,9 +122,26 @@ public class ConperServiceImpl implements ConperService {
 		
 	}
 
+	@Override
+	public void delAll(Long customId) {
+		if(customId!=null){
+			this.salCustomInfoMapper.deleteByPrimaryKey(customId);
+		}
+		
+	}
 
-	
-	
+	//根据客户ID查询出所有联系记录
+	@Override
+	public List<SalRecord> selectrecordById(Long customId) {
+		
+		SalRecordExample example = new SalRecordExample();
+		com.sc.bean.SalRecordExample.Criteria criteria = example.createCriteria();
+		criteria.andCustomIdEqualTo(customId);
+		List<SalRecord> list = salRecordMapper.selectByExample(example);
+		return list;
+	}
+
+
 	
 
 
