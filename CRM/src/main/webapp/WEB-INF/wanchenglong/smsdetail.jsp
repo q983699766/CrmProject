@@ -76,7 +76,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <!---->
      <div class="border clearfix">
        <span class="l_f">
-        <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>发送信息</a>
+        <a onclick="jiaaa();member_edit('550')" href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>发送信息</a>
+        <%-- <a title="编辑" onclick="jia(${per.smsId });member_edit('550')" href="javascript:;"   >${per.officeSms.smsHeadline}</a> --%>
         <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
        </span>
        <span class="r_f">共：<b>2345</b>条</span>
@@ -89,10 +90,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
 				<th width="80">ID</th>
 				<th width="100">信息标题</th>
-				<th width="80">接受者</th>
+				<th width="80">接受人</th>
 				
-				<th width="120">公司名称</th>
-				<th width="150">发送时间</th>
+				<th width="120">接受人公司</th>
+				<th width="150">接收时间</th>
 				<th width="70">信息状态</th> 
 				
                 
@@ -180,7 +181,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <li><label class="label_name"></label><span class="add_name"></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">信息内容：</label><span class="add_name"><textarea readonly="true" id="sms2"  type="text"  class="text_add"></textarea></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">发送人：</label><span class="add_name"><input readonly="true" id="sms3"  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">公司名字：</label><span class="add_name"><input readonly="true" id="sms4"  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">发送公司：</label><span class="add_name"><input readonly="true" id="sms4"  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">发送时间：</label><span class="add_name"><input readonly="true" id="sms5"  type="text"  dateFmt="yyyy-MM-dd HH:mm:ss"  class="text_add"/></span><div class="prompt r_f"></div></li>
      
     </ul>
@@ -188,18 +189,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  
  
  <!--添加用户图层-->
-<form action="detail/addsmsInfo.do" method="post">
+<form action="Office/addsmsInfo.do" method="post">
 <div class="add_menber" id="add_sms_style" style="display:none">
   
     <ul class=" page-content">
      <!-- <li style="display:hidden"><label class="label_name">客户编号：</label><span class="add_name"><input  type="text" id="customId" class="text_add"/></span><div class="prompt r_f"></div></li> -->
-     <li><label class="label_name">发&nbsp;&nbsp;送&nbsp;&nbsp;人：</label><span class="add_name"><input  type="text" name="smssend" id="website" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">接&nbsp;&nbsp;收&nbsp;&nbsp;者：</label><span class="add_name"><input  type="text" name="smsreciver" id="ticketCode" class="text_add"/></span><div class="prompt r_f"></div></li>
      
+     <li><label class="label_name">接&nbsp;&nbsp;收&nbsp;&nbsp;人：</label><span class="add_name"><input  type="text" name="smsreciver" id="ticketCode" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name"></label><div class="prompt r_f"></div></li>
      <li><label class="label_name">信息标题：</label><span class="add_name"><input  type="text" name="smshidle" id="customName" class="text_add"/></span><div class="prompt r_f"></div></li>
 	<li><label class="label_name"></label><div class="prompt r_f"></div></li>
-
-     <li><label class="label_name">接收者公司：</label><span class="add_name"><input  type="text" name="companyid" id="owner" class="text_add"/></span><div class="prompt r_f"></div></li>
+	<li><label class="label_name"></label><div class="prompt r_f"></div></li>
+     <!-- <li><label class="label_name">接收人公司：</label><span class="add_name"><input  type="text" name="companyid" id="owner" class="text_add"/></span><div class="prompt r_f"></div></li> -->
 	<li><label class="label_name"></label><div class="prompt r_f"></div></li>
      <li><label class="label_name">信息内容：</label><textarea style="width: 100%;height:100px; "   name="smsdetail1" id="customProperties" ></textarea></li>
 
@@ -385,6 +386,63 @@ function jia(smsId)
     }
     
 
+
+
+
+
+
+
+
+/* 发送信息的ajax */
+function jiaaa(smsId)
+    {
+        var url="detail/selectsmsuser.do";
+   //ajax异步请求
+   $.ajax
+   ({
+      type:"post",
+      url:url,
+      dataType:"json",
+      success:function(data)
+      {//从前台回调回来的数组，处理后的数据
+       //alert(JSON.stringify(data));
+       	// $("#sms1").val(data.smsHeadline);
+        // $("#sms2").val(data.smsContent);//将取出的值覆盖原来的值 （val对值进行操作)
+        // $("#sms3").val(data.sysUsers.userName);
+         //$("#sms4").val(data.syscompany.comName);
+         //$("#sms5").val(data.lastTime);
+         
+         /* $("#superiorUnitsx").val(data.superiorUnits);
+         $("#ownerx").val(data.owner);
+         $("#staffx").val(data.staff);
+         $("#tradeNumberx").val(data.tradeNumber);
+         $("#customTypex").val(data.customType);
+         $("#customStatex").val(data.customState);
+         $("#customSourcex").val(data.customSource);
+         $("#fixedPhonex").val(data.fixedPhone);
+         $("#cellPhonex").val(data.cellPhone);
+         $("#customFaxx").val(data.customFax);
+         $("#depositBankx").val(data.depositBank);
+         $("#bankAccoutx").val(data.bankAccout);
+         $("#nextcontactTimex").val(data.nextcontactTime.substr(0, 10));
+         $("#emailx").val(data.email);
+         $("#sicCodex").val(data.sicCode);
+         $("#payWayx").val(data.payWay);
+         $("#effectivityx").val(data.effectivity);
+         $("#detailAddressx").val(data.detailAddress);
+         $("#remarkx").val(data.remark);
+         $("#comIdx").val(data.comId);
+         var customState = data.customState;
+         if(customState == "正在合作"){
+         	$(".ace[name=form-field-radio1]").get(2).checked = "true";
+         }else{
+         	$(".ace[name=form-field-radio1]").get(3).checked = "true";
+         }	; */	   
+      }
+    });
+       
+    }
+    
 
 
 

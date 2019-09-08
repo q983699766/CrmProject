@@ -1,6 +1,7 @@
 package com.sc.controller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sc.bean.OfficeDetailSms;
 import com.sc.bean.OfficeSms;
+import com.sc.bean.SalCustomInfo;
 import com.sc.bean.SysCOMPANY;
 import com.sc.bean.SysUsers;
 import com.sc.service.HrScheDetailService;
@@ -74,7 +76,7 @@ public class HR_ScheduleConroller {
 		}	
 		
 		
-		//查询所有供应商详细信息
+		//查询所有详细信息
 		@RequestMapping("/selectdetailinfo.do")
 		public ModelAndView selectAlldetailSms1 (ModelAndView mav,OfficeDetailSms officeDetailSms,
 				@RequestParam(defaultValue="1")Integer pageNum,
@@ -98,9 +100,7 @@ public class HR_ScheduleConroller {
 				System.out.println(seleCOMById);
 				officeDetailSms2.setSyscompany(seleCOMById);
 				officeDetailSms2.setSysUsers(seleuserById);
-				officeDetailSms2.setOfficeSms(selesmsById);
-				
-				
+				officeDetailSms2.setOfficeSms(selesmsById);	
 			}
 			
 			System.out.println("set后的信息為："+selectsmsByExample1);
@@ -136,6 +136,57 @@ public class HR_ScheduleConroller {
 			return "redirect:/Office/selectdetailinfo.do";
 			
 
+		}
+		
+		
+		
+		
+		
+		
+		//发送信息
+		@RequestMapping("/addsmsInfo.do")
+		public ModelAndView addsmsInfo(ModelAndView mav,HttpServletRequest req,HttpSession session,
+				SalCustomInfo sal,OfficeSms officeSms,OfficeDetailSms officeDetailSms) throws IllegalStateException, IOException{
+			Date date = new Date();
+			System.out.println("进入发送信息！！————————————————————————");
+			
+			//session.setAttribute("nowuser", sysusers);
+			SysUsers sysUsers = (SysUsers)session.getAttribute("nowuser");
+			Long smssend = sysUsers.getUserId();
+			
+			System.out.println(officeSms+"+"+officeDetailSms);
+			//String smssend = req.getParameter("smssend");
+			String smshidle = req.getParameter("smshidle");
+			String smsreciver = req.getParameter("smsreciver");
+			String companyid = req.getParameter("companyid");
+			String smsdetail1 = req.getParameter("smsdetail1");
+			
+			//System.out.println(smsdetail1+"--");
+			
+			officeSms.setSmsHeadline(smshidle);
+			officeSms.setSmsContent(smsdetail1);
+			officeSms.setSmsSender(Long.valueOf(smssend));
+			//根据发送者id查找发送者公司 
+			SysUsers seleuserById = hrScheService.seleuserById(Long.valueOf(smssend));
+			officeSms.setComId(seleuserById.getComId());
+			officeSms.setLastTime(date);
+			//System.out.println(officeSms+"-------------------");
+			//System.out.println(date);
+			hrScheService.addsmsInfo(officeSms);
+			
+			System.out.println("新取到的smsid---------"+officeSms.getSmsId());
+			officeDetailSms.setSmsId(officeSms.getSmsId());
+			officeDetailSms.setReceiverId(Long.valueOf(smsreciver));
+			officeDetailSms.setSmsState("0");
+			//根据发送者id查找接收者公司 
+			SysUsers seleuserById2 = hrScheService.seleuserById(Long.valueOf(smsreciver));
+			officeDetailSms.setComId(seleuserById2.getComId());
+			officeDetailSms.setLastTime(date);
+			hrScheService.adddetailsms(officeDetailSms);
+			
+			System.out.println("-------"+"++++++"+officeSms+officeDetailSms);
+			mav.setViewName("redirect:./selectdetailinfo.do");
+			return mav;
 		}
 		
 		

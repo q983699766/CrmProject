@@ -2,11 +2,12 @@ package com.sc.service;
 
 import java.util.List;
 
+import com.sc.bean.OfficeDetailSms;
 import com.sc.bean.OfficeSms;
 import com.sc.bean.OfficeSmsExample;
-import com.sc.bean.SalCustomInfo;
 import com.sc.bean.SysCOMPANY;
 import com.sc.bean.SysUsers;
+import com.sc.bean.SysUsersExample;
 
 public interface HrScheService {
 	//查询短消息
@@ -24,5 +25,16 @@ public interface HrScheService {
 	//通过信息ID查找信息
 	public OfficeSms selectById(Long smsId);
 	
+	//查找全部用户
+	public List<SysUsers> selectuserByExample(SysUsersExample example);
+	
+	
+	
+	
+	//添加信息
+	public void addsmsInfo(OfficeSms officeSms);
+	
+	//添加详细信息
+	public void adddetailsms(OfficeDetailSms officeDetailSms);
 	
 }

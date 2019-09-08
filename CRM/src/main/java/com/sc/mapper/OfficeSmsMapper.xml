@@ -105,6 +105,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.sc.bean.OfficeSms" >
+  <selectKey keyColumn="SMS_ID" resultType="java.lang.Long" keyProperty="smsId" order="AFTER">
+		<!-- SELECT T_OFFICE_SMS_SEQ.currval as id from dual  -->
+		SELECT T_OFFICE_SMS_SEQ.CURRVAL as SMS_ID from dual 
+	</selectKey><!-- 获得新增主键的值 -->
     insert into OFFICE_SMS (SMS_ID, SMS_HEADLINE, SMS_CONTENT, 
       SMS_SENDER, COM_ID, LAST_TIME
       )
