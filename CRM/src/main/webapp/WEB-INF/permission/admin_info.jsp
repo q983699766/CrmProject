@@ -34,8 +34,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
-<script>
-function(){
+<script type="text/javascript">
+
 
 	var success = "${success}";
 	if(success=="success"){
@@ -44,7 +44,12 @@ function(){
 			   icon:1,			   		
 			  });
 	}
-}
+	if(success=="fail"){
+			layer.alert('修改密码失败，密码不正确！',{
+               title: '提示框',				
+			   icon:2,		   		
+			  });
+	}
 </script>
 
 <div class="clearfix">
@@ -139,7 +144,6 @@ function(){
 			  layer.alert('原密码不能为空!',{
               title: '提示框',				
 				icon:0,
-			    
 			 });
 			return false;
           } 

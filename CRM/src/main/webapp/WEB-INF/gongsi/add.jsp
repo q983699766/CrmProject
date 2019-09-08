@@ -18,9 +18,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <link href="../assets/css/codemirror.css" rel="stylesheet">
         <link rel="stylesheet" href="../assets/css/ace.min.css" />
         <link rel="stylesheet" href="../font/css/font-awesome.min.css" />
+   <link  rel="stylesheet" href="../layui/css/layui.css" />
+	
         <!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
 		<![endif]-->
+		<script src="../layui/layui.js"></script>
 		<script src="../js/jquery-1.9.1.min.js"></script>
         <script src="../assets/js/bootstrap.min.js"></script>
 		<script src="../assets/js/typeahead-bs2.min.js"></script>           	
@@ -36,7 +39,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    <div class="border clearfix">
        <span class="l_f">
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning" title="添加用户"><i class="fa fa-plus"></i>&nbsp;添加部门</a>
-        
        </span>
        
      </div>
@@ -56,7 +58,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              <tbody>
              <c:forEach items="${branch }" var="u">
 			  <tr>
-				
 				<td>${u.secId }</td>
 				<td>${u.secName }</td>
 				<td>${u.secComment }</td>
@@ -71,15 +72,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		      </tbody>
 	        </table>
      </div>
- </div>
-
+ </div> 
   
  <!--添加用户图层--> 
- <form action="addBranch.do" method="post">
+ <form action="addBranch.do" method="post" onsubmit=" return t()" >
 <div class="add_menber" id="add_menber_style" style="display:none">
-  
     <ul class=" page-content">
-     <li><label class="label_name">职务名称：</label><span class="add_name"><input value="" name="secName" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">部门名称：</label><span class="add_name"><input id="secName" name="secName" type="text"  class="text_add" placeholder="必填" /></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">备注信息：</label><span class="add_name"><input name="secComment" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">公司编号：</label><span class="add_name"><select name="comId" style="width: 170px;color:green;">
                   <option value="0">选择公司</option>
@@ -89,12 +88,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  				 </select>
      </span><div class="prompt r_f"></div></li>
     </ul>
-    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="添加"><br/><br/><br/><br/>
+    <div class="center"> 
+    <input class="btn btn-primary" type="submit" id="submit" value="添加"><br/><br/><br/><br/>
+      
  </div>
   </form>
-  
+     
 </body>
 </html>
+<script>
+function t(){
+		var secName = document.getElementById("secName").value;
+		if (secName==""){
+			  layer.alert('部门名称不能为空!',{
+              title: '提示框',				
+				icon:0, 
+			 });
+			return false;
+          } 
+}
+</script>
 <script type="text/javascript">
 /*用户-添加*/
  $('#member_add').on('click', function(){
@@ -109,11 +122,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		yes:function(index,layero){	
 		 var num=0;
 		 var str="";
-     $(".add_menber input[type$='text']").each(function(n){
+		 
+     $(".secName input[type$='text']").each(function(n){
           if($(this).val()=="")
           {
                
-			   layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
+			   layer.alert(str+=""+$(this).attr("secName")+"不能为空！\r\n",{
                 title: '提示框',				
 				icon:0,								
           }); 

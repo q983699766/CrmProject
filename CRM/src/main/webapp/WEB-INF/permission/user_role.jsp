@@ -32,15 +32,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
+<script type="text/javascript">
+
+
+	var ok = "${ok}";
+	if(ok=="1"){
+			layer.alert('操作成功',{
+               title: '提示框',				
+			   icon:1,			   		
+			  });
+	}
+	if(ok=="2"){
+			layer.alert('操作失败',{
+               title: '提示框',				
+			   icon:2,		   		
+			  });
+	}
+</script>
+
+
  <div class="margin clearfix">
+ <form action="getPermByCol.do" method="post">
    <div class="border clearfix">
        <span class="l_f">
         <a href="javascript:;" id="member_add" class="btn btn-warning" title="普通管理员及以上可用"><i class="fa fa-plus"></i>&nbsp;给角色配置权限</a>
         <a href="javascript:;" id="member_addperm" class="btn btn-warning" title="超级管理员可用"><i class="fa fa-plus"></i> 添加权限</a>
-        <a href="reset.do" class="btn btn-danger" title="超级管理员可用"><i class="fa fa-trash"></i> 一键取消除超管外所有角色权限</a>
+        <a href="javascript:;" id="member_addpermcol" class="btn btn-warning" title="超级管理员可用"><i class="fa fa-plus"></i> 添加权限分栏</a>
+        
+       	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;选择分栏查看管理权限
+       	<select name="columnName">
+       		<option value="all">查看全部</option>
+       		<c:forEach items="${col }" var="c"><option value="${c.columnName}" ${c.columnName ==colName ? 'selected="selected"':'false' }>${c.columnName}</option></c:forEach>
+       	</select>
+       	
        </span>
+       <input type="submit" class="btn btn-warning" value="查看"/>
        
+       <a href="javascript:;"  onclick="delallperm()" class="btn btn-danger" title="超级管理员可用"><i class="fa fa-trash"></i> 一键取消除超管外所有角色权限</a>
      </div>
+     </form>
      <div class="compete_list">
        <table id="sample-table-1" class="table table-striped table-bordered table-hover">
 		 <thead>
@@ -53,7 +83,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              </tr>
 		    </thead>
              <tbody>
+             
              <c:forEach items="${perms }" var="p">
+             		
 			  <tr>
 				<!-- <td class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td> -->
 				<td>${p.permissionName }</td>
@@ -62,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>${p.remark }</td>
 				<td>
                  <a title="编辑" onclick="jia(${p.permissionId });member_edit('550');" href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
-          			<a title="删除" href="del.do?permId=${p.permissionId }"  onclick="Competence_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
+          			<a title="删除" href="javascript:;"  onclick="del_perm(${p.permissionId })" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
 				</td>
 			   </tr>
 			   </c:forEach>				
@@ -70,35 +102,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        </table>
      </div>
  </div>
- <!--修改权限图层-->
- <form action="update.do" method="post">
+ 
+ <!-- 添加权限分栏 -->
+ <form action="addpermcol.do" method="post" onsubmit="return addpermcol()">
+<div class="add_menber" id="add_menber2_style" style="display:none">
+  <br/>
+    <ul class=" page-content">
+     <li><label class="label_name">分栏名称：</label><span class="add_name"><input  type="text" name="columnName" id="columnName" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">权限描述：</label><span class="add_name"><input  type="text" name="remark" id="remark111" class="text_add"/></span><div class="prompt r_f"></div></li>
+    </ul>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/>
+ </div>
+ </div>
+  </form>
+ 
+ 
+ 
+ <!--修改权限-->
+ <form action="update.do" method="post" onsubmit="return updateperm()">
  <input type="hidden" name="permissionId" id="permissionId"/>
- <input type="hidden" name="permission" id="permission"/>
  <input type="hidden" name="permissionColumn" id="permissionColumn"/>
 <div class="add_menber" id="update_menber_style" style="display:none"> 
     <ul class=" page-content">
      <!-- <li><label class="label_name">客户编号：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li> -->
-     <li><label class="label_name">权限名称：</label><span class="add_name"><input  type="text" name="permissionName" id="permissionName" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">权限描述：</label><span class="add_name"><input  type="text" name="remark" id="remark" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">下列角色拥有该权限：</label><span class="add_name">
-     		&nbsp;&nbsp;&nbsp;&nbsp;<select id="roles" name="roleId">
+     <li><label class="label_name">权限名称：</label><span class="add_name"><input  type="text" name="permissionName" id="permissionNamex" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">权限描述：</label><span class="add_name"><input  type="text" name="remark" id="remarkx" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">权限方法：</label><span class="add_name"><input  type="text" name="permission" id="permission" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <%-- <li><label class="label_name">下列角色拥有该权限：按住ctrl，点击多选</label><span class="add_name">
+     		&nbsp;&nbsp;&nbsp;&nbsp;<select id="roles" name="roleId" multiple="multiple">
                 <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
+            </select></span><div class="prompt r_f"></div></li> --%>
+            <li><label class="label_name">所在分栏：</label><span class="add_name"><select id="permissionColumnx" name="colId">
+                <c:forEach items="${col}" var="c" ><option value="${c.columnId }">${c.columnName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
+            <li><label class="label_name"></label><span class="add_name"></span><div class="prompt r_f"></div></li>
     <li><label class="label_name">操&nbsp;作&nbsp;人：</label><span class="add_name">&nbsp;&nbsp;${nowuser.userName }</span><div class="prompt r_f"></div></li>
-    </ul><br/><br/><br/><br/><br/><br/><br/><br/>
+    </ul><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br/><br/>
  </div>
 </form>
  
  <!-- 添加权限 -->
- <form action="addperm.do" method="post">
+ <form action="addperm.do" method="post" onsubmit="return addperm()">
 <div class="add_menber" id="add_menber1_style" style="display:none">
   <br/>
     <ul class=" page-content">
-     <li><label class="label_name">权限名称：</label><span class="add_name"><input  type="text" name="permissionName" id="permissionName" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">权&nbsp;&nbsp;&nbsp;&nbsp;限：</label><span class="add_name"><input  type="text" name="permission" id="permission" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">权限描述：</label><span class="add_name"><input  type="text" name="remark" id="remark" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">所在分栏：</label><span class="add_name"><select id="columnName" name="columnName">
+     <li><label class="label_name">权限名称：</label><span class="add_name"><input  type="text" name="permissionName" id="permissionName111" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">权限方法：</label><span class="add_name"><input  type="text" name="permission" id="permission111" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">权限描述：</label><span class="add_name"><input  type="text" name="remark" id="remark1" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">所在分栏：</label><span class="add_name"><select id="columnName111" name="columnName">
                 <c:forEach items="${col}" var="c" ><option value="${c.columnName }">${c.columnName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
     </ul>
@@ -109,17 +161,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  
  
  <!--给角色添加权限图层--> 
- <form action="add.do" method="post">
+ <form action="add.do" method="post" onsubmit="return addroleperm()">
 <div class="add_menber" id="add_menber_style" style="display:none">
   <br/>
     <ul class=" page-content">
-     <li><label class="label_name">角色名称：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="role" name="role">
+     <li><label class="label_name">角色名称：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="role111" name="role">
                 <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">权限名称：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="perm" name="perm">
+     <li><label class="label_name">权限名称：按住ctrl，点击多选</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="perm111" name="perm" multiple="multiple">
                 <c:forEach items="${perms}" var="p" ><option value="${p.permissionId }">${p.permissionName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
-    </ul>
+    </ul><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/>
  </div>
   </form>
@@ -137,7 +189,214 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </div>-->
 </body>
 </html>
+<script>
+/* 添加权限 */
+function addperm(){
+		var pass1 = document.getElementById("permissionName111").value;
+		var pass2 = document.getElementById("permission111").value;
+		var pass3 = document.getElementById("remark1").value;
+		var pass4 = document.getElementById("columnName111").value;
+		
+		if (pass1==""){
+			  layer.alert('权限分不能为空!',{
+              title: '提示框',				
+				icon:0,
+			 });
+			return false;
+          } 
+		  if (pass2==""){
+			  layer.alert('权限方法不能为空!',{
+              title: '提示框',				
+				icon:0,
+			    
+			 });
+			return false;
+          }   
+          if (pass3==""){
+			  layer.alert('权限描述不能为空!',{
+              title: '提示框',				
+				icon:0,
+			 });
+			return false;
+          } 
+		  if (pass4==""){
+			  layer.alert('权限分栏不能为空!',{
+              title: '提示框',				
+				icon:0,
+			    
+			 });
+			return false;
+          }  
+            
+	}	
+
+
+
+/* 权限分栏添加 */
+function addpermcol(){
+		var pass1 = document.getElementById("columnName").value;
+		var pass2 = document.getElementById("remark111").value;
+		
+		if (pass1==""){
+			  layer.alert('权限分栏名不能为空!',{
+              title: '提示框',				
+				icon:0,
+			 });
+			return false;
+          } 
+		  if (pass2==""){
+			  layer.alert('权限分栏描述不能为空!',{
+              title: '提示框',				
+				icon:0,
+			    
+			 });
+			return false;
+          }   
+            
+	}	
+
+
+/* 权限修改 */
+function updateperm(){
+		var pass1 = document.getElementById("permissionNamex").value;
+		var pass2 = document.getElementById("remarkx").value;
+		var pass3 = document.getElementById("permission").value;
+		var pass4 = document.getElementById("permissionColumnx").value;
+		/* var pass5 = document.getElementById("roles").value; */
+		if (pass1==""){
+			  layer.alert('权限名不能为空!',{
+              title: '提示框',				
+				icon:0,
+			 });
+			return false;
+          } 
+		  if (pass2==""){
+			  layer.alert('权限描述不能为空!',{
+              title: '提示框',				
+				icon:0,
+			    
+			 });
+			return false;
+          }   
+          if (pass3==""){
+			  layer.alert('权限方法不能为空!',{
+              title: '提示框',				
+				icon:0,
+			    
+			 });
+			return false;
+          }   if (pass4==""){
+			  layer.alert('权限分栏不能为空!',{
+              title: '提示框',				
+				icon:0,
+			    
+			 });
+			return false;
+          }   
+	}	
+
+
+/* 给角色配置权限 */
+	function addroleperm(){
+		var pass1 = document.getElementById("role111").value;
+		var pass2 = document.getElementById("perm111").value;
+		
+		if (pass1==""){
+			  layer.alert('角色不能为空!',{
+              title: '提示框',				
+				icon:0,
+			 });
+			return false;
+          } 
+		  if (pass2==""){
+			  layer.alert('必须选择至少一个权限!',{
+              title: '提示框',				
+				icon:0,
+			    
+			 });
+			return false;
+          }  
+	}	
+</script>
+
+
+
 <script type="text/javascript">
+/* 一键取消 */
+function delallperm(){
+ 		layer.confirm('是否确定全部取消？',{
+                btn: ['是','否'] ,				
+				icon:2,
+				},
+				function(){
+						  location.href="reset.do";
+						  return true;
+					 	},
+				function(){
+					 	
+					 	}	
+ 		)
+ };
+
+
+
+/* 删除 */
+function del_perm(permId){
+ 		layer.confirm('是否确定删除？',{
+                btn: ['是','否'] ,				
+				icon:2,
+				},
+				function(){
+						  location.href="del.do?permId="+permId;
+						  return true;
+					 	},
+				function(){
+					 	
+					 	}	
+ 		)
+ };
+
+
+
+/* 权限分栏-添加 */
+$('#member_addpermcol').on('click', function(){
+    layer.open({
+        type: 1,
+        title: '添加权限分栏',
+		maxmin: true, 
+		shadeClose: true, //点击遮罩关闭层
+        area : ['800px' , ''],
+        content:$('#add_menber2_style'),
+		
+		yes:function(index,layero){	
+		 var num=0;
+		 var str="";
+     $(".add_menber input[type$='text']").each(function(n){
+          if($(this).val()=="")
+          {
+               
+			   layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
+                title: '提示框',				
+				icon:0,								
+          }); 
+		    num++;
+            return false;            
+          } 
+		 });
+		  if(num>0){  return false;}	 	
+          else{
+			  layer.alert('添加成功！',{
+               title: '提示框',				
+			icon:1,		
+			  });
+			   layer.close(index);	
+		  }		  		     				
+		}
+    });
+});
+
+
+
 /* 权限-添加 */
 $('#member_addperm').on('click', function(){
     layer.open({
@@ -225,14 +484,14 @@ function jia(permId)
       {//从前台回调回来的数组，处理后的数据
        //alert(JSON.stringify(data));
          $("#permissionId").val(data.permissionId);//将取出的值覆盖原来的值 （val对值进行操作)	
-         $("#permissionName").val(data.permissionName);
+         $("#permissionNamex").val(data.permissionName);
          $("#permission").val(data.permission);
-         $("#remark").val(data.remark);
-         $("#permissionColumn").val(data.permissionColumn);
+         $("#remarkx").val(data.remark);
+         $("#permissionColumnx").val(data.permissionColumn);
           $("#lastTime").val(data.lastTime);
-          var roles = data.roles;
-          roles.children().each(function(i, element){
-          		
+          var highRoleName = data.permissionColumn;
+          $("#permissionColumnx").children().each(function(i, element){
+          		if(element.innerHTML == highRoleName)element.selected = "true";
           });
          /* var highRoleName = data.highRoleName;	
          $("#roles").children().each(function(i, element) {

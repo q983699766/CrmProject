@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.sc.bean.SysPermission;
 import com.sc.bean.SysPermissionColumn;
+import com.sc.bean.SysPermissionExample;
 import com.sc.bean.SysPermissionRole;
 import com.sc.bean.SysPermissionRoleExample;
 import com.sc.bean.SysPermissionRoleExample.Criteria;
@@ -63,12 +64,13 @@ public class PermServiceImpl implements PermissionService{
 		permRole.setPermissionId(permissionId);
 		
 		SysPermissionRoleMapper.deleteByExample(sysPermissionRoleExample);
+		if(roleId != null){
 		for (Long rId : roleId) {
 			
 			permRole.setRoleId(rId);
 			SysPermissionRoleMapper.insert(permRole);
 		}
-		
+		}
 	}
 
 	@Override
@@ -114,6 +116,24 @@ public class PermServiceImpl implements PermissionService{
 	public java.util.List<SysPermissionColumn> getColumn() {
 		
 		return SysPermissionColumn.selectByExample(null);
+	}
+
+	@Override
+	public void addPermcol(com.sc.bean.SysPermissionColumn col) {
+		SysPermissionColumn.insert(col);
+		
+	}
+
+	@Override
+	public java.util.List<com.sc.bean.SysPermission> getPermListByCol(String columnName) {
+		
+		SysPermissionExample sysPermissionExample = new SysPermissionExample();
+		com.sc.bean.SysPermissionExample.Criteria createCriteria = sysPermissionExample.createCriteria();
+		createCriteria.andPermissionColumnEqualTo(columnName);
+		
+		java.util.List<com.sc.bean.SysPermission> selectByExample = SysPermission.selectByExample(sysPermissionExample);
+		
+		return selectByExample;
 	}
 
 }

@@ -17,7 +17,7 @@ public interface PurProductsService {
 		public PageInfo<Ccspxxb> selectproandsp(Integer pageNum, Integer pageSize,Ccspxxb ccspxxb);
 		
 		//查询所有的 库存商品信息
-		public PageInfo<PurProducts> selectpurproducts(Integer pageNum, Integer pageSize);
+		public PageInfo<Ccspxxb> selectpurproducts(Integer pageNum, Integer pageSize);
 
 		
 }
