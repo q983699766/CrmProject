@@ -3,6 +3,7 @@ package com.sc.bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -43,7 +44,7 @@ public class SalCustomInfo implements Serializable {
 
     private BigDecimal bankAccout;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date nextcontactTime;
 
     private String email;
@@ -59,6 +60,16 @@ public class SalCustomInfo implements Serializable {
     private String remark;
 
     private Long comId;
+    
+    private List<SalConper> salconper;
+
+    public List<SalConper> getSalconper() {
+		return salconper;
+	}
+
+	public void setSalconper(List<SalConper> salconper) {
+		this.salconper = salconper;
+	}
 
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastTime;
@@ -325,6 +336,8 @@ public class SalCustomInfo implements Serializable {
 				+ customFax + ", depositBank=" + depositBank + ", bankAccout=" + bankAccout + ", nextcontactTime="
 				+ nextcontactTime + ", email=" + email + ", sicCode=" + sicCode + ", payWay=" + payWay
 				+ ", effectivity=" + effectivity + ", detailAddress=" + detailAddress + ", remark=" + remark
-				+ ", comId=" + comId + ", lastTime=" + lastTime + "]";
+				+ ", comId=" + comId + ", salconper=" + salconper + ", lastTime=" + lastTime + "]";
 	}
+
+
 }

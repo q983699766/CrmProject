@@ -54,10 +54,15 @@ public class UsersServiceImpl implements UsersService{
 			
 			List<SysUsersRole> userRole = SysUsersRoleMapper.selectByExample(sysUsersRoleExample);
 			if(!userRole.isEmpty()){
-				SysUsersRole sysUsersRole = userRole.get(0);
-				Long roleId = sysUsersRole.getRoleId();
-				SysRole role = SysRoleMapper.selectByPrimaryKey(roleId);
-				sysUsers.setRoleName(role.getRoleName());
+				
+				ArrayList<SysRole> list2 = new ArrayList<SysRole>();
+				
+				for (SysUsersRole sysUsersRole : userRole) {
+					Long roleId = sysUsersRole.getRoleId();
+					SysRole role = SysRoleMapper.selectByPrimaryKey(roleId);
+					list2.add(role);
+				}
+				sysUsers.setRoles(list2);
 			}
 				
 			
@@ -74,29 +79,23 @@ public class UsersServiceImpl implements UsersService{
 	
 	
 	@Override
-	public void updateUserRole(SysUsers user, Long roleId, Long uid) {
+	public void updateUserRole(SysUsers user, Long[] roleId, Long uid) {
 		SysUsersMapper.updateByPrimaryKey(user);
 		Long userId = user.getUserId();
 		SysUsersRoleExample sysUsersRoleExample = new SysUsersRoleExample();
 		Criteria c = sysUsersRoleExample.createCriteria();
 		c.andUserIdEqualTo(userId);
-		List<SysUsersRole> userRole = SysUsersRoleMapper.selectByExample(sysUsersRoleExample);
-		if(userRole.isEmpty()){
+		SysUsersRoleMapper.deleteByExample(sysUsersRoleExample);
+		if(roleId!=null){
+			for (Long rId : roleId) {
 			SysUsersRole sysUsersRole = new SysUsersRole();
 			sysUsersRole.setUserId(userId);
-			sysUsersRole.setRoleId(roleId);
+			sysUsersRole.setRoleId(rId);
 			sysUsersRole.setOperatorId(uid);
 			Date date = new Date();
 			sysUsersRole.setLastTime(date);
 			SysUsersRoleMapper.insert(sysUsersRole);
-			
-		}else{
-			SysUsersRole sysUsersRole = userRole.get(0);
-			sysUsersRole.setRoleId(roleId);
-			sysUsersRole.setOperatorId(uid);
-			Date date = new Date();
-			sysUsersRole.setLastTime(date);
-			SysUsersRoleMapper.updateByPrimaryKeySelective(sysUsersRole);
+			}
 		}
 	}
 

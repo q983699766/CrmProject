@@ -27,4 +27,5 @@ public interface SalCustomInfoMapper {
     int updateByPrimaryKeySelective(SalCustomInfo record);
 
     int updateByPrimaryKey(SalCustomInfo record);
+    
 }

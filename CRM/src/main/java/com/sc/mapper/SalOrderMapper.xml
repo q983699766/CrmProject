@@ -323,4 +323,59 @@
       LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
     where ORDER_ID = #{orderId,jdbcType=DECIMAL}
   </update>
+  <select id="totalMoney" resultType="java.lang.Float" >
+    SELECT SUM(SAL_MONEY) FROM SAL_ORDER
+  </select>
+  
+  <select id="orderCount" resultType="java.lang.Integer" >
+    SELECT COUNT(ORDER_ID) FROM SAL_ORDER
+  </select>
+  
+  <select id="successOrderCount" resultType="java.lang.Integer" >
+    SELECT COUNT(ORDER_ID) FROM SAL_ORDER WHERE ORDER_STATE = 2
+  </select>
+  
+  <select id="failOrderCount" resultType="java.lang.Integer" >
+    SELECT COUNT(ORDER_ID) FROM SAL_ORDER WHERE ORDER_STATE = 3
+  </select>
+  
+  <select id="totalRebate" resultType="java.lang.Float" >
+    SELECT FORMATENULL(SUM(SAL_MONEY)) FROM SAL_ORDER WHERE REBATE = 1
+  </select>
+  
+  <select id="orderCountGroupByMonth" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    SELECT COUNT(ORDER_ID) FROM SAL_ORDER  WHERE TO_CHAR(CREATE_TIME,'MM') =
+   	<choose>
+   		<when test="month lt 10">CONCAT(0,#{month})</when>
+   		<otherwise>#{month}</otherwise>
+   	</choose>
+  </select>
+  
+  <select id="waitPayOrderCountGroupByMonth" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    SELECT COUNT(ORDER_ID) FROM SAL_ORDER  WHERE TO_CHAR(CREATE_TIME,'MM') =
+   	<choose>
+   		<when test="month lt 10">CONCAT(0,#{month})</when>
+   		<otherwise>#{month}</otherwise>
+   	</choose>
+   	AND ORDER_STATE = 0
+  </select>
+  
+  <select id="havePayOrderCountGroupByMonth" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    SELECT COUNT(ORDER_ID) FROM SAL_ORDER  WHERE TO_CHAR(CREATE_TIME,'MM') =
+   	<choose>
+   		<when test="month lt 10">CONCAT(0,#{month})</when>
+   		<otherwise>#{month}</otherwise>
+   	</choose>
+   	AND ORDER_STATE = 1
+  </select>
+  
+  <select id="waitPutOrderCountGroupByMonth" resultType="java.lang.Integer" >
+    SELECT COUNT(ORDER_ID) FROM SAL_ORDER  WHERE TO_CHAR(CREATE_TIME,'MM') =
+   	<choose>
+   		<when test="month lt 10">CONCAT(0,#{month})</when>
+   		<otherwise>#{month}</otherwise>
+   	</choose>
+   	AND ORDER_STATE = 1
+   	AND ORDER_OUT_STATE = 0
+  </select>
 </mapper>
