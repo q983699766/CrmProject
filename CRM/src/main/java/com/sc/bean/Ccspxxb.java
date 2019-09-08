@@ -11,7 +11,7 @@ public class Ccspxxb implements Serializable {
 
     private String spMc;	//商品名称
 
-    private String spLb;	//商品类型
+    private String spLb;	//商品类别
 
     private String ggSm;	//规格说明
 
