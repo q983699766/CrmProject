@@ -70,6 +70,7 @@
           <th width="80">ID</th>
           <th width="150px">考核指标集名称</th>
           <th width="">考核指标集描述</th>
+          <th width="80">公司编号</th>
           <th width="200px">最后修改时间</th>
           <th width="70">修改</th>                
           <th width="250">删除</th>
@@ -84,6 +85,7 @@
           <td class="text-l">
           ${u.remark }
           </td>
+          <td>${u.comId }</td>
           <td><fmt:formatDate value="${u.lastTime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
           <td class="td-status"><a onclick="Guestbook_iew('${u.targetId }')" title="修改"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a></td>
           <td class="td-manage">
