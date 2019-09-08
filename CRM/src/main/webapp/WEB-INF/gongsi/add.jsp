@@ -75,10 +75,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </div> 
   
  <!--添加用户图层--> 
- <form action="addBranch.do" method="post" >
+ <form action="addBranch.do" method="post" onsubmit=" return t()" >
 <div class="add_menber" id="add_menber_style" style="display:none">
     <ul class=" page-content">
-     <li><label class="label_name">部门名称：</label><span class="add_name"><input  name="secName" type="text"  class="text_add" placeholder="必填" /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">部门名称：</label><span class="add_name"><input id="secName" name="secName" type="text"  class="text_add" placeholder="必填" /></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">备注信息：</label><span class="add_name"><input name="secComment" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">公司编号：</label><span class="add_name"><select name="comId" style="width: 170px;color:green;">
                   <option value="0">选择公司</option>
@@ -96,6 +96,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      
 </body>
 </html>
+<script>
+function t(){
+		var secName = document.getElementById("secName").value;
+		if (secName==""){
+			  layer.alert('部门名称不能为空!',{
+              title: '提示框',				
+				icon:0, 
+			 });
+			return false;
+          } 
+}
+</script>
 <script type="text/javascript">
 /*用户-添加*/
  $('#member_add').on('click', function(){

@@ -52,7 +52,7 @@ public class UsersController {
 		
 		mav.addObject("users", list);
 		mav.addObject("roles", list2);
-		
+		mav.addObject("ok", "1");
 		mav.setViewName("permission/users");
 		return mav;
 	}
@@ -98,7 +98,7 @@ public class UsersController {
 		
 		mav.addObject("users", list);
 		mav.addObject("roles", list2);
-		
+		mav.addObject("ok", "1");
 		mav.setViewName("permission/users");
 		return mav;
 	}
@@ -108,13 +108,13 @@ public class UsersController {
 	public ModelAndView delById(ModelAndView mav , HttpServletRequest req, Long userId){
 		
 		UsersService.delUser(userId);
-List<SysUsers> list = UsersService.getUsersList();
+		List<SysUsers> list = UsersService.getUsersList();
 		
 		List<SysRole> list2 = RolesService.getRoleList();
 		
 		mav.addObject("users", list);
 		mav.addObject("roles", list2);
-		
+		mav.addObject("ok", "1");
 		mav.setViewName("permission/users");
 		return mav;
 	}
@@ -141,13 +141,13 @@ List<SysUsers> list = UsersService.getUsersList();
 			UsersService.updateUser(user);
 		}
 		
-List<SysUsers> list = UsersService.getUsersList();
+		List<SysUsers> list = UsersService.getUsersList();
 		
 		List<SysRole> list2 = RolesService.getRoleList();
 		
 		mav.addObject("users", list);
 		mav.addObject("roles", list2);
-		
+		mav.addObject("ok", "1");
 		mav.setViewName("permission/users");
 		return mav;
 	

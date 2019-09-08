@@ -71,7 +71,7 @@ public class PermissionController {
 		mav.addObject("roles", list2);
 		List<SysPermissionColumn> list3 = PermissionService.getColumn();
 		mav.addObject("col", list3);
-		
+		mav.addObject("ok", "1");
 		mav.setViewName("permission/user_role");
 		return mav;
 	}
@@ -96,7 +96,7 @@ public class PermissionController {
 		mav.addObject("roles", list2);
 		List<SysPermissionColumn> list3 = PermissionService.getColumn();
 		mav.addObject("col", list3);
-		
+		mav.addObject("ok", "1");
 		mav.setViewName("permission/user_role");
 		return mav;
 	}
@@ -117,7 +117,7 @@ public class PermissionController {
 		mav.addObject("roles", list2);
 		List<SysPermissionColumn> list3 = PermissionService.getColumn();
 		mav.addObject("col", list3);
-		
+		mav.addObject("ok", "1");
 		mav.setViewName("permission/user_role");
 		return mav;
 	}
@@ -142,7 +142,7 @@ public class PermissionController {
 		List<SysRole> list = RolesService.getRoleList();
 		
 		mav.addObject("roles", list);
-		
+		mav.addObject("ok", "1");
 		mav.setViewName("permission/roles");
 		return mav;
 	}
@@ -167,7 +167,7 @@ public class PermissionController {
 		List<SysRole> list = RolesService.getRoleList();
 		
 		mav.addObject("roles", list);
-		
+		mav.addObject("ok", "1");
 		mav.setViewName("permission/roles");
 		return mav;
 	}
@@ -183,7 +183,7 @@ public class PermissionController {
 		mav.addObject("roles", list2);
 		List<SysPermissionColumn> list3 = PermissionService.getColumn();
 		mav.addObject("col", list3);
-		
+		mav.addObject("ok", "1");
 		mav.setViewName("permission/user_role");
 		return mav;
 	}

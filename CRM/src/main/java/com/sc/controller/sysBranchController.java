@@ -51,7 +51,7 @@ public class sysBranchController {
 		mav.addObject("select", SysBranchService.selectBranch(secId));
 		System.out.println("oo"+ SysBranchService.selectBranch(secId));
 		mav.addObject("as", sysComPanyService.selectComoany());
-		mav.setViewName("gongsi/goadd8");
+		mav.setViewName("gongsi/eui4");
 		return mav;
 }
 	@RequestMapping("/upBranch.do")

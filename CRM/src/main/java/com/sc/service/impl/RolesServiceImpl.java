@@ -84,8 +84,16 @@ public class RolesServiceImpl implements RolesService{
 	@Override
 	public SysRole selectById(Long roleId) {
 		SysRole sysr = SysRoleMapper.selectByPrimaryKey(roleId);
-		String roleName = SysRoleMapper.selectByPrimaryKey(sysr.getHigherRoleId()).getRoleName();
-		sysr.setHighRoleName(roleName);
+		Long higherRoleId = sysr.getHigherRoleId();
+		if(higherRoleId!=null){
+			SysRole selectByPrimaryKey = SysRoleMapper.selectByPrimaryKey(higherRoleId);
+			if(selectByPrimaryKey!=null){
+				String highRoleName = selectByPrimaryKey.getRoleName();
+				sysr.setHighRoleName(highRoleName);
+			}
+			}
+			
+		
 		return sysr;
 	}
 

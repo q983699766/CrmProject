@@ -62,7 +62,7 @@ public class sysDutyController {
 		mav.addObject("u",sysDutyService.update(dutId));
 		mav.addObject("lss", sysDutyService.selesetSysBranch());
 		mav.addObject("css", sysDutyService.selectSysComoany());
-		mav.setViewName("gongsi/goadd1");
+		mav.setViewName("gongsi/eui");
 		return mav;
 	}
 	//修改信息

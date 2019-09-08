@@ -37,7 +37,7 @@ public class RoleController {
 		List<SysRole> list = RolesService.getRoleList();
 		
 		mav.addObject("roles", list);
-		
+		mav.addObject("ok", "1");
 		mav.setViewName("permission/roles");
 		return mav;
 	}
@@ -48,7 +48,6 @@ public class RoleController {
 	public SysRole selectById(ModelAndView mav , HttpServletRequest req){
 		String shiidstr = req.getParameter("roleId");
 		Long roleId =(long) Integer.parseInt(shiidstr);
-		
 		SysRole role = RolesService.selectById(roleId);
 		return role;
 	}
@@ -71,7 +70,7 @@ public class RoleController {
 		List<SysRole> list = RolesService.getRoleList();
 		
 		mav.addObject("roles", list);
-		
+		mav.addObject("ok", "1");
 		mav.setViewName("permission/roles");
 		return mav;
 	}
@@ -85,7 +84,7 @@ public class RoleController {
 		
 		mav.addObject("roles", list);
 		
-		
+		mav.addObject("ok", "1");
 		mav.setViewName("permission/roles");
 		return mav;
 	}
