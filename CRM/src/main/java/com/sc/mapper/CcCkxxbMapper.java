@@ -2,11 +2,13 @@ package com.sc.mapper;
 
 import com.sc.bean.CcCkxxb;
 import com.sc.bean.CcCkxxbExample;
+import com.sc.bean.CcspxxbExample;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface CcCkxxbMapper {
-    int countByExample(CcCkxxbExample example);
+    int countByExample(CcspxxbExample example);
 
     int deleteByExample(CcCkxxbExample example);
 
@@ -17,6 +19,7 @@ public interface CcCkxxbMapper {
     int insertSelective(CcCkxxb record);
 
     List<CcCkxxb> selectByExample(CcCkxxbExample example);
+    
 
     CcCkxxb selectByPrimaryKey(Long ckBh);
 

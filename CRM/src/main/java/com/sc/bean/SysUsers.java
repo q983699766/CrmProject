@@ -1,5 +1,6 @@
 package com.sc.bean;
 
+import java.awt.List;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,8 +18,46 @@ public class SysUsers implements Serializable {
     private Long comId;
 
     private String userState;
+    
+    private String empName;
+    
+    private String roleName;
+    
+    private java.util.List<SysRole> roles;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+
+
+
+	public java.util.List<SysRole> getRoles() {
+		return roles;
+	}
+
+
+	public void setRoles(java.util.List<SysRole> roles) {
+		this.roles = roles;
+	}
+
+
+	public String getRoleName() {
+		return roleName;
+	}
+
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+
+	public String getEmpName() {
+		return empName;
+	}
+
+
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastTime;
 
     private static final long serialVersionUID = 1L;

@@ -335,4 +335,46 @@
       LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
     where PRODUCT_ID = #{productId,jdbcType=DECIMAL}
   </update>
+  
+  
+     <resultMap  id="ccsp" type="com.sc.bean.Ccspxxb">
+        <id column="PRODUCT_ID" property="productId"/>
+     <result column="SP_MC" property="spMc"/>
+     <result column="SP_LB" property="spLb"/>
+     <result column="GG_SM" property="ggSm"/>
+     <result column="DW" property="dw"/>
+     <result column="CK_BH" property="ckBh"/>
+     <result column="KC_SL" property="kcSl"/>
+     <result column="CBJ" property="cbj"/>
+     <result column="LSJ" property="lsj"/>
+     <result column="BZXX" property="bzxx"/>
+     <result column="COM_ID" property="comId"/>
+     <result column="LAST_DATE" property="lastTime"/>
+     
+   
+  
+   
+    <association property="purproducts" javaType="com.sc.bean.PurProducts">
+    <id column="PRO_ID" property="proId"/> 
+    <result column="PRODUCT_ID" property="productId"/>
+    <result column="DELIVERY_TIME" property="deliveryTime"/>
+    <result column="ACTIVE" property="active"/>
+    <result column="OPERATOR_ID" property="operatorId"/>
+    <result column="REMARKS_INFO" property="remarksInfo"/>
+    <result column="COM_ID" property="comId"/>
+    <result column="LAST_DATE" property="lastDate"/>
+    </association>
+
+
+  </resultMap>
+  
+  
+  
+  <select id="selectByExamplel" resultMap="ccsp" parameterType="com.sc.bean.PurProductsExample" >
+  SELECT * FROM CC_SPXXB LEFT JOIN PUR_PRODUCTS
+ON CC_SPXXB.PRODUCT_ID=PUR_PRODUCTS.PRODUCT_ID
+  WHERE 50> CC_SPXXB.KC_SL
+  </select>
+  
+  
 </mapper>

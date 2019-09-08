@@ -2,6 +2,7 @@ package com.sc.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -29,8 +30,11 @@ public class SalConper implements Serializable {
     private String remark;
 
     private Long comId;
+    
+    //拓展属性
+   
 
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastTime;
 
     private static final long serialVersionUID = 1L;
@@ -166,4 +170,8 @@ public class SalConper implements Serializable {
 				+ ", tel=" + tel + ", email=" + email + ", address=" + address + ", remark=" + remark + ", comId="
 				+ comId + ", lastTime=" + lastTime + "]";
 	}
+
+
+
+
 }

@@ -73,62 +73,67 @@
    	<div class="page-content clearfix">
     <div id="Member_Ratings">
       <div class="d_Confirm_Order_style">
-    <div class="search_style">
+   <!--  <div class="search_style">
       <div class="title_names">搜索查询</div>
       <ul class="search_content clearfix">
-       <li><label class="l_f">供应商编号</label><input name="" type="text"  class="text_add" placeholder="输入供应商名称、电话、联系人"  style=" width:400px"/></li>
-       <!-- <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li> -->
+       <li><label class="l_f">产品信息</label><input name="" type="text"  class="text_add" placeholder="输入产品编号、名称"  style=" width:400px"/></li>
+       <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li>
        <li style="width:90px;"><button type="button" class="btn_search"><i class="icon-search"></i>查询</button></li>
       </ul>
     </div>
-     <!---->
+   
      <div class="border clearfix">
        <span class="l_f">
-        <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加供应商信息</a>
-        <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
+        <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>生成送货单</a>
+        <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量生成送货单</a>
        </span>
-       <span class="r_f">共：<b>2345</b>条</span>
-     </div>
-     <!---->
-     <div class="table_menu_list">
+    
+     </div> -->
+     
+     <div class="table_menu_list" style="margin-top: 0 auto">
        <table class="table table-striped table-bordered table-hover" id="sample-table">
 		<thead>
 		 <tr>
-				<th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
-				<th style="width:100px;font-size:12px;">供应商编号</th>
-				<th style="width:60px;font-size:12px;">供应商名称</th>
-				<th style="width:30px;font-size:12px;">联系人</th>
-				<th style="width:60px;font-size:12px;">联系电话</th>
-				<th style="width:80px;font-size:12px;">开户银行</th>
-				<th style="width:100px;font-size:12px;">银行账号</th>
-				<th style="width:90px;font-size:12px;">备注信息</th>
-                <th style="width:50px;font-size:12px;">详细信息</th>
-				<th style="width:50px;font-size:12px;">状态</th>                
-				<th style="width:120px;font-size:12px;">操作</th>
-			</tr>
+				<!-- <th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th> -->
+				
+				<th style="width:60px;font-size:12px;">编号</th>
+				<th style="width:80px;font-size:12px;">产品编号</th>
+				<th style="width:80px;font-size:12px;">产品名称</th>
+                <th style="width:60px;font-size:12px;">单价</th>
+				<th style="width:80px;font-size:12px;">库存数量</th>
+			    <th style="width:20%;font-size:12px;">交货时间</th>
+				<th style="width:80px;font-size:12px;">备注信息</th>
+				<th style="width:60px;font-size:12px;">状态</th>
+				<th style="width:80px;font-size:12px;">公司编号</th>
+				
+           </tr>
 		</thead>
 	<tbody>
-	 <c:forEach items="${pi}" var="i">
-		<tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>${i.proId}</td>
-          <td>${i.productId}</td>
-          <td>${i.deliveryTime}</td>
-          <td>${i.active}</td>
-          <td>${i.operatorId}</td>
-          <td class="text-l">${i.remarksInfo}</td>
-          <td>${i.comId}</td>
-          <td>${i.lastDate}</td>
-          <td><a href="#">查看详情</a></td>
-          <td class="td-status"><span class="label label-success radius">${i.effectiveOrnot}</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit(${i.supInfoNum})" class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="pursupinfo/delinfo.do?supInfoNum=${i.supInfoNum}"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-         
-          </td>
-		</tr>
-       </c:forEach>
+	 <c:forEach items="${pi.list}" var="i">
+	<tr>
+        <!--   <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td> -->
+           <td>${i.purproducts.proId}</td>
+           <td>${i.productId}</td>
+           <td>${i.spMc}</td>
+           <td>${i.cbj}</td>
+           <td>${i.kcSl}</td>
+           <td><fmt:formatDate value="${i.purproducts.deliveryTime}"
+				pattern="yyyy-MM-dd" /></td> 
+           <td class="text-l">${i.bzxx}</td> 
+          <td class="text-l">${i.purproducts.active}</td>
+           <td>${i.comId}</td>
+        
+   </tr>
+</c:forEach>
+          <tr >
+              <td colspan="11" style="text-align: center;">
+                  <a href="products/selectproducts.do?pageNum=${pi.firstPage }">首页</a>
+                  <a href="products/selectproducts.do?pageNum=${pi.prePage }">上一页</a>
+                  <a href="products/selectproducts.do?pageNum=${pi.nextPage }">下一页</a>
+                  <a href="products/selectproducts.do?pageNum=${pi.lastPage }">尾页</a>
+                                       当前${pi.pageNum }/${pi.pages }页，共${pi.total }条
+              </td>
+           </tr>
       </tbody>
 	</table>
    </div>
