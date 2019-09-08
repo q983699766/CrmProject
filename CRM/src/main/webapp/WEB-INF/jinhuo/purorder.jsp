@@ -30,6 +30,7 @@
         <!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
 		<![endif]-->
+		<script src="<%=basePath%>My97DatePicker/WdatePicker.js" type="text/javascript" defer="defer"  charset="UTF-8"></script>
 			<script src="assets/js/jquery.min.js"></script>
 
 		<!-- <![endif]-->
@@ -87,8 +88,8 @@
      <!-- <button type="button" class="btn_search"><i class="icon-search"></i>查询</button> -->
      <div class="border clearfix">
        <span class="l_f">
-        <a href="javascript:ovid()" name="pursupinfo/goaddinfo.do" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加供应商信息</a>
-        <a href="javascript:ovid()"  class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
+        <a href="javascript:ovid()" name="pursupinfo/goaddinfo.do" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加采购单</a>
+        <a href="javascript:ovid()"  class="btn btn-danger"><i class="icon-trash"></i>批量删除采购单</a>
        </span>
      
      </div>
@@ -98,22 +99,22 @@
 		<thead>
 		 <tr>
 				<th width="25"><label><input type="checkbox"  class="ace"><span class="lbl"></span></label></th>
-				<th style="width:100px;font-size:12px;">采购单编号</th>
-				<th style="width:60px;font-size:12px;">采购主题</th>
-				<th style="width:30px;font-size:12px;">采购日期</th>
-				<th style="width:60px;font-size:12px;">供应商编号</th>
+				<th style="width:80px;font-size:12px;">采购单编号</th>
+				<th style="width:80px;font-size:12px;">采购主题</th>
+				<th style="width:100px;font-size:12px;">采购日期</th>
+				<th style="width:80px;font-size:12px;">供应商编号</th>
 				<th style="width:80px;font-size:12px;">货款金额</th>
-				<th style="width:100px;font-size:12px;">发票号码</th>
-				<th style="width:90px;font-size:12px;">付款情况</th>
-               <!--  <th style="width:50px;font-size:12px;">采购进展</th> -->
-                <th style="width:50px;font-size:12px;">交货时间</th>
+				<th style="width:80px;font-size:12px;">发票号码</th>
+				<th style="width:80px;font-size:12px;">付款情况</th>
+                 <th style="width:80px;font-size:12px;">采购进展</th>
+                <th style="width:100px;font-size:12px;">交货时间</th>
                 <th style="width:50px;font-size:12px;">交货地点</th>
                 <th style="width:50px;font-size:12px;">交货方式</th>
                 <th style="width:50px;font-size:12px;">操作人员</th>
                 <th style="width:50px;font-size:12px;">备注信息</th>
                 <th style="width:50px;font-size:12px;">公司编号</th>
-                <th style="width:50px;font-size:12px;">最后修改时间</th>
-                <th style="width:50px;font-size:12px;">采购单详情</th>
+                <th style="width:100px;font-size:12px;">最后修改时间</th>
+                <th style="width:130px;font-size:12px;">操作</th>
 				
 			</tr>
 		</thead>
@@ -126,9 +127,10 @@
           <td><fmt:formatDate value="${i.purDate}"
 				pattern="yyyy-MM-dd " /></td>
           <td>${i.supInfoNum}</td>
-          <td>${i.payAmount=="2" ? "已付款":"未付款"} </td>
+          <td>${i.payAmount} </td>
           <td class="text-l">${i.invoiceNumber}</td>
-          <td>${i.purProgrees}</td>
+          <td>${i.payStatus=="1"?"待付款":"已付款"} </td>
+         <td>${i.purProgrees=="2" ? "采购中":"已入库"} </td>
           <td><fmt:formatDate value="${i.deliveryTime}"
 				pattern="yyyy-MM-dd" /></td>
           <td>${i.deliveryAddress}</td>
@@ -138,18 +140,16 @@
           <td>${i.comId}</td>
           <td><fmt:formatDate value="${i.lastDate}"
 				pattern="yyyy-MM-dd " /></td>
-		  <td><a href="javascript:ovid()" id="member_show" >查看详情订单</a></td>
-         <%--  <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;"  title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
+		  <td style="font-size:15px;width: 200px"><a onClick="member_stop(this,'10001')"  href="javascript:;"  title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
           <a title="编辑" onclick="jia(${i.purNumber });member_edit('550');" href="javascript:"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除"  href="pursupinfo/delinfo.do?supInfoNum=${i.purNumber}"  onclick="return window.confirm('是否确定删除此用户?')"class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          
-          </td> --%>
+          <a title="删除"  href="pursupinfo/delinfo.do?supInfoNum=${i.purNumber}"  onclick="return window.confirm('是否确定删除此订单?')"class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
+          <a href="javascript:" onclick="jia1(${i.purNumber})" class="member_show" ></a>
+          </td>
 		</tr>
        </c:forEach>
         
           <tr>
-             <td colspan="16" style="text-align: center">
+             <td colspan="17" style="text-align: center">
                   <a href="pursupinfo/selectinfo.do?pageNum=${pi.navigateFirstPage}">首页</a>   
                   <a href="pursupinfo/selectinfo.do?pageNum=${pi.prePage }">上一页</a>  
                   <a href="pursupinfo/selectinfo.do?pageNum=${pi.nextPage }">下一页</a>  
@@ -232,30 +232,30 @@ return false;
 }
 </script>
 <!-- //添加页面 -->
-<form action="pursupinfo/addinfo.do" method="post" onsubmit="return yz()">
+<form action="purorder/addinfo.do" method="post" onsubmit="return yz()">
 <div class="add_menber" id="add_menber_style" style="display:none">
    <ul class=" page-content">
      <!--  <li ><label class="label_name" style="width: 100px;">供应商编号：</label><span class="add_name"><input  type="text"  name="supInfoNum" class="text_add"/></span><div class="prompt r_f"></div></li>
-      --> <li><label class="label_name" style="width: 100px;" >供应商名称：</label><span class="add_name"><input id="a" name="supName" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">供应商简称：</label><span class="add_name"><input id="b"name="supUname" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">联系人：</label><span class="add_name"><input  id="c"name="contacts"type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">固定电话：</label><span class="add_name"><input id="d"name="fixedTel" type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">移动电话：</label><span class="add_name"><input id="e"name="telphone" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">联系传真：</label><span class="add_name"><input  id="f"name="fax"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
+       <li><label class="label_name" style="width: 100px;" >采购单编号：</label><span class="add_name"><input id="a" name="supName" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     --><li><label class="label_name" style="width: 100px;">采购主题：</label><span class="add_name"><input id="b"name="purTitle" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+   <!--   <li><label class="label_name" style="width: 100px;">采购日期：</label><span class="add_name"><input  id="c"name="contacts"type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+      --><li><label class="label_name" style="width: 100px;">供应商编号：</label><span class="add_name"><input id="d"name="supInfoNum" type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
+   <!--   <li><label class="label_name" style="width: 100px;">货款金额：</label><span class="add_name"><input id="e"name="payAmount" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+    -->  <li><label class="label_name" style="width: 100px;">发票号码：</label><span class="add_name"><input  id="f"name="invoiceNumber"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
      <!-- <li><label class="label_name" style="width: 100px;">联系地址：</label><span class="add_name"><input  type="text" name="联系地址" id="SUP_INFO_NUM"class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name" style="width: 100px;">联系邮编：</label><span class="add_name"><input  type="text" name="联系邮编" id="SUP_INFO_NUM"class="text_add"/></span><div class="prompt r_f"></div></li>
-      --><li><label class="label_name" style="width: 100px;">邮箱：</label><span class="add_name"><input  id="g"name="email"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">开户银行：</label><span class="add_name"><input  id="h"name="openBank"type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">银行账号：</label><span class="add_name"><input  id="i"name="bankNumber"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">公司主页：</label><span class="add_name"><input  id="j" name="comIndex"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">备注信息：</label><span class="add_name"><input id="k" name="remarksInfo"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
-   <li>   
-                 状态：<select name="effectiveOrnot" id="l"> 
-         <option value="启用" >启用</option>
-      <option value="禁用">禁用</option>
-    </select>
-  </li>
- </ul>
+      -->
+     <!--  <li><label class="label_name" style="width: 100px;">付款情况：</label><span class="add_name"><input  id="g"name="payStatus"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">采购进展：</label><span class="add_name"><input  id="h"name="purProgrees"type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     --> <li><label class="label_name" style="width: 100px;">交&nbsp;货&nbsp;时&nbsp;间：</label><span class="add_name">&nbsp;&nbsp;<input id="i" name="deliveryTime"   style="width:170px;height: 27px;background-color: gray;" class=" Wdate"readonly="readonly" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+     </span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">交货地点：</label><span class="add_name"><input  id="j" name="deliveryAddress"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">交货方式：</label><span class="add_name"><input id="k" name="deliveryMode"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name" style="width: 100px;">操作人员：</label><span class="add_name"><input id="k" name="operatorId"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
+    <li><label class="label_name" style="width: 100px;">备注信息：</label><span class="add_name"><input id="k" name="remarksInfo"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
+    <li><label class="label_name" style="width: 100px;">公司编号：</label><span class="add_name"><input id="k" name="comId"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
+    <!--  <li><label class="label_name" style="width: 100px;">修改时间：</label><span class="add_name"><input id="k" name="lastDate"type="date" class="text_add"/></span><div class="prompt r_f"></div></li>
+  --></ul>
 
     <center><div> <input type="submit" value="提交" class="btn btn-primary"></div></center>
     <br>
@@ -269,19 +269,19 @@ return false;
       <input  type="hidden" id="supInfoNum2" name="supInfoNum" class="text_add"/>
      <li><label class="label_name"  style="width: 100px;">供应商名称：</label><span class="add_name"><input  type="text"id="supName2" name="supName" class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name" style="width: 100px;">供应商简称：</label><span class="add_name"><input  type="text" id="supUname2" name="supUname" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">联系人：</label><span class="add_name"><input  type="text" id="contacts2" name="contacts"class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">固定电话：</label><span class="add_name"><input  type="text" id="fixedTel2" name="fixedTel"class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">移动电话：</label><span class="add_name"><input  type="text" id="telphone2"name="telphone" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">联系传真：</label><span class="add_name"><input  type="text"  id="fax2"name="fax" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">联&nbsp;&nbsp;&nbsp;&nbsp;系人：</label><span class="add_name"><input  type="text" id="contacts2" name="contacts"class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">固&nbsp;定&nbsp;电&nbsp;话：</label><span class="add_name"><input  type="text" id="fixedTel2" name="fixedTel"class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">移&nbsp;动&nbsp;电&nbsp;话：</label><span class="add_name"><input  type="text" id="telphone2"name="telphone" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">联&nbsp;系&nbsp;传&nbsp;真：</label><span class="add_name"><input  type="text"  id="fax2"name="fax" class="text_add"/></span><div class="prompt r_f"></div></li>
      <!-- <li><label class="label_name" style="width: 100px;">联系地址：</label><span class="add_name"><input  type="text" name="联系地址" class="text_add"/></span><div class="prompt r_f"></div></li>
       <li><label class="label_name" style="width: 100px;">联系邮编：</label><span class="add_name"><input  type="text"  name="联系邮编"class="text_add"/></span><div class="prompt r_f"></div></li>
-    --> <li><label class="label_name" style="width: 100px;">邮箱：</label><span class="add_name"><input  type="text" id="email2" name="email"class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">开户银行：</label><span class="add_name"><input  type="text" id="openBank2" name="openBank"class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">银行账号：</label><span class="add_name"><input  type="text" id="bankNumber2" name="bankNumber" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">账户类型：</label><span class="add_name"><input  type="text" id="bankNature2" name="bankNature"class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">公司主页：</label><span class="add_name"><input  type="text"  id="comIndex2" name="comIndex"class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">备注信息：</label><span class="add_name"><input  type="text" id="remarksInfo2" name="remarksInfo" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">公司编号：</label><span class="add_name"><input readonly="readonly" type="text" id="comId2" name="comId"class="text_add"/></span><div class="prompt r_f"></div></li>
+    --> <li><label class="label_name" style="width: 100px;">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：</label><span class="add_name"><input  type="text" id="email2" name="email"class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">开&nbsp;户&nbsp;银&nbsp;行：</label><span class="add_name"><input  type="text" id="openBank2" name="openBank"class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">银&nbsp;行&nbsp;账&nbsp;号：</label><span class="add_name"><input  type="text" id="bankNumber2" name="bankNumber" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">账&nbsp;户&nbsp;类&nbsp;型：</label><span class="add_name"><input  type="text" id="bankNature2" name="bankNature"class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">公&nbsp;司&nbsp;主&nbsp;页：</label><span class="add_name"><input  type="text"  id="comIndex2" name="comIndex"class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">备&nbsp;注&nbsp;信&nbsp;息：</label><span class="add_name"><input  type="text" id="remarksInfo2" name="remarksInfo" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">公&nbsp;司&nbsp;编&nbsp;号：</label><span class="add_name"><input readonly="readonly" type="text" id="comId2" name="comId"class="text_add"/></span><div class="prompt r_f"></div></li>
        <!--  <li><label class="label_name" style="width: 100px;">最后修改时间：</label><span class="add_name"><input  type="text" id="lastDate" name="lastDate"class="text_add"/></span><div class="prompt r_f"></div></li>
       --> <li><label class="label_name" style="width: 100px;">状态：</label><span class="add_name">
      <label><input name="form-field-radio1" type="radio" class="ace"><span class="lbl">启用</span></label>&nbsp;&nbsp;&nbsp;
@@ -297,22 +297,17 @@ return false;
   <!--  //查看详情 -->
    <div class="update_menber" id="show_menber_style" style="display:none">
     <ul class=" page-content">
-     <li><label class="label_name"  style="width: 100px;">供应商编号：</label><span class="add_name" id="supInfoNum1" name="supInfoNum">  </span><div class="prompt r_f"></div></li>
-     <li><label class="label_name"  style="width: 100px;">供应商名称：</label><span class="add_name"id="supName1" name="supName" ></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">供应商简称：</label><span class="add_name" id="supUname1" name="supUname"></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">联&nbsp;&nbsp;&nbsp;系&nbsp;&nbsp;&nbsp;人：</label><span class="add_name" id="contacts1" name="contacts"></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">固&nbsp;定&nbsp;电&nbsp;话：</label><span class="add_name" id="fixedTel1" name="fixedTel"></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">移&nbsp;动&nbsp;电&nbsp;话：</label><span class="add_name" id="telphone1" name="telphone"></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">联&nbsp;系&nbsp;传&nbsp;真：</label><span class="add_name" id="fax1" name="fax"></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：</label><span class="add_name" id="email1" name="email"></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">开&nbsp;户&nbsp;银&nbsp;行：</label><span class="add_name" id="openBank1" name="openBank" ></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">银&nbsp;行&nbsp;账&nbsp;号：</label><span class="add_name" id="bankNumber1" name="bankNumber"></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">公&nbsp;司&nbsp;主&nbsp;页：</label><span class="add_name" id="comIndex1" name="comIndex"></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">备&nbsp;注&nbsp;信&nbsp;息：</label><span class="add_name" id="remarksInfo1" name="remarksInfo"></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">公&nbsp;司&nbsp;编&nbsp;号：</label><span class="add_name" id="comId1" name="comId"></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">状&nbsp;&nbsp;&nbsp;&nbsp;态：</label><span class="add_name" id="effectiveOrnot1" name="effectiveOrnot"></span></li>
-      <li><label class="label_name" style="width: 100px;">账&nbsp;户&nbsp;类&nbsp;型：</label><span class="add_name" id="bankNature1" name="bankNature"></span></li>
-    
+     <li><label class="label_name"  style="width: 130px;">采购详情单编号：</label><span class="add_name" id="supInfoNum1" name="supInfoNum">  </span><div class="prompt r_f"></div></li>
+     <li><label class="label_name"  style="width: 100px;">采购单编号：</label><span class="add_name"id="supName1" name="supName" ></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">产&nbsp;品&nbsp;编&nbsp;号：</label><span class="add_name" id="supUname1" name="supUname"></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">产&nbsp;品&nbsp;数&nbsp;量：</label><span class="add_name" id="contacts1" name="contacts"></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">产&nbsp;品&nbsp;价&nbsp;格：</label><span class="add_name" id="fixedTel1" name="fixedTel"></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">是&nbsp;否&nbsp;入&nbsp;库：</label><span class="add_name" id="telphone1" name="telphone"></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">操&nbsp;作&nbsp;人&nbsp;员：</label><span class="add_name" id="fax1" name="fax"></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">备&nbsp;注&nbsp;信&nbsp;息：</label><span class="add_name" id="email1" name="email"></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">公&nbsp;司&nbsp;编&nbsp;号：</label><span class="add_name" id="openBank1" name="openBank" ></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">修&nbsp;改&nbsp;时&nbsp;间：</label><span class="add_name" id="bankNumber1" name="bankNumber"></span><div class="prompt r_f"></div></li>
+     
     </ul>
  </div>	
    	
@@ -525,7 +520,7 @@ function member_edit(id){
        
     } 
     //查看函数
- function jia1(supInfoNum)
+ /* function jia1(supInfoNum)
     {
         var url="pursupinfo/select.do?supInfoNum="+supInfoNum;
    //ajax异步请求
@@ -557,7 +552,7 @@ function member_edit(id){
   }
     });
        
-    } 
+    }  */
 /*用户-删除*/
 function member_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){

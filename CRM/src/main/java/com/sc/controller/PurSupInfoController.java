@@ -24,6 +24,9 @@ public class PurSupInfoController {
 	@Autowired
 	PurSupInfoService pursupinfoservice;
 	
+	
+	
+	
 	//查询所有供应商信息
 	@RequestMapping("/selectinfo.do")
 	public ModelAndView selectinfo (ModelAndView mav,
@@ -90,5 +93,20 @@ public class PurSupInfoController {
 		return mav;
 	}
 	
-
+  //批量删除信息
+  @RequestMapping("/delall.do")
+	public ModelAndView delall(ModelAndView mav,HttpServletRequest req){
+	  String [] xx=req.getParameterValues("bb");
+	  System.out.println("2222222222222222"+xx);
+	  System.out.println("进入删除3333333333333333");
+	    for (int i = 0; i < xx.length; i++) {
+	    	 long l = Long.parseLong(xx[i]);
+	    	 System.out.println("111111111111"+l);
+	    	pursupinfoservice.delinfo(l);
+			
+		}
+		//重定向到列表方法
+		mav.setViewName("redirect:selectinfo.do");
+		return mav;
+	}
 }
