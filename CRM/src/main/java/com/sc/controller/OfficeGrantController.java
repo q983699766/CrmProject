@@ -27,24 +27,25 @@ import com.sc.bean.OfficeChecktarget;
 import com.sc.bean.SysUsers;
 import com.sc.bean.Users;
 import com.sc.service.OfficeChecktargetService;
+import com.sc.service.OfficeGrantService;
 import com.sc.service.UsersService;
 
 @Controller  //注册成bean对象
-@RequestMapping("/officecc.do")  //请求映射,officecc表示officechecktargetcontroller
-public class OfficeChecktargetController {
+@RequestMapping("/officeg.do")  //请求映射,officeg表示officegrantcontroller,任务授权关系，可以设置最顶层上级为0的用户，
+public class OfficeGrantController {
 	
 	@Autowired
-	OfficeChecktargetService officeChecktargetService;
-	
+	OfficeGrantService officeGrantService;
+	/*
 	@RequestMapping("/listofficechecktargetall.do")
 	public ModelAndView list(ModelAndView mav,HttpServletRequest req) {
-//		SysUsers nowuser = (SysUsers)req.getSession().getAttribute("nowuser");
-		mav.addObject("list",officeChecktargetService.selectOfficeChecktargetAll());
+		SysUsers nowuser = (SysUsers)req.getSession().getAttribute("nowuser");
+		mav.addObject("list",officeChecktargetService.selectOfficeChecktargetAll(nowuser.getComId()));
 		
 		mav.setViewName("fyx/officechecktargetall");//响应视图名称：路径/web-inf/
 		return mav;
 	}
-	/*
+	
 	@RequestMapping("/listjson.do")
 	@ResponseBody
 	public List<Users> listjson() {
@@ -61,7 +62,7 @@ public class OfficeChecktargetController {
 		return mav;
 	}
 	*/
-	
+	/*
 	@RequestMapping("/delofficechecktarget.do")
 	public ModelAndView del(ModelAndView mav,OfficeChecktarget offchecktarget) {
 		officeChecktargetService.delOfficeChecktargetById(offchecktarget);
@@ -69,13 +70,14 @@ public class OfficeChecktargetController {
 		mav.setViewName("redirect:listofficechecktargetall.do");
 		return mav;
 	}
-	/*
+	
 	@RequestMapping("/goadd.do")
 	public ModelAndView goadd(ModelAndView mav,Users u) {
 		mav.setViewName("users/add");
 		return mav;
 	}
 	*/
+	/*
 	@RequestMapping("/addofficechecktarget.do")
 	public ModelAndView add(ModelAndView mav,OfficeChecktarget offchecktarget,HttpServletRequest req) {
 //		System.out.println("jinrutianjiafangfa");
@@ -116,6 +118,7 @@ public class OfficeChecktargetController {
 //		mav.setViewName("redirect:listofficechecktargetall.do");
 //		return mav;
 	}
+	*/
 	/*
 	@RequestMapping("/download.do")
 	public void download(String fileName,HttpServletResponse resp,HttpServletRequest req) throws IOException {
