@@ -3,6 +3,7 @@ package com.sc.bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -11,7 +12,7 @@ public class PurOrder implements Serializable {
 
     private String purTitle;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date purDate;
 
     private Long supInfoNum;
@@ -24,7 +25,7 @@ public class PurOrder implements Serializable {
 
     private Long purProgrees;
     
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date deliveryTime;
 
     private String deliveryAddress;
@@ -37,13 +38,15 @@ public class PurOrder implements Serializable {
 
     private Long comId;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastDate;
     
-    
-    //一对多配置u
-    private PurOrderInfo purorderinfo;   //采购单详情表配置
+    //一对一配置
     private PurSupInfo pursupinfo;   //供应商信息配置
+    
+    //一对多配置
+    private List<PurOrderInfo> purorderinfos;   //采购单详情表配置
+   
     
     
 
@@ -52,15 +55,15 @@ public class PurOrder implements Serializable {
     
     
 
-    public PurOrderInfo getPurorderinfo() {
-		return purorderinfo;
+    public List<PurOrderInfo> getPurorderinfo() {
+		return purorderinfos;
 	}
 
 
 
 
-	public void setPurorderinfo(PurOrderInfo purorderinfo) {
-		this.purorderinfo = purorderinfo;
+	public void setPurorderinfo(List<PurOrderInfo> purorderinfo) {
+		this.purorderinfos = purorderinfo;
 	}
 
 
@@ -111,7 +114,7 @@ public class PurOrder implements Serializable {
 				+ supInfoNum + ", payAmount=" + payAmount + ", invoiceNumber=" + invoiceNumber + ", payStatus="
 				+ payStatus + ", purProgrees=" + purProgrees + ", deliveryTime=" + deliveryTime + ", deliveryAddress="
 				+ deliveryAddress + ", deliveryMode=" + deliveryMode + ", operatorId=" + operatorId + ", remarksInfo="
-				+ remarksInfo + ", comId=" + comId + ", lastDate=" + lastDate + ", purorderinfo=" + purorderinfo
+				+ remarksInfo + ", comId=" + comId + ", lastDate=" + lastDate + ", purorderinfo=" + purorderinfos
 				+ ", pursupinfo=" + pursupinfo + "]";
 	}
 

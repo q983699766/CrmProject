@@ -13,4 +13,10 @@ public interface PurOrderService {
 		public void delinfo(Long purnumber);
 		//通过id修改供应商信息
 		public void updateinfo(Long purnumber);
+		
+		//查询订单并且查询订单详情
+		
+		
+		
+	
 }
