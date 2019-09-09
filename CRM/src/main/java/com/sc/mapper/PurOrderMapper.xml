@@ -20,6 +20,11 @@
       <arg column="LAST_DATE" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
+  
+  
+  
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -371,4 +376,88 @@
       LAST_DATE = #{lastDate,jdbcType=TIMESTAMP}
     where PUR_NUMBER = #{purNumber,jdbcType=DECIMAL}
   </update>
+  
+  
+<!--   一对一 -->
+   <resultMap id="aaaa" type="com.sc.bean.PurOrder" >
+    <id column="PUR_NUMBER" property="purNumber"/>
+    <result column="PUR_TITLE" property="purTitle"/>
+   <result column="PUR_DATE" property="purDate"/>
+   <result column="SUP_INFO_NUM" property="supInfoNum"/>
+   <result column="PAY_AMOUNT" property="payAmount"/>
+   <result column="INVOICE_NUMBER" property="invoiceNumber"/>
+   <result column="PAY_STATUS" property="payStatus"/>
+   <result column="PUR_PROGREES" property="purProgrees"/>
+   <result column="DELIVERY_TIME" property="deliveryTime"/>
+   <result column="DELIVERY_ADDRESS" property="deliveryMode"/>
+   <result column="DELIVERY_MODE" property="deliveryMode"/>
+   <result column="OPERATOR_ID" property="operatorId"/>
+   <result column="COM_ID" property="comId"/>
+  <result column="LAST_DATE" property="lastDate"/>
+    
+    <association property="PurSupInfo" javaType="com.sc.bean.PurSupInfo" >
+       <id column="SUP_INFO_NUM" property="supInfoNum"/>
+       <result column="STU_NAME" property="supName"/>
+       <result column="STU_UNAME" property="supUname"/>
+      <result column="CONTACTS" property="contacts"/>
+     <result column="FIXED_TEL" property="fixedTel"/>
+      <result column="TELPHONE" property="telphone"/>
+     <result column="FAX" property="fax"/>
+      <result column="EMAIL" property="email"/>
+     <result column="OPEN_BANK" property="openBank"/>
+      <result column="BANK_NATURE" property="bankNature"/>
+     <result column="COMINDEX" property="comIndex"/>
+     <result column="EFFECTIVE_OR_NOT" property="effectiveOrnot"/>
+     <result column="OPERATOR_ID" property="operatorId"/>
+     <result column="REMARKS_INFO" property="remarksInfo"/>
+     <result column="COM_ID" property="comId"/>
+     <result column="BANK_NUMBER" property="bankNumber"/>
+      <result column="LAST_DATE" property="lastDate"/>
+   </association>
+
+   
+</resultMap>
+
+  <select id="selectorderandpursupinfo" resultMap="aaaa">
+    SELECT *FROM PUR_SUP_INFO LEFT JOIN PUR_ORDER
+    ON PUR_SUP_INFO.SUP_INFO_NUM =PUR_ORDER.SUP_INFO_NUM
+  </select>
+<!--   一对多  
+    <resultMap type="selorderandorderinfo" id="com.sc.bean.PurOrder">
+     <id column="PUR_NUMBER" property="purNumber"/>
+    <result column="PUR_TITLE" property="purTitle"/>
+   <result column="PUR_DATE" property="purDate"/>
+   <result column="SUP_INFO_NUM" property="supInfoNum"/>
+   <result column="PAY_AMOUNT" property="payAmount"/>
+   <result column="INVOICE_NUMBER" property="invoiceNumber"/>
+   <result column="PAY_STATUS" property="payStatus"/>
+   <result column="PUR_PROGREES" property="purProgrees"/>
+   <result column="DELIVERY_TIME" property="deliveryTime"/>
+   <result column="DELIVERY_ADDRESS" property="deliveryMode"/>
+   <result column="DELIVERY_MODE" property="deliveryMode"/>
+   <result column="OPERATOR_ID" property="operatorId"/>
+   <result column="COM_ID" property="comId"/>
+   <result column="LAST_DATE" property="lastDate"/>
+  
+  <collection property="purorderinfos" ofType="com.sc.bean.PurOrderInfo">
+     <id column="PUR_NUMBER" property="purNumber"/>
+     <result column="PUR_INFO_NUMBER" property="purInfoNumber"/>
+     <result column="PRODUCT_ID" property="productId"/>
+     <result column="PRO_PRICE" property="proPrice"/>
+     <result column="WAREHOUSE_OR_NOT" property="warehouseOrnot"/>
+     <result column="OPERATOR_ID" property="operatorId"/>
+     <result column="REMARKS_INFOM" property="remarksInfom"/>
+     <result column="COM_ID" property="comId"/>
+     <result column="LAST_DATE" property="lastDate"/>
+     <result column="PRODUCT_COUNT" property="productCount"/>
+    </collection>
+ </resultMap>
+
+  <select id="selorderandorderinfo" resultMap="classesMap">
+    SELECT * FROM PUR_ORDER LEFT JOIN PUR_ORDER_INFO
+      on PUR_ORDER.PUR_NUMBER=PUR_ORDER_INFO.PUR_NUMBER
+  </select> -->
+
+	
+  
 </mapper>

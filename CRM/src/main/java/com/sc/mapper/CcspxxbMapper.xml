@@ -1,338 +1,395 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sc.mapper.CcspxxbMapper" >
-  <resultMap id="BaseResultMap" type="com.sc.bean.Ccspxxb" >
-    <constructor >
-      <idArg column="PRODUCT_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
-      <arg column="SP_MC" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="SP_LB" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="GG_SM" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="DW" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="CK_BH" jdbcType="DECIMAL" javaType="java.lang.Long" />
-      <arg column="KC_SL" jdbcType="DECIMAL" javaType="java.lang.Long" />
-      <arg column="CBJ" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
-      <arg column="LSJ" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
-      <arg column="JXJ" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
-      <arg column="BZXX" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="COM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
-      <arg column="LAST_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-    </constructor>
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    PRODUCT_ID, SP_MC, SP_LB, GG_SM, DW, CK_BH, KC_SL, CBJ, LSJ, JXJ, BZXX, COM_ID, LAST_TIME
-  </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sc.bean.CcspxxbExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    'true' as QUERYID,
-    <include refid="Base_Column_List" />
-    from CC_SPXXB
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from CC_SPXXB
-    where PRODUCT_ID = #{productId,jdbcType=DECIMAL}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from CC_SPXXB
-    where PRODUCT_ID = #{productId,jdbcType=DECIMAL}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.sc.bean.CcspxxbExample" >
-    delete from CC_SPXXB
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.sc.bean.Ccspxxb" >
-    insert into CC_SPXXB (PRODUCT_ID, SP_MC, SP_LB, 
-      GG_SM, DW, CK_BH, KC_SL, 
-      CBJ, LSJ, JXJ, BZXX, 
-      COM_ID, LAST_TIME)
-    values (#{productId,jdbcType=DECIMAL}, #{spMc,jdbcType=VARCHAR}, #{spLb,jdbcType=VARCHAR}, 
-      #{ggSm,jdbcType=VARCHAR}, #{dw,jdbcType=VARCHAR}, #{ckBh,jdbcType=DECIMAL}, #{kcSl,jdbcType=DECIMAL}, 
-      #{cbj,jdbcType=DECIMAL}, #{lsj,jdbcType=DECIMAL}, #{jxj,jdbcType=DECIMAL}, #{bzxx,jdbcType=VARCHAR}, 
-      #{comId,jdbcType=DECIMAL}, #{lastTime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="com.sc.bean.Ccspxxb" >
-    insert into CC_SPXXB
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="productId != null" >
-        PRODUCT_ID,
-      </if>
-      <if test="spMc != null" >
-        SP_MC,
-      </if>
-      <if test="spLb != null" >
-        SP_LB,
-      </if>
-      <if test="ggSm != null" >
-        GG_SM,
-      </if>
-      <if test="dw != null" >
-        DW,
-      </if>
-      <if test="ckBh != null" >
-        CK_BH,
-      </if>
-      <if test="kcSl != null" >
-        KC_SL,
-      </if>
-      <if test="cbj != null" >
-        CBJ,
-      </if>
-      <if test="lsj != null" >
-        LSJ,
-      </if>
-      <if test="jxj != null" >
-        JXJ,
-      </if>
-      <if test="bzxx != null" >
-        BZXX,
-      </if>
-      <if test="comId != null" >
-        COM_ID,
-      </if>
-      <if test="lastTime != null" >
-        LAST_TIME,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="productId != null" >
-        #{productId,jdbcType=DECIMAL},
-      </if>
-      <if test="spMc != null" >
-        #{spMc,jdbcType=VARCHAR},
-      </if>
-      <if test="spLb != null" >
-        #{spLb,jdbcType=VARCHAR},
-      </if>
-      <if test="ggSm != null" >
-        #{ggSm,jdbcType=VARCHAR},
-      </if>
-      <if test="dw != null" >
-        #{dw,jdbcType=VARCHAR},
-      </if>
-      <if test="ckBh != null" >
-        #{ckBh,jdbcType=DECIMAL},
-      </if>
-      <if test="kcSl != null" >
-        #{kcSl,jdbcType=DECIMAL},
-      </if>
-      <if test="cbj != null" >
-        #{cbj,jdbcType=DECIMAL},
-      </if>
-      <if test="lsj != null" >
-        #{lsj,jdbcType=DECIMAL},
-      </if>
-      <if test="jxj != null" >
-        #{jxj,jdbcType=DECIMAL},
-      </if>
-      <if test="bzxx != null" >
-        #{bzxx,jdbcType=VARCHAR},
-      </if>
-      <if test="comId != null" >
-        #{comId,jdbcType=DECIMAL},
-      </if>
-      <if test="lastTime != null" >
-        #{lastTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.sc.bean.CcspxxbExample" resultType="java.lang.Integer" >
-    select count(*) from CC_SPXXB
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update CC_SPXXB
-    <set >
-      <if test="record.productId != null" >
-        PRODUCT_ID = #{record.productId,jdbcType=DECIMAL},
-      </if>
-      <if test="record.spMc != null" >
-        SP_MC = #{record.spMc,jdbcType=VARCHAR},
-      </if>
-      <if test="record.spLb != null" >
-        SP_LB = #{record.spLb,jdbcType=VARCHAR},
-      </if>
-      <if test="record.ggSm != null" >
-        GG_SM = #{record.ggSm,jdbcType=VARCHAR},
-      </if>
-      <if test="record.dw != null" >
-        DW = #{record.dw,jdbcType=VARCHAR},
-      </if>
-      <if test="record.ckBh != null" >
-        CK_BH = #{record.ckBh,jdbcType=DECIMAL},
-      </if>
-      <if test="record.kcSl != null" >
-        KC_SL = #{record.kcSl,jdbcType=DECIMAL},
-      </if>
-      <if test="record.cbj != null" >
-        CBJ = #{record.cbj,jdbcType=DECIMAL},
-      </if>
-      <if test="record.lsj != null" >
-        LSJ = #{record.lsj,jdbcType=DECIMAL},
-      </if>
-      <if test="record.jxj != null" >
-        JXJ = #{record.jxj,jdbcType=DECIMAL},
-      </if>
-      <if test="record.bzxx != null" >
-        BZXX = #{record.bzxx,jdbcType=VARCHAR},
-      </if>
-      <if test="record.comId != null" >
-        COM_ID = #{record.comId,jdbcType=DECIMAL},
-      </if>
-      <if test="record.lastTime != null" >
-        LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update CC_SPXXB
-    set PRODUCT_ID = #{record.productId,jdbcType=DECIMAL},
-      SP_MC = #{record.spMc,jdbcType=VARCHAR},
-      SP_LB = #{record.spLb,jdbcType=VARCHAR},
-      GG_SM = #{record.ggSm,jdbcType=VARCHAR},
-      DW = #{record.dw,jdbcType=VARCHAR},
-      CK_BH = #{record.ckBh,jdbcType=DECIMAL},
-      KC_SL = #{record.kcSl,jdbcType=DECIMAL},
-      CBJ = #{record.cbj,jdbcType=DECIMAL},
-      LSJ = #{record.lsj,jdbcType=DECIMAL},
-      JXJ = #{record.jxj,jdbcType=DECIMAL},
-      BZXX = #{record.bzxx,jdbcType=VARCHAR},
-      COM_ID = #{record.comId,jdbcType=DECIMAL},
-      LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.sc.bean.Ccspxxb" >
-    update CC_SPXXB
-    <set >
-      <if test="spMc != null" >
-        SP_MC = #{spMc,jdbcType=VARCHAR},
-      </if>
-      <if test="spLb != null" >
-        SP_LB = #{spLb,jdbcType=VARCHAR},
-      </if>
-      <if test="ggSm != null" >
-        GG_SM = #{ggSm,jdbcType=VARCHAR},
-      </if>
-      <if test="dw != null" >
-        DW = #{dw,jdbcType=VARCHAR},
-      </if>
-      <if test="ckBh != null" >
-        CK_BH = #{ckBh,jdbcType=DECIMAL},
-      </if>
-      <if test="kcSl != null" >
-        KC_SL = #{kcSl,jdbcType=DECIMAL},
-      </if>
-      <if test="cbj != null" >
-        CBJ = #{cbj,jdbcType=DECIMAL},
-      </if>
-      <if test="lsj != null" >
-        LSJ = #{lsj,jdbcType=DECIMAL},
-      </if>
-      <if test="jxj != null" >
-        JXJ = #{jxj,jdbcType=DECIMAL},
-      </if>
-      <if test="bzxx != null" >
-        BZXX = #{bzxx,jdbcType=VARCHAR},
-      </if>
-      <if test="comId != null" >
-        COM_ID = #{comId,jdbcType=DECIMAL},
-      </if>
-      <if test="lastTime != null" >
-        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where PRODUCT_ID = #{productId,jdbcType=DECIMAL}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.sc.bean.Ccspxxb" >
-    update CC_SPXXB
-    set SP_MC = #{spMc,jdbcType=VARCHAR},
-      SP_LB = #{spLb,jdbcType=VARCHAR},
-      GG_SM = #{ggSm,jdbcType=VARCHAR},
-      DW = #{dw,jdbcType=VARCHAR},
-      CK_BH = #{ckBh,jdbcType=DECIMAL},
-      KC_SL = #{kcSl,jdbcType=DECIMAL},
-      CBJ = #{cbj,jdbcType=DECIMAL},
-      LSJ = #{lsj,jdbcType=DECIMAL},
-      JXJ = #{jxj,jdbcType=DECIMAL},
-      BZXX = #{bzxx,jdbcType=VARCHAR},
-      COM_ID = #{comId,jdbcType=DECIMAL},
-      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
-    where PRODUCT_ID = #{productId,jdbcType=DECIMAL}
-  </update>
+<mapper namespace="com.sc.mapper.CcspxxbMapper">
+	<resultMap id="BaseResultMap" type="com.sc.bean.Ccspxxb">
+		<constructor>
+			<idArg column="PRODUCT_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+			<arg column="SP_MC" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="SP_LB" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="GG_SM" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="DW" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="CK_BH" jdbcType="DECIMAL" javaType="java.lang.Long" />
+			<arg column="KC_SL" jdbcType="DECIMAL" javaType="java.lang.Long" />
+			<arg column="CBJ" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+			<arg column="LSJ" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+			<arg column="JXJ" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+			<arg column="BZXX" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="COM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
+			<arg column="LAST_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+		</constructor>
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		PRODUCT_ID, SP_MC, SP_LB, GG_SM, DW, CK_BH, KC_SL, CBJ, LSJ, JXJ, BZXX, COM_ID,
+		LAST_TIME
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.sc.bean.CcspxxbExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		'true' as QUERYID,
+		<include refid="Base_Column_List" />
+		from CC_SPXXB
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from CC_SPXXB
+		where PRODUCT_ID = #{productId,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from CC_SPXXB
+		where PRODUCT_ID = #{productId,jdbcType=DECIMAL}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.sc.bean.CcspxxbExample">
+		delete from CC_SPXXB
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.sc.bean.Ccspxxb">
+		insert into CC_SPXXB (PRODUCT_ID, SP_MC, SP_LB,
+		GG_SM, DW, CK_BH, KC_SL,
+		CBJ, LSJ, JXJ, BZXX,
+		COM_ID, LAST_TIME)
+		values (#{productId,jdbcType=DECIMAL}, #{spMc,jdbcType=VARCHAR},
+		#{spLb,jdbcType=VARCHAR},
+		#{ggSm,jdbcType=VARCHAR}, #{dw,jdbcType=VARCHAR}, #{ckBh,jdbcType=DECIMAL},
+		#{kcSl,jdbcType=DECIMAL},
+		#{cbj,jdbcType=DECIMAL}, #{lsj,jdbcType=DECIMAL}, #{jxj,jdbcType=DECIMAL},
+		#{bzxx,jdbcType=VARCHAR},
+		#{comId,jdbcType=DECIMAL}, #{lastTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.sc.bean.Ccspxxb">
+		insert into CC_SPXXB
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="productId != null">
+				PRODUCT_ID,
+			</if>
+			<if test="spMc != null">
+				SP_MC,
+			</if>
+			<if test="spLb != null">
+				SP_LB,
+			</if>
+			<if test="ggSm != null">
+				GG_SM,
+			</if>
+			<if test="dw != null">
+				DW,
+			</if>
+			<if test="ckBh != null">
+				CK_BH,
+			</if>
+			<if test="kcSl != null">
+				KC_SL,
+			</if>
+			<if test="cbj != null">
+				CBJ,
+			</if>
+			<if test="lsj != null">
+				LSJ,
+			</if>
+			<if test="jxj != null">
+				JXJ,
+			</if>
+			<if test="bzxx != null">
+				BZXX,
+			</if>
+			<if test="comId != null">
+				COM_ID,
+			</if>
+			<if test="lastTime != null">
+				LAST_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="productId != null">
+				#{productId,jdbcType=DECIMAL},
+			</if>
+			<if test="spMc != null">
+				#{spMc,jdbcType=VARCHAR},
+			</if>
+			<if test="spLb != null">
+				#{spLb,jdbcType=VARCHAR},
+			</if>
+			<if test="ggSm != null">
+				#{ggSm,jdbcType=VARCHAR},
+			</if>
+			<if test="dw != null">
+				#{dw,jdbcType=VARCHAR},
+			</if>
+			<if test="ckBh != null">
+				#{ckBh,jdbcType=DECIMAL},
+			</if>
+			<if test="kcSl != null">
+				#{kcSl,jdbcType=DECIMAL},
+			</if>
+			<if test="cbj != null">
+				#{cbj,jdbcType=DECIMAL},
+			</if>
+			<if test="lsj != null">
+				#{lsj,jdbcType=DECIMAL},
+			</if>
+			<if test="jxj != null">
+				#{jxj,jdbcType=DECIMAL},
+			</if>
+			<if test="bzxx != null">
+				#{bzxx,jdbcType=VARCHAR},
+			</if>
+			<if test="comId != null">
+				#{comId,jdbcType=DECIMAL},
+			</if>
+			<if test="lastTime != null">
+				#{lastTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.sc.bean.CcspxxbExample"
+		resultType="java.lang.Integer">
+		select count(*) from CC_SPXXB
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update CC_SPXXB
+		<set>
+			<if test="record.productId != null">
+				PRODUCT_ID = #{record.productId,jdbcType=DECIMAL},
+			</if>
+			<if test="record.spMc != null">
+				SP_MC = #{record.spMc,jdbcType=VARCHAR},
+			</if>
+			<if test="record.spLb != null">
+				SP_LB = #{record.spLb,jdbcType=VARCHAR},
+			</if>
+			<if test="record.ggSm != null">
+				GG_SM = #{record.ggSm,jdbcType=VARCHAR},
+			</if>
+			<if test="record.dw != null">
+				DW = #{record.dw,jdbcType=VARCHAR},
+			</if>
+			<if test="record.ckBh != null">
+				CK_BH = #{record.ckBh,jdbcType=DECIMAL},
+			</if>
+			<if test="record.kcSl != null">
+				KC_SL = #{record.kcSl,jdbcType=DECIMAL},
+			</if>
+			<if test="record.cbj != null">
+				CBJ = #{record.cbj,jdbcType=DECIMAL},
+			</if>
+			<if test="record.lsj != null">
+				LSJ = #{record.lsj,jdbcType=DECIMAL},
+			</if>
+			<if test="record.jxj != null">
+				JXJ = #{record.jxj,jdbcType=DECIMAL},
+			</if>
+			<if test="record.bzxx != null">
+				BZXX = #{record.bzxx,jdbcType=VARCHAR},
+			</if>
+			<if test="record.comId != null">
+				COM_ID = #{record.comId,jdbcType=DECIMAL},
+			</if>
+			<if test="record.lastTime != null">
+				LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update CC_SPXXB
+		set PRODUCT_ID = #{record.productId,jdbcType=DECIMAL},
+		SP_MC = #{record.spMc,jdbcType=VARCHAR},
+		SP_LB = #{record.spLb,jdbcType=VARCHAR},
+		GG_SM = #{record.ggSm,jdbcType=VARCHAR},
+		DW = #{record.dw,jdbcType=VARCHAR},
+		CK_BH = #{record.ckBh,jdbcType=DECIMAL},
+		KC_SL = #{record.kcSl,jdbcType=DECIMAL},
+		CBJ = #{record.cbj,jdbcType=DECIMAL},
+		LSJ = #{record.lsj,jdbcType=DECIMAL},
+		JXJ = #{record.jxj,jdbcType=DECIMAL},
+		BZXX = #{record.bzxx,jdbcType=VARCHAR},
+		COM_ID = #{record.comId,jdbcType=DECIMAL},
+		LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.sc.bean.Ccspxxb">
+		update CC_SPXXB
+		<set>
+			<if test="spMc != null">
+				SP_MC = #{spMc,jdbcType=VARCHAR},
+			</if>
+			<if test="spLb != null">
+				SP_LB = #{spLb,jdbcType=VARCHAR},
+			</if>
+			<if test="ggSm != null">
+				GG_SM = #{ggSm,jdbcType=VARCHAR},
+			</if>
+			<if test="dw != null">
+				DW = #{dw,jdbcType=VARCHAR},
+			</if>
+			<if test="ckBh != null">
+				CK_BH = #{ckBh,jdbcType=DECIMAL},
+			</if>
+			<if test="kcSl != null">
+				KC_SL = #{kcSl,jdbcType=DECIMAL},
+			</if>
+			<if test="cbj != null">
+				CBJ = #{cbj,jdbcType=DECIMAL},
+			</if>
+			<if test="lsj != null">
+				LSJ = #{lsj,jdbcType=DECIMAL},
+			</if>
+			<if test="jxj != null">
+				JXJ = #{jxj,jdbcType=DECIMAL},
+			</if>
+			<if test="bzxx != null">
+				BZXX = #{bzxx,jdbcType=VARCHAR},
+			</if>
+			<if test="comId != null">
+				COM_ID = #{comId,jdbcType=DECIMAL},
+			</if>
+			<if test="lastTime != null">
+				LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where PRODUCT_ID = #{productId,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.sc.bean.Ccspxxb">
+		update CC_SPXXB
+		set SP_MC = #{spMc,jdbcType=VARCHAR},
+		SP_LB = #{spLb,jdbcType=VARCHAR},
+		GG_SM = #{ggSm,jdbcType=VARCHAR},
+		DW = #{dw,jdbcType=VARCHAR},
+		CK_BH = #{ckBh,jdbcType=DECIMAL},
+		KC_SL = #{kcSl,jdbcType=DECIMAL},
+		CBJ = #{cbj,jdbcType=DECIMAL},
+		LSJ = #{lsj,jdbcType=DECIMAL},
+		JXJ = #{jxj,jdbcType=DECIMAL},
+		BZXX = #{bzxx,jdbcType=VARCHAR},
+		COM_ID = #{comId,jdbcType=DECIMAL},
+		LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+		where PRODUCT_ID = #{productId,jdbcType=DECIMAL}
+	</update>
+
+
+	<resultMap id="ccsp" type="com.sc.bean.Ccspxxb">
+		<id column="PRODUCT_ID" property="productId"/>
+		 <result column="SP_MC" property="spMc"/> 
+		 <result column="SP_LB" property="spLb" />
+		<result column="GG_SM" property="ggSm" />
+		<result column="DW" property="dw" />
+		<result column="CK_BH" property="ckBh" />
+		<result column="KC_SL" property="kcSl" />
+		<result column="CBJ" property="cbj" />
+		<result column="LSJ" property="lsj" />
+		<result column="BZXX" property="bzxx" />
+		<result column="COM_ID" property="comId" />
+		<result column="LAST_DATE" property="lastTime" /> 
+
+ <!-- <association property="purproducts" javaType="com.sc.bean.PurProducts" column="PRO_ID" > 
+			<id column="PRO_ID" property="proId" jdbcType="DECIMAL" javaType="java.lang.Long" />
+			<result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" javaType="java.lang.Long"/>
+			<result column="DELIVERY_TIME" property="deliveryTime" />
+			<result column="ACTIVE" property="active" />
+			<result column="OPERATOR_ID" property="operatorId" />
+			<result column="REMARKS_INFO" property="remarksInfo" />
+			<result column="COM_ID" property="comId" />
+			<result column="LAST_DATE" property="lastDate" />
+		</association>   -->
+
+
+	</resultMap>
+
+	<select id="selectByExamplel" resultMap="ccsp" 
+		parameterType="com.sc.bean.PurProductsExample">
+		<!--  SELECT * FROM CC_SPXXB LEFT JOIN PUR_PRODUCTS
+		ON CC_SPXXB.PRODUCT_ID=PUR_PRODUCTS.PRODUCT_ID
+		WHERE 50> CC_SPXXB.KC_SL  -->
+		<!-- SELECT SP.PRODUCT_ID,PRO.PRO_ID FROM CC_SPXXB SP LEFT JOIN PUR_PRODUCTS PRO
+		ON SP.PRODUCT_ID=PRO.PRODUCT_ID
+		WHERE 50> SP.KC_SL -->
+		
+		SELECT c.*,p.DELIVERY_TIME,p.PRO_ID,p.REMARKS_INFO,p.ACTIVE FROM CC_SPXXB c LEFT JOIN PUR_PRODUCTS p
+		ON c.PRODUCT_ID=p.PRODUCT_ID
+		WHERE 50> c.KC_SL 		
+	</select>
+
+
 </mapper>

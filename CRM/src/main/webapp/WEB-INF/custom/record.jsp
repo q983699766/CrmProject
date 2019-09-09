@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -10,12 +11,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>联系记录列表</title>
+    <title>客户联系记录</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
@@ -66,10 +68,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <script src="assets/layer/layer.js" type="text/javascript" ></script>
         <script src="assets/laydate/laydate.js" type="text/javascript"></script>
 
-	
-
   </head>
-  
+ 
   <body>
    	<div class="page-content clearfix">
     <div id="Member_Ratings">
@@ -78,7 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <!---->
      <div class="border clearfix">
        <span class="l_f">
-      	<p class="btn btn-danger">客户：${conper.customName }</p>
+      	<p class="btn btn-danger">客户：${record.customName }</p>
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加联系记录</a>
        
        </span>
@@ -97,7 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 		</thead>
 	<tbody>
-		<tr>
+	<!-- 	<tr>
           <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
           <td style="font-size:13px;">商谈CRM项目</td>
           <td style="font-size:13px;">2019-9-18</td>
@@ -110,7 +110,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <a title="编辑" onclick="member_edit('550')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
           <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
           </td>
+		</tr> -->
+		
+		<c:forEach items="${record.salrecord}" var="b">
+		<tr>
+			<td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>	
+			<td style="font-size:13px;">${b.recordTitle}</td> 
+        	<td style="font-size:13px;"><fmt:formatDate value="${b.recordTime}"
+				pattern="yyyy-MM-dd" /></td> 
+			<td style="font-size:13px;">${b.recordContent}</td>
+         	 <td class="td-manage">
+         		 <a title="删除" href="javascript:;"  onclick="member_del(this,'1');del(${a.conperId})" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
+          	</td>
 		</tr>
+		</c:forEach>
       </tbody>
 	</table>
    </div>
@@ -287,4 +300,7 @@ laydate({
 
 
 </style>
+    
+  </body>
+</html>
 

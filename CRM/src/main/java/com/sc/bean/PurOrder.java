@@ -3,6 +3,7 @@ package com.sc.bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -11,7 +12,7 @@ public class PurOrder implements Serializable {
 
     private String purTitle;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date purDate;
 
     private Long supInfoNum;
@@ -24,7 +25,7 @@ public class PurOrder implements Serializable {
 
     private Long purProgrees;
     
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date deliveryTime;
 
     private String deliveryAddress;
@@ -37,12 +38,52 @@ public class PurOrder implements Serializable {
 
     private Long comId;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastDate;
+    
+    //一对一配置
+    private PurSupInfo pursupinfo;   //供应商信息配置
+    
+    //一对多配置
+    private List<PurOrderInfo> purorderinfos;   //采购单详情表配置
+   
+    
+    
 
     private static final long serialVersionUID = 1L;
+    
+    
+    
 
-    public PurOrder(Long purNumber, String purTitle, Date purDate, Long supInfoNum, BigDecimal payAmount, String invoiceNumber, Long payStatus, Long purProgrees, Date deliveryTime, String deliveryAddress, String deliveryMode, Long operatorId, String remarksInfo, Long comId, Date lastDate) {
+    public List<PurOrderInfo> getPurorderinfo() {
+		return purorderinfos;
+	}
+
+
+
+
+	public void setPurorderinfo(List<PurOrderInfo> purorderinfo) {
+		this.purorderinfos = purorderinfo;
+	}
+
+
+
+
+	public PurSupInfo getPursupinfo() {
+		return pursupinfo;
+	}
+
+
+
+
+	public void setPursupinfo(PurSupInfo pursupinfo) {
+		this.pursupinfo = pursupinfo;
+	}
+
+
+
+
+	public PurOrder(Long purNumber, String purTitle, Date purDate, Long supInfoNum, BigDecimal payAmount, String invoiceNumber, Long payStatus, Long purProgrees, Date deliveryTime, String deliveryAddress, String deliveryMode, Long operatorId, String remarksInfo, Long comId, Date lastDate) {
         this.purNumber = purNumber;
         this.purTitle = purTitle;
         this.purDate = purDate;
@@ -63,13 +104,18 @@ public class PurOrder implements Serializable {
     
     
 
-    @Override
+
+
+
+
+	@Override
 	public String toString() {
 		return "PurOrder [purNumber=" + purNumber + ", purTitle=" + purTitle + ", purDate=" + purDate + ", supInfoNum="
 				+ supInfoNum + ", payAmount=" + payAmount + ", invoiceNumber=" + invoiceNumber + ", payStatus="
 				+ payStatus + ", purProgrees=" + purProgrees + ", deliveryTime=" + deliveryTime + ", deliveryAddress="
 				+ deliveryAddress + ", deliveryMode=" + deliveryMode + ", operatorId=" + operatorId + ", remarksInfo="
-				+ remarksInfo + ", comId=" + comId + ", lastDate=" + lastDate + "]";
+				+ remarksInfo + ", comId=" + comId + ", lastDate=" + lastDate + ", purorderinfo=" + purorderinfos
+				+ ", pursupinfo=" + pursupinfo + "]";
 	}
 
 

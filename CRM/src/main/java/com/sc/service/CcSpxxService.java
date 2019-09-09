@@ -3,7 +3,7 @@ package com.sc.service;
 import java.util.List;
 
 import com.github.pagehelper.PageInfo;
-import com.sc.bean.CcCkxxb;
+
 import com.sc.bean.Ccspxxb;
 
 public interface CcSpxxService {
@@ -19,5 +19,7 @@ public interface CcSpxxService {
 	//删除库存该商品
 	public void delCcspxx(Long productId);
 	//修改库存的商品信息
-	public void updateCcspxx(CcCkxxb u);
+	public void updateCcspxx(Ccspxxb u);
+	//商品模糊查询
+	public List<Ccspxxb> selectCcspxx(Ccspxxb ccspxx );
 }

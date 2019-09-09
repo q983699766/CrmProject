@@ -204,33 +204,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="update_menber" id="update_menber_style" style="display:none">
 	
     <ul class=" page-content">
-    <input type="hidden" name="customId" id="customIdx"/> 
-    <input type="hidden" name="customState" id="customStatex"/> 
-     <li><label class="label_name">客户名称：</label><span class="add_name"><input  type="text"  id="customNamex" name="customName" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">客户属性：</label><span class="add_name"><input  type="text" name="customProperties" id="customPropertiesx" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">网&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;站：</label><span class="add_name"><input  type="text" name="website" id="websitex" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">股票代码：</label><span class="add_name"><input  type="text" id="ticketCodex" name="ticketCode" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">上级单位：</label><span class="add_name"><input  type="text" id="superiorUnitsx" name="superiorUnits" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">所&nbsp;&nbsp;有&nbsp;&nbsp;者：</label><span class="add_name"><input  type="text" name="owner" id="ownerx" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">员&nbsp;&nbsp;工&nbsp;&nbsp;数：</label><span class="add_name"><input  type="text" name="staff" id="staffx" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">行业编号：</label><span class="add_name"><input  type="text" id="tradeNumberx" name="tradeNumber" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">客户类型：</label><span class="add_name"><input  type="text" id="customTypex" name="customType" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">客户来源：</label><span class="add_name"><input  type="text" id="customSourcex" name="customSource" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">固定电话：</label><span class="add_name"><input  type="text" id="fixedPhonex" name="fixedPhone" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">移动电话：</label><span class="add_name"><input  type="text" id="cellPhonex" name="cellPhone" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">客户传真：</label><span class="add_name"><input  type="text" id="customFaxx" name="customFax" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">开户银行：</label><span class="add_name"><input  type="text" id="depositBankx" name="depositBank" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">银行账户：</label><span class="add_name"><input  type="text" id="bankAccoutx" name="bankAccout" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">下次联系：</label><span class="add_name"><input  type="DATE"  id="nextcontactTimex" name="nextcontactTime"   dateFmt="yyyy-MM-dd HH:mm:ss" class="text_add" /></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">电子邮件：</label><span class="add_name"><input  type="text" id="emailx" name="email" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">S&nbsp;I&nbsp;C编码：</label><span class="add_name"><input  type="text" id="sicCodex" name="sicCode" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">支付方式：</label><span class="add_name"><input  type="text" id="payWayx" name="payWay" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">是否有效：</label><span class="add_name"><input  type="text" id="effectivityx" name="effectivity" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">详细地址：</label><span class="add_name"><input  type="text" id="detailAddressx" name="detailAddress" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">备注信息：</label><span class="add_name"><input  type="text" id="remarkx" name="remark" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">公司编号：</label><span class="add_name"><input  type="text" id="comIdx" name="comId" class="text_add"/></span><div class="prompt r_f"></div></li>
-    </ul><br><br><br><br><br><br><br><br><br><br><br><br>
-    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br><br><br>
+
  </div>
  </form>
  

@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sc.bean.SysRole;
+import com.sc.bean.SysRoleExample;
+import com.sc.bean.SysRoleExample.Criteria;
 import com.sc.bean.SysUsers;
+import com.sc.mapper.SysRoleMapper;
 import com.sc.service.RolesService;
 
 @Controller
@@ -23,21 +26,50 @@ public class RoleController {
 	@Autowired
 	RolesService RolesService;
 	
+	@Autowired
+	SysRoleMapper SysRoleMapper;
+	
 	@RequestMapping("/update.do")
 	public ModelAndView update111(ModelAndView mav, HttpSession session , HttpServletRequest req, SysRole role){
 		
-		Date date = new Date();
-		role.setLastTime(date);
-		SysUsers u = (SysUsers)session.getAttribute("nowuser");
+		String rname = role.getRoleName();
+		SysRoleExample sysRoleExample = new SysRoleExample();
+		Criteria c = sysRoleExample.createCriteria();
+		c.andRoleNameEqualTo(rname);
 		
-		Long uid = u.getUserId();
-		role.setOperatorId(uid);
+		List<SysRole> list3 = SysRoleMapper.selectByExample(sysRoleExample);
 		
-		RolesService.updateRole(role);
+		if(list3.size() == 0){
+			Date date = new Date();
+			role.setLastTime(date);
+			SysUsers u = (SysUsers)session.getAttribute("nowuser");
+			
+			Long uid = u.getUserId();
+			role.setOperatorId(uid);
+			
+			RolesService.updateRole(role);
+			mav.addObject("ok", "1");
+		}else if(list3.size() ==1){
+			if(list3.get(0).getRoleId() == role.getRoleId()){
+				Date date = new Date();
+				role.setLastTime(date);
+				SysUsers u = (SysUsers)session.getAttribute("nowuser");
+				
+				Long uid = u.getUserId();
+				role.setOperatorId(uid);
+				
+				RolesService.updateRole(role);
+				mav.addObject("ok", "1");
+			}else{
+				mav.addObject("ok", "2");
+			}	
+		}else {
+			mav.addObject("ok", "2");
+		}
+		
 		List<SysRole> list = RolesService.getRoleList();
 		
 		mav.addObject("roles", list);
-		
 		mav.setViewName("permission/roles");
 		return mav;
 	}
@@ -48,7 +80,6 @@ public class RoleController {
 	public SysRole selectById(ModelAndView mav , HttpServletRequest req){
 		String shiidstr = req.getParameter("roleId");
 		Long roleId =(long) Integer.parseInt(shiidstr);
-		
 		SysRole role = RolesService.selectById(roleId);
 		return role;
 	}
@@ -57,16 +88,29 @@ public class RoleController {
 	@RequestMapping("/add.do")
 	public ModelAndView add(ModelAndView mav , HttpServletRequest req, SysRole role, HttpSession session){
 		
-		SysUsers user = (SysUsers)session.getAttribute("nowuser");
+		String rname = role.getRoleName();
+		SysRoleExample sysRoleExample = new SysRoleExample();
+		Criteria c = sysRoleExample.createCriteria();
+		c.andRoleNameEqualTo(rname);
+		List<SysRole> selectByExample = SysRoleMapper.selectByExample(sysRoleExample);
 		
-		Long userId = user.getUserId();
+		if(selectByExample.isEmpty()){
+			SysUsers user = (SysUsers)session.getAttribute("nowuser");
+			
+			Long userId = user.getUserId();
+			
+			role.setOperatorId(userId);
+			
+			Date date = new Date();
+			role.setLastTime(date);
+			
+			RolesService.addRole(role);
+			mav.addObject("ok", "1");
+		}else{
+			mav.addObject("ok", "2");
+		}
 		
-		role.setOperatorId(userId);
 		
-		Date date = new Date();
-		role.setLastTime(date);
-		
-		RolesService.addRole(role);
 		
 		List<SysRole> list = RolesService.getRoleList();
 		
@@ -85,7 +129,7 @@ public class RoleController {
 		
 		mav.addObject("roles", list);
 		
-		
+		mav.addObject("ok", "1");
 		mav.setViewName("permission/roles");
 		return mav;
 	}

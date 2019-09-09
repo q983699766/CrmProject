@@ -80,8 +80,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <div class="border clearfix">
        <span class="l_f">
       	<p class="btn btn-danger">客户：${conper.customName }</p>
-        <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加联系人</a>
-        <a href="javascript:ovid()" class="btn btn-danger">查看联系记录</a>
+        <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加联系人</a> 
+        <a href="conctlr/custom.do"  class="btn btn-danger"><i class="icon-plus"></i>返回上一级</a>     
        </span>
      
      </div>
@@ -135,6 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <td class="td-manage">
           <a title="编辑" onclick="aaa(${a.conperId});member_edit('550')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
           <a title="删除" href="javascript:;"  onclick="member_del(this,'1');del(${a.conperId})" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
+          <a href="conctlr/gotoRecord.do?customId=${a.customId}">联系记录</a>
           </td>
 		</tr>
 		</c:forEach>
@@ -157,6 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  
  <!--添加用户图层-->
  <form action="conctlr/addSalConper.do" method="post">
+ <center>
 <div class="add_menber" id="add_menber_style" style="display:none"> 
     <ul class=" page-content">
     <input type="hidden" name="customId" value="${conper.customId}" /> 
@@ -173,13 +175,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </ul><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br><br><br>
  </div>
+ </center>
  </form>
  
- 
- 
+
  <!--修改用户图层-->
  <form action="conctlr/updateSalConper.do" method="post">
-<div class="update_menber" id="update_menber_style" style="display:none"> 
+ 
+<div class="update_menber" id="update_menber_style" style="display:none;" > 
     <ul class=" page-content">
      <input type="hidden" name="conperId" id="conperId"/>  
     <input type="hidden" name="customId" id="customId" value="${conper.customId}" />  
@@ -198,6 +201,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </ul><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br><br><br>
  </div>
+ 
  </form>
  
 
@@ -245,49 +249,12 @@ jQuery(function($) {
 			})
 
 
-/*用户-添加*/
- $('#member_add').on('click', function(){
-    layer.open({
-        type: 1,
-        title: '添加联系人',
-		maxmin: true, 
-		shadeClose: true, //点击遮罩关闭层
-        area : ['800px' , ''],
-        content:$('#add_menber_style'),
-		
-		yes:function(index,layero){	
-		 var num=0;
-		 var str="";
-     $(".add_menber input[type$='text']").each(function(n){
-          if($(this).val()=="")
-          {
-               
-			   layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
-                title: '提示框',				
-				icon:0,								
-          }); 
-		    num++;
-            return false;            
-          } 
-		 });
-		  if(num>0){  return false;}	 	
-          else{
-			  layer.alert('添加成功！',{
-               title: '提示框',				
-			icon:1,		
-			  });
-			   layer.close(index);	
-		  }		  		     				
-		}
-    });
- });
-
 
 /*用户-编辑*/
 function member_edit(id){
 	  layer.open({
         type: 1,
-        title: '修改联系人',
+        title: '修改用户信息',
 		maxmin: true, 
 		shadeClose:false, //点击遮罩关闭层
         area : ['800px' , ''],
@@ -393,7 +360,5 @@ laydate({
 .member_content li .label_name { width:80px; text-align:right; float:left; line-height:30px;}
 .update_menber li .add_name{ float:left; margin-left:10px; line-height:30px;}
 .update_menber li .add_name .lbl{ top:-5px; left:10px;}
-
-
 
 </style>
