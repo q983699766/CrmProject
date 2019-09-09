@@ -569,8 +569,7 @@
 					});
 					layer.close(index);
 				}
-			}
-		});
+
 	});
 	/*用户-停用*/
 	function member_stop(obj, id) {

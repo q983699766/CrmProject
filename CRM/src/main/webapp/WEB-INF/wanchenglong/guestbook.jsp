@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -14,25 +16,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta http-equiv="Cache-Control" content="no-siteapp" />
- 		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="css/style.css"/>       
-        <link href="assets/css/codemirror.css" rel="stylesheet">
-        <link rel="stylesheet" href="assets/css/ace.min.css" />
-        <link rel="stylesheet" href="font/css/font-awesome.min.css" />
+ 		<link href="<%=basePath%>assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="<%=basePath%>css/style.css"/>       
+        <link href="<%=basePath%>assets/css/codemirror.css" rel="stylesheet">
+        <link rel="stylesheet" href="<%=basePath%>assets/css/ace.min.css" />
+        <link rel="stylesheet" href="<%=basePath%>font/css/font-awesome.min.css" />
         <!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
 		<![endif]-->
-		<script src="js/jquery-1.9.1.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
-		<script src="assets/js/typeahead-bs2.min.js"></script>           	
-		<script src="assets/js/jquery.dataTables.min.js"></script>
-		<script src="assets/js/jquery.dataTables.bootstrap.js"></script>
-        <script src="assets/layer/layer.js" type="text/javascript" ></script>          
-        <script src="assets/laydate/laydate.js" type="text/javascript"></script>
+		<script src="<%=basePath%>js/jquery-1.9.1.min.js"></script>
+        <script src="<%=basePath%>assets/js/bootstrap.min.js"></script>
+		<script src="<%=basePath%>assets/js/typeahead-bs2.min.js"></script>           	
+		<script src="<%=basePath%>assets/js/jquery.dataTables.min.js"></script>
+		<script src="<%=basePath%>assets/js/jquery.dataTables.bootstrap.js"></script>
+        <script src="<%=basePath%>assets/layer/layer.js" type="text/javascript" ></script>          
+        <script src="<%=basePath%>assets/laydate/laydate.js" type="text/javascript"></script>
 <title>留言</title>
 </head>
 
-<body>
+<body onload="load()">
 <div class="margin clearfix">
  <div class="Guestbook_style">
  <div class="search_style">
@@ -58,8 +60,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 <tr>
           <th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
           <th width="80">编号</th>
-          <th width="150px">主题</th>
+          <th width="150px">标题</th>
+          <th width="150px">内容</th>
           <th width="">发送者</th>
+          <th width="">公司名字</th>
           <th width="200px">时间</th>
           <th width="70">状态</th>                
           <th width="250">用户操作</th>
@@ -67,18 +71,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </thead>
 	<tbody>
 		<tr>
-     <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
+		
+		<c:forEach items="${smsinfo}" var="i">
+		<tr>
+          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
+          <td>${i.smsId}</td>
+          <td> <a href="javascript:;" onclick="Guestbook_iew('12')">${i.smsHeadline}</a></td>
+          <td>${i.smsContent}</td>
+          <td>${i.sysUsers.userName}</td>
+          <td>${i.syscompany.comName}</td>
+           
+          <td class="text-l"><fmt:formatDate value="${i.lastTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+         <%--  <td>${i.remarksInfo}</td> --%>
+          <td class="td-status"><span class="label label-success radius">已浏览</span></td>
+         
+          <td class="td-manage">
+           <a onClick="member_stop(this,'10001')"  href="javascript:;" title="已浏览"  class="btn btn-xs btn-success"><i class="fa fa-check  bigger-120"></i></a>   
+        	<a  onclick="member_edit('回复','member-add.html','4','','510')" title="回复"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>      
+        	<a  href="javascript:;"  onclick="member_del(this,'1')" title="删除" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
+          </td>
+		</tr>
+       </c:forEach>
+		
+		
+		
+		
+      <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
           <td>1</td>
           <td><u style="cursor:pointer"  class="text-primary" onclick="member_show('张小泉','member-show.html','1031','500','400')">张小泉</u></td>
           <td class="text-l">
-          <a href="javascript:;" onclick="Guestbook_iew('12')">“第二届中国无锡水蜜桃开摘节”同时开幕，为期三个月的蜜桃季全面启动。值此京东“618品质狂欢节”之际，中国特产无锡馆限量上线618份8只装精品水蜜桃，61.8元全国包邮限时抢购。为了保证水蜜桃从枝头到达您的手中依旧鲜甜如初，京东采用递送升级服务，从下单到包装全程冷链运输。</a>
+          <a href="javascript:;" onclick="Guestbook_iew('12')">${i.smsHeadline}</a>
           <td>2016-6-11 11:11:42</td>
           <td class="td-status"><span class="label label-success radius">已浏览</span></td>
           <td class="td-manage">
            <a onClick="member_stop(this,'10001')"  href="javascript:;" title="已浏览"  class="btn btn-xs btn-success"><i class="fa fa-check  bigger-120"></i></a>   
         <a  onclick="member_edit('回复','member-add.html','4','','510')" title="回复"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>      
         <a  href="javascript:;"  onclick="member_del(this,'1')" title="删除" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
-          </td>
+          </td> 
         </tr>
         </tbody>
       </table>
@@ -130,6 +159,41 @@ $('#checkbox').on('click',function(){
 		 $('.Reply_style').css('display','none');
 		}	
 	})
+	
+	
+	
+	
+	/* load */
+	/* function load(){
+		alert("load");
+		//发送ajax请求
+			var url = "Office";//请求地址
+			console.log(url);
+			
+			new Ajax.Request(
+			 url,
+			 {method: "post",onComplete: success}//请求方法	//回调函数
+			 )
+	}
+	
+	function success(resp){ //响应对象
+		var result = resp.responseText; //获取响应文本内容
+		console.log(result);
+		var j = JSON.parse(result);//字符串转JSON
+		if(j.msg=="yes")
+		{
+			document.getElementById("sp").innerHTML = "用户名已存在";
+			
+		}else
+		{
+			document.getElementById("sp").innerHTML = "用户名可使用";
+		}
+		
+		}
+		 */
+		
+		
+		
 /*留言查看*/
 function Guestbook_iew(id){
 	var index = layer.open({

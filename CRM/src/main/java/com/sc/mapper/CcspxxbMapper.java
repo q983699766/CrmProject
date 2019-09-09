@@ -27,4 +27,8 @@ public interface CcspxxbMapper {
     int updateByPrimaryKeySelective(Ccspxxb record);
 
     int updateByPrimaryKey(Ccspxxb record);
+    
+    
+    List<Ccspxxb> selectByExamplel( CcspxxbExample example);
+    
 }

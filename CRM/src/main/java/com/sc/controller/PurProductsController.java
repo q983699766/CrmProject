@@ -41,6 +41,7 @@ public class PurProductsController {
 				@RequestParam(defaultValue="1")Integer pageNum,
 				@RequestParam(defaultValue="5")Integer pageSize){
 			PageInfo<Ccspxxb> xx = purproductsservice.selectpurproducts(pageNum, pageSize);
+			System.out.println("1111111111"+xx.getList());
 			mav.addObject("pi",xx);
            mav.setViewName("jinhuo/productsinfo");
 		    return mav;

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.sc.mapper.OOfficePerScheMapper" >
+  
+  <resultMap id="BaseResultMap" type="com.sc.bean.OOfficePerSche" >
+    <result column="OPS_ID" property="id" jdbcType="VARCHAR" />
+    <result column="OPS_TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="OPS_START" property="start" jdbcType="VARCHAR" />
+    <result column="OPS_END" property="end" jdbcType="VARCHAR" />
+    <result column="OPS_FULLNAME" property="fullname" jdbcType="VARCHAR" />
+    <result column="OPS_CONFNAME" property="confname" jdbcType="VARCHAR" />
+    <result column="OPS_CONFSHORTNAME" property="confshortname" jdbcType="VARCHAR" />
+    <result column="OPS_ALLDAY" property="allDay" jdbcType="VARCHAR" />
+    <result column="OPS_TOPIC" property="topic" jdbcType="VARCHAR" />
+    <result column="OPS_DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="SUA_ID" property="uid" jdbcType="VARCHAR" />
+    <result column="SC_ID" property="cid" jdbcType="VARCHAR" />
+    <result column="OPS_LASTTIME" property="lasttime" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <insert id="insert" parameterType="com.sc.bean.OOfficePerSche" >
+     <selectKey keyColumn="OPS_ID" resultType="java.lang.String" keyProperty="id" order="AFTER">
+		SELECT CS.CURRVAL as OPS_ID from dual 
+        <!--查询该表的序列 -->
+	</selectKey> 
+    insert into O_OFFICEPERSCHE (OPS_ID, OPS_TITLE, OPS_START, 
+      OPS_END, OPS_FULLNAME, OPS_CONFNAME, 
+      OPS_CONFSHORTNAME, OPS_ALLDAY, OPS_TOPIC, 
+      OPS_DESCRIPTION, SUA_ID, SC_ID, 
+      OPS_LASTTIME)
+    values (#{opsId,jdbcType=VARCHAR}, #{opsTitle,jdbcType=VARCHAR}, #{opsStart,jdbcType=VARCHAR}, 
+      #{opsEnd,jdbcType=VARCHAR}, #{opsFullname,jdbcType=VARCHAR}, #{opsConfname,jdbcType=VARCHAR}, 
+      #{opsConfshortname,jdbcType=VARCHAR}, #{opsAllday,jdbcType=VARCHAR}, #{opsTopic,jdbcType=VARCHAR}, 
+      #{opsDescription,jdbcType=VARCHAR}, #{suaId,jdbcType=VARCHAR}, #{scId,jdbcType=VARCHAR}, 
+      #{opsLasttime,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.sc.bean.OOfficePerSche" >
+     <selectKey keyColumn="OPS_ID" resultType="java.lang.String" keyProperty="id" order="AFTER">
+		SELECT CS.CURRVAL as OPS_ID from dual 
+	</selectKey> 
+    insert into O_OFFICEPERSCHE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="opsId != null" >
+        OPS_ID,
+      </if>
+      <if test="opsTitle != null" >
+        OPS_TITLE,
+      </if>
+      <if test="opsStart != null" >
+        OPS_START,
+      </if>
+      <if test="opsEnd != null" >
+        OPS_END,
+      </if>
+      <if test="opsFullname != null" >
+        OPS_FULLNAME,
+      </if>
+      <if test="opsConfname != null" >
+        OPS_CONFNAME,
+      </if>
+      <if test="opsConfshortname != null" >
+        OPS_CONFSHORTNAME,
+      </if>
+      <if test="opsAllday != null" >
+        OPS_ALLDAY,
+      </if>
+      <if test="opsTopic != null" >
+        OPS_TOPIC,
+      </if>
+      <if test="opsDescription != null" >
+        OPS_DESCRIPTION,
+      </if>
+      <if test="suaId != null" >
+        SUA_ID,
+      </if>
+      <if test="scId != null" >
+        SC_ID,
+      </if>
+      <if test="opsLasttime != null" >
+        OPS_LASTTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="opsId != null" >
+        #{opsId,jdbcType=VARCHAR},
+      </if>
+      <if test="opsTitle != null" >
+        #{opsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="opsStart != null" >
+        #{opsStart,jdbcType=VARCHAR},
+      </if>
+      <if test="opsEnd != null" >
+        #{opsEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="opsFullname != null" >
+        #{opsFullname,jdbcType=VARCHAR},
+      </if>
+      <if test="opsConfname != null" >
+        #{opsConfname,jdbcType=VARCHAR},
+      </if>
+      <if test="opsConfshortname != null" >
+        #{opsConfshortname,jdbcType=VARCHAR},
+      </if>
+      <if test="opsAllday != null" >
+        #{opsAllday,jdbcType=VARCHAR},
+      </if>
+      <if test="opsTopic != null" >
+        #{opsTopic,jdbcType=VARCHAR},
+      </if>
+      <if test="opsDescription != null" >
+        #{opsDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="suaId != null" >
+        #{suaId,jdbcType=VARCHAR},
+      </if>
+      <if test="scId != null" >
+        #{scId,jdbcType=VARCHAR},
+      </if>
+      <if test="opsLasttime != null" >
+        #{opsLasttime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="getScheduleById" parameterType="String" resultMap="BaseResultMap">
+      select  * from O_OFFICEPERSCHE where SUA_ID=#{suaId}
+   </select>
+   
+   <insert id="addSchedule" parameterType="com.sc.bean.OOfficePerSche" >
+      <selectKey keyColumn="OPS_ID" resultType="java.lang.String" keyProperty="id" order="AFTER">
+		SELECT CS.CURRVAL as OPS_ID from dual 
+	</selectKey> 
+      insert into O_OFFICEPERSCHE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        OPS_ID,
+      </if>
+      <if test="title != null" >
+        OPS_TITLE,
+      </if>
+      <if test="start != null" >
+        OPS_START,
+      </if>
+      <if test="end != null" >
+        OPS_END,
+      </if>
+      <if test="fullname != null" >
+        OPS_FULLNAME,
+      </if>
+      <if test="confname != null" >
+        OPS_CONFNAME,
+      </if>
+      <if test="confshortname != null" >
+        OPS_CONFSHORTNAME,
+      </if>
+      <if test="allDay != null" >
+        OPS_ALLDAY,
+      </if>
+      <if test="topic != null" >
+        OPS_TOPIC,
+      </if>
+      <if test="description != null" >
+        OPS_DESCRIPTION,
+      </if>
+      <if test="uid != null" >
+        SUA_ID,
+      </if>
+      <if test="cid != null" >
+        SC_ID,
+      </if>
+      <if test="lasttime != null" >
+        OPS_LASTTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="start != null" >
+        #{start,jdbcType=VARCHAR},
+      </if>
+      <if test="end != null" >
+        #{end,jdbcType=VARCHAR},
+      </if>
+      <if test="fullname != null" >
+        #{fullname,jdbcType=VARCHAR},
+      </if>
+      <if test="confname != null" >
+        #{confname,jdbcType=VARCHAR},
+      </if>
+      <if test="confshortname != null" >
+        #{confshortname,jdbcType=VARCHAR},
+      </if>
+      <if test="allDay != null" >
+        #{allDay,jdbcType=VARCHAR},
+      </if>
+      <if test="topic != null" >
+        #{topic,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=VARCHAR},
+      </if>
+      <if test="lasttime != null" >
+        #{lasttime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+   </insert>
+   
+   <update id="updateSchedule" parameterType="com.sc.bean.OOfficePerSche" >
+      update O_OFFICEPERSCHE
+    <set>
+      <if test="title != null" >
+        OPS_TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="start != null" >
+        OPS_START = #{start,jdbcType=VARCHAR},
+      </if>
+      <if test="end != null" >
+        OPS_END = #{end,jdbcType=VARCHAR},
+      </if>
+      <if test="fullname != null" >
+        OPS_FULLNAME = #{fullname,jdbcType=VARCHAR},
+      </if>
+      <if test="confname != null" >
+        OPS_CONFNAME = #{confname,jdbcType=VARCHAR},
+      </if>
+      <if test="confshortname != null" >
+        OPS_CONFSHORTNAME = #{confshortname,jdbcType=VARCHAR},
+      </if>
+      <if test="allDay != null" >
+        OPS_ALLDAY = #{allDay,jdbcType=VARCHAR},
+      </if>
+      <if test="topic != null" >
+        OPS_TOPIC = #{topic,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        OPS_DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        SUA_ID = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        SC_ID = #{cid,jdbcType=VARCHAR},
+      </if>
+      <if test="lasttime != null" >
+        OPS_LASTTIME = #{lasttime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where OPS_ID = #{id,jdbcType=VARCHAR}
+   </update>
+   
+   <delete id="delSchedule" parameterType="com.sc.bean.OOfficePerSche">
+      delete from O_OFFICEPERSCHE where OPS_ID=#{id}
+   </delete>
+   
+   
+   <select id="getAllSchedule" parameterType="com.sc.bean.OOfficePerSche" resultMap="BaseResultMap" >
+      select  * from O_OFFICEPERSCHE
+      where SUA_ID=#{uid} and OPS_START &gt; #{start} and OPS_END &lt; #{end}
+   </select>
+   
+   
+   <select id="getMaxIdoOfficePerSche" resultType="String">
+   		SELECT max(OPS_ID) FROM O_OFFICEPERSCHE
+   </select>
+   
+   
+  <!--  各人日程列表查詢 -->
+   <select id="getOPerAgendaList" parameterType="com.sc.bean.OOfficePerSche" resultMap="BaseResultMap" >
+   		select  * from O_OFFICEPERSCHE
+   		<where>
+   			<if test="uid != null" >
+        		SUA_ID = #{uid,jdbcType=VARCHAR}
+      		</if>
+   		</where>
+   </select>
+   
+</mapper>

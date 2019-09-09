@@ -77,7 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">账户状态： </label>
           <div class="col-sm-9" > <span>${nowuser.userState == '0' ? "可用":"不可用" }</span></div>
           </div>
-           <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">注册时间： </label>
+           <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">上次修改： </label>
           <div class="col-sm-9" > <span><fmt:formatDate value="${nowuser.lastTime }" pattern="yyyy-MM-dd"/></span></div>
           </div>
            <div class="Button_operation clearfix"> 

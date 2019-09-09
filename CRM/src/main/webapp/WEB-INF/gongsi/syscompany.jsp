@@ -15,12 +15,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="Cache-Control" content="no-siteapp" />
         <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="../css/style.css"/>       
+        <link rel="stylesheet" href="../assets/css/codemirror.css" >
+        <link rel="stylesheet" href="../assets/css/ace.min.css" />
+        <link rel="stylesheet" href="../font/css/font-awesome.min.css" />
+         <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="../css/style.css"/>       
         <link href="../assets/css/codemirror.css" rel="stylesheet">
         <link rel="stylesheet" href="../assets/css/ace.min.css" />
         <link rel="stylesheet" href="../font/css/font-awesome.min.css" />
-        <!--[if lte IE 8]>
-		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
-		<![endif]-->
+          <link  rel="stylesheet" href="../layui/css/layui.css" />
+		<script src="js/jquery-1.9.1.min.js"></script> 
+        <script src="../assets/js/bootstrap.min.js"></script>
+		<script src="../assets/js/typeahead-bs2.min.js"></script>           	
+		<script src="../assets/js/jquery.dataTables.min.js"></script>
+		<script src="../assets/js/jquery.dataTables.bootstrap.js"></script>
+        <script src="../assets/layer/layer.js" type="text/javascript" ></script>          
+        <script src="../assets/laydate/laydate.js" type="text/javascript"></script>
+		<script src="../layui/layui.js"></script>
 		<script src="../js/jquery-1.9.1.min.js"></script>
         <script src="../assets/js/bootstrap.min.js"></script>
 		<script src="../assets/js/typeahead-bs2.min.js"></script>           	
@@ -47,61 +58,66 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        
      </div>
      <div class="compete_list">
-       <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+       <table id="sample-table" class="table table-striped table-bordered table-hover" >
 		 <thead>
 			<tr>
-				<th width="80px">公司编号</th>
-				<th width="80px">公司名称</th>
-				<th width="80px">联系人</th>
-				<th width="80px">公司地址</th> 
-				<th width="80px">公司电话</th>
-				<th width="80px">开户银行</th>
-				<th width="80px">备注信息</th>
-				<th width="80px">修改时间</th>  
-				<th width="200px">操作</th>
+				<th width="4%">公司编号</th>
+				<th width="4%">公司名称</th>
+				<th width="4%">联系人</th>
+				<th width="4%">公司地址</th> 
+				<th width="4%">公司电话</th>
+				<th width="4%">开户银行</th>
+				<th width="4%">备注信息</th>
+				<th width="4%">修改时间</th>
+				<th width="4%">详细信息</th>    
+				<th width="20%">操作</th>
              </tr>
 		    </thead>
              <tbody>
       	<c:forEach items="${selectComoany }" var="t" >
      <tr>
         
-        <td width="80px">${t.comId }</td>               
-        <td width="150px"><u style="cursor:pointer" class="text-primary" onclick="">${t.comName}</u></td>
-         <td width="100px">${t.comLinkman}</td>
-        <td width="100px">${t.comAddress}</td>
-        <td width="100px">${t.comPhone }</td> 
-        <td width="100px">
+        <td width="4%">${t.comId }</td>               
+        <td width="4%"><u style="cursor:pointer" class="text-primary" onclick="">${t.comName}</u></td>
+         <td width="4%">${t.comLinkman}</td>
+        <td width="4%">${t.comAddress}</td>
+        <td width="4%">${t.comPhone }</td> 
+        <td width="4%">
         ${t.comBank=='1' ? "招商银行":"" }
 		${t.comBank=='2' ? "中国银行":"" }
 		${t.comBank=='3' ? "建设银行":"" }
 		${t.comBank=='4' ? "邮政银行":"" }
 		${t.comBank=='5' ? "平安银行":"" }	
         </td>   
-        <td width="100px">${t.comRemark }</td>    
-        <td width="180px"><fmt:formatDate value="${t.lastTime}" pattern="yyyy-MM-dd" /></td>
-        <td class="td-manage"> 
+        <td width="4%">${t.comRemark }</td>    
+        <td width="4%"><fmt:formatDate value="${t.lastTime}" pattern="yyyy-MM-dd" /></td>
+        <td width="5%"><a href="javascript:"  class="member_show"  onclick="jia(${t.comId })">查看详情</a></td>
+        <td class="td-manage" width="5%">
         <a title="编辑" onclick="Competence_modify('560')" href='update.do?comId=${t.comId}'  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
         <a title="删除" href='del.do?comId=${t.comId}' onclick="Competence_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
+		 </td>
 		</tr>
     </c:forEach>											
 		      </tbody>
-	        </table>
+	        </table>      
      </div>
  </div>
+ 
 
   
  <!--添加用户图层--> 
+ <div class="add_menber" id="add_menber_style" style="display:none">
  <form action="goadde.do" method="post"  onsubmit=" return t()">
-<div class="add_menber" id="add_menber_style" style="display:none">
+
     <ul class=" page-content">
-     <li><label class="label_name">公司名称：</label><span class="add_name"><input value="" id="comName" name="comName" type="text"  class="text_add" placeholder="必填"/><input type="hidden" name="comId"></span><div class="prompt r_f"></div></li>
-      <li><label class="label_name">公司代码：</label><span class="add_name"><input id="comCode" name="comCode" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">公司邮箱：</label><span class="add_name"><input id="comEmail" name="comEmail" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-      <li><label class="label_name">联系人：</label><span class="add_name"><input id="comLinkman" name="comLinkman" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-   	 <li><label class="label_name">公司地址：</label><span class="add_name"><input id="comAddress" name="comAddress" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">固定电话：</label><span class="add_name"><input id="comPhone" name="comPhone" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">移动电话：</label><span class="add_name"><input  id="comYphone" name="comYphone" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">传真：</label><span class="add_name"><input  id="comFax" name="comFax" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">公司名称：</label><span class="add_name"><input  name="comName" type="text"  class="text_add" placeholder="必填"/><input type="hidden" name="comId"></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">公司代码：</label><span class="add_name"><input  name="comCode" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">公司邮箱：</label><span class="add_name"><input  name="comEmail" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">联系人：</label><span class="add_name"><input  name="comLinkman" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+   	 <li><label class="label_name">公司地址：</label><span class="add_name"><input  name="comAddress" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">固定电话：</label><span class="add_name"><input  name="comPhone" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">移动电话：</label><span class="add_name"><input   name="comYphone" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">传真：</label><span class="add_name"><input  name="comFax" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
       <li><label class="label_name">开户银行：</label><span class="add_name">
        <select   name="comBank"  style="width: 170px;color:green;">
       <option value="0">请选择--</option>
@@ -123,10 +139,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <li><label class="label_name">备注信息：</label><span class="add_name"><input name="comRemark" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
     
     </ul>
-    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="添加"><br/><br/><br/><br/>
- </div>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="添加"/><br/><br/><br/><br/></div>
   </form>
-  
+  </div>
+   <!-- 查看详情 -->
+ <div class="add_menber" id="show_menber_style" style="display:none"> 
+    <ul class=" page-content">
+     <li><label class="label_name">公司名称：</label><span class="add_name"><input  type="text" readonly="readonly" id="comName" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">公司代码：</label><span class="add_name"><input  type="text" readonly="readonly" id="comCode" class="text_add"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">公司邮箱：</label><span class="add_name"><input readonly="readonly" type="text" id="comEmail" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">联系人：</label><span class="add_name"><input readonly="readonly" type="text" id="comLinkman" class="text_add"/></span><div class="prompt r_f"></div></li>
+        <li><label class="label_name">公司地址：</label><span class="add_name"><input  type="text" readonly="readonly" id="comAddress" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">固定电话：</label><span class="add_name"><input  type="text" readonly="readonly" id="comPhone" class="text_add"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">移动电话：</label><span class="add_name"><input readonly="readonly" type="text" id="comYphone" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">传真：</label><span class="add_name"><input readonly="readonly" type="text"  id="comFax" class="text_add"/></span><div class="prompt r_f"></div></li>
+        <li><label class="label_name">开户银行：</label><span class="add_name"><input  type="text" readonly="readonly" id="comBank" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">银行账户：</label><span class="add_name"><input  type="text" readonly="readonly" id="comBankuser" class="text_add"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">是否有效：</label><span class="add_name"><input readonly="readonly" type="text" id="comYesandno" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">备注信息：</label><span class="add_name"><input readonly="readonly" type="text" id="comRemark" class="text_add"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">修改时间：</label><span class="add_name"><input readonly="readonly" type="text" id="lastTime" class="text_add"/></span><div class="prompt r_f"></div></li>
+   </ul>
+ </div> 
 </body>
 </html>
 <script>
@@ -201,74 +234,78 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         area : ['800px' , ''],
         content:$('#add_menber_style'),
 		
-		yes:function(index,layero){	
-		 var num=0;
-		 var str="";
-     $(".add_menber input[type$='text']").each(function(n){
-          if($(this).val()=="")
-          {
-               
-			   layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
-                title: '提示框',				
-				icon:0,								
-          }); 
-		    num++;
-            return false;            
-          } 
-		 });
-		  if(num>0){  return false;}	 	
-          else{
-			  layer.alert('添加成功！',{
-               title: '提示框',				
-			icon:1,		
-			  });
-			   layer.close(index);	
-		  }		  		     				
-		}
     });
 });
 
- /*权限-删除*/
-function Competence_del(obj,id){
-	layer.confirm('确认要删除吗？',function(index){
-		$(obj).parents("tr").remove();
-		layer.msg('已删除!',{icon:1,time:1000});
-	});
-}
-/*修改权限*/
-function Competence_del(id){
-		window.location.href ="Competence.html?="+id;
-};	
-/*字数限制*/
-function checkLength(which) {
-	var maxChars = 200; //
-	if(which.value.length > maxChars){
-	   layer.open({
-	   icon:2,
-	   title:'提示框',
-	   content:'您出入的字数超多限制!',	
-    });
-		// 超过限制的字数了就将 文本框中的内容按规定的字数 截取
-		which.value = which.value.substring(0,maxChars);
-		return false;
-	}else{
-		var curr = maxChars - which.value.length; //250 减去 当前输入的
-		document.getElementById("sy").innerHTML = curr.toString();
-		return true;
-	}
-};
-//面包屑返回值
-var index = parent.layer.getFrameIndex(window.name);
-parent.layer.iframeAuto(index);
-$('.Order_form ,#Competence_add').on('click', function(){
-	var cname = $(this).attr("title");
-	var cnames = parent.$('.Current_page').html();
-	var herf = parent.$("#iframe").attr("src");
-    parent.$('#parentIframe span').html(cname);
-	parent.$('#parentIframe').css("display","inline-block");
-    parent.$('.Current_page').attr("name",herf).css({"color":"#4c8fbd","cursor":"pointer"});
-	//parent.$('.Current_page').html("<a href='javascript:void(0)' name="+herf+">" + cnames + "</a>");
-    parent.layer.close(index);
-	
+$('.member_show').on('click', function(){
+    layer.open({
+      type: 1,
+      title: '详细信息',
+      area: ['800px', ''],
+      shadeClose: true, //点击遮罩关闭
+      maxmin: true, 
+      content:$('#show_menber_style')
+     })
 });
+ 
+function jia(dutId)
+    {
+        var url='detail.do?dutId='+dutId;
+   //ajax异步请求
+   $.ajax
+   ({
+      type:"post",
+      url:url,
+      dataType:"json",
+      success:function(data)
+      {
+       	 $("#comName").val(data.comName);
+         $("#comCode").val(data.comCode);//将取出的值覆盖原来的值 （val对值进行操作)
+         $("#comEmail").val(data.comEmail);
+         $("#comLinkman").val(data.comLinkman); 
+          $("#comAddress").val(data.comAddress);
+         $("#comPhone").val(data.comPhone);//将取出的值覆盖原来的值 （val对值进行操作)
+         $("#comYphone").val(data.comYphone);
+         $("#comFax").val(data.comFax); 
+          $("#comBankuser").val(data.comBankuser);
+         $("#comYesandno").val(data.comYesandno);//将取出的值覆盖原来的值 （val对值进行操作)
+         $("#comBank").val(data.comBank);
+         $("#comRemark").val(data.comRemark);
+          $("#lastTime").val(data.lastTime);   
+           
+      }
+    });   
+    } 
+</script>
+<script type="text/javascript">
+jQuery(function($) {
+		var oTable1 = $('#sample-table').dataTable( {
+		"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+		"bStateSave": true,//状态保存
+		"aoColumnDefs": [
+		  {"orderable":false,"aTargets":[0,2,3,4,5,6,7,8,9]}// 制定列不参与排序
+		] } );
+				$('table th input:checkbox').on('click' , function(){
+					var that = this;
+					$(this).closest('table').find('tr > td:first-child input:checkbox')
+					.each(function(){
+						this.checked = that.checked;
+						$(this).closest('tr').toggleClass('selected');
+					});
+						
+				});	
+				$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
+				function tooltip_placement(context, source) {
+					var $source = $(source);
+					var $parent = $source.closest('table')
+					var off1 = $parent.offset();
+					var w1 = $parent.width();
+			
+					var off2 = $source.offset();
+					var w2 = $source.width();
+			
+					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
+					return 'left';
+				}
+			})
 </script>

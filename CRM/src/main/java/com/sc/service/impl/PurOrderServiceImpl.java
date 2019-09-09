@@ -42,8 +42,9 @@ public class PurOrderServiceImpl implements PurOrderService {
 
 	@Override
 	public void delinfo(Long purnumber) {
-		// TODO Auto-generated method stub
-
+		if(purnumber!=null){
+			purordermapper.deleteByPrimaryKey(purnumber);
+			}
 	}
 
 	@Override
