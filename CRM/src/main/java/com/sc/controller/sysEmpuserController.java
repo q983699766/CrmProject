@@ -65,12 +65,7 @@ public class sysEmpuserController {
 		mav.setViewName("gongsi/eui3");
 		return mav;
 	}
-	@RequestMapping("/detail.do")
-	@ResponseBody
-	public SysEmpuser detail(ModelAndView mav,Long dutId) {
-		System.out.println("来了11111111！"+dutId);
-		return  sysEmpuserService.updateSysEmpuser(dutId);
-	}
+
 	@RequestMapping("/update.do")
 	public ModelAndView update(ModelAndView mav, MultipartFile files, HttpServletRequest req, SysEmpuser u)
 			throws IllegalStateException, IOException {
@@ -112,7 +107,6 @@ public class sysEmpuserController {
 		mav.setViewName("redirect:list.do");
 		return mav;
 	}
-
 	// 下载
 	@RequestMapping("/xz.do")
 	public ResponseEntity<byte[]> download(HttpServletRequest req,String empPrice) throws IOException {
@@ -123,9 +117,13 @@ public class sysEmpuserController {
 		String down = new String(empPrice.getBytes("utf-8"), "iso-8859-1");
 		headers.setContentDispositionFormData("attachment", down);
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-
 		return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
-
+	}
+	@RequestMapping("/detail.do")
+	@ResponseBody
+	public SysEmpuser detail(Long empId) {
+		System.out.println("来了11111111！"+empId);
+		return  sysEmpuserService.updateSysEmpuser(empId);
 	}
 	
 }
