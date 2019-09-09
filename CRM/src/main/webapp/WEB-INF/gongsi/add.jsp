@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td width="10%"><a href="javascript:"  class="member_show"  onclick="jia(${u.secId})">查看详情</a></td>
 				<td>
                  <a title="编辑" onclick="Competence_modify('560')" href='selectBranch.do?secId=${u.secId}'  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
-                 <a title="删除" href='delBranch.do?secId=${u.secId}'  onclick="Competence_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
+                 <a title="删除" href='delBranch.do?secId=${u.secId}'  class="btn btn-xs btn-warning"  onclick="return window.confirm('是否确定删除此用户?')"><i class="fa fa-trash  bigger-120"></i></a>
 				</td>
 			   </tr>
 			   </c:forEach>												

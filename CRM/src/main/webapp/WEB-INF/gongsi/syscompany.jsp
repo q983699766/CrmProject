@@ -58,39 +58,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        
      </div>
      <div class="compete_list">
-       <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+       <table id="sample-table" class="table table-striped table-bordered table-hover" >
 		 <thead>
 			<tr>
-				<th width="80px">公司编号</th>
-				<th width="80px">公司名称</th>
-				<th width="80px">联系人</th>
-				<th width="80px">公司地址</th> 
-				<th width="80px">公司电话</th>
-				<th width="80px">开户银行</th>
-				<th width="80px">备注信息</th>
-				<th width="80px">修改时间</th>
-				<th width="20px">详细信息</th>    
-				<th width="10%">操作</th>
+				<th width="4%">公司编号</th>
+				<th width="4%">公司名称</th>
+				<th width="4%">联系人</th>
+				<th width="4%">公司地址</th> 
+				<th width="4%">公司电话</th>
+				<th width="4%">开户银行</th>
+				<th width="4%">备注信息</th>
+				<th width="4%">修改时间</th>
+				<th width="4%">详细信息</th>    
+				<th width="20%">操作</th>
              </tr>
 		    </thead>
              <tbody>
       	<c:forEach items="${selectComoany }" var="t" >
      <tr>
         
-        <td width="80px">${t.comId }</td>               
-        <td width="150px"><u style="cursor:pointer" class="text-primary" onclick="">${t.comName}</u></td>
-         <td width="100px">${t.comLinkman}</td>
-        <td width="100px">${t.comAddress}</td>
-        <td width="100px">${t.comPhone }</td> 
-        <td width="100px">
+        <td width="4%">${t.comId }</td>               
+        <td width="4%"><u style="cursor:pointer" class="text-primary" onclick="">${t.comName}</u></td>
+         <td width="4%">${t.comLinkman}</td>
+        <td width="4%">${t.comAddress}</td>
+        <td width="4%">${t.comPhone }</td> 
+        <td width="4%">
         ${t.comBank=='1' ? "招商银行":"" }
 		${t.comBank=='2' ? "中国银行":"" }
 		${t.comBank=='3' ? "建设银行":"" }
 		${t.comBank=='4' ? "邮政银行":"" }
 		${t.comBank=='5' ? "平安银行":"" }	
         </td>   
-        <td width="100px">${t.comRemark }</td>    
-        <td width="100px"><fmt:formatDate value="${t.lastTime}" pattern="yyyy-MM-dd" /></td>
+        <td width="4%">${t.comRemark }</td>    
+        <td width="4%"><fmt:formatDate value="${t.lastTime}" pattern="yyyy-MM-dd" /></td>
         <td width="5%"><a href="javascript:"  class="member_show"  onclick="jia(${t.comId })">查看详情</a></td>
         <td class="td-manage" width="5%">
         <a title="编辑" onclick="Competence_modify('560')" href='update.do?comId=${t.comId}'  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
@@ -99,9 +99,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</tr>
     </c:forEach>											
 		      </tbody>
-	        </table>
+	        </table>      
      </div>
  </div>
+ 
 
   
  <!--添加用户图层--> 
@@ -275,4 +276,36 @@ function jia(dutId)
       }
     });   
     } 
+</script>
+<script type="text/javascript">
+jQuery(function($) {
+		var oTable1 = $('#sample-table').dataTable( {
+		"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+		"bStateSave": true,//状态保存
+		"aoColumnDefs": [
+		  {"orderable":false,"aTargets":[0,2,3,4,5,6,7,8,9]}// 制定列不参与排序
+		] } );
+				$('table th input:checkbox').on('click' , function(){
+					var that = this;
+					$(this).closest('table').find('tr > td:first-child input:checkbox')
+					.each(function(){
+						this.checked = that.checked;
+						$(this).closest('tr').toggleClass('selected');
+					});
+						
+				});	
+				$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
+				function tooltip_placement(context, source) {
+					var $source = $(source);
+					var $parent = $source.closest('table')
+					var off1 = $parent.offset();
+					var w1 = $parent.width();
+			
+					var off2 = $source.offset();
+					var w2 = $source.width();
+			
+					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
+					return 'left';
+				}
+			})
 </script>
