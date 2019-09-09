@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sc.bean.SysBranch;
@@ -65,6 +66,15 @@ public class sysDutyController {
 		mav.setViewName("gongsi/eui");
 		return mav;
 	}
+	
+	//查询要修改的信息
+	@RequestMapping("/detail.do")
+	@ResponseBody
+	public SysDuty detail(ModelAndView mav,Long dutId) {
+		System.out.println("来了四弟111！"+dutId);
+		return sysDutyService.update(dutId);
+	}
+	
 	//修改信息
 	@RequestMapping("/upadtee.do")
 	public ModelAndView upadtee(ModelAndView mav,SysDuty u) {
