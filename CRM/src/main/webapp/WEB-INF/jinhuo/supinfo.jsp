@@ -387,7 +387,6 @@ function member_show(title,url,id,w,h){
 		shadeClose: true, //点击遮罩关闭层
         area : ['800px' , ''],
         content:$('#show_menber_style'),
-		
 		yes:function(index,layero){	
 		 var num=0;
 		 var str="";

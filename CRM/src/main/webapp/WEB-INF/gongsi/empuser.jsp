@@ -68,9 +68,9 @@
 				<th width="8%">联系方式</th>
 				<th width="8%">职务编号</th>
 				<th width="5%">审核状态</th>
-				<th width="8%">备注信息</th>
 				<th width="5%">公司编号</th>
-				<th width="5%">修改时间</th> 
+				<th width="5%">修改时间</th>
+				<th width="5%">详细信息</th>  
 				<th width="8%">操作</th>
 			</tr>
 		</thead>
@@ -105,7 +105,6 @@
          ${t.empSysstate=='1' ? "审核通过":"" }
          ${t.empSysstate=='2' ? "审核失败":"" }
          </td> 
-         <td width="5%">${t.empRemark }</td> 
          <td width="5%">
        
          ${t.comId=='1' ? "小管有限公司":"" }
@@ -117,8 +116,8 @@
          ${t.comId=='14' ? "小刘有限公司":"" }
          ${t.comId=='15' ? "小万有限公司":"" }
          </td> 
-        <td width="8%"><fmt:formatDate value="${t.lastTime}" pattern="yyyy-MM-dd" /></td>
-        </td>
+        <td width="6%"><fmt:formatDate value="${t.lastTime}" pattern="yyyy-MM-dd" /></td>
+        <td width="5%"><a href="javascript:" class="member_show"  onclick="look(${t.empId });">查看详情</a></td>
         <td class="td-manage">
         <a title="编辑"  href='sysEmpuser/selectEmpuser.do?empId=${ t.empId}'  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
         <a title="删除" href='sysEmpuser/delEmpuser.do?empId=${t.empId}' class="btn btn-xs btn-warning" onclick="return window.confirm('是否确定删除此用户?')"><i class="icon-trash  bigger-120"></i></a>
@@ -129,18 +128,22 @@
     </table>
     </div>     
   </div>
- </div>
  <!--添加用户图层--> 
- <form action="sysEmpuser/add.do" method="post" enctype="multipart/form-data">
-<div class="add_menber" id="add_menber_style" style="display:none">
-  
+ <div class="add_menber" id="add_menber_style" style="display:none">
+ <form action="sysEmpuser/add.do" method="post" enctype="multipart/form-data" onsubmit="return t()">
     <ul class=" page-content">
-     <li><label class="label_name">员工姓名：</label><span class="add_name"><input  type="hidden" name="empId" ><input value="" name="empName" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">员工性别：</label><span class="add_name"><input name="empSix" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-  	 <li><label class="label_name">员工照片：</label><span class="add_name"><input value="" name="files" type="file"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-  	 <li><label class="label_name">身份证号：</label><span class="add_name"><input value="" name="empNumber" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-  	 <li><label class="label_name">家乡地址：</label><span class="add_name"><input value="" name="empAddress" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-  	 <li><label class="label_name">现在地址：</label><span class="add_name"><input value="" name="empTadayadd" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">员工姓名：</label><span class="add_name"><input  type="hidden" name="empId" ><input id="empName1" name="empName" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">员工性别：</label><span class="add_name">
+     <select  name="empSix" id="empSix1" style="width: 170px;color:green;">
+                  <option value="0">请选择--</option>
+    			<option value="1">男</option>
+    			  <option value="2">女</option>
+ 				 </select>
+     </span><div class="prompt r_f"></div></li>
+  	 <li><label class="label_name">员工照片：</label><span class="add_name"><input id="files1" name="files" type="file"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+  	 <li><label class="label_name">身份证号：</label><span class="add_name"><input id="empNumber1" name="empNumber" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+  	 <li><label class="label_name">家乡地址：</label><span class="add_name"><input id="empAddress1"  name="empAddress" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+  	 <li><label class="label_name">现在地址：</label><span class="add_name"><input   name="empTadayadd" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
   	 <li><label class="label_name">员工学历：</label><span class="add_name">
   	  <select   name="empEduca"  style="width: 170px;color:green;">
       <option value="0">请选择--</option>
@@ -151,11 +154,11 @@
       <option value="5">硕士/博士</option>
       </select>
   	 </span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">政治面貌：</label><span class="add_name"><input value="" name="empFace" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-  	 <li><label class="label_name">毕业学校：</label><span class="add_name"><input value="" name="empSchool" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-  	 <li><label class="label_name">联系电话：</label><span class="add_name"><input value="" name="empPhone" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-  	 <li><label class="label_name">网上联系方式：</label><span class="add_name"><input value="" name="empMeshphone" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-  	 <li><label class="label_name">网上联系详情：</label><span class="add_name"><input value="" name="empContact" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">政治面貌：</label><span class="add_name"><input id="empFace1"   name="empFace" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+  	 <li><label class="label_name">毕业学校：</label><span class="add_name"><input id="empSchool1"  name="empSchool" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+  	 <li><label class="label_name">联系电话：</label><span class="add_name"><input   id="empPhone1" name="empPhone" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+  	 <li><label class="label_name">网上联系方式：</label><span class="add_name"><input name="empMeshphone" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+  	 <li><label class="label_name">网上联系详情：</label><span class="add_name"><input  name="empContact" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
   	 <li><label class="label_name">审核状态：</label><span class="add_name">
   	  <select   name="empState"  style="width: 170px;color:green;">
       <option value="0">请选择--</option>
@@ -187,24 +190,173 @@
     			  </c:forEach>
  				 </select>
   	 </span><div class="prompt r_f"></div></li>
-  	
     </ul>
-    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="添加"><br/><br/><br/><br/>
+    <div class="center"><input class="btn btn-primary" type="submit" id="submit" value="添加"><br/><br/><br/><br/> </div>
+ </form>
  </div>
-  </form>
+     <!-- 查看详情 -->
+ <div class="add_menber" id="show_menber_style" style="display:none"> 
+    <ul class=" page-content">
+     <li><label class="label_name">员工姓名：</label><span class="add_name"><input  type="text" readonly="readonly" id="empName" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">员工性别：</label><span class="add_name"><input  type="text" readonly="readonly" id="empSix"  class="text_add"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">员工照片：</label><span class="add_name"><input readonly="readonly" type="text" id="empPrice" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">身份证号：</label><span class="add_name"><input readonly="readonly" type="text" id="empNumber" class="text_add"/></span><div class="prompt r_f"></div></li>
+        <li><label class="label_name">家庭住址：</label><span class="add_name"><input  type="text" readonly="readonly" id="empAddress" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">现在地址：</label><span class="add_name"><input  type="text" readonly="readonly" id="empTadayadd" class="text_add"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">员工学历：</label><span class="add_name"><input readonly="readonly" type="text" id="empEduca" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">政治面貌：</label><span class="add_name"><input readonly="readonly" type="text"  id="empFace" class="text_add"/></span><div class="prompt r_f"></div></li>
+        <li><label class="label_name">毕业学校：</label><span class="add_name"><input  type="text" readonly="readonly" id="empSchool" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">联系电话：</label><span class="add_name"><input  type="text" readonly="readonly" id="empPhone" class="text_add"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">网上联系方式：</label><span class="add_name"><input readonly="readonly" type="text" id="empMeshphone" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">网上联系详情：</label><span class="add_name"><input readonly="readonly" type="text" id="empContact" class="text_add"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">审核状态：</label><span class="add_name"><input readonly="readonly" type="text" id="empState" class="text_add"/></span><div class="prompt r_f"></div></li>
+        <li><label class="label_name">职务编号：</label><span class="add_name"><input  type="text" readonly="readonly" id="dutId" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">员工状态：</label><span class="add_name"><input  type="text" readonly="readonly" id="empSysstate" class="text_add"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">备注信息：</label><span class="add_name"><input readonly="readonly" type="text" id="empRemark" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">公司编号：</label><span class="add_name"><input readonly="readonly" type="text" id="comId" class="text_add"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">修改时间：</label><span class="add_name"><input readonly="readonly" type="text" id="lastTime" class="text_add"/></span><div class="prompt r_f"></div></li>
+   
+   </ul>
+   </div>
 </body>
 </html>
 <script>
+	function t(){
+		var empName = document.getElementById("empName1").value;
+		var empSix = document.getElementById("empSix1").value;
+		var files = document.getElementById("files1").value;
+		var empNumber = document.getElementById("empNumber1").value;
+		var empAddress = document.getElementById("empAddress1").value;
+		var empFace = document.getElementById("empFace1").value;
+		var empSchool = document.getElementById("empSchool1").value;
+		var empPhone = document.getElementById("empPhone1").value;
+		if (empName==""){
+			  layer.alert('员工姓名不能为空!',{
+              title: '提示框',				
+				icon:0, 
+			 });
+			return false;
+          } 
+         if (empSix=="0"){
+			  layer.alert('员工性别不能为空!',{
+              title: '提示框',				
+				icon:0, 
+			 });
+			return false;
+          } 
+          if (files==""){
+			  layer.alert('员工照片不能为空!',{
+              title: '提示框',				
+				icon:0, 
+			 });
+			return false;
+          } 
+           if (empNumber==""){
+			  layer.alert('身份证号不能为空!',{
+              title: '提示框',				
+				icon:0, 
+			 });
+			return false;
+          } 
+            if (empAddress==""){
+			  layer.alert('家庭地址不能为空!',{
+              title: '提示框',				
+				icon:0, 
+			 });
+			return false;
+          } 
+             if (empFace==""){
+			  layer.alert('政治面貌不能为空!',{
+              title: '提示框',				
+				icon:0, 
+			 });
+			return false;
+          } 
+             if (empSchool==""){
+			  layer.alert('毕业院校不能为空!',{
+              title: '提示框',				
+				icon:0, 
+			 });
+			return false;
+          } 
+             if (empPhone==""){
+			  layer.alert('员工电话不能为空!',{
+              title: '提示框',				
+				icon:0, 
+			 });
+			return false;
+          } 
+          }
+</script>
+<script type="text/javascript">
+/*用户-添加*/
+ $('#member_add').on('click', function(){
+    layer.open({
+        type: 1,
+        title: '添加公司',
+		maxmin: true, 
+		shadeClose: true, //点击遮罩关闭层
+        area : ['800px' , ''],
+        content:$('#add_menber_style'),
+		
+    });
+});
+
+$('.member_show').on('click', function(){
+    layer.open({
+      type: 1,
+      title: '详细信息',
+      area: ['800px', ''],
+      shadeClose: true, //点击遮罩关闭
+      maxmin: true, 
+      content:$('#show_menber_style')
+     })
+});
+ 
+function look(empId)
+    {
+    var url='sysEmpuser/detail.do?empId='+empId;
+   //ajax异步请求
+   $.ajax
+   ({
+      type:"post",
+      url:url,
+      dataType:"json",
+      success:function(data)
+      {
+       	 $("#empName").val(data.empName);
+         $("#empSix").val(data.empSix);//将取出的值覆盖原来的值 （val对值进行操作)
+         $("#empPrice").val(data.empPrice);
+         $("#empNumber").val(data.empNumber); 
+          $("#empAddress").val(data.empAddress);
+         $("#empTadayadd").val(data.empTadayadd);//将取出的值覆盖原来的值 （val对值进行操作)
+         $("#empEduca").val(data.empEduca);
+         $("#empContact").val(data.empContact);
+         $("#empFace").val(data.empFace); 
+          $("#empSchool").val(data.empSchool);
+         $("#empPhone").val(data.empPhone);//将取出的值覆盖原来的值 （val对值进行操作)
+         $("#empMeshphone").val(data.empMeshphone);
+         $("#empState").val(data.empState);
+         $("#dutId").val(data.dutId);
+         $("#empSysstate").val(data.empSysstate);//将取出的值覆盖原来的值 （val对值进行操作)
+         $("#empRemark").val(data.empRemark);
+         $("#comId").val(data.comId);
+          $("#lastTime").val(data.lastTime);   
+           
+      }
+    });   
+    } 
+
+</script>
+<script type="text/javascript">
 jQuery(function($) {
 		var oTable1 = $('#sample-table').dataTable( {
 		"aaSorting": [[ 1, "desc" ]],//默认第几个排序
 		"bStateSave": true,//状态保存
 		"aoColumnDefs": [
 		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-		  {"orderable":false,"aTargets":[0,2,3,4,5,8,9]}// 制定列不参与排序
+		  {"orderable":false,"aTargets":[0,2,3,4,5,6,7,8,9]}// 制定列不参与排序
 		] } );
-				
-				
 				$('table th input:checkbox').on('click' , function(){
 					var that = this;
 					$(this).closest('table').find('tr > td:first-child input:checkbox')
@@ -213,9 +365,7 @@ jQuery(function($) {
 						$(this).closest('tr').toggleClass('selected');
 					});
 						
-				});
-			
-			
+				});	
 				$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
 				function tooltip_placement(context, source) {
 					var $source = $(source);
@@ -229,179 +379,5 @@ jQuery(function($) {
 					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
 					return 'left';
 				}
-			});
- laydate({
-    elem: '#start',
-    event: 'focus' 
-});
-$(function() { 
-	$("#products_style").fix({
-		float : 'left',
-		//minStatue : true,
-		skin : 'green',	
-		durationTime :false,
-		spacingw:30,//设置隐藏时的距离
-	    spacingh:260,//设置显示时间距
-	});
-});
-</script>
-<script type="text/javascript">
-//初始化宽度、高度  
- $(".widget-box").height($(window).height()-215); 
-$(".table_menu_list").width($(window).width()-260);
- $(".table_menu_list").height($(window).height()-215);
-  //当文档窗口发生改变时 触发  
-    $(window).resize(function(){
-	$(".widget-box").height($(window).height()-215);
-	 $(".table_menu_list").width($(window).width()-260);
-	  $(".table_menu_list").height($(window).height()-215);
-	})
- 
-/*******树状图*******/
-var setting = {
-	view: {
-		dblClickExpand: false,
-		showLine: false,
-		selectedMulti: false
-	},
-	data: {
-		simpleData: {
-			enable:true,
-			idKey: "id",
-			pIdKey: "pId",
-			rootPId: ""
-		}
-	},
-	callback: {
-		beforeClick: function(treeId, treeNode) {
-			var zTree = $.fn.zTree.getZTreeObj("tree");
-			if (treeNode.isParent) {
-				zTree.expandNode(treeNode);
-				return false;
-			} else {
-				demoIframe.attr("src",treeNode.file + ".html");
-				return true;
-			}
-		}
-	}
-};	
-var code;
-		
-function showCode(str) {
-	if (!code) code = $("#code");
-	code.empty();
-	code.append("<li>"+str+"</li>");
-}
-		
-$(document).ready(function(){
-	var t = $("#treeDemo");
-	t = $.fn.zTree.init(t, setting, zNodes);
-	demoIframe = $("#testIframe");
-	demoIframe.bind("load", loadReady);
-	var zTree = $.fn.zTree.getZTreeObj("tree");
-	zTree.selectNode(zTree.getNodeByParam("id",'11'));
-});	
-
-/*产品-编辑*/
-function member_edit(title,url,id,w,h){
-	layer_show(title,url,w,h);
-}
-
-//面包屑返回值
-var index = parent.layer.getFrameIndex(window.name);
-parent.layer.iframeAuto(index);
-$('.Order_form').on('click', function(){
-	var cname = $(this).attr("title");
-	var chref = $(this).attr("href");
-	var cnames = parent.$('.Current_page').html();
-	var herf = parent.$("#iframe").attr("src");
-    parent.$('#parentIframe').html(cname);
-    parent.$('#iframe').attr("src",chref).ready();;
-	parent.$('#parentIframe').css("display","inline-block");
-	parent.$('.Current_page').attr({"name":herf,"href":"javascript:void(0)"}).css({"color":"#4c8fbd","cursor":"pointer"});
-	//parent.$('.Current_page').html("<a href='javascript:void(0)' name="+herf+" class='iframeurl'>" + cnames + "</a>");
-    parent.layer.close(index);
-	
-});
-</script>
-<script type="text/javascript">
-/*用户-添加*/
- $('#member_add').on('click', function(){
-    layer.open({
-        type: 1,
-        title: '添加员工信息',
-		maxmin: true, 
-		shadeClose: true, //点击遮罩关闭层
-        area : ['800px' , ''],
-        content:$('#add_menber_style'),
-		
-		yes:function(index,layero){	
-		 var num=0;
-		 var str="";
-     $(".add_menber input[type$='text']").each(function(n){
-          if($(this).val()=="")
-          {
-			 layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
-             title: '提示框',				
-			icon:0,								
-          }); 
-		    num++;
-            return false;            
-          } 
-		 });
-		  if(num>0){  return false;}	 	
-          else{
-			  layer.alert('添加成功！',{
-               title: '提示框',				
-			icon:1,		
-			  });
-			   layer.close(index);	
-		  }		  		     				
-		}
-    });
-});
-
- /*权限-删除*/
-function Competence_del(obj,id){
-	layer.confirm('确认要删除吗？',function(index){
-		$(obj).parents("tr").remove();
-		layer.msg('已删除!',{icon:1,time:1000});
-	});
-}
-/*修改权限*/
-function Competence_del(id){
-		window.location.href ="Competence.html?="+id;
-};	
-/*字数限制*/
-function checkLength(which) {
-	var maxChars = 200; //
-	if(which.value.length > maxChars){
-	   layer.open({
-	   icon:2,
-	   title:'提示框',
-	   content:'您出入的字数超多限制!',	
-    });
-		// 超过限制的字数了就将 文本框中的内容按规定的字数 截取
-		which.value = which.value.substring(0,maxChars);
-		return false;
-	}else{
-		var curr = maxChars - which.value.length; //250 减去 当前输入的
-		document.getElementById("sy").innerHTML = curr.toString();
-		return true;
-	}
-};
-//面包屑返回值
-var index = parent.layer.getFrameIndex(window.name);
-parent.layer.iframeAuto(index);
-$('.Order_form ,#Competence_add').on('click', function(){
-	var cname = $(this).attr("title");
-	var cnames = parent.$('.Current_page').html();
-	var herf = parent.$("#iframe").attr("src");
-    parent.$('#parentIframe span').html(cname);
-	parent.$('#parentIframe').css("display","inline-block");
-    parent.$('.Current_page').attr("name",herf).css({"color":"#4c8fbd","cursor":"pointer"});
-	//parent.$('.Current_page').html("<a href='javascript:void(0)' name="+herf+">" + cnames + "</a>");
-    parent.layer.close(index);
-	
-});
+			})
 </script>
