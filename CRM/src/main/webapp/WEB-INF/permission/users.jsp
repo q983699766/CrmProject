@@ -22,9 +22,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
 		<![endif]-->
 		
-		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
-		<script src="../asset/js/area.js"></script>
-		<script src="../asset/js/select.js"></script>
+		
+		
+		<script src="../verSelector/asset/js/select.js"></script>
 		<script src="../verSelector/verSelect.js"></script>
 		
 		<script src="../js/jquery-1.9.1.min.js"></script>
@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  });
 	}
 	if(ok=="2"){
-			layer.alert('操作失败',{
+			layer.alert('用户名已存在，请重新操作！',{
                title: '提示框',				
 			   icon:2,		   		
 			  });
@@ -127,8 +127,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <li><label class="label_name">用户密码：</label><span class="add_name">&nbsp;&nbsp;&nbsp;●●●●●●<!-- <input  type="password" name="userPassword" id="userPassword" class="text_add"/> --></span><div class="prompt r_f"></div></li>
      
      <li><label class="label_name">员工编号：</label><span class="add_name"><input  type="text" name="empId" id="empIdx" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">公司编号：</label><span class="add_name"><input  type="text" name="comId" id="comIdx" class="text_add"/></span><div class="prompt r_f"></div></li><li><label class="label_name">用户角色：按住ctrl，点击多选</label><span class="add_name">
-     		&nbsp;&nbsp;&nbsp;&nbsp;<select id="rolesx" name="roleId" multiple="multiple">
+     <li><label class="label_name">公司编号：</label><span class="add_name"><input  type="text" name="comId" id="comIdx" class="text_add"/></span><div class="prompt r_f"></div></li><li><label class="label_name">用户角色：</label><span class="add_name">
+     		&nbsp;&nbsp;&nbsp;&nbsp;<select id="rolesx" name="roleId"  data-selector data-selector-checks="true">
                 <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
     </ul><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
@@ -166,6 +166,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </body>
 </html>
 <script>
+
+new verSelector();
+
 /* 添加用户判断 */
 function add(){
 		var pass4 = document.getElementById("uname").value;

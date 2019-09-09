@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  });
 	}
 	if(ok=="2"){
-			layer.alert('操作失败',{
+			layer.alert('操作失败,角色名已存在！',{
                title: '提示框',				
 			   icon:2,		   		
 			  });

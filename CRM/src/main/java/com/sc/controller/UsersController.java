@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sc.bean.SysRole;
 import com.sc.bean.SysUsers;
+import com.sc.bean.SysUsersExample;
+import com.sc.bean.SysUsersExample.Criteria;
 import com.sc.bean.SysUsersRole;
 import com.sc.mapper.SysRoleMapper;
 import com.sc.mapper.SysUsersMapper;
@@ -29,6 +31,9 @@ public class UsersController {
 	UsersService UsersService;
 	
 	@Autowired
+	SysUsersMapper SysUsersMapper;
+	
+	@Autowired
 	RolesService RolesService;
 	
 	@Autowired
@@ -37,14 +42,50 @@ public class UsersController {
 	@RequestMapping("/update.do")
 	public ModelAndView update111(ModelAndView mav, HttpSession session , HttpServletRequest req, SysUsers user, Long[] roleId){
 		
+		/*String uname = user.getUserName();
+		SysUsersExample sysUsersExample = new SysUsersExample();
+		Criteria c = sysUsersExample.createCriteria();
+		c.andUserNameEqualTo(uname);
+		
+		List<SysUsers> list3 = SysUsersMapper.selectByExample(sysUsersExample);
+		
+		if(list3.size() == 0){
+			Date date = new Date();
+			user.setLastTime(date);
+			
+			SysUsers u = (SysUsers)session.getAttribute("nowuser");
+			
+			Long uid = u.getUserId();
+			
+			UsersService.updateUserRole(user, roleId, uid);
+			mav.addObject("ok", "1");
+		}else if(list3.size() ==1){
+			if(list3.get(0).getUserId() == user.getUserId()){
+				Date date = new Date();
+				user.setLastTime(date);
+				
+				SysUsers u = (SysUsers)session.getAttribute("nowuser");
+				
+				Long uid = u.getUserId();
+				
+				UsersService.updateUserRole(user, roleId, uid);
+				mav.addObject("ok", "1");
+			}
+			mav.addObject("ok", "2");
+			
+		}else {
+			mav.addObject("ok", "2");
+		}*/
+		
 		Date date = new Date();
 		user.setLastTime(date);
 		
 		SysUsers u = (SysUsers)session.getAttribute("nowuser");
 		
 		Long uid = u.getUserId();
-		
+		System.out.println(roleId);
 		UsersService.updateUserRole(user, roleId, uid);
+		mav.addObject("ok", "1");
 		
 		List<SysUsers> list = UsersService.getUsersList();
 		
@@ -52,7 +93,6 @@ public class UsersController {
 		
 		mav.addObject("users", list);
 		mav.addObject("roles", list2);
-		mav.addObject("ok", "1");
 		mav.setViewName("permission/users");
 		return mav;
 	}
@@ -70,6 +110,15 @@ public class UsersController {
 	
 	@RequestMapping("/add.do")
 	public ModelAndView update(ModelAndView mav , HttpSession session, HttpServletRequest req, SysUsers user, Long[] roleId){
+		
+		String uname = user.getUserName();
+		SysUsersExample sysUsersExample = new SysUsersExample();
+		Criteria c = sysUsersExample.createCriteria();
+		c.andUserNameEqualTo(uname);
+		
+		List<SysUsers> list3 = SysUsersMapper.selectByExample(sysUsersExample);
+		
+		if(list3 == null){
 		
 		Date date = new Date();
 		user.setLastTime(date);
@@ -92,13 +141,17 @@ public class UsersController {
 		
 		SysUsersRoleMapper.insert(sysUsersRole);
 		}
+			mav.addObject("ok", "1");
+		}else{
+			mav.addObject("ok", "2");
+		}
 		List<SysUsers> list = UsersService.getUsersList();
 		
 		List<SysRole> list2 = RolesService.getRoleList();
 		
 		mav.addObject("users", list);
 		mav.addObject("roles", list2);
-		mav.addObject("ok", "1");
+		
 		mav.setViewName("permission/users");
 		return mav;
 	}

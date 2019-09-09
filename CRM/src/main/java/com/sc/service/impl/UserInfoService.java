@@ -1,5 +1,6 @@
 package com.sc.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -65,6 +66,8 @@ public class UserInfoService implements com.sc.service.UserInfoService{
 		String pass = m.toString();	
 		System.out.println(pass);
 		
+		Date date = new Date();
+		user.setLastTime(date);
 		user.setUserPassword(pass);
 		
 		SysUsers.updateByPrimaryKey(user);
