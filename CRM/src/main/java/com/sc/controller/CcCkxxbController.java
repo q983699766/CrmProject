@@ -1,14 +1,21 @@
 package com.sc.controller;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.pagehelper.PageInfo;
 import com.sc.bean.CcCkxxb;
+import com.sc.bean.Ccspxxb;
 import com.sc.service.CcCkxxbService;
 
 @Controller//注册成bean对象
@@ -61,5 +68,65 @@ public class CcCkxxbController {
 			return mav;
 		}
 		
+		//通过id查询
+		@RequestMapping("/select.do")
+		@ResponseBody
+		public CcCkxxb selectById(ModelAndView mav,HttpServletRequest req) throws IllegalStateException, IOException {
+			System.out.println("进入查看弹层页面");
+			String ckBh = req.getParameter("ckBh");		
+			
+			Long uid =(long) Integer.parseInt(ckBh);
+			System.out.println("获取到的用户编号为:"+uid);
+			CcCkxxb byUid = ccCkxxbService.selectCcCkxxbByUid(uid);
+			System.out.println("查出的用户为"+byUid);
+			return byUid;
+			
+		}
 		
+		//修改查询出来的信息
+		@RequestMapping("/updatecckcxx.do")			
+		public ModelAndView updatecckcxx(ModelAndView mav,
+				CcCkxxb u){ 
+			System.out.println("修改的的用户信息是："+u);
+			Date date = new Date();
+			u.setLastTime(date);
+			ccCkxxbService.updateCcCkxx(u);		
+			mav.setViewName("redirect:ck.do");
+			return mav;
+		}
+		
+		
+		//通过仓库id 查询属于该仓库的商品
+		@RequestMapping("/select1.do")
+		public ModelAndView select1(ModelAndView mav,HttpServletRequest req,
+				@RequestParam(defaultValue="1")Integer pageNum,
+				@RequestParam(defaultValue="5")Integer pageSize) throws IllegalStateException, IOException {
+			String ckBh = req.getParameter("ckBh");		
+			Long uid =(long) Integer.parseInt(ckBh);
+			System.out.println("获取到的用户编号为:"+uid);
+			CcCkxxb byUid = ccCkxxbService.selectCcCkxxbByUid(uid);
+			PageInfo<Ccspxxb> pi = ccCkxxbService.selectbyckidPage(pageNum, pageSize, byUid.getCkBh());//selectbyckid(byUid.getCkBh());
+			System.out.println("====="+pageSize);
+			System.out.println("111111"+pi);
+			byUid.setCcspxxb(pi.getList());
+			System.out.println("set之后的数据"+byUid);
+			mav.addObject("aa", byUid);
+			mav.setViewName("Ck/splb2");
+			return mav;
+		}
+		
+		//模糊查询
+		@RequestMapping("mh.do")
+		public ModelAndView selectmh(ModelAndView mav,
+				@RequestParam(defaultValue="1")Integer pageNum,
+				@RequestParam(defaultValue="5")Integer pageSize,CcCkxxb ccCkxxb){
+			
+			System.out.println("进入查询供应商信息方法"+ccCkxxb);
+		
+			mav.addObject("pi", ccCkxxbService.selectmh(pageNum, pageSize, ccCkxxb));
+			
+		    mav.setViewName("Ck/cclb");
+			
+		    return mav;
+		}
 }
