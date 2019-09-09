@@ -21,6 +21,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
 		<![endif]-->
+		
+		<script src="../verSelector/asset/js/select.js"></script>
+		<script src="../verSelector/verSelect.js"></script>
+		
 		<script src="../js/jquery-1.9.1.min.js"></script>
         <script src="../assets/js/bootstrap.min.js"></script>
 		<script src="../assets/js/typeahead-bs2.min.js"></script>           	
@@ -43,7 +47,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  });
 	}
 	if(ok=="2"){
-			layer.alert('操作失败',{
+			layer.alert('操作失败,权限名已存在！',{
+               title: '提示框',				
+			   icon:2,		   		
+			  });
+	}
+	if(ok=="3"){
+			layer.alert('操作失败,权限分栏名已存在！',{
                title: '提示框',				
 			   icon:2,		   		
 			  });
@@ -168,7 +178,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <li><label class="label_name">角色名称：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="role111" name="role">
                 <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">权限名称：按住ctrl，点击多选</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="perm111" name="perm" multiple="multiple">
+     <li><label class="label_name">权限名称：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="perm111" name="perm" data-selector data-selector-checks="true">
                 <c:forEach items="${perms}" var="p" ><option value="${p.permissionId }">${p.permissionName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
     </ul><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
@@ -190,6 +200,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </body>
 </html>
 <script>
+new verSelector();
+
 /* 添加权限 */
 function addperm(){
 		var pass1 = document.getElementById("permissionName111").value;

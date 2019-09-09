@@ -27,4 +27,6 @@ public interface OfficeSmsMapper {
     int updateByPrimaryKeySelective(OfficeSms record);
 
     int updateByPrimaryKey(OfficeSms record);
+    
+    public List<OfficeSms> selectall();
 }
