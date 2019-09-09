@@ -22,4 +22,7 @@ public interface CcSpxxService {
 	public void updateCcspxx(Ccspxxb u);
 	//商品模糊查询
 	public List<Ccspxxb> selectCcspxx(Ccspxxb ccspxx );
+	
+	
+	public List<Ccspxxb> selectByExamplel(Ccspxxb ccspxx);
 }

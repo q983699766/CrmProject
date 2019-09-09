@@ -29,4 +29,7 @@ public interface PurProductsMapper {
     int updateByPrimaryKeySelective(PurProducts record);
 
     int updateByPrimaryKey(PurProducts record);
+    
+    PurProducts selectByid(Long productid);
+    
 }

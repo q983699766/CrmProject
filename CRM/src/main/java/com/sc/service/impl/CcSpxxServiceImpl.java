@@ -70,5 +70,11 @@ public class CcSpxxServiceImpl implements CcSpxxService {
 		return ccspxxbMapper.selectByExample(ccspxx);
 	}
 
+	@Override
+	public List<Ccspxxb> selectByExamplel(Ccspxxb ccspxx) {
+		// TODO Auto-generated method stub
+		return ccspxxbMapper.selectByExamplel(ccspxx);
+	}
+
 	
 }
