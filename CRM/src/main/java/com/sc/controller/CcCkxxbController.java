@@ -94,7 +94,9 @@ public class CcCkxxbController {
 			mav.setViewName("redirect:ck.do");
 			return mav;
 		}
-		//通过仓库id查询商品信息
+		
+		
+		//通过仓库id 查询属于该仓库的商品
 		@RequestMapping("/select1.do")
 		public ModelAndView select1(ModelAndView mav,HttpServletRequest req,
 				@RequestParam(defaultValue="1")Integer pageNum,
@@ -113,5 +115,18 @@ public class CcCkxxbController {
 			return mav;
 		}
 		
+		//模糊查询
+		@RequestMapping("mh.do")
+		public ModelAndView selectmh(ModelAndView mav,
+				@RequestParam(defaultValue="1")Integer pageNum,
+				@RequestParam(defaultValue="5")Integer pageSize,CcCkxxb ccCkxxb){
+			
+			System.out.println("进入查询供应商信息方法"+ccCkxxb);
 		
+			mav.addObject("pi", ccCkxxbService.selectmh(pageNum, pageSize, ccCkxxb));
+			
+		    mav.setViewName("Ck/cclb");
+			
+		    return mav;
+		}
 }

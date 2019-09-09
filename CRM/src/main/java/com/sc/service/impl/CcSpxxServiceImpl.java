@@ -80,13 +80,7 @@ public class CcSpxxServiceImpl implements CcSpxxService {
 			criteria.andSpMcLike("%"+ccspxx.getSpMc()+"%");
 			
 		}
-		
-		if(ccspxx.getSpLb()!=null){
-			Criteria criteria = example.createCriteria();
-			criteria.andSpLbLike("%"+ccspxx.getSpLb()+"%");
 			
-		}
-		
 		List<Ccspxxb> list = ccspxxbMapper.selectByExample(example);
 		PageInfo<Ccspxxb> pi = new PageInfo<Ccspxxb>(list);
 		return pi;

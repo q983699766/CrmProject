@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <form action="ccspxxctlr/mh.do" method="post">
       <div class="title_names">搜索查询</div>
       <ul class="search_content clearfix">
-       <li><label class="l_f">产品查询</label><input name="ccspxx" type="text"  class="text_add" placeholder="请输入产品名称:"  style=" width:400px"/></li>
+       <li><label class="l_f">产品查询</label><input name="spMc" type="text"  class="text_add" placeholder="请输入产品名称:"  style=" width:400px"/></li>
        <li style="width:90px;"><button type="submit" class="btn_search"><i class="icon-search"></i>查询</button></li>
       </ul>
     </div>
@@ -76,8 +76,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <div class="border clearfix">
        <span class="l_f">
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加商品</a>
-        <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
+        <a href="javascript:sc()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
        </span>
+       <script type="text/javascript">
+			function sc() {
+			document.getElementById("cc").submit();
+			var a=document.getElementsByName("bb");
+			}
+							
+	  </script>
        <span class="r_f">共：<b>${pi.total }</b>条</span>
      </div>
      <!---->

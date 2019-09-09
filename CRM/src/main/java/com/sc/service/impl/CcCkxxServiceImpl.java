@@ -65,7 +65,7 @@ public class CcCkxxServiceImpl implements CcCkxxbService {
 			
 		}
 	}
-
+	//通过仓库id 查询属于该仓库的商品
 	@Override
 	public PageInfo<Ccspxxb> selectbyckidPage(Integer pageNum, Integer pageSize, Long ckBh) {
 		
@@ -77,6 +77,27 @@ public class CcCkxxServiceImpl implements CcCkxxbService {
 			System.out.println("3333333"+pi);
 			return pi;
 		}
+
+	
+	//模糊查询
+	@Override
+	public PageInfo<CcCkxxb> selectmh(Integer pageNum, Integer pageSize, CcCkxxb ccCkxxb) {
+		PageHelper.startPage(pageNum,pageSize);
+		
+		CcCkxxbExample example = new CcCkxxbExample();
+		//example.setOrderByClause("PRODUCT_ID DESC");
+		if(ccCkxxb.getCkM()!=null){
+			//Criteria criteria = example.createCriteria();
+			com.sc.bean.CcCkxxbExample.Criteria criteria = example.createCriteria();
+		
+			criteria.andCkMLike("%"+ccCkxxb.getCkM()+"%");
+		}
+					
+		List<CcCkxxb> list = CcCkxxbMapper.selectByExample(example);
+		PageInfo<CcCkxxb> pi = new PageInfo<CcCkxxb>(list);
+		return pi;
+	
+	}
 
 		
 	

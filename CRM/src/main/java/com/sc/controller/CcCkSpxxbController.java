@@ -65,10 +65,10 @@ public class CcCkSpxxbController {
 					@RequestParam(defaultValue="1")Integer pageNum,
 					@RequestParam(defaultValue="5")Integer pageSize,Ccspxxb ccspxx){
 				
-				System.out.println("进入查询供应商信息方法");
+				System.out.println("进入查询供应商信息方法"+ccspxx);
 			
 				mav.addObject("pi", ccSpxxService.selectmh(pageNum, pageSize, ccspxx));
-				
+				System.out.println( ccSpxxService.selectmh(pageNum, pageSize, ccspxx));
 			    mav.setViewName("Ck/splb");
 				
 			    return mav;
