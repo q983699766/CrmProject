@@ -169,4 +169,14 @@ public class SysCOMPANY implements Serializable {
     public void setLastTime(Date lastTime) {
         this.lastTime = lastTime;
     }
+
+	@Override
+	public String toString() {
+		return "SysCOMPANY [comId=" + comId + ", comName=" + comName + ", comCode=" + comCode + ", comEmail=" + comEmail
+				+ ", comLinkman=" + comLinkman + ", comAddress=" + comAddress + ", comPhone=" + comPhone
+				+ ", comYphone=" + comYphone + ", comFax=" + comFax + ", comBank=" + comBank + ", comBankuser="
+				+ comBankuser + ", comYesandno=" + comYesandno + ", comRemark=" + comRemark + ", lastTime=" + lastTime
+				+ "]";
+	}
+    
 }

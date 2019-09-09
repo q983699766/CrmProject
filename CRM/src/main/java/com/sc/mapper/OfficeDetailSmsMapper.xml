@@ -228,4 +228,14 @@
       LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
     where DETAIL_ID = #{detailId,jdbcType=DECIMAL}
   </update>
+  
+  
+  
+  <update id="updatestaByKey" parameterType="com.sc.bean.OfficeDetailSms" >
+    update OFFICE_DETAIL_SMS
+    set 
+      SMS_STATE = #{${record.smsState},jdbcType=VARCHAR}
+
+    where DETAIL_ID = #{${record.detailId},jdbcType=DECIMAL}
+  </update>
 </mapper>

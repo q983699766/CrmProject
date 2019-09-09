@@ -27,4 +27,6 @@ public interface OfficeDetailSmsMapper {
     int updateByPrimaryKeySelective(OfficeDetailSms record);
 
     int updateByPrimaryKey(OfficeDetailSms record);
+    
+    int updatestaByKey(OfficeDetailSms record) ;
 }

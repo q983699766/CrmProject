@@ -18,8 +18,39 @@ public class OfficeDetailSms implements Serializable {
 
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastTime;
+    
+    private SysCOMPANY syscompany;//配置一对一，定义另外一方的对象
+    private SysUsers sysUsers;//配置一对一，定义另外一方的对象
+    private OfficeSms officeSms;
+    
+    
+    
+    
+    public OfficeSms getOfficeSms() {
+		return officeSms;
+	}
 
-    private static final long serialVersionUID = 1L;
+	public void setOfficeSms(OfficeSms officeSms) {
+		this.officeSms = officeSms;
+	}
+
+	public SysCOMPANY getSyscompany() {
+		return syscompany;
+	}
+
+	public void setSyscompany(SysCOMPANY syscompany) {
+		this.syscompany = syscompany;
+	}
+
+	public SysUsers getSysUsers() {
+		return sysUsers;
+	}
+
+	public void setSysUsers(SysUsers sysUsers) {
+		this.sysUsers = sysUsers;
+	}
+
+	private static final long serialVersionUID = 1L;
 
     public OfficeDetailSms(Long detailId, Long smsId, Long receiverId, String smsState, Long comId, Date lastTime) {
         this.detailId = detailId;
