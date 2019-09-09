@@ -22,8 +22,15 @@ public interface CcSpxxService {
 	//修改库存的商品信息
 	public void updateCcspxx(Ccspxxb u);
 	//商品模糊查询
-	public PageInfo<Ccspxxb> selectmh(Integer pageNum,Integer pageSize,Ccspxxb ccspxx);
+
+	
+	
+	public List<Ccspxxb> selectByExamplel(Ccspxxb ccspxx);
+}
+
+
 
 	
 	
 }
+

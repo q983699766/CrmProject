@@ -32,7 +32,9 @@
 		<![endif]-->
 		<script src="<%=basePath%>My97DatePicker/WdatePicker.js" type="text/javascript" defer="defer"  charset="UTF-8"></script>
 			<script src="assets/js/jquery.min.js"></script>
-
+			<script src="vue/vue.min.js"></script>
+  <!-- 引入JS文件 -->
+    <script src="vue.min.js"></script>  
 		<!-- <![endif]-->
 
 		<!--[if IE]>
@@ -86,19 +88,19 @@
     </form>
      <!---->
      <!-- <button type="button" class="btn_search"><i class="icon-search"></i>查询</button> -->
-     <div class="border clearfix">
+    <!--  <div class="border clearfix">
        <span class="l_f">
-        <a href="javascript:ovid()" name="pursupinfo/goaddinfo.do" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加采购单</a>
+         <a href="javascript:ovid()" name="pursupinfo/goaddinfo.do" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加采购单</a>
         <a href="javascript:ovid()"  class="btn btn-danger"><i class="icon-trash"></i>批量删除采购单</a>
        </span>
      
-     </div>
+     </div> -->
      <!---->
      <div class="table_menu_list">
        <table class="table table-striped table-bordered table-hover" id="sample-table">
 		<thead>
 		 <tr>
-				<th width="25"><label><input type="checkbox"  class="ace"><span class="lbl"></span></label></th>
+				<!-- <th width="25"><label><input type="checkbox"  class="ace"><span class="lbl"></span></label></th> -->
 				<th style="width:80px;font-size:12px;">采购单编号</th>
 				<th style="width:80px;font-size:12px;">采购主题</th>
 				<th style="width:100px;font-size:12px;">采购日期</th>
@@ -115,13 +117,14 @@
                 <th style="width:50px;font-size:12px;">公司编号</th>
                 <th style="width:100px;font-size:12px;">最后修改时间</th>
                 <th style="width:130px;font-size:12px;">操作</th>
+                <th style="width:130px;font-size:12px;">查看</th>
 				
 			</tr>
 		</thead>
 	<tbody>
 	 <c:forEach items="${pi.list}" var="i">
 		<tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
+          <!-- <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td> -->
           <td>${i.purNumber}</td>
            <td>${i.purTitle}</td>
           <td><fmt:formatDate value="${i.purDate}"
@@ -140,11 +143,15 @@
           <td>${i.comId}</td>
           <td><fmt:formatDate value="${i.lastDate}"
 				pattern="yyyy-MM-dd " /></td>
-		  <td style="font-size:15px;width: 200px"><a onClick="member_stop(this,'10001')"  href="javascript:;"  title="查看详情"  class="btn btn-xs btn-success"><i class="icon-plus"></i></a> 
+		  <td style="font-size:15px;width: 200px"><!-- <a onClick="member_stop(this,'10001')"  href="javascript:;"  title="查看详情"  class="btn btn-xs btn-success"><i class="icon-plus"></i></a>  -->
+          <a href="javascript:ovid()" name="pursupinfo/goaddinfo.do" id="member_add" class="btn btn-warning"><i class="icon-plus" style="font-size: 5px;"></i>添加</a>
           <a title="编辑" onclick="jia(${i.purNumber });member_edit('550');" href="javascript:"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
           <a title="删除"  href="purorder/delinfo.do?purNumber=${i.purNumber}"  onclick="return window.confirm('是否确定删除此订单?')"class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
           <a href="javascript:" onclick="jia1(${i.purNumber})" class="member_show" ></a>
+            
           </td>
+          <td><a href="pur/ck.do?purNumber=${i.purNumber}" >查看详单</a></td>
+          
 		</tr>
        </c:forEach>
         
@@ -233,11 +240,12 @@ return false;
 </script>
 
 
- <!--添加用户图层
+ <form action="purorder/addpro.do" method="post" >
 <div class="add_menber" id="add_menber_style" style="display:none">
- <table class="table table-striped table-bordered table-hover" id="sample-table">
-   <tr> <tr>
-				<th style="width:60px;font-size:12px;">编号</th>
+ <table class="table table-striped table-bordered table-hover"   id="table">
+       <thead>
+             <tr>
+				<!-- <th style="width:60px;font-size:12px;">编号</th> -->
 				<th style="width:80px;font-size:12px;">产品编号</th>
 				<th style="width:80px;font-size:12px;">产品名称</th>
                 <th style="width:60px;font-size:12px;">单价</th>
@@ -249,11 +257,60 @@ return false;
 				<th style="width:80px;font-size:12px;">公司编号</th>
 				<th style="width:80px;font-size:12px;">操作</th>
 				
-           </tr></tr>
+				
+       </tr>
+      </thead>
+        <tbody>
+               <tr v-for="(user,index) in stu">
+               
+                      <td><input id="productId" v-model="user.productId" name="productId"></td>
+                      <td><input id="age" v-model="user.age" name=""></td>
+                      <td><input id="proPrice" v-model="user.proPrice" name="proPrice"></td>
+                      <td><input id="productCount" v-model="user.productCount" name="productCount"></td>
+                      <td><input id="name" v-model="user.name" name=""></td>
+                      <td><input id="remarksInfom" v-model="user.remarksInfom" name="remarksInfom"></td>
+                      <td><input id="warehouseOrnot" v-model="user.warehouseOrnot" name="warehouseOrnot"></td>
+                      <td><input id="comId" v-model="user.comId" name="comId"></td>
+                      <td><input id="name" v-model="user.name" name=""></td>
+                      <td><button @click="insert" style="width: 10px;font-size: 3px;">添加</button><button @click="remove(index)">移除</button></td>
+                    </tr>
+          <tbody>      
       
  </table>
-<div> -->
-  <!--  //添加采购单详情单 -->
+<div> 
+  <center><div> <input type="submit" value="提交" class="btn btn-primary"></div></center>
+    <br>
+ </div> 
+   
+    <script type="text/javascript">
+        new Vue({
+          el:'#table',
+          data:{
+             user:{productId:'',age:'',proPrice:'',productCount:'',remarksInfom:'',comId:'',name:'',age:''},
+             stu:[
+                {productId:'',age:'',proPrice:'',productCount:'',remarksInfom:'',comId:'',name:'',age:''}
+               
+             ]
+          },
+         methods:{
+         
+           insert:function(){
+              this.stu.push(this.user)
+           },
+           remove:function(index){
+             this.stu.splice(index,1)
+           }
+           
+         }
+        })
+     </script>
+ </form>
+  
+    
+
+  
+ 
+<!--   <!--  //添加采购单详情单 -->
    <div class="update_menber" id="show_menber_style" style="display:none">
     <ul class=" page-content">
      <li><label class="label_name"  style="width: 130px;">采购详情单编号：</label><span class="add_name" id="supInfoNum1" name="supInfoNum">  </span><div class="prompt r_f"></div></li>
@@ -268,39 +325,32 @@ return false;
      <li><label class="label_name" style="width: 100px;">修&nbsp;改&nbsp;时&nbsp;间：</label><span class="add_name" id="bankNumber1" name="bankNumber"></span><div class="prompt r_f"></div></li>
      
     </ul>
- </div>	
+ </div>	 
 
- <!-- //添加页面 -->
-<form action="purorder/addinfo.do" method="post" onsubmit="return yz()">
+ <%-- <!-- //添加页面 -->
+<form action="purorderinfo/addinfo.do" method="post" onsubmit="return yz()">
 <div class="add_menber" id="add_menber_style" style="display:none">
    <ul class=" page-content">
-     <!--  <li ><label class="label_name" style="width: 100px;">供应商编号：</label><span class="add_name"><input  type="text"  name="supInfoNum" class="text_add"/></span><div class="prompt r_f"></div></li>
-       <li><label class="label_name" style="width: 100px;" >采购单编号：</label><span class="add_name"><input id="a" name="supName" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     --><li><label class="label_name" style="width: 100px;">采购主题：</label><span class="add_name"><input id="b"name="purTitle" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-   <!--   <li><label class="label_name" style="width: 100px;">采购日期：</label><span class="add_name"><input  id="c"name="contacts"type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-      --><li><label class="label_name" style="width: 100px;">供应商编号：</label><span class="add_name"><input id="d"name="supInfoNum" type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
-   <!--   <li><label class="label_name" style="width: 100px;">货款金额：</label><span class="add_name"><input id="e"name="payAmount" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-    -->  <li><label class="label_name" style="width: 100px;">发票号码：</label><span class="add_name"><input  id="f"name="invoiceNumber"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <!-- <li><label class="label_name" style="width: 100px;">联系地址：</label><span class="add_name"><input  type="text" name="联系地址" id="SUP_INFO_NUM"class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">联系邮编：</label><span class="add_name"><input  type="text" name="联系邮编" id="SUP_INFO_NUM"class="text_add"/></span><div class="prompt r_f"></div></li>
-      -->
-     <!--  <li><label class="label_name" style="width: 100px;">付款情况：</label><span class="add_name"><input  id="g"name="payStatus"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">采购进展：</label><span class="add_name"><input  id="h"name="purProgrees"type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     --> <li><label class="label_name" style="width: 100px;">交&nbsp;货&nbsp;时&nbsp;间：</label><span class="add_name">&nbsp;&nbsp;<input id="i" name="deliveryTime"   style="width:170px;height: 27px;background-color: gray;" class=" Wdate"readonly="readonly" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+    <!--  <li><label class="label_name" style="width: 100px;">采购详情编号：</label><span class="add_name"><input id="b"name="purInfoNumber" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     --> <!-- <li><label class="label_name" style="width: 100px;">采购单编号：</label><span class="add_name"><input id="d"name="purNumber" type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
+   <li> -->
+      <li><label class="label_name" style="width: 100px;">产品编号：</label><span class="add_name"><input  id="f"name="productId"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">产品数量：</label><span class="add_name">&nbsp;&nbsp;<input id="i" name="productCount"   style="width:170px;height: 27px;background-color: gray;" class=" Wdate"readonly="readonly" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
      </span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">交货地点：</label><span class="add_name"><input  id="j" name="deliveryAddress"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name" style="width: 100px;">交货方式：</label><span class="add_name"><input id="k" name="deliveryMode"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">产品价格：</label><span class="add_name"><input  id="j" name="proPrice"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
+    <!--  <li><label class="label_name" style="width: 100px;">是否入库：</label><span class="add_name"><input id="k" name="warehouseOrnot"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
       <li><label class="label_name" style="width: 100px;">操作人员：</label><span class="add_name"><input id="k" name="operatorId"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
-    <li><label class="label_name" style="width: 100px;">备注信息：</label><span class="add_name"><input id="k" name="remarksInfo"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
-    <li><label class="label_name" style="width: 100px;">公司编号：</label><span class="add_name"><input id="k" name="comId"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
-    <!--  <li><label class="label_name" style="width: 100px;">修改时间：</label><span class="add_name"><input id="k" name="lastDate"type="date" class="text_add"/></span><div class="prompt r_f"></div></li>
+     --><li><label class="label_name" style="width: 100px;">备注信息：</label><span class="add_name"><input id="k" name="remarksInfom"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
+    <!-- <li><label class="label_name" style="width: 100px;">公司编号：</label><span class="add_name"><input id="k" name="comId"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">修改时间：</label><span class="add_name"><input id="k" name="lastDate"type="date" class="text_add"/></span><div class="prompt r_f"></div></li>
   --></ul>
-
+<li><label class="label_name" style="width: 100px;">产品价格：</label><span class="add_name"><input  id="j" name="proPrice"type="text" class="text_add"/></span><div class="prompt r_f"></div></li>
+    
     <center><div> <input type="submit" value="提交" class="btn btn-primary"></div></center>
     <br>
  </div> 
  
- </form>
+ </form> --%>
  <!--修改用户图层-->
 <form action="pursupinfo/updateinfo.do">
 <div class="update_menber" id="update_menber_style" style="display:none"> 
