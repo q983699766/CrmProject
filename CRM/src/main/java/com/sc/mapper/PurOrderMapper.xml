@@ -422,8 +422,7 @@
     SELECT *FROM PUR_SUP_INFO LEFT JOIN PUR_ORDER
     ON PUR_SUP_INFO.SUP_INFO_NUM =PUR_ORDER.SUP_INFO_NUM
   </select>
-  
-<!-- 一对多 
+<!--   一对多  
     <resultMap type="selorderandorderinfo" id="com.sc.bean.PurOrder">
      <id column="PUR_NUMBER" property="purNumber"/>
     <result column="PUR_TITLE" property="purTitle"/>
@@ -440,7 +439,7 @@
    <result column="COM_ID" property="comId"/>
    <result column="LAST_DATE" property="lastDate"/>
   
-  <collection property="purorderinfos" ofType="com.sc.bean.PurOrderInfo" column="PUR_NUMBER" >
+  <collection property="purorderinfos" ofType="com.sc.bean.PurOrderInfo">
      <id column="PUR_NUMBER" property="purNumber"/>
      <result column="PUR_INFO_NUMBER" property="purInfoNumber"/>
      <result column="PRODUCT_ID" property="productId"/>
@@ -455,10 +454,10 @@
  </resultMap>
 
   <select id="selorderandorderinfo" resultMap="classesMap">
-     SELECT * FROM student s LEFT JOIN stucourse sc ON s.stuId=sc.stuId 
-     LEFT JOIN course c ON sc.courseId=c.courseId
-  </select>
-   -->
+    SELECT * FROM PUR_ORDER LEFT JOIN PUR_ORDER_INFO
+      on PUR_ORDER.PUR_NUMBER=PUR_ORDER_INFO.PUR_NUMBER
+  </select> -->
+
 	
   
 </mapper>
