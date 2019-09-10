@@ -73,64 +73,66 @@
    	<div class="page-content clearfix">
     <div id="Member_Ratings">
       <div class="d_Confirm_Order_style">
-    <div class="search_style">
+   <!--  <div class="search_style">
       <div class="title_names">搜索查询</div>
       <ul class="search_content clearfix">
        <li><label class="l_f">产品信息</label><input name="" type="text"  class="text_add" placeholder="输入产品编号、名称"  style=" width:400px"/></li>
-       <!-- <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li> -->
+       <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li>
        <li style="width:90px;"><button type="button" class="btn_search"><i class="icon-search"></i>查询</button></li>
       </ul>
-    </div>
-     <!---->
+    </div> -->
+   
      <div class="border clearfix">
        <span class="l_f">
-        <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>生成送货单</a>
-        <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量生成送货单</a>
+        <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>生成采购单</a>
+        <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量生成采购单单</a>
        </span>
     
      </div>
-     <!---->
-     <div class="table_menu_list">
+     
+     <div class="table_menu_list" style="margin-top: 0 auto">
        <table class="table table-striped table-bordered table-hover" id="sample-table">
 		<thead>
 		 <tr>
-				<th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
-				<th style="width:100px;font-size:12px;">编号</th>
-				<th style="width:60px;font-size:12px;">产品编号</th>
-				<th style="width:60px;font-size:12px;">产品名称</th>
+				<th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th> 
+				
+				<th style="width:60px;font-size:12px;">编号</th>
+				<th style="width:80px;font-size:12px;">产品编号</th>
+				<th style="width:80px;font-size:12px;">产品名称</th>
                 <th style="width:60px;font-size:12px;">单价</th>
-				<th style="width:60px;font-size:12px;">库存数量</th>
-			    <th style="width:30px;font-size:12px;">交货时间</th>
-				<th style="width:60px;font-size:12px;">备注信息</th>
+				<th style="width:80px;font-size:12px;">库存数量</th>
+			    <th style="width:20%;font-size:12px;">交货时间</th>
+				<th style="width:80px;font-size:12px;">备注信息</th>
 				<th style="width:60px;font-size:12px;">状态</th>
-				<th style="width:60px;font-size:12px;">公司编号</th>
-				<th style="width:120px;font-size:12px;">操作</th>
+				<th style="width:80px;font-size:12px;">公司编号</th>
+				<th style="width:80px;font-size:12px;">操作</th>
+				
            </tr>
 		</thead>
 	<tbody>
 	 <c:forEach items="${pi.list}" var="i">
 	<tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-           <td>${i.proId}</td>
+          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td> 
+           <td>${i.purproducts.proId}</td>
            <td>${i.productId}</td>
-           <td>${i.ccspxxb.spMc}</td>
-           <td>${i.ccspxxb.cbj}</td>
-           <td>${i.ccspxxb.kcSl}</td>
-           <td>${i.deliveryTime}</td> 
-           <td class="text-l">${i.ccspxxb.bzxx}</td> 
-          <td class="text-l">${i.active}</td>
+           <td>${i.spMc}</td> 
+           <td>${i.cbj}</td>
+           <td>${i.kcSl}</td>
+           <td><fmt:formatDate value="${i.purproducts.deliveryTime}"
+				pattern="yyyy-MM-dd" /></td> 
+           <td class="text-l">${i.bzxx}</td> 
+          <td class="text-l">${i.purproducts.active}</td>
            <td>${i.comId}</td>
-         <td class="td-manage">
-         <a title="生成送货单" href="pursupinfo/delinfo.do?supInfoNum=${i.productId}" class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-       </td> 
+           <td><a href="#">生成采购单</a></td>
+        
    </tr>
 </c:forEach>
           <tr >
               <td colspan="11" style="text-align: center;">
-                  <a href="products/selectproducts.do?pageNum=${pi.firstPage }">首页</a>
-                  <a href="products/selectproducts.do?pageNum=${pi.prePage }">上一页</a>
-                  <a href="products/selectproducts.do?pageNum=${pi.nextPage }">下一页</a>
-                  <a href="products/selectproducts.do?pageNum=${pi.lastPage }">尾页</a>
+                  <a href="products/selectproducts11.do?pageNum=${pi.firstPage }">首页</a>
+                  <a href="products/selectproducts11.do?pageNum=${pi.prePage }">上一页</a>
+                  <a href="products/selectproducts11.do?pageNum=${pi.nextPage }">下一页</a>
+                  <a href="products/selectproducts11.do?pageNum=${pi.lastPage }">尾页</a>
                                        当前${pi.pageNum }/${pi.pages }页，共${pi.total }条
               </td>
            </tr>
@@ -142,17 +144,37 @@
 </div>
 <!--添加用户图层-->
 <div class="add_menber" id="add_menber_style" style="display:none">
+ <table class="table table-striped table-bordered table-hover" id="sample-table">
+   <tr> <tr>
+				<th style="width:60px;font-size:12px;">编号</th>
+				<th style="width:80px;font-size:12px;">产品编号</th>
+				<th style="width:80px;font-size:12px;">产品名称</th>
+                <th style="width:60px;font-size:12px;">单价</th>
+				<th style="width:80px;font-size:12px;">数量</th>
+				<th style="width:80px;font-size:12px;">总价</th>
+			    <th style="width:80px;font-size:12px;">备注信息</th>
+			    <th style="width:20%;font-size:12px;">交货时间</th>
+				<th style="width:60px;font-size:12px;">状态</th>
+				<th style="width:80px;font-size:12px;">公司编号</th>
+				<th style="width:80px;font-size:12px;">操作</th>
+				
+           </tr></tr>
+      
+ </table>
+<div>
+
+<!-- <div class="add_menber" id="add_menber_style" style="display:none">
    <ul class=" page-content">
-     <!-- <li ><label class="label_name" style="width: 100px;">供应商编号：</label><span class="add_name"><input  type="text" name="供应商编号" id="SUP_INFO_NUM" class="text_add"/></span><div class="prompt r_f"></div></li>
-      --><li><label class="label_name" style="width: 100px;" >供应商名称：</label><span class="add_name"><input  type="text" name="供应商名称" id="supname"class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li ><label class="label_name" style="width: 100px;">供应商编号：</label><span class="add_name"><input  type="text" name="供应商编号" id="SUP_INFO_NUM" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;" >供应商名称：</label><span class="add_name"><input  type="text" name="供应商名称" id="supname"class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name" style="width: 100px;">供应商简称：</label><span class="add_name"><input  type="text" name="供应商简称" id="SUP_UNAME"class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name" style="width: 100px;">联系人：</label><span class="add_name"><input  type="text"  name="联系人" id="CONTACTS"class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name" style="width: 100px;">固定电话：</label><span class="add_name"><input  type="text"  name="固定电话" id="FIXED_TEL"class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name" style="width: 100px;">移动电话：</label><span class="add_name"><input  type="text"  name="移动电话"id="TELPHONE"class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name" style="width: 100px;">联系传真：</label><span class="add_name"><input  type="text" name="联系传真" id="FAX"class="text_add"/></span><div class="prompt r_f"></div></li>
-     <!-- <li><label class="label_name" style="width: 100px;">联系地址：</label><span class="add_name"><input  type="text" name="联系地址" id="SUP_INFO_NUM"class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">联系地址：</label><span class="add_name"><input  type="text" name="联系地址" id="SUP_INFO_NUM"class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name" style="width: 100px;">联系邮编：</label><span class="add_name"><input  type="text" name="联系邮编" id="SUP_INFO_NUM"class="text_add"/></span><div class="prompt r_f"></div></li>
-      --><li><label class="label_name" style="width: 100px;">邮箱：</label><span class="add_name"><input  type="text"  name="邮箱" id="EMAIL"class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">邮箱：</label><span class="add_name"><input  type="text"  name="邮箱" id="EMAIL"class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name" style="width: 100px;">开户银行：</label><span class="add_name"><input  type="text"  name="开户银行" id="OPEN_BANK"class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name" style="width: 100px;">银行账号：</label><span class="add_name"><input  type="text" name="银行账号" id="BANK_NUMBER"class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name" style="width: 100px;">公司主页：</label><span class="add_name"><input  type="text"  name="公司主页" id="COM_INDEX"class="text_add"/></span><div class="prompt r_f"></div></li>
@@ -162,7 +184,7 @@
     <label><input name="form-field-radio1" type="radio" checked="checked" class="ace"><span class="lbl">启用</span></label>&nbsp;&nbsp;&nbsp;
       <label><input name="form-field-radio1"type="radio" class="ace"><span class="lbl">禁用</span></label></span><div class="prompt r_f"></div></li>
      </ul>
- </div>
+ </div> -->
  
  <!--修改用户图层-->
 <form action="">

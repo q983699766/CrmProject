@@ -91,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <td width="10%"><a href="javascript:"  class="member_show"  onclick="jia(${t.dutId})">查看详情</a></td>
         <td>
                <a title="编辑" onclick="Competence_modify('560')" href='upadte.do?dutId=${ t.dutId}'  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
-                <a title="删除" href='del.do?dutId=${t.dutId}'  onclick="Competence_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
+               <a title="删除" href='del.do?dutId=${t.dutId}'   class="btn btn-xs btn-warning" onclick="return window.confirm('是否确定删除此用户?')"><i class="fa fa-trash  bigger-120"></i></a>
 				</td>
 			   </tr>
 			   </c:forEach>												
@@ -124,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			  </c:forEach>
  				 </select>
      </span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">备注信息：</label><span class="add_name"><input name="dutRemark" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">备注信息：</label><span class="add_name"><input id="dutRemark1" name="dutRemark" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
 	 <li><label class="label_name">所属公司：</label><span class="add_name"><select name="comId" style="width: 170px;color:green;">
                   <option value="0">选择公司</option>
                   <c:forEach items="${cs }" var="k">
@@ -147,12 +147,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <li><label class="label_name">修改时间：</label><span class="add_name"><input readonly="readonly" type="text" id="lastTime" class="text_add"/></span><div class="prompt r_f"></div></li>
    </ul>
  </div>
-  
 </body>
 </html>
 <script>
 	function t(){
-		var dutRemark = document.getElementById("dutRemark").value;
+		var dutRemark = document.getElementById("dutRemark1").value;
 		if (dutRemark==""){
 			  layer.alert('职位信息不能为空!',{
               title: '提示框',				
