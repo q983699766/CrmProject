@@ -90,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td><fmt:formatDate value="${u.lastTime }" pattern="yyyy-MM-dd HH:mm"/></td>
 				<td>${u.userState=='0' ? "可用":"不可用"}</td>
 				<td>
-                 <a title="编辑" onclick="jia(${u.userId },${r.roleName });member_edit('550');" href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
+                 <a title="编辑" onclick="jia(${u.userId });member_edit('550');" href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
                  <a title="删除" href="javascript:;"  onclick="del_user(${u.userId})" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
                   <a title="切换状态" href="updatesta.do?userId=${u.userId }"  onclick="Competence_del(this,'1')" class="btn btn-xs btn-info" ><i class="fa fa-exchange  bigger-120"></i></a>
 				</td>
@@ -114,7 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 <!--修改用户图层-->
- <form action="update.do" method="post" onsubmit="return update()">
+ <form action="update.do" method="post" onsubmit="return update(this)">
  <input type="hidden" name="userId" id="userId"/>
  <input type="hidden" name="userPassword" id="userPassword"/>
  
@@ -129,10 +129,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <li><label class="label_name">员工编号：</label><span class="add_name"><input  type="text" name="empId" id="empIdx" class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">公司编号：</label><span class="add_name"><input  type="text" name="comId" id="comIdx" class="text_add"/></span><div class="prompt r_f"></div></li><li><label class="label_name">用户角色：</label><span class="add_name">
      		&nbsp;&nbsp;&nbsp;&nbsp;<select id="rolesx" name="roleId"  data-selector data-selector-checks="true">
-                <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
+                <c:forEach items="${roles}" var="r" ><option value="${r.roleId }" >${r.roleName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
     </ul><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br/><br/>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
  </div>
 </form>
 
@@ -151,15 +151,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      </li>
      <li><label class="label_name">员工编号：</label><span class="add_name"><input name="empId" id="empId" type="text"  class="text_add" placeholder="必填" /></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">公司编号：</label><span class="add_name"><input name="comId" id="comId" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">添加角色：按住ctrl，点击多选</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="roles" name="roleId" multiple="multiple">
+     <li><label class="label_name">添加角色：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;
+             <select id="roles"  data-selector data-selector-checks="true">
                 <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</label><span class="add_name">
      <label><input name="userState" value="0" type="radio" checked="checked" class="ace"><span class="lbl">启用</span></label>&nbsp;&nbsp;&nbsp;
      <label><input name="userState" value="1" type="radio" class="ace"><span class="lbl">不启用</span></label></span><div class="prompt r_f"></div></li><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-    	
+    	<input name="roleId" type="hidden" id="myroleid" >
     </ul>
-    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/><br/><br/>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
  </div>
   </form>
   
@@ -218,10 +219,19 @@ function add(){
 
 
 /* 修改判断 */
-	function update(){
+	function update(obj){
 		var pass1 = document.getElementById("empIdx").value;
 		var pass2 = document.getElementById("comIdx").value;
-		var pass3 = document.getElementById("rolesx").value;
+		//var pass3 = document.getElementById("rolesx");
+		
+		var roleId="";
+		$(".actives").each(function(i,e){
+		    /* alert($(this).attr("data-value")); */
+		    roleId+="roleId="+$(this).attr("data-value")+"&";
+		});
+		obj.action=obj.action+"?"+roleId;
+		/* alert(obj.action);
+		alert(roleId); */
 		if (pass1==""){
 			  layer.alert('员工编号不能为空!',{
               title: '提示框',				
@@ -305,7 +315,7 @@ function member_edit(id){
     });
 }
 
-function jia(userId,roleName)
+function jia(userId)
     {
         var url="selectById.do?userId="+userId;
    //ajax异步请求
@@ -326,10 +336,15 @@ function jia(userId,roleName)
          $("#empIdx").val(data.empId);
          $("#comIdx").val(data.comId);
          $("#userState").val(data.userState);
-         var roleName = data.roleName;	
-         $("#roles").children().each(function(i, element) {
-         	if(element.innerHTML == roleName)element.selected = "true";
-         });	   
+         var roles = data.roles;
+         for(var i in roles){
+         	var rid = roles[i].roleId;
+         	console.log($(".verSelector-two"));
+         	 $(".verSelector-two").each(function(i, element) {
+         	 
+         	if(element.date_value == rid)element.class="verSelector-option-value verSelector-two  actives";
+         }); 
+         }   
       }
     });
 }

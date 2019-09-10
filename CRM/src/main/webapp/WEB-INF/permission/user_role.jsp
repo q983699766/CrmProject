@@ -160,11 +160,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <li><label class="label_name">权限名称：</label><span class="add_name"><input  type="text" name="permissionName" id="permissionName111" class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">权限方法：</label><span class="add_name"><input  type="text" name="permission" id="permission111" class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">权限描述：</label><span class="add_name"><input  type="text" name="remark" id="remark1" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">所在分栏：</label><span class="add_name"><select id="columnName111" name="columnName">
+     <li><label class="label_name">所在分栏：</label><span class="add_name"><select id="columnName111" name="columnName" data-selector>
                 <c:forEach items="${col}" var="c" ><option value="${c.columnName }">${c.columnName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
     </ul>
-    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
  </div>
  </div>
   </form>
@@ -178,11 +178,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <li><label class="label_name">角色名称：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="role111" name="role">
                 <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">权限名称：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="perm111" name="perm" data-selector data-selector-checks="true">
+     <li><label class="label_name">权限名称：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="perm111" name="perm" multiple="multiple">
                 <c:forEach items="${perms}" var="p" ><option value="${p.permissionId }">${p.permissionName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
-    </ul><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/>
+    </ul><br/><br/><br/><br/><br/>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
  </div>
   </form>
  
