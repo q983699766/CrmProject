@@ -17,7 +17,6 @@ import com.sc.bean.SysUsers;
 import com.sc.bean.SysUsersExample;
 import com.sc.bean.SysUsersExample.Criteria;
 import com.sc.bean.SysUsersRole;
-import com.sc.mapper.SysRoleMapper;
 import com.sc.mapper.SysUsersMapper;
 import com.sc.mapper.SysUsersRoleMapper;
 import com.sc.service.RolesService;
@@ -83,7 +82,6 @@ public class UsersController {
 		SysUsers u = (SysUsers)session.getAttribute("nowuser");
 		
 		Long uid = u.getUserId();
-		System.out.println(roleId);
 		UsersService.updateUserRole(user, roleId, uid);
 		mav.addObject("ok", "1");
 		
@@ -104,6 +102,7 @@ public class UsersController {
 		Long userId =(long) Integer.parseInt(shiidstr);
 		System.out.println("获取到的用户编号为:"+userId);
 		SysUsers user = UsersService.selectById(userId);
+		System.out.println("************"+user.getRoles());
 		return user;
 	}
 	
@@ -118,7 +117,7 @@ public class UsersController {
 		
 		List<SysUsers> list3 = SysUsersMapper.selectByExample(sysUsersExample);
 		
-		if(list3 == null){
+		if(list3.isEmpty()){
 		
 		Date date = new Date();
 		user.setLastTime(date);

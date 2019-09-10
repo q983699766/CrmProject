@@ -110,19 +110,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<c:forEach items="${pi.list }" var="u">
 		<tr>
           <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
+          <td>${u.purInfoNumber }</td>
+          <td>${u.purNumber }</td>
           <td>${u.productId }</td>
-          <td>${u.spMc }</td>
-          <td>${u.spLb }</td>
-          <td>${u.ggSm }</td>
-          <td>${u.dw }</td>
-          <td class="text-l">${u.ckBh }</td>
-          <td>${u.kcSl }</td>
-          <td>${u.cbj }</td>
-          <td>${u.lsj }</td>
-          <td>${u.jxj }</td>
-          <td>${u.bzxx }</td>
-          <td>${u.comId }</td>
+          <td>${u.proPrice }</td>
+          <td>${u.warehouseOrnot }</td>         
+          <td>${u.operatorId }</td>
+          <td>${u.remarksInfom }</td>
+          <td>${u.comId }</td>         
           <td><fmt:formatDate value="${u.lastTime}" pattern="yyyy-MM-dd" /></td>         
+           <td>${u.productCount }</td> 
           <td class="td-manage">
           <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
           <a title="编辑" onclick="jia(${u.productId});member_edit('550')" href="javascript:"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
@@ -133,10 +130,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        		              
            <tr>
               <td colspan="15" style="text-align: center;">
-                  <a href="ccspxxctlr/list.do?pageNum=${pi.firstPage }">首页</a>
-                  <a href="ccspxxctlr/list.do?pageNum=${pi.prePage }">上一页</a>
-                  <a href="ccspxxctlr/list.do?pageNum=${pi.nextPage }">下一页</a>
-                  <a href="ccspxxctlr/list.do?pageNum=${pi.lastPage }">尾页</a>
+                  <a href="pur/ck.do?pageNum=${pi.firstPage }">首页</a>
+                  <a href="pur/ck.do?pageNum=${pi.prePage }">上一页</a>
+                  <a href="pur/ck.do?pageNum=${pi.nextPage }">下一页</a>
+                  <a href="pur/ck.do?pageNum=${pi.lastPage }">尾页</a>
                                        当前${pi.pageNum }/${pi.pages }页
               </td>
            </tr>

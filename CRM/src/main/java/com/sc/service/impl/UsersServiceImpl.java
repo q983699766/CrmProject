@@ -137,12 +137,18 @@ public class UsersServiceImpl implements UsersService{
 		
 		List<SysUsersRole> userRole = SysUsersRoleMapper.selectByExample(sysUsersRoleExample);
 		
-		if(!userRole.isEmpty()){
-			SysUsersRole sysUsersRole = userRole.get(0);
-			Long roleId = sysUsersRole.getRoleId();
-			SysRole role = SysRoleMapper.selectByPrimaryKey(roleId);
-			user.setRoleName(role.getRoleName());
+		ArrayList<SysRole> list = new ArrayList<SysRole>();
+		if(!(userRole.isEmpty())){
+			for (SysUsersRole sysRole : userRole) {
+				Long roleId = sysRole.getRoleId();
+				SysRole role = SysRoleMapper.selectByPrimaryKey(roleId);
+				if(role!=null){
+					list.add(role);
+				}
+			}
+			
 		}
+		user.setRoles(list);
 		return user;
 	}
 
