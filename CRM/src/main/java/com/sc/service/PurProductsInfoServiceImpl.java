@@ -19,7 +19,7 @@ public class PurProductsInfoServiceImpl implements PurProductsInfoService {
 
 	//分页查询
 	@Override
-	public PageInfo<PurOrderInfo> selectPurOrderInfo(Integer pageNum, Integer pageSize) {
+	public PageInfo<PurOrderInfo> selectPurOrderInfo(Integer pageNum, Integer pageSize ,Long purInfoNumber) {
 		PageHelper.startPage(pageNum,pageSize);
 		PurOrderInfoExample example = new PurOrderInfoExample();
 		example.setOrderByClause("PRODUCT_ID DESC");		

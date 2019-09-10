@@ -18,11 +18,11 @@ public class PurProductsInfoController {
 			@RequestMapping("/ck.do")
 			public ModelAndView ck(ModelAndView mav,
 					@RequestParam(defaultValue="1")Integer pageNum,
-					@RequestParam(defaultValue="5")Integer pageSize ){
+					@RequestParam(defaultValue="5")Integer pageSize,Long purInfoNumber ){
 				
-				System.out.println("aaaaaaa");
+				System.out.println("aaaaaaa"+purInfoNumber);
 				//添加模型数据
-			   mav.addObject("pi", purProductsInfoService.selectPurOrderInfo(pageNum, pageSize));
+			   mav.addObject("pi", purProductsInfoService.selectPurOrderInfo(pageNum, pageSize,purInfoNumber));
 			   
 				//设置视图名称         转发
 				mav.setViewName("Ck/cclb");//响应的视图名称，路径是：/WEB-INF/users/list.jsp
