@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.github.pagehelper.PageInfo;
 import com.sc.bean.Ccspxxb;
-import com.sc.bean.PurProducts;
 
 public interface PurProductsService {
 	    //查询所有的 库存商品信息
@@ -17,7 +16,7 @@ public interface PurProductsService {
 		public PageInfo<Ccspxxb> selectproandsp(Integer pageNum, Integer pageSize,Ccspxxb ccspxxb);
 		
 		//查询所有的 库存商品信息
-		public PageInfo<PurProducts> selectpurproducts(Integer pageNum, Integer pageSize);
+		public PageInfo<Ccspxxb> selectpurproducts(Integer pageNum, Integer pageSize);
 
 		
 }

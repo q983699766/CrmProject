@@ -37,7 +37,7 @@ window.verSelector = (function () {
             var _html = "<div class=\"verSelector-focus\">\n" +
                 " </div>\n" +
                 " <div class=\"verSelector-box verSelector-one\">\n" +
-                " <span class=\"verSelector-text verSelector-one\">" + defa_text + "</span>\n" +
+                " <span class=\"verSelector-text verSelector-one\"  id=\"sp\">" + defa_text + "</span>\n" +
                 " <i class=\"verJsFont ver-selector-icon-caret-down verSelector-caret verSelector-one\"></i>\n" +
                 " </div>\n" +
                 " <div class=\"verSelector-items verSelector-two\">\n" +

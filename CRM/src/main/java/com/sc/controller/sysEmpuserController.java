@@ -15,9 +15,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sc.bean.SysCOMPANY;
 import com.sc.bean.SysEmpuser;
 import com.sc.service.SysComPanyService;
 import com.sc.service.SysDutyService;
@@ -60,9 +62,10 @@ public class sysEmpuserController {
 		//设置视图名称
 		mav.addObject("se", sysEmpuserService.updateSysEmpuser(empId));
 		mav.addObject("m", sysComPanyService.selectComoany());
-		mav.setViewName("gongsi/goadd6");
+		mav.setViewName("gongsi/eui3");
 		return mav;
 	}
+
 	@RequestMapping("/update.do")
 	public ModelAndView update(ModelAndView mav, MultipartFile files, HttpServletRequest req, SysEmpuser u)
 			throws IllegalStateException, IOException {
@@ -104,7 +107,6 @@ public class sysEmpuserController {
 		mav.setViewName("redirect:list.do");
 		return mav;
 	}
-
 	// 下载
 	@RequestMapping("/xz.do")
 	public ResponseEntity<byte[]> download(HttpServletRequest req,String empPrice) throws IOException {
@@ -115,8 +117,13 @@ public class sysEmpuserController {
 		String down = new String(empPrice.getBytes("utf-8"), "iso-8859-1");
 		headers.setContentDispositionFormData("attachment", down);
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-
 		return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
-
 	}
+	@RequestMapping("/detail.do")
+	@ResponseBody
+	public SysEmpuser detail(Long empId) {
+		System.out.println("来了11111111！"+empId);
+		return  sysEmpuserService.updateSysEmpuser(empId);
+	}
+	
 }

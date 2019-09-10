@@ -1,9 +1,5 @@
 package com.sc.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,8 +40,8 @@ public class PurProductsController {
 		public ModelAndView selectproducts11 (ModelAndView mav,
 				@RequestParam(defaultValue="1")Integer pageNum,
 				@RequestParam(defaultValue="5")Integer pageSize){
-			PageInfo<PurProducts> xx = purproductsservice.selectpurproducts(pageNum, pageSize);
-			
+			PageInfo<Ccspxxb> xx = purproductsservice.selectpurproducts(pageNum, pageSize);
+			System.out.println("1111111111"+xx.getList());
 			mav.addObject("pi",xx);
            mav.setViewName("jinhuo/productsinfo");
 		    return mav;

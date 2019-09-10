@@ -354,15 +354,18 @@ $('.change_Password').on('click', function(){
 				  </li>
 						<li><a href="#" class="dropdown-toggle"><i class="icon-edit"></i><span class="menu-text"> 万成龙</span><b class="arrow icon-angle-down"></b></a>
 							<ul class="submenu">
-								<li class="home"><a href="javascript:void(0)" name="officectlr/sms.do" title="消息列表" class="iframeurl"><i class="icon-double-angle-right"></i>消息列表</a></li>
-                                <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="意见反馈" class="iframeurl"><i class="icon-double-angle-right"></i>意见反馈</a></li>
+								<li class="home"><a href="javascript:void(0)" name="Office/selectinfo.do" title="消息列表" class="iframeurl"><i class="icon-double-angle-right"></i>消息列表</a></li>
+                                <li class="home"><a href="javascript:void(0)" name="Office/selectdetailinfo.do" title="意见反馈" class="iframeurl"><i class="icon-double-angle-right"></i>意见反馈</a></li>
                                 <li class="home"><a href="javascript:void(0)" name="officectlr/agenda.do" title="日程安排" class="iframeurl"><i class="icon-double-angle-right"></i>日程安排</a></li>
+                                <li class="home"><a href="javascript:void(0)" name="officectlr/agenda1.do" title="日程安排1" class="iframeurl"><i class="icon-double-angle-right"></i>日程安排1</a></li>
 							</ul>
 						</li>
 						<li><a href="#" class="dropdown-toggle"><i class="icon-edit"></i><span class="menu-text"> 范宇星 </span><b class="arrow icon-angle-down"></b></a>
 							<ul class="submenu">
-								<li class="home"><a href="javascript:void(0)" name="officecc.do/listofficechecktargetall.do" title="文章列表" class="iframeurl"><i class="icon-double-angle-right"></i>文章列表</a></li>
-                                <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="分类分类" class="iframeurl"><i class="icon-double-angle-right"></i>分类分类</a></li>
+								<li class="home"><a href="javascript:void(0)" name="officecc.do/listofficechecktargetall.do" title="任务指标管理" class="iframeurl"><i class="icon-double-angle-right"></i>任务指标管理</a></li>
+                                <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="任务授权关系" class="iframeurl"><i class="icon-double-angle-right"></i>任务授权关系</a></li>
+                                <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="任务发布管理" class="iframeurl"><i class="icon-double-angle-right"></i>任务发布管理</a></li>
+                                <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="任务接收查询" class="iframeurl"><i class="icon-double-angle-right"></i>任务接收查询</a></li>
 							</ul>
 						</li>
                         	<li><a href="#" class="dropdown-toggle"><i class="icon-cogs"></i><span class="menu-text"> 采购管理 </span><b class="arrow icon-angle-down"></b></a>

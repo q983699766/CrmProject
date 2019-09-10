@@ -5,9 +5,11 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sc.bean.SysBranch;
+import com.sc.bean.SysDuty;
 import com.sc.service.SysBranchService;
 import com.sc.service.SysComPanyService;
 
@@ -51,7 +53,7 @@ public class sysBranchController {
 		mav.addObject("select", SysBranchService.selectBranch(secId));
 		System.out.println("oo"+ SysBranchService.selectBranch(secId));
 		mav.addObject("as", sysComPanyService.selectComoany());
-		mav.setViewName("gongsi/goadd8");
+		mav.setViewName("gongsi/eui4");
 		return mav;
 }
 	@RequestMapping("/upBranch.do")
@@ -62,4 +64,10 @@ public class sysBranchController {
 		mav.setViewName("redirect:tiao.do");
 		return mav;
 }
+	@RequestMapping("/detail.do")
+	@ResponseBody
+	public SysBranch detail(ModelAndView mav,Long dutId) {
+		System.out.println("来了四弟111！");
+		return SysBranchService.selectBranch(dutId);
+	}
 }

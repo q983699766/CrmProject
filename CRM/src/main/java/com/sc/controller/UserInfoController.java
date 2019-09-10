@@ -47,6 +47,12 @@ public class UserInfoController {
 	public ModelAndView updatePassword(ModelAndView mav , HttpServletRequest req, String password, HttpSession session,String oldpass){
 		SysUsers user = (SysUsers)session.getAttribute("nowuser");
 		
+		Long userId = user.getUserId();
+		
+		mav.addObject("role", userInfoService.getMyRole(userId));
+		
+		mav.addObject("roles", RolesService.getRoleList());
+		
 		String old = user.getUserPassword();
 		
 		String salt = "qwerty";
@@ -59,11 +65,11 @@ public class UserInfoController {
 			userInfoService.updateUserPassw(password, user);
 			
 			mav.addObject("success", "success");
-			System.out.println("密码修改成功");
 			mav.setViewName("permission/admin_info");
 			return mav;
 		}else{
 			System.out.println("密码修改失败");
+			mav.addObject("success", "fail");
 			mav.setViewName("permission/admin_info");
 			return mav;
 		}
