@@ -16,8 +16,8 @@ public interface CcspxxbMapper {
 
     int insertSelective(Ccspxxb record);
 
-    List<Ccspxxb> selectByExample(Ccspxxb ccspxx);
     List<Ccspxxb> selectByExample(CcspxxbExample example);
+
     Ccspxxb selectByPrimaryKey(Long productId);
 
     int updateByExampleSelective(@Param("record") Ccspxxb record, @Param("example") CcspxxbExample example);
@@ -27,4 +27,8 @@ public interface CcspxxbMapper {
     int updateByPrimaryKeySelective(Ccspxxb record);
 
     int updateByPrimaryKey(Ccspxxb record);
+    
+    
+    List<Ccspxxb> selectByExamplel( Ccspxxb ccspxx);
+    
 }

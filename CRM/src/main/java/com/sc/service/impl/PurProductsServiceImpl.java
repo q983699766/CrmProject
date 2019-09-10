@@ -4,13 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sc.bean.Ccspxxb;
 import com.sc.bean.CcspxxbExample;
-import com.sc.bean.CcspxxbExample.Criteria;
 import com.sc.bean.PurProducts;
-import com.sc.bean.PurProductsExample;
 import com.sc.mapper.CcspxxbMapper;
 import com.sc.mapper.PurProductsMapper;
 import com.sc.service.PurProductsService;
@@ -60,14 +59,31 @@ public class PurProductsServiceImpl implements PurProductsService {
 	//查询代采购列表的方法
 	@Override
 	public PageInfo<PurProducts> selectpurproducts(Integer pageNum, Integer pageSize) {
-		System.out.println("wo lai l ");
+		 System.out.println("wo lai l ");
 		 PageHelper.startPage(pageNum,pageSize);
-		 PurProductsExample example = new PurProductsExample();
-		 List<PurProducts> list = purproductsmapper.selectByExamplel(example);
-		 System.out.println("待采购列表是"+list.get(0));
+		
+		 List<PurProducts> list = purproductsmapper.selectByExample(null);
+	
 		 PageInfo<PurProducts> pi = new PageInfo<PurProducts>(list);
 		 return pi;
 		
+	}
+	@Override
+	public PurProducts SelectById(Long productId) {
+		// TODO Auto-generated method stub
+		return purproductsmapper.selectByid(productId);
+	}
+	@Override
+	public List<PurProducts> selectpurproducts() {
+		
+		return purproductsmapper.selectByExample(null);
+	}
+	
+	
+	
+	@Override
+	public void addpurproducts( PurProducts purproducts) {
+		purproductsmapper.insert(purproducts);
 	}
 	
 

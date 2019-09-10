@@ -20,4 +20,11 @@ public interface PurProductsService {
 		public PageInfo<PurProducts> selectpurproducts(Integer pageNum, Integer pageSize);
 
 		
+		//通过id查询
+		public PurProducts SelectById(Long productId);
+		
+		//
+		public List<PurProducts> selectpurproducts();
+		
+		public void addpurproducts( PurProducts purproducts);
 }

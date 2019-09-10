@@ -107,12 +107,9 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/font/**", "anon");
 		filterChainDefinitionMap.put("/products/**", "anon");
 		filterChainDefinitionMap.put("/Widget/**", "anon");
-		
-		
-		
+		filterChainDefinitionMap.put("/My97DatePicker/**", "anon");
 		filterChainDefinitionMap.put("loginctlr/ajaxlogout.do", "anon");
 		filterChainDefinitionMap.put("loginctlr/islogin.do", "anon");
-		
 		filterChainDefinitionMap.put("/validatecode.jsp", "anon");
 		filterChainDefinitionMap.put("/login.jsp", "anon");
 		filterChainDefinitionMap.put("/index.jsp", "anon");
