@@ -13,27 +13,29 @@ import com.sc.bean.Users;
 import com.sc.bean.UsersExample;
 import com.sc.bean.UsersExample.Criteria;
 import com.sc.mapper.OfficeChecktargetMapper;
+import com.sc.mapper.OfficeGrantMapper;
 import com.sc.mapper.UsersMapper;
 import com.sc.service.OfficeChecktargetService;
+import com.sc.service.OfficeGrantService;
 import com.sc.service.UsersService;
 
 @Service
-public class OfficeChecktargetServiceImpl implements OfficeChecktargetService {
+public class OfficeGrantServiceImpl implements OfficeGrantService {
 	@Autowired
-	OfficeChecktargetMapper officeChecktargetMapper;
-
+	OfficeGrantMapper officeGrantMapper;
+/*
 	@Override
 	public List<OfficeChecktarget> selectOfficeChecktargetAll() {
-		/*if(comId!=null) {
-			OfficeChecktargetExample example = new OfficeChecktargetExample();
-			com.sc.bean.OfficeChecktargetExample.Criteria criteria = example.createCriteria();
-			criteria.andComIdEqualTo(comId);
-			List<OfficeChecktarget> selectByExample = this.officeChecktargetMapper.selectByExample(example);
-			if(selectByExample!=null) {
-				return selectByExample;
-			}
-		}
-		return null;*/
+//		if(comId!=null) {
+//			OfficeChecktargetExample example = new OfficeChecktargetExample();
+//			com.sc.bean.OfficeChecktargetExample.Criteria criteria = example.createCriteria();
+//			criteria.andComIdEqualTo(comId);
+//			List<OfficeChecktarget> selectByExample = this.officeChecktargetMapper.selectByExample(example);
+//			if(selectByExample!=null) {
+//				return selectByExample;
+//			}
+//		}
+//		return null;
 		return this.officeChecktargetMapper.selectByExample(null);
 	}
 
@@ -71,5 +73,5 @@ public class OfficeChecktargetServiceImpl implements OfficeChecktargetService {
 	}
 	
 	
-
+*/
 }

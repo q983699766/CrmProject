@@ -10,18 +10,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
  <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="css/style.css"/>       
-        <link href="assets/css/codemirror.css" rel="stylesheet">
-        <link rel="stylesheet" href="assets/css/ace.min.css" />
-        <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+        <link href="<%=basePath%>assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="<%=basePath%>css/style.css"/>       
+        <link href="<%=basePath%>assets/css/codemirror.css" rel="stylesheet">
+        <link rel="stylesheet" href="<%=basePath%>assets/css/ace.min.css" />
+        <link rel="stylesheet" href="<%=basePath%>assets/css/font-awesome.min.css" />
 		<!--[if IE 7]>
 		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
 		<![endif]-->
         <!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
 		<![endif]-->
-			<script src="assets/js/jquery.min.js"></script>
+			<script src="<%=basePath%>assets/js/jquery.min.js"></script>
 
 		<!-- <![endif]-->
 
@@ -46,27 +46,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript">
 			if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		</script>
-		<script src="assets/js/bootstrap.min.js"></script>
-		<script src="assets/js/typeahead-bs2.min.js"></script>
+		<script src="<%=basePath%>assets/js/bootstrap.min.js"></script>
+		<script src="<%=basePath%>assets/js/typeahead-bs2.min.js"></script>
 		<!-- page specific plugin scripts -->
-		<script src="assets/js/jquery.dataTables.min.js"></script>
-		<script src="assets/js/jquery.dataTables.bootstrap.js"></script>
-        <script type="text/javascript" src="js/H-ui.js"></script> 
-        <script type="text/javascript" src="js/H-ui.admin.js"></script> 
-        <script src="assets/layer/layer.js" type="text/javascript" ></script>
-        <script src="assets/laydate/laydate.js" type="text/javascript"></script>
+		<script src="<%=basePath%>assets/js/jquery.dataTables.min.js"></script>
+		<script src="<%=basePath%>assets/js/jquery.dataTables.bootstrap.js"></script>
+        <script type="text/javascript" src="<%=basePath%>js/H-ui.js"></script> 
+        <script type="text/javascript" src="<%=basePath%>js/H-ui.admin.js"></script> 
+        <script src="<%=basePath%>assets/layer/layer.js" type="text/javascript" ></script>
+        <script src="<%=basePath%>assets/laydate/laydate.js" type="text/javascript"></script>
 <title>用户列表</title>
 </head>
 
 <body>
-<form action="ccckxxctlr/mh.do" method="post">
 <div class="page-content clearfix">
     <div id="Member_Ratings">
       <div class="d_Confirm_Order_style">
     <div class="search_style">
+    
+    <form action="ccspxxctlr/mh.do" method="post">
       <div class="title_names">搜索查询</div>
       <ul class="search_content clearfix">
-       <li><label class="l_f">仓库编号</label><input name="ckM" type="text"  class="text_add" placeholder="输入会员名称、电话、邮箱"  style=" width:400px"/></li>       
+       <li><label class="l_f">产品查询</label><input name="ccspxx" type="text"  class="text_add" placeholder="请输入产品名称:"  style=" width:400px"/></li>
        <li style="width:90px;"><button type="submit" class="btn_search"><i class="icon-search"></i>查询</button></li>
       </ul>
     </div>
@@ -74,57 +75,68 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <!---->
      <div class="border clearfix">
        <span class="l_f">
-        <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加仓库</a>
-        <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
+        <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加商品</a>
+        <a href="javascript:sc()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
        </span>
+       <script type="text/javascript">
+			function sc() {
+			document.getElementById("cc").submit();
+			var a=document.getElementsByName("bb");
+			}
+							
+	  </script>
        <span class="r_f">共：<b>${pi.total }</b>条</span>
      </div>
      <!---->
      <div class="table_menu_list">
        <table class="table table-striped table-bordered table-hover" id="sample-table">
 		<thead>
-		 
 		 <tr>
-				<th width="25px"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
-				<th width="80px">仓库编号</th>
-				<th width="250px">仓库名</th>
-				<th width="100px">备注信息</th>
-				<th width="100px">公司编号</th>
-                <th width="100px">最后修改时间</th>				            
+				<th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
+				<th width="80px">采购详情编号</th>
+				<th width="250px">采购编号</th>
+				<th width="100px">产品编号</th>
+				<th width="100px">产品数量</th>
+                <th width="100px">产品价格</th>				
+				<th width="180px">是否入库</th>
+                <th width="80px">操作人员</th>
+				<th width="250px">备注信息</th>
+				<th width="70px">公司编号</th> 
+				<th width="100px">最后修改时间</th>                 
 				<th width="200px">操作</th>
 			</tr>
 		</thead>
 	<tbody>
-	
-    <c:forEach items="${pi.list }" var="u">
+	<c:forEach items="${pi.list }" var="u">
 		<tr>
           <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>${u.ckBh }</td>
-          <td><a href="ccckxxctlr/select1.do?ckBh=${u.ckBh}">${u.ckM }</a></td>       
-          <td>${u.bzxx }</td>
-          <td>${u.comId }</td>
+          <td>${u.purInfoNumber }</td>
+          <td>${u.purNumber }</td>
+          <td>${u.productId }</td>
+          <td>${u.proPrice }</td>
+          <td>${u.warehouseOrnot }</td>         
+          <td>${u.operatorId }</td>
+          <td>${u.remarksInfom }</td>
+          <td>${u.comId }</td>         
           <td><fmt:formatDate value="${u.lastTime}" pattern="yyyy-MM-dd" /></td>         
-         
-          <td class="td-manage">          
-          <a title="编辑"  onclick="jia(${u.ckBh});member_edit('550')" href="javascript:"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'${u.ckBh }')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a> 
-          
+           <td>${u.productCount }</td> 
+          <td class="td-manage">
+          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
+          <a title="编辑" onclick="jia(${u.productId});member_edit('550')" href="javascript:"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
+       	  <a title="删除" href="javascript:;"  onclick="member_del(this,'${u.productId }')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a> 
           </td>
 		</tr>
        </c:forEach>
-      
-      
-       
-	 <tr>
+       		              
+           <tr>
               <td colspan="15" style="text-align: center;">
-                  <a href="ccckxxctlr/ck.do?pageNum=${pi.firstPage }">首页</a>
-                  <a href="ccckxxctlr/ck.do?pageNum=${pi.prePage }">上一页</a>
-                  <a href="ccckxxctlr/ck.do?pageNum=${pi.nextPage }">下一页</a>
-                  <a href="ccckxxctlr/ck.do?pageNum=${pi.lastPage }">尾页</a>
-                                       当前${pi.pageNum }/${pi.pages }页，共${pi.total }条
+                  <a href="pur/ck.do?pageNum=${pi.firstPage }">首页</a>
+                  <a href="pur/ck.do?pageNum=${pi.prePage }">上一页</a>
+                  <a href="pur/ck.do?pageNum=${pi.nextPage }">下一页</a>
+                  <a href="pur/ck.do?pageNum=${pi.lastPage }">尾页</a>
+                                       当前${pi.pageNum }/${pi.pages }页
               </td>
            </tr>
-       
        
        
       </tbody>
@@ -134,32 +146,47 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </div>
 </div>
 <!--添加用户图层-->
-<form action="ccckxxctlr/add.do" method="post">
+<form action="ccspxxctlr/add.do" method="post">
 <div class="add_menber" id="add_menber_style" style="display:none">
   
-    <ul class=" page-content">     
-     <li><label class="label_name">仓库名</label><span class="add_name"><input name="ckM" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">备注信息</label><span class="add_name"><input name="bzxx" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+    <ul class=" page-content">
+     <li><label class="label_name">商&nbsp;&nbsp;品 &nbsp;名：</label><span class="add_name"><input  name="spMc" type="text" class="text_add"  required /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">商品类型</label><span class="add_name"><input name="spLb" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">规格说明</label><span class="add_name"><input name="ggSm" type="text"  class="text_add" /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">单位</label><span class="add_name"><input name="dw" type="text"  class="text_add" /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">仓库编号</label><span class="add_name"><input name="ckBh" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">库存数量</label><span class="add_name"><input name="kcSl" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">成本价</label><span class="add_name"><input name="cbj" type="text"  class="text_add" /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">零售价</label><span class="add_name"><input name="lsj" type="text"  class="text_add" /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">经销价</label><span class="add_name"><input name="jxj" type="text"  class="text_add" /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">备注信息</label><span class="add_name"><input name="bzxx" type="text"  class="text_add" /></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">公司编号</label><span class="add_name"><input name="comId" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
      <div class="prompt r_f"></div>
-     </li>    
+     </li> 
+    
     <center>
     <label><input name="form-field-radio1"type="submit"  value="提交" class="btn btn-prompt r_f"><span class="lbl"></span></label></span><div class="prompt r_f"></div></li>   
  	</center>
  </div>
+
  </form>
- 
  <!--修改用户图层  -->
- <form action="ccckxxctlr/updatecckcxx.do" method="post">
+ <form action="ccspxxctlr/updateccspxx.do" method="post">
 <div class="update_menber" id="update_menber_style" style="display:none">
   
     <ul class=" page-content">
-     <input  type="hidden" id="ckBh2" name="ckBh" class="text_add"/> 
-     <li><label class="label_name">仓库名</label><span class="add_name"><input id="ckM2" name="ckM" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">备注信息</label><span class="add_name"><input id="bzxx2" name="bzxx" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <input  type="hidden" id="productId2" name="productId" class="text_add"/> 
+     <li><label class="label_name">商品详情编号：</label><span class="add_name"><input id="spMc11"  name="spMc" type="text" class="text_add"  required /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">采购单编号</label><span class="add_name"><input id="spLb2" name="spLb" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">产品编号</label><span class="add_name"><input id="ggSm2" name="ggSm" type="text"  class="text_add" /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">产品数量</label><span class="add_name"><input id="dw2" name="dw" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">产品价格</label><span class="add_name"><input id="ckBh2" name="ckBh" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">是否入库</label><span class="add_name"><input id="kcSl2" name="kcSl" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">操作人员</label><span class="add_name"><input id="cbj2" name="cbj" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">备注信息</label><span class="add_name"><input id="lsj2" name="lsj" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>     
      <li><label class="label_name">公司编号</label><span class="add_name"><input id="comId2" name="comId" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">最后修改时间</label><span class="add_name"><input id="comId2" name="comId" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
      <div class="prompt r_f"></div>
-     </li> 
     
     <center>
     <label><input name="form-field-radio1"type="submit"  value="修改" class="btn btn-prompt r_f"><span class="lbl"></span></label></span><div class="prompt r_f"></div></li>   
@@ -302,45 +329,10 @@ function member_edit(id){
     });
 }
 
-
-    //查看函数
- function jia1(supInfoNum)
-    {
-        var url="pursupinfo/select.do?supInfoNum="+supInfoNum;
-   //ajax异步请求
-   $.ajax
-   ({
-      type:"post",
-      url:url,
-      dataType:"json",
-      success:function(data)
-      
-      {//从前台回调回来的数组，处理后的数据
-       //alert(JSON.stringify(data));
-        $("#supInfoNum1").text(data.supInfoNum);
-        $("#supName1").text(data.supName);
-        $("#supUname1").text(data.supUname);
-        $("#contacts1").text(data.contacts);
-        $("#fixedTel1").text(data.fixedTel);
-        $("#telphone1").text(data.telphone);
-        $("#fax1").text(data.fax);
-        $("#email1").text(data.email);
-        $("#openBank1").text(data.openBank);
-        $("#bankNumber1").text(data.bankNumber);
-        $("#comIndex1").text(data.comIndex);
-        $("#remarksInfo1").text(data.remarksInfo);
-        $("#effectiveOrnot1").text(data.effectiveOrnot);bankNature1
-            $("#bankNature1").text(data.bankNature);
-             $("#comId1").text(data.comId);
-        //将取出的值覆盖原来的值 （val对值进行操作)			   
-  }
-    });
-       
-    } 
 //编辑函数
- function jia(ckBh)
+ function jia(productId)
     {
-        var url="ccckxxctlr/select.do?ckBh="+ckBh;
+        var url="ccspxxctlr/select.do?productId="+productId;
    //ajax异步请求
    $.ajax
    ({
@@ -349,11 +341,18 @@ function member_edit(id){
       dataType:"json",
       success:function(data)
       {//从前台回调回来的数组，处理后的数据
- 
-      	$("#ckBh2").val(data.ckBh);
-        $("#ckM2").val(data.ckM);//仓库名
+      	$("#productId2").val(data.productId);
+        $("#spMc11").val(data.spMc);//商品名
+        $("#spLb2").val(data.spLb);//商品类型
+        $("#ggSm2").val(data.ggSm);//规格说明
+        $("#dw2").val(data.dw);//单位
+        $("#ckBh2").val(data.ckBh);//仓库编号
+        $("#kcSl2").val(data.kcSl);//库存数量
+        $("#cbj2").val(data.cbj);//成本价
+        $("#lsj2").val(data.lsj);//零售价
+        $("#jxj2").val(data.jxj);//经销价
         $("#bzxx2").val(data.bzxx);//备注信息
-        $("#comId2").val(data.comId);//公司编号  
+        $("#comId2").val(data.comId);//公司编号
         $("#lastDate").val(data.lastDate);
       //将取出的值覆盖原来的值 （val对值进行操作)	
         
@@ -363,16 +362,17 @@ function member_edit(id){
     } 
 
 
-
-
 /*用户-删除*/
 function member_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
 		//$(obj).parents("tr").remove();
+		document.location.href="ccspxxctlr/del.do?productId="+id;
 		layer.msg('已删除!',{icon:1,time:1000});
-		document.location.href="ccckxxctlr/del.do?uid="+id
+		
 	});
 }
+
+
 laydate({
     elem: '#start',
     event: 'focus' 
@@ -396,8 +396,3 @@ laydate({
 .show_menber li .add_name{ float:left; margin-left:10px; line-height:30px;}
 .show_menber li .add_name .lbl{ top:-5px; left:10px;}
 </style>
-
-
-
-
-

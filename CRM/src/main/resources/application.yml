@@ -24,7 +24,7 @@ spring:
     driver-class-name: oracle.jdbc.driver.OracleDriver
     url: jdbc:oracle:thin:@192.168.43.159:1521:orcl
    #如果需要链接本地的数据库，把上面url注释，下面url放开，注意：改后千万不要提交此文件
-   #url: jdbc:oracle:thin:@localhost:1521:orcl
+    #url: jdbc:oracle:thin:@localhost:1521:orcl
     username: CRM
     password: CRM
     

@@ -9,13 +9,20 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sc.bean.CcCkxxb;
 import com.sc.bean.CcCkxxbExample;
+import com.sc.bean.Ccspxxb;
+import com.sc.bean.CcspxxbExample;
+import com.sc.bean.CcspxxbExample.Criteria;
 import com.sc.mapper.CcCkxxbMapper;
+import com.sc.mapper.CcspxxbMapper;
 import com.sc.service.CcCkxxbService;
 @Service
 public class CcCkxxServiceImpl implements CcCkxxbService {
 
 	@Autowired
 	CcCkxxbMapper CcCkxxbMapper ;
+	
+	@Autowired
+	CcspxxbMapper ccspxxbMapper;
 	//添加
 	@Override
 	public void addCcCkxx(CcCkxxb u) {
@@ -35,22 +42,68 @@ public class CcCkxxServiceImpl implements CcCkxxbService {
 		return pi;
 	}
 
+	//通过id查询
 	@Override
-	public PageInfo<CcCkxxb> selectCcCkxxbByUid(Long uid) {
-		// TODO Auto-generated method stub
-		return null;
+	public CcCkxxb selectCcCkxxbByUid(Long ckBh) {
+		
+		return CcCkxxbMapper.selectByPrimaryKey(ckBh);
+				
 	}
 
 	//删除
 	@Override
 	public void delCcCkxx(Long uid) {
 		this.CcCkxxbMapper.deleteByPrimaryKey(uid);
+		
 	}
 
+	//修改
 	@Override
 	public void updateCcCkxx(CcCkxxb u) {
-		// TODO Auto-generated method stub
-
+		if(u!=null&&u.getCkBh()!=null){
+			CcCkxxbMapper.updateByPrimaryKey(u);
+			
+		}
 	}
+	//通过仓库id 查询属于该仓库的商品
+	@Override
+	public PageInfo<Ccspxxb> selectbyckidPage(Integer pageNum, Integer pageSize, Long ckBh) {
+		
+			CcspxxbExample example = new CcspxxbExample();
+			Criteria criteria = example.createCriteria();
+			criteria.andCkBhEqualTo(ckBh);
+			List <Ccspxxb> list = ccspxxbMapper.selectByExample(example);
+			PageInfo pi = new PageInfo(list);
+			System.out.println("3333333"+pi);
+			return pi;
+		}
+
+	
+	//模糊查询
+	@Override
+	public PageInfo<CcCkxxb> selectmh(Integer pageNum, Integer pageSize, CcCkxxb ccCkxxb) {
+		PageHelper.startPage(pageNum,pageSize);
+		
+		CcCkxxbExample example = new CcCkxxbExample();
+		//example.setOrderByClause("PRODUCT_ID DESC");
+		if(ccCkxxb.getCkM()!=null){
+			//Criteria criteria = example.createCriteria();
+			com.sc.bean.CcCkxxbExample.Criteria criteria = example.createCriteria();
+		
+			criteria.andCkMLike("%"+ccCkxxb.getCkM()+"%");
+		}
+					
+		List<CcCkxxb> list = CcCkxxbMapper.selectByExample(example);
+		PageInfo<CcCkxxb> pi = new PageInfo<CcCkxxb>(list);
+		return pi;
+	
+	}
+
+		
+	
+
+
+
+
 
 }

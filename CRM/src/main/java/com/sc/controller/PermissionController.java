@@ -9,9 +9,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.pagehelper.PageInfo;
 import com.sc.bean.SysPermission;
 import com.sc.bean.SysPermissionColumn;
 import com.sc.bean.SysPermissionColumnExample;
@@ -43,14 +45,18 @@ public class PermissionController {
 	
 	
 	@RequestMapping("/getPermByCol.do")
-	public ModelAndView getPermByCol(ModelAndView mav , HttpSession session, HttpServletRequest req, String columnName){
+	public ModelAndView getPermByCol(ModelAndView mav , HttpSession session, 
+			HttpServletRequest req, String columnName,
+			@RequestParam(defaultValue="1")Integer pageNum,
+			@RequestParam(defaultValue="10")Integer pageSize){
 		
 		if(columnName.equals("all")){
-			List<SysPermission> list = PermissionService.getPermList();
-			mav.addObject("perms", list);
+			PageInfo<SysPermission> list = PermissionService.selectUsersPage(pageNum, pageSize);
+			mav.addObject("list", list);
 		}else{
 			List<SysPermission> list = PermissionService.getPermListByCol(columnName);
-			mav.addObject("perms", list);
+			PageInfo<SysPermission> pi = new PageInfo<SysPermission>(list);
+			mav.addObject("list", pi);
 		}
 		
 		List<SysRole> list2 = RolesService.getRoleList();
@@ -85,14 +91,7 @@ public class PermissionController {
 			mav.addObject("ok", "3");
 		}
 		
-		List<SysPermission> list = PermissionService.getPermList();
-		mav.addObject("perms", list);
-		List<SysRole> list2 = RolesService.getRoleList();
-		mav.addObject("roles", list2);
-		List<SysPermissionColumn> list3 = PermissionService.getColumn();
-		mav.addObject("col", list3);
-		
-		mav.setViewName("permission/user_role");
+		mav.setViewName("redirect:../permisctlr/getPermission.do");
 		return mav;
 	}
 	
@@ -140,14 +139,7 @@ public class PermissionController {
 		}
 		
 		
-		List<SysPermission> list = PermissionService.getPermList();
-		mav.addObject("perms", list);
-		List<SysRole> list2 = RolesService.getRoleList();
-		mav.addObject("roles", list2);
-		List<SysPermissionColumn> list4 = PermissionService.getColumn();
-		mav.addObject("col", list4);
-		
-		mav.setViewName("permission/user_role");
+		mav.setViewName("redirect:../permisctlr/getPermission.do");
 		return mav;
 	}
 	
@@ -172,15 +164,8 @@ public class PermissionController {
 		}else{
 			mav.addObject("ok", "2");
 		}
-
-		List<SysPermission> list = PermissionService.getPermList();
-		mav.addObject("perms", list);
-		List<SysRole> list2 = RolesService.getRoleList();
-		mav.addObject("roles", list2);
-		List<SysPermissionColumn> list3 = PermissionService.getColumn();
-		mav.addObject("col", list3);
 		
-		mav.setViewName("permission/user_role");
+		mav.setViewName("redirect:../permisctlr/getPermission.do");
 		return mav;
 	}
 	
@@ -201,11 +186,9 @@ public class PermissionController {
 		
 		PermissionService.reset();
 		
-		List<SysRole> list = RolesService.getRoleList();
 		
-		mav.addObject("roles", list);
 		mav.addObject("ok", "1");
-		mav.setViewName("permission/roles");
+		mav.setViewName("redirect:../rolesctlr/getlist.do");
 		return mav;
 	}
 	
@@ -226,11 +209,9 @@ public class PermissionController {
 		}
 		
 		
-		List<SysRole> list = RolesService.getRoleList();
 		
-		mav.addObject("roles", list);
 		mav.addObject("ok", "1");
-		mav.setViewName("permission/roles");
+		mav.setViewName("redirect:../rolesctlr/getlist.do");
 		return mav;
 	}
 	
@@ -239,23 +220,20 @@ public class PermissionController {
 	public ModelAndView del(ModelAndView mav , HttpServletRequest req, Long permId){
 		PermissionService.delPerm(permId);
 		
-		List<SysPermission> list = PermissionService.getPermList();
-		mav.addObject("perms", list);
-		List<SysRole> list2 = RolesService.getRoleList();
-		mav.addObject("roles", list2);
-		List<SysPermissionColumn> list3 = PermissionService.getColumn();
-		mav.addObject("col", list3);
+		
 		mav.addObject("ok", "1");
-		mav.setViewName("permission/user_role");
+		mav.setViewName("redirect:../permisctlr/getPermission.do");
 		return mav;
 	}
 	
 	
 		@RequestMapping("/getPermission.do")
-		public ModelAndView getUserInfo(ModelAndView mav , HttpServletRequest req){
+		public ModelAndView getUserInfo(ModelAndView mav , HttpServletRequest req,
+				@RequestParam(defaultValue="1")Integer pageNum,
+				@RequestParam(defaultValue="10")Integer pageSize){
 			
-			List<SysPermission> list = PermissionService.getPermList();
-			mav.addObject("perms", list);
+			PageInfo<SysPermission> list = PermissionService.selectUsersPage(pageNum, pageSize);
+			mav.addObject("list", list);
 			List<SysRole> list2 = RolesService.getRoleList();
 			mav.addObject("roles", list2);
 			List<SysPermissionColumn> list3 = PermissionService.getColumn();
