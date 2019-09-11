@@ -1,5 +1,7 @@
 package com.sc.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -85,13 +88,7 @@ public class UsersController {
 		UsersService.updateUserRole(user, roleId, uid);
 		mav.addObject("ok", "1");
 		
-		List<SysUsers> list = UsersService.getUsersList();
-		
-		List<SysRole> list2 = RolesService.getRoleList();
-		
-		mav.addObject("users", list);
-		mav.addObject("roles", list2);
-		mav.setViewName("permission/users");
+		mav.setViewName("redirect:../usersctlr/getlist1.do");
 		return mav;
 	}
 	
@@ -144,14 +141,7 @@ public class UsersController {
 		}else{
 			mav.addObject("ok", "2");
 		}
-		List<SysUsers> list = UsersService.getUsersList();
-		
-		List<SysRole> list2 = RolesService.getRoleList();
-		
-		mav.addObject("users", list);
-		mav.addObject("roles", list2);
-		
-		mav.setViewName("permission/users");
+		mav.setViewName("redirect:../usersctlr/getlist1.do");
 		return mav;
 	}
 	
@@ -160,14 +150,9 @@ public class UsersController {
 	public ModelAndView delById(ModelAndView mav , HttpServletRequest req, Long userId){
 		
 		UsersService.delUser(userId);
-		List<SysUsers> list = UsersService.getUsersList();
 		
-		List<SysRole> list2 = RolesService.getRoleList();
-		
-		mav.addObject("users", list);
-		mav.addObject("roles", list2);
 		mav.addObject("ok", "1");
-		mav.setViewName("permission/users");
+		mav.setViewName("redirect:../usersctlr/getlist1.do");
 		return mav;
 	}
 	
@@ -193,27 +178,24 @@ public class UsersController {
 			UsersService.updateUser(user);
 		}
 		
-		List<SysUsers> list = UsersService.getUsersList();
-		
-		List<SysRole> list2 = RolesService.getRoleList();
-		
-		mav.addObject("users", list);
-		mav.addObject("roles", list2);
 		mav.addObject("ok", "1");
-		mav.setViewName("permission/users");
+		mav.setViewName("redirect:../usersctlr/getlist1.do");
 		return mav;
 	
 	}
 	
 	
-	@RequestMapping("/getlist.do")
-	public ModelAndView updateUserSta(ModelAndView mav , HttpServletRequest req, HttpSession session){
+	@RequestMapping("/getlist1.do")
+	public ModelAndView updateUserSta(ModelAndView mav , HttpServletRequest req
+			, HttpSession session,
+			@RequestParam(defaultValue="1")Integer pageNum,
+			@RequestParam(defaultValue="10")Integer pageSize){
 		
-		List<SysUsers> list = UsersService.getUsersList();
+		
 		
 		List<SysRole> list2 = RolesService.getRoleList();
 		
-		mav.addObject("users", list);
+		mav.addObject("users", UsersService.selectUsersPage(pageNum, pageSize));
 		mav.addObject("roles", list2);
 		
 		mav.setViewName("permission/users");

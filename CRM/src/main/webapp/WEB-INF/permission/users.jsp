@@ -79,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              </tr>
 		    </thead>
              <tbody>
-             <c:forEach items="${users }" var="u">
+             <c:forEach items="${users.list }" var="u">
 			  <tr>
 				
 				<td>${u.userName }</td>
@@ -95,7 +95,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <a title="切换状态" href="updatesta.do?userId=${u.userId }"  onclick="Competence_del(this,'1')" class="btn btn-xs btn-info" ><i class="fa fa-exchange  bigger-120"></i></a>
 				</td>
 			   </tr>
-			   </c:forEach>												
+			   </c:forEach>
+			   
+			   <tr style="text-align: center;">
+    				<td colspan="7">
+    			<a href="getlist1.do?pageNum=${users.navigateFirstPage }">首页</a>
+    			<a href="getlist1.do?pageNum=${users.prePage}">上一页</a>
+    			<a href="getlist1.do?pageNum=${users.nextPage }">下一页</a>
+    			<a href="getlist1.do?pageNum=${users.navigateLastPage }">尾页</a>
+    			当前第${users.pageNum }/${users.pages }页，共${users. total}条
+    				</td>
+    		</tr>												
 		      </tbody>
 	        </table>
      </div>
@@ -140,7 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
  <!--添加用户图层--> 
- <form action="add.do" method="post" onsubmit="return add()">
+ <form action="add.do" method="post" onsubmit="return add(this)">
 <div class="add_menber" id="add_menber_style" style="display:none">
   
     <ul class=" page-content">
@@ -152,13 +162,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <li><label class="label_name">员工编号：</label><span class="add_name"><input name="empId" id="empId" type="text"  class="text_add" placeholder="必填" /></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">公司编号：</label><span class="add_name"><input name="comId" id="comId" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">添加角色：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;
-             <select id="roles"  data-selector data-selector-checks="true">
+             <select id="roles" name="roleId" data-selector data-selector-checks="true">
                 <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</label><span class="add_name">
      <label><input name="userState" value="0" type="radio" checked="checked" class="ace"><span class="lbl">启用</span></label>&nbsp;&nbsp;&nbsp;
      <label><input name="userState" value="1" type="radio" class="ace"><span class="lbl">不启用</span></label></span><div class="prompt r_f"></div></li><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-    	<input name="roleId" type="hidden" id="myroleid" >
+    	<!-- <input name="roleId" type="hidden" id="myroleid" > -->
     </ul>
     <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
  </div>
@@ -171,12 +181,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 new verSelector();
 
 /* 添加用户判断 */
-function add(){
+function add(obj){
 		var pass4 = document.getElementById("uname").value;
 		var pass5 = document.getElementById("upass").value;
 		var pass1 = document.getElementById("empId").value;
 		var pass2 = document.getElementById("comId").value;
 		var pass3 = document.getElementById("roles").value;
+		
+		var roleId="";
+		$(".actives").each(function(i,e){
+		    /* alert($(this).attr("data-value")); */
+		    roleId+="roleId="+$(this).attr("data-value")+"&";
+		});
+		obj.action=obj.action+"?"+roleId;
 		if (pass4==""){
 			  layer.alert('用户名不能为空!',{
               title: '提示框',				
@@ -316,8 +333,9 @@ function member_edit(id){
 }
 
 function jia(userId)
-    {
+    {  $("#roles").change();
         var url="selectById.do?userId="+userId;
+     
    //ajax异步请求
    $.ajax
    ({
@@ -327,6 +345,7 @@ function jia(userId)
       success:function(data)
       {//从前台回调回来的数组，处理后的数据
        //alert(JSON.stringify(data));
+       
          $("#userName").val(data.userName);//将取出的值覆盖原来的值 （val对值进行操作)	
          $("#userPassword").val(data.userPassword);
          $("#empName").val(data.empName);
@@ -338,11 +357,19 @@ function jia(userId)
          $("#userState").val(data.userState);
          var roles = data.roles;
          for(var i in roles){
+         
          	var rid = roles[i].roleId;
-         	console.log($(".verSelector-two"));
-         	 $(".verSelector-two").each(function(i, element) {
-         	 
-         	if(element.date_value == rid)element.class="verSelector-option-value verSelector-two  actives";
+         	
+         	 $("p[data-value]").each(function(i, element) {
+         	  
+         	 /*verSelector-option-value verSelector-two actives*/
+         	//alert($(element).attr("data-value"));
+         	if($(element).attr("data-value") == rid){
+         	//class="verSelector-option-value verSelector-two actives"
+         	  // $(element).addClass("verSelector-option-value verSelector-two actives");
+         	  // alert(element.className);
+         	   $(element).click();
+         	}
          }); 
          }   
       }

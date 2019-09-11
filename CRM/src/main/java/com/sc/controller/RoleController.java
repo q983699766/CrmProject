@@ -9,9 +9,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.pagehelper.PageInfo;
 import com.sc.bean.SysRole;
 import com.sc.bean.SysRoleExample;
 import com.sc.bean.SysRoleExample.Criteria;
@@ -67,10 +69,7 @@ public class RoleController {
 			mav.addObject("ok", "2");
 		}
 		
-		List<SysRole> list = RolesService.getRoleList();
-		
-		mav.addObject("roles", list);
-		mav.setViewName("permission/roles");
+		mav.setViewName("redirect:../rolesctlr/getlist.do");
 		return mav;
 	}
 	
@@ -112,34 +111,41 @@ public class RoleController {
 		
 		
 		
-		List<SysRole> list = RolesService.getRoleList();
-		
-		mav.addObject("roles", list);
-		
-		mav.setViewName("permission/roles");
+		mav.setViewName("redirect:../rolesctlr/getlist.do");
 		return mav;
 	}
 	
 	
 	@RequestMapping("/del.do")
 	public ModelAndView del(ModelAndView mav , HttpServletRequest req, Long roleId){
-		RolesService.delRole(roleId);
 		
-		List<SysRole> list = RolesService.getRoleList();
+		SysRoleExample sysRoleExample = new SysRoleExample();
+		Criteria c = sysRoleExample.createCriteria();
+		c.andHigherRoleIdEqualTo(roleId);
 		
-		mav.addObject("roles", list);
+		List<SysRole> selectByExample = SysRoleMapper.selectByExample(sysRoleExample);
 		
-		mav.addObject("ok", "1");
-		mav.setViewName("permission/roles");
+		if(selectByExample.isEmpty()){
+			RolesService.delRole(roleId);
+			mav.addObject("ok", "1");
+		}else {
+			mav.addObject("ok", "3");
+		}
+		
+		
+		mav.setViewName("redirect:../rolesctlr/getlist.do");
 		return mav;
 	}
 	
 	@RequestMapping("/getlist.do")
-	public ModelAndView getUserInfo(ModelAndView mav , HttpServletRequest req, HttpSession session){
+	public ModelAndView getUserInfo(ModelAndView mav , HttpServletRequest req
+			, HttpSession session,
+			@RequestParam(defaultValue="1")Integer pageNum,
+			@RequestParam(defaultValue="10")Integer pageSize){
 		
-		List<SysRole> list = RolesService.getRoleList();
+		PageInfo<SysRole> list = RolesService.selectRolePage(pageNum, pageSize);
 		
-		mav.addObject("roles", list);
+		mav.addObject("list", list);
 		
 		
 		mav.setViewName("permission/roles");

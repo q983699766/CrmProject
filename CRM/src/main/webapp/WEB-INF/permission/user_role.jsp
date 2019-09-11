@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    </thead>
              <tbody>
              
-             <c:forEach items="${perms }" var="p">
+             <c:forEach items="${list.list }" var="p">
              		
 			  <tr>
 				<!-- <td class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td> -->
@@ -107,7 +107,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           			<a title="删除" href="javascript:;"  onclick="del_perm(${p.permissionId })" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
 				</td>
 			   </tr>
-			   </c:forEach>				
+			   </c:forEach>	
+			   <tr style="text-align: center;">
+    				<td colspan="7">
+    			<a href="getPermission.do?pageNum=${list.navigateFirstPage }">首页</a>
+    			<a href="getPermission.do?pageNum=${list.prePage}">上一页</a>
+    			<a href="getPermission.do?pageNum=${list.nextPage }">下一页</a>
+    			<a href="getPermission.do?pageNum=${list.navigateLastPage }">尾页</a>
+    			当前第${list.pageNum }/${list.pages }页，共${list. total}条
+    				</td>
+    		</tr>			
 		      </tbody>
 	        </table>
      </div>
@@ -119,7 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <br/>
     <ul class=" page-content">
      <li><label class="label_name">分栏名称：</label><span class="add_name"><input  type="text" name="columnName" id="columnName" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">权限描述：</label><span class="add_name"><input  type="text" name="remark" id="remark111" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">分栏描述：</label><span class="add_name"><input  type="text" name="remark" id="remark111" class="text_add"/></span><div class="prompt r_f"></div></li>
     </ul>
     <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/>
  </div>
@@ -179,7 +188,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">权限名称：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="perm111" name="perm" multiple="multiple">
-                <c:forEach items="${perms}" var="p" ><option value="${p.permissionId }">${p.permissionName }</option></c:forEach>
+                <c:forEach items="${list.list}" var="p" ><option value="${p.permissionId }">${p.permissionName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
     </ul><br/><br/><br/><br/><br/>
     <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

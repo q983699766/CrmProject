@@ -33,6 +33,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 </head>
 
+<%
+			String uname = "";
+			String upass = "";
+			Cookie[] cs = request.getCookies();
+			if (cs != null && cs.length > 0) 
+			{
+				for (int i = 0; i < cs.length; i++)
+				 {
+					Cookie c = cs[i];
+					if (c.getName().equals("uname"))
+					 {//取出用户名
+						uname = c.getValue();
+					 }
+					if (c.getName().equals("upass")) 
+					 {//取出密码
+						upass = c.getValue();
+					 }
+				}
+			}
+		%>
+
 <body class="login-layout">
 <div class="logintop">    
     <span>欢迎后台管理界面平台</span>    
@@ -70,14 +91,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="登录名"  name="uname">
+															<input type="text" class="form-control" placeholder="登录名"  name="uname" value="<%=uname%>">
 															<i class="icon-user"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="密码" name="upass">
+															<input type="password" class="form-control" placeholder="密码" name="upass" value="<%=upass%>">
 															<i class="icon-lock"></i>
 														</span>
 													</label>
@@ -86,8 +107,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 													<div class="clearfix">
 														<label class="inline">
-															<input type="checkbox" class="ace">
-															<span class="lbl">保存密码</span>
+															<input type="checkbox" name="rememberme" value="1" class="ace">
+															<span class="lbl">保存密码(保存三天)</span>
 														</label>
 
 														<button type="button" class="width-35 pull-right btn btn-sm btn-primary" id="login_btn">
@@ -122,6 +143,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="loginbm">版权所有  2016  <a href="">南京思美软件系统有限公司</a> </div><strong></strong>
 </body>
 </html>
+<script>
+        window.onload=function(){
+        
+            document.onkeydown=function(ev){
+                var event=ev ||event
+                if(event.keyCode==13){
+                    $("#login_btn").trigger("click");
+                }
+            }
+        }
+        
+        
+    </script>
+
 <script  type="text/javascript">
 $('#login_btn').on('click',function(){
          var num=0;
