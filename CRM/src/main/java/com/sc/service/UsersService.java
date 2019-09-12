@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageInfo;
 import com.sc.bean.SysUsers;
+import com.sc.bean.Users;
 
 
 public interface UsersService {
@@ -26,6 +28,10 @@ public interface UsersService {
 	
 	//查找用户
 	public SysUsers selectById(Long usersId);
+	
+	//分页
+	public PageInfo<SysUsers> selectUsersPage
+	(Integer pageNum, Integer pageSize);
 	
 	//查找用户-用户名
 	public SysUsers selectByName(String userName);
