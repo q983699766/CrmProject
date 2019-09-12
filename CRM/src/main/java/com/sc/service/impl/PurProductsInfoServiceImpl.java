@@ -1,4 +1,4 @@
-package com.sc.service;
+package com.sc.service.impl;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import com.github.pagehelper.PageInfo;
 import com.sc.bean.PurOrderInfo;
 import com.sc.bean.PurOrderInfoExample;
 import com.sc.mapper.PurOrderInfoMapper;
+import com.sc.service.PurProductsInfoService;
 @Service
 public class PurProductsInfoServiceImpl implements PurProductsInfoService {
 

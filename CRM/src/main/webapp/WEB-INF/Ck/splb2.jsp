@@ -77,8 +77,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <div class="border clearfix">
        <span class="l_f">
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加用户</a>
-        <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
+        <a href="javascript:sc()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
        </span>
+       <script type="text/javascript">
+			function sc() 
+			  {		
+				var a=document.getElementsByName("bb");			
+				for(var a0=0;a0<a.length;a0++)
+				  {
+					if(a[a0].checked)
+					{								
+						document.getElementById("cc").submit();
+						return;
+					}
+				  }
+				  
+				  	alert("请选择你要删除的商品！");
+			 
+			   }
+							
+	  </script>
+       
        <span class="r_f">共：<b>${pi.total }</b>条</span>
      </div>
      <!---->
@@ -104,10 +123,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 		</thead>
 	<tbody>
-
-	<c:forEach items="${aa.ccspxxb }" var="u">
+	<form action="ccspxxctlr/sc.do" id="cc" method="post">
+	<c:forEach items="${aa.ccspxxb }" var="u" >
 		<tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
+          <td><label><input type="checkbox" class="ace" name="bb" value="${u.productId}"><span class="lbl"></span></label></td>
           <td>${u.productId }</td>
           <td>${u.spMc }</td>
           <td>${u.spLb }</td>
@@ -128,14 +147,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </td>
 		</tr>
        </c:forEach>
-       		              
-       <%--     <tr>
+       	</form>              
+          <%-- <tr>
               <td colspan="15" style="text-align: center;">
-                  <a href="ccckxxctlr/select1.do?pageNum=${pi.firstPage }">首页</a>
-                  <a href="ccckxxctlr/select1.do?pageNum=${pi.prePage }">上一页</a>
-                  <a href="ccckxxctlr/select1.do?pageNum=${pi.nextPage }">下一页</a>
-                  <a href="ccckxxctlr/select1.do?pageNum=${pi.lastPage }">尾页</a>
-                                       当前${pi.pageNum }/${pi.pages }页
+                  <a href="ccckxxctlr/select1.do?pageNum=${aaaf.firstPage }">首页</a>
+                  <a href="ccckxxctlr/select1.do?pageNum=${aaap.prePage }">上一页</a>
+                  <a href="ccckxxctlr/select1.do?pageNum=${aaan.nextPage }">下一页</a>
+                  <a href="ccckxxctlr/select1.do?pageNum=${aaal.lastPage }">尾页</a>
+                                       当前${aaapn.pageNum }/${aaaps.pages }页
               </td>
            </tr> --%>
        

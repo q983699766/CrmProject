@@ -25,7 +25,7 @@ public class CcCkSpxxbController {
 					@RequestParam(defaultValue="1")Integer pageNum,
 					@RequestParam(defaultValue="5")Integer pageSize ){
 				
-				System.out.println("进入查询方法");
+				System.out.println("进入查询方法1111");
 				//添加模型数据
 			   mav.addObject("pi", ccSpxxService.selectCcspxxPage(pageNum, pageSize));			   
 				//设置视图名称         转发
@@ -89,7 +89,7 @@ public class CcCkSpxxbController {
 			//通过id查询
 			@RequestMapping("/select.do")
 			@ResponseBody
-			public Ccspxxb selectById(ModelAndView mav,HttpServletRequest req) throws IllegalStateException, IOException {
+			public Ccspxxb selectById(HttpServletRequest req) throws IllegalStateException, IOException {
 				System.out.println("进入查看弹层页面");
 				String productId = req.getParameter("productId");
 				System.out.println(productId);
@@ -100,7 +100,22 @@ public class CcCkSpxxbController {
 				return byUid;
 				
 			}
-			
+		@RequestMapping("/sc.do")
+		public ModelAndView del(ModelAndView mav,HttpServletRequest req){
+			  String [] xx=req.getParameterValues("bb");
+			  System.out.println("2222222222222222"+xx);
+			  System.out.println("进入删除3333333333333333");
+			    for (int i = 0; i < xx.length; i++) {
+			    	 long l = Long.parseLong(xx[i]);
+			    	 System.out.println("111111111111"+l);
+			    	//pursupinfoservice.delinfo(l);
+					ccSpxxService.delCcspxx(l);
+				}
+				//重定向到列表方法
+				mav.setViewName("redirect:list.do");
+				return mav;
+			}
+
 			
 }
 

@@ -75,8 +75,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <!---->
      <div class="border clearfix">
        <span class="l_f">
-        <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加商品</a>
-        <a href="javascript:sc()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
+        <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>入库</a>
+        
        </span>
        <script type="text/javascript">
 			function sc() {
@@ -109,20 +109,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<tbody>
 	<c:forEach items="${pi.list }" var="u">
 		<tr>
+		
           <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>${u.purInfoNumber }</td>
-          <td>${u.purNumber }</td>
-          <td>${u.productId }</td>
-          <td>${u.proPrice }</td>
-          <td>${u.warehouseOrnot }</td>         
-          <td>${u.operatorId }</td>
-          <td>${u.remarksInfom }</td>
-          <td>${u.comId }</td>         
-          <td><fmt:formatDate value="${u.lastTime}" pattern="yyyy-MM-dd" /></td>         
-           <td>${u.productCount }</td> 
+          <td>${u.purInfoNumber }</td> <!-- 采购详情编号 -->
+          <td>${u.purNumber }</td>     <!-- 采购单编号 -->
+          <td>${u.productId }</td>		<!-- 产品编号 -->
+          <td>${u.proPrice }</td>		<!--产品价格  -->
+          <td>${u.productCount }</td> <!--产品数量  -->          
+          <td>${u.warehouseOrnot }</td>  <!--是否入库  -->      
+          <td>${u.operatorId }</td>			<!--操作人员  -->
+          <td>${u.remarksInfom }</td>	<!--备注信息  -->
+          <td>${u.comId }</td>         <!-- 公司编号 -->
+          <td><fmt:formatDate value="${u.lastDate}" pattern="yyyy-MM-dd" /></td>   <!--最后修改时间  -->      
+           
           <td class="td-manage">
           <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="jia(${u.productId});member_edit('550')" href="javascript:"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
+          <a title="编辑" onclick="jia(${u.purInfoNumber });member_edit('550')" href="javascript:"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
        	  <a title="删除" href="javascript:;"  onclick="member_del(this,'${u.productId }')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a> 
           </td>
 		</tr>
@@ -130,10 +132,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        		              
            <tr>
               <td colspan="15" style="text-align: center;">
-                  <a href="pur/ck.do?pageNum=${pi.firstPage }">首页</a>
-                  <a href="pur/ck.do?pageNum=${pi.prePage }">上一页</a>
-                  <a href="pur/ck.do?pageNum=${pi.nextPage }">下一页</a>
-                  <a href="pur/ck.do?pageNum=${pi.lastPage }">尾页</a>
+                  <a href="cgxqctlr/ck.do?pageNum=${pi.firstPage }">首页</a>
+                  <a href="cgxqctlr/ck.do?pageNum=${pi.prePage }">上一页</a>
+                  <a href="cgxqctlr/ck.do?pageNum=${pi.nextPage }">下一页</a>
+                  <a href="cgxqctlr/ck.do?pageNum=${pi.lastPage }">尾页</a>
                                        当前${pi.pageNum }/${pi.pages }页
               </td>
            </tr>
@@ -175,17 +177,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="update_menber" id="update_menber_style" style="display:none">
   
     <ul class=" page-content">
-     <input  type="hidden" id="productId2" name="productId" class="text_add"/> 
-     <li><label class="label_name">商品详情编号：</label><span class="add_name"><input id="spMc11"  name="spMc" type="text" class="text_add"  required /></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">采购单编号</label><span class="add_name"><input id="spLb2" name="spLb" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">产品编号</label><span class="add_name"><input id="ggSm2" name="ggSm" type="text"  class="text_add" /></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">产品数量</label><span class="add_name"><input id="dw2" name="dw" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">产品价格</label><span class="add_name"><input id="ckBh2" name="ckBh" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">是否入库</label><span class="add_name"><input id="kcSl2" name="kcSl" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">操作人员</label><span class="add_name"><input id="cbj2" name="cbj" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">备注信息</label><span class="add_name"><input id="lsj2" name="lsj" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>     
+     <input  type="hidden" id="purInfoNumber2" name="purInfoNumber" class="text_add"/> 
+    <!--  <li><label class="label_name">商品详情编号：</label><span class="add_name"><input id="purInfoNumber2"  name="purInfoNumber" type="text" class="text_add"  required /></span><div class="prompt r_f"></div></li> -->
+     <li><label class="label_name">采购单编号</label><span class="add_name"><input id="purNumber2" name="purNumber" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">产品编号</label><span class="add_name"><input id="productId2" name="productId" type="text"  class="text_add" /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">产品数量</label><span class="add_name"><input id="productCount2" name="productCount" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">产品价格</label><span class="add_name"><input id="proPrice2" name="proPrice" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">是否入库</label><span class="add_name"><input id="warehouseOrnot2" name="warehouseOrnot" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">操作人员</label><span class="add_name"><input id="operatorId2" name="operatorId" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">备注信息</label><span class="add_name"><input id="remarksInfom2" name="remarksInfom" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>     
      <li><label class="label_name">公司编号</label><span class="add_name"><input id="comId2" name="comId" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">最后修改时间</label><span class="add_name"><input id="comId2" name="comId" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">最后修改时间</label><span class="add_name"><input id="lastDate2" name="lastDate" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
      <div class="prompt r_f"></div>
     
     <center>
@@ -330,9 +332,9 @@ function member_edit(id){
 }
 
 //编辑函数
- function jia(productId)
+ function jia(purInfoNumber)
     {
-        var url="ccspxxctlr/select.do?productId="+productId;
+        var url="cgxqctlr/ck.do?purInfoNumber="+purInfoNumber;
    //ajax异步请求
    $.ajax
    ({
@@ -341,19 +343,17 @@ function member_edit(id){
       dataType:"json",
       success:function(data)
       {//从前台回调回来的数组，处理后的数据
-      	$("#productId2").val(data.productId);
-        $("#spMc11").val(data.spMc);//商品名
-        $("#spLb2").val(data.spLb);//商品类型
-        $("#ggSm2").val(data.ggSm);//规格说明
-        $("#dw2").val(data.dw);//单位
-        $("#ckBh2").val(data.ckBh);//仓库编号
-        $("#kcSl2").val(data.kcSl);//库存数量
-        $("#cbj2").val(data.cbj);//成本价
-        $("#lsj2").val(data.lsj);//零售价
-        $("#jxj2").val(data.jxj);//经销价
-        $("#bzxx2").val(data.bzxx);//备注信息
+      	$("#purInfoNumber2").val(data.purInfoNumber);
+        $("#purNumber2").val(data.purNumber);
+        $("#productId2").val(data.productId);//商品类型
+        $("#productCount2").val(data.productCount);//规格说明
+        $("#proPrice2").val(data.proPrice);//单位
+        $("#proPrice2").val(data.proPrice);//仓库编号
+        $("#warehouseOrnot2").val(data.warehouseOrnot);//库存数量
+        $("#operatorId2").val(data.operatorId);//成本价
+        $("#remarksInfom2").val(data.remarksInfom);//零售价       
         $("#comId2").val(data.comId);//公司编号
-        $("#lastDate").val(data.lastDate);
+        $("#lastDate2").val(data.lastDate);
       //将取出的值覆盖原来的值 （val对值进行操作)	
         
       }

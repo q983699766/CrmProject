@@ -75,8 +75,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <div class="border clearfix">
        <span class="l_f">
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加仓库</a>
-        <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
+        <a href="javascript:sc()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
        </span>
+       <script type="text/javascript">
+		function sc() 
+			  {		
+				var a=document.getElementsByName("bb");
+				
+				for(var a0=0;a0<a.length;a0++)
+				  	{
+					if(a[a0].checked)
+						{						
+						document.getElementById("cc").submit();
+						return;
+						}
+			  		}
+			
+				  	alert("请选择你要删除的商品！");
+				
+			   }
+							
+		</script>
        <span class="r_f">共：<b>${pi.total }</b>条</span>
      </div>
      <!---->
@@ -95,10 +114,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 		</thead>
 	<tbody>
-	
+	<form action="ccckxxctlr/sc.do" method="post" id="cc">
     <c:forEach items="${pi.list }" var="u">
 		<tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
+          <td><label><input type="checkbox" class="ace" name="bb" value="${u.ckBh }" ><span class="lbl"></span></label></td>
           <td>${u.ckBh }</td>
           <td><a href="ccckxxctlr/select1.do?ckBh=${u.ckBh}">${u.ckM }</a></td>       
           <td>${u.bzxx }</td>
@@ -112,7 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </td>
 		</tr>
        </c:forEach>
-      
+      </form>
       
        
 	 <tr>
