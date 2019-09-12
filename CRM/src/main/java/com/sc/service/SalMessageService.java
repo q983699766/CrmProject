@@ -1,7 +1,6 @@
 package com.sc.service;
 
-import java.util.List;
-
+import com.github.pagehelper.PageInfo;
 import com.sc.bean.SalOrder;
 
 public interface SalMessageService {
@@ -32,7 +31,16 @@ public interface SalMessageService {
 	//分月统计待发货订单数量
 	public int[] waitPutOrderCountGroupByMonth();
 	
-	//获取所有订单信息
-	public List<SalOrder> selectSalOrder();
+	//分页订单信息
+	public PageInfo<SalOrder> selectSalOrder(Integer pageNum, Integer pageSize);
+	
+	//分页搜索订单信息
+	public PageInfo<SalOrder> selectSalOrderLike(Integer pageNum, Integer pageSize,String type,String message);
+	
+	//删除订单
+	public void delSalOrderBykey(Long orderid);
+	
+	//发货
+	public void sendSalOrderBykey(Long orderid);
 	
 }

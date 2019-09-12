@@ -86,9 +86,9 @@ public class UsersController {
 		
 		Long uid = u.getUserId();
 		UsersService.updateUserRole(user, roleId, uid);
-		mav.addObject("ok", "1");
+		Integer ok=1;
 		
-		mav.setViewName("redirect:../usersctlr/getlist1.do");
+		mav.setViewName("redirect:../usersctlr/getlist1.do?ok="+ok);
 		return mav;
 	}
 	
@@ -106,6 +106,7 @@ public class UsersController {
 	
 	@RequestMapping("/add.do")
 	public ModelAndView update(ModelAndView mav , HttpSession session, HttpServletRequest req, SysUsers user, Long[] roleId){
+		Integer ok = null;
 		
 		String uname = user.getUserName();
 		SysUsersExample sysUsersExample = new SysUsersExample();
@@ -137,11 +138,11 @@ public class UsersController {
 		
 		SysUsersRoleMapper.insert(sysUsersRole);
 		}
-			mav.addObject("ok", "1");
+			ok=1;
 		}else{
-			mav.addObject("ok", "2");
+			ok=2;
 		}
-		mav.setViewName("redirect:../usersctlr/getlist1.do");
+		mav.setViewName("redirect:../usersctlr/getlist1.do?ok="+ok);
 		return mav;
 	}
 	
@@ -151,8 +152,8 @@ public class UsersController {
 		
 		UsersService.delUser(userId);
 		
-		mav.addObject("ok", "1");
-		mav.setViewName("redirect:../usersctlr/getlist1.do");
+		Integer ok = 1;
+		mav.setViewName("redirect:../usersctlr/getlist1.do?ok="+ok);
 		return mav;
 	}
 	
@@ -178,8 +179,8 @@ public class UsersController {
 			UsersService.updateUser(user);
 		}
 		
-		mav.addObject("ok", "1");
-		mav.setViewName("redirect:../usersctlr/getlist1.do");
+		Integer ok = 1;
+		mav.setViewName("redirect:../usersctlr/getlist1.do?ok="+ok);
 		return mav;
 	
 	}
@@ -189,7 +190,7 @@ public class UsersController {
 	public ModelAndView updateUserSta(ModelAndView mav , HttpServletRequest req
 			, HttpSession session,
 			@RequestParam(defaultValue="1")Integer pageNum,
-			@RequestParam(defaultValue="10")Integer pageSize){
+			@RequestParam(defaultValue="10")Integer pageSize,Integer ok){
 		
 		
 		
@@ -197,7 +198,7 @@ public class UsersController {
 		
 		mav.addObject("users", UsersService.selectUsersPage(pageNum, pageSize));
 		mav.addObject("roles", list2);
-		
+		mav.addObject("ok", ok);
 		mav.setViewName("permission/users");
 		return mav;
 	

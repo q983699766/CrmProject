@@ -31,6 +31,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <script type="text/javascript" src="assets/layer/layer.js"></script>
 <title>登陆</title>
 
+<script>
+	
+</script>
+
 </head>
 
 <%
@@ -54,9 +58,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		%>
 
-<body class="login-layout">
+<body class="login-layout" onload="t()">
 <div class="logintop">    
-    <span>欢迎后台管理界面平台</span>    
+    <span>欢迎来到后台管理界面平台</span>    
     <ul>
     <li><a href="#">返回首页</a></li>
     <li><a href="#">帮助</a></li>
@@ -140,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div><!-- /position-relative -->
 						</div>
                         </div>
-                        <div class="loginbm">版权所有  2016  <a href="">南京思美软件系统有限公司</a> </div><strong></strong>
+                        <div class="loginbm"><a href="">思创DB1901组</a> <!-- 版权所有  2016  <a href="">南京思美软件系统有限公司</a>  --></div><strong></strong>
 </body>
 </html>
 <script>
@@ -203,14 +207,16 @@ $('#login_btn').on('click',function(){
 		};
 	});
 	
-	var isfail ='${param.fail=="nouser" ? "用户名不存在！":"" }${param.fail=="error" ? "用户名或密码错误！":"" }${param.fail=="codeerror" ? "验证码错误！":"" }${param.fail=="unknown" ? "用户名不存在！":""}';
-	function result(){
-		if(isfail != ""){
-			layer.alert(isfail,{
-	                title: '提示框',				
-					icon:0,								
-	          });
-		}			
-	};
-	result();
+		
+		var isfail ='${param.fail=="state" ? "用户已停用！":"" }${param.fail=="nouser" ? "用户名不存在！":"" }${param.fail=="error" ? "用户名或密码错误！":"" }${param.fail=="codeerror" ? "验证码错误！":"" }${param.fail=="unknown" ? "用户名不存在！":""}';
+		function result(){
+			if(isfail != ""){
+				layer.alert(isfail,{
+		                title: '提示框',				
+						icon:0,								
+		          });
+			}			
+		};
+		result();
+
 </script>

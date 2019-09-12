@@ -177,6 +177,12 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+  
+  <select id="selectByid" parameterType="com.sc.bean.PurProductsExample" resultType="java.lang.Integer" >
+   SELECT * FROM PUR_PRODUCTS 
+  WHERE PRODUCT_ID=#{productId}
+  </select>
+  
   <update id="updateByExampleSelective" parameterType="map" >
     update PUR_PRODUCTS
     <set >

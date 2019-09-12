@@ -18,11 +18,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <link href="../assets/css/codemirror.css" rel="stylesheet">
         <link rel="stylesheet" href="../assets/css/ace.min.css" />
         <link rel="stylesheet" href="../font/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="../css/style.css"/>
         <!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
 		<![endif]-->
-		
-		
 		
 		<script src="../verSelector/asset/js/select.js"></script>
 		<script src="../verSelector/verSelect.js"></script>
@@ -56,8 +55,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 </script>
 
+	
 
  <div class="margin clearfix">
+ 
+ 	<div class="search_style">
+    	<font size="80">${aa.ckM }</font> 
+    <form action="#" method="post">
+      <div class="title_names">账户、用户名关键字查询</div>
+      <ul class="search_content clearfix">
+       <li><label class="l_f">模糊查询</label><input name="ccspxx" type="text"  class="text_add" placeholder="请输入关键字:"  style=" width:400px"/></li>
+       <li style="width:90px;"><button type="submit" class="btn_search"><i class="icon-search"></i>查询</button></li>
+      </ul>
+      </form>
+    </div>
+    
    <div class="border clearfix">
        <span class="l_f">
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning" title="添加用户账号"><i class="fa fa-plus"></i>&nbsp;添加用户</a>
@@ -66,6 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        
      </div>
      <div class="compete_list">
+     <div class="Guestbook_list">
        <table id="sample-table-1" class="table table-striped table-bordered table-hover">
 		 <thead>
 			<tr>
@@ -103,11 +116,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<a href="getlist1.do?pageNum=${users.prePage}">上一页</a>
     			<a href="getlist1.do?pageNum=${users.nextPage }">下一页</a>
     			<a href="getlist1.do?pageNum=${users.navigateLastPage }">尾页</a>
-    			当前第${users.pageNum }/${users.pages }页，共${users. total}条
+    			当前第${users.pageNum }/${users.pages }页，共${users. total}条,每页10条
     				</td>
     		</tr>												
 		      </tbody>
 	        </table>
+	        </div>
      </div>
  </div>
  <!--添加权限样式-->
@@ -193,7 +207,9 @@ function add(obj){
 		    /* alert($(this).attr("data-value")); */
 		    roleId+="roleId="+$(this).attr("data-value")+"&";
 		});
+		
 		obj.action=obj.action+"?"+roleId;
+		/* alert(obj.action); */
 		if (pass4==""){
 			  layer.alert('用户名不能为空!',{
               title: '提示框',				

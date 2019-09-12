@@ -230,7 +230,7 @@ $('.change_Password').on('click', function(){
 							</ul>
 						</li>
 	                   <li class="purple">
-						<a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-bell-alt"></i><span class="badge badge-important">8</span></a>
+						<!-- <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-bell-alt"></i><span class="badge badge-important">8</span></a> -->
 							<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
                             <li class="dropdown-header"><i class="icon-warning-sign"></i>8条通知</li>
                             <li>
@@ -410,7 +410,7 @@ $('.change_Password').on('click', function(){
 						</ul>
 					</div>
                     
-                 <iframe id="iframe" style="border:0; width:100%; background-color:#FFF;"name="iframe" frameborder="0" src="home.html">  </iframe>
+                 <iframe id="iframe" style="border:0; width:100%; background-color:#FFF;"name="iframe" frameborder="0" src="salCtl/countSal">  </iframe>
 				 
 
 <!-- /.page-content -->
@@ -459,8 +459,8 @@ $('.change_Password').on('click', function(){
          <!--底部样式-->
        
          <div class="footer_style" id="footerstyle">  
-          <p class="l_f">版权所有：南京四美软件  苏ICP备11011739号</p>
-          <p class="r_f">地址：南京市鼓楼区阅江楼街道公共路64号  邮编：210011 技术支持：XXXX</p>
+          <p class="l_f"></p>
+          <p class="r_f">地址：襄阳市湖北文理学院旁  邮编：000000 技术支持：XXXX</p>
          </div>
          <!--修改密码样式-->
          <div class="change_Pass_style" id="change_Pass">
