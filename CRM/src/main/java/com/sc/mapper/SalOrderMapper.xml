@@ -378,4 +378,20 @@
    	AND ORDER_STATE = 1
    	AND ORDER_OUT_STATE = 0
   </select>
+  
+  <select id="selectByLike" resultType="com.sc.bean.SalOrder" parameterType="java.lang.String">
+  	SELECT SO.*
+	FROM SAL_ORDER SO,SAL_CUSTOM_INFO SCI,SYS_USERS SU,SYS_COMPANY SC
+	WHERE 
+	SO.COM_ID = SC.COM_ID
+	AND SO.USER_ID = SU.USER_ID
+	AND SO.CUSTOM_ID = SCI.CUSTOM_ID
+	AND (
+		   SCI.CUSTOM_NAME LIKE CONCAT(CONCAT('%',#{message}),'%')
+		OR SU.USER_NAME LIKE CONCAT(CONCAT('%',#{message}),'%')
+	  	OR SC.COM_NAME LIKE CONCAT(CONCAT('%',#{message}),'%')
+	  	OR SO.REMARK LIKE CONCAT(CONCAT('%',#{message}),'%')
+	)
+  </select>
+  
 </mapper>
