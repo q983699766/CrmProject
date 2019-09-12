@@ -108,6 +108,12 @@
 		from CC_SPXXB
 		where PRODUCT_ID = #{productId,jdbcType=DECIMAL}
 	</select>
+	
+	<select id="selectByExamplel" resultMap="BaseResultMap" 
+		  >
+		SELECT * FROM CC_SPXXB 
+           WHERE 50>CC_SPXXB.KC_SL	
+	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
 		delete from CC_SPXXB
 		where PRODUCT_ID = #{productId,jdbcType=DECIMAL}
@@ -377,19 +383,6 @@
 
 	</resultMap>
 
-	<select id="selectByExamplel" resultMap="ccsp" 
-		parameterType="com.sc.bean.PurProductsExample">
-		<!--  SELECT * FROM CC_SPXXB LEFT JOIN PUR_PRODUCTS
-		ON CC_SPXXB.PRODUCT_ID=PUR_PRODUCTS.PRODUCT_ID
-		WHERE 50> CC_SPXXB.KC_SL  -->
-		<!-- SELECT SP.PRODUCT_ID,PRO.PRO_ID FROM CC_SPXXB SP LEFT JOIN PUR_PRODUCTS PRO
-		ON SP.PRODUCT_ID=PRO.PRODUCT_ID
-		WHERE 50> SP.KC_SL -->
-		
-		SELECT c.*,p.DELIVERY_TIME,p.PRO_ID,p.REMARKS_INFO,p.ACTIVE FROM CC_SPXXB c LEFT JOIN PUR_PRODUCTS p
-		ON c.PRODUCT_ID=p.PRODUCT_ID
-		WHERE 50> c.KC_SL 		
-	</select>
 
 
 </mapper>
