@@ -80,9 +80,16 @@ public class LoginController {
 					}
 		}
 		
-		session.setAttribute("nowuser", sysusers);
-		mav.setViewName("redirect:../index.jsp");
-		return mav;
+		if(sysusers.getUserState() == "0"){
+			session.setAttribute("nowuser", sysusers);
+			mav.setViewName("redirect:../index.jsp");
+			return mav;
+		}else{
+			subject.logout();
+			String fail = "state";
+			mav.setViewName("redirect:../login.jsp?fail="+fail);
+			return mav;
+		}
 	}
 	
 	@RequestMapping("/islogin.do")

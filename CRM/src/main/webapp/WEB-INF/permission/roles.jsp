@@ -62,6 +62,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
  <div class="margin clearfix">
+ 
+ 	<div class="search_style">
+    	<font size="80">${aa.ckM }</font> 
+    <form action="#" method="post">
+      <div class="title_names">角色名关键字查询</div>
+      <ul class="search_content clearfix">
+       <li><label class="l_f">模糊查询</label><input name="ccspxx" type="text"  class="text_add" placeholder="请输入关键字:"  style=" width:400px"/></li>
+       <li style="width:90px;"><button type="submit" class="btn_search"><i class="icon-search"></i>查询</button></li>
+      </ul>
+      </form>
+    </div>
+ 
    <div class="border clearfix">
        <span class="l_f">
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning" title="添加角色"><i class="fa fa-plus"></i>&nbsp;添加角色</a>
@@ -102,7 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<a href="getlist.do?pageNum=${list.prePage}">上一页</a>
     			<a href="getlist.do?pageNum=${list.nextPage }">下一页</a>
     			<a href="getlist.do?pageNum=${list.navigateLastPage }">尾页</a>
-    			当前第${list.pageNum }/${list.pages }页，共${list. total}条
+    			当前第${list.pageNum }/${list.pages }页，共${list. total}条，每页10条
     				</td>
     		</tr>											
 		      </tbody>
