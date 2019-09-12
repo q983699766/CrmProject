@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sc.bean.SysEmpuser;
 import com.sc.bean.SysRole;
 import com.sc.bean.SysUsers;
+import com.sc.bean.SysUsersExample;
+import com.sc.bean.SysUsersExample.Criteria;
 import com.sc.service.RolesService;
 import com.sc.service.UserInfoService;
 
@@ -40,6 +42,8 @@ public class UserInfoController {
 		
 		mav.setViewName("permission/admin_info");
 		return mav;
+		
+		
 	
 	}
 	

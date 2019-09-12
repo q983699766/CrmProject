@@ -21,6 +21,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
 		<![endif]-->
+		
+		<script src="../verSelector/asset/js/select.js"></script>
+		<script src="../verSelector/verSelect.js"></script>
+		
 		<script src="../js/jquery-1.9.1.min.js"></script>
         <script src="../assets/js/bootstrap.min.js"></script>
 		<script src="../assets/js/typeahead-bs2.min.js"></script>           	
@@ -43,7 +47,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  });
 	}
 	if(ok=="2"){
-			layer.alert('操作失败',{
+			layer.alert('操作失败,权限名已存在！',{
+               title: '提示框',				
+			   icon:2,		   		
+			  });
+	}
+	if(ok=="3"){
+			layer.alert('操作失败,权限分栏名已存在！',{
                title: '提示框',				
 			   icon:2,		   		
 			  });
@@ -52,6 +62,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
  <div class="margin clearfix">
+ 
+ 	<div class="search_style">
+    	<font size="80">${aa.ckM }</font> 
+    <form action="#" method="post">
+      <div class="title_names">权限名关键字查询</div>
+      <ul class="search_content clearfix">
+       <li><label class="l_f">模糊查询</label><input name="ccspxx" type="text"  class="text_add" placeholder="请输入关键字:"  style=" width:400px"/></li>
+       <li style="width:90px;"><button type="submit" class="btn_search"><i class="icon-search"></i>查询</button></li>
+      </ul>
+      </form>
+    </div>
+ 
  <form action="getPermByCol.do" method="post">
    <div class="border clearfix">
        <span class="l_f">
@@ -84,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    </thead>
              <tbody>
              
-             <c:forEach items="${perms }" var="p">
+             <c:forEach items="${list.list }" var="p">
              		
 			  <tr>
 				<!-- <td class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td> -->
@@ -97,7 +119,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           			<a title="删除" href="javascript:;"  onclick="del_perm(${p.permissionId })" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
 				</td>
 			   </tr>
-			   </c:forEach>				
+			   </c:forEach>	
+			   <tr style="text-align: center;">
+    				<td colspan="7">
+    			<a href="getPermission.do?pageNum=${list.navigateFirstPage }">首页</a>
+    			<a href="getPermission.do?pageNum=${list.prePage}">上一页</a>
+    			<a href="getPermission.do?pageNum=${list.nextPage }">下一页</a>
+    			<a href="getPermission.do?pageNum=${list.navigateLastPage }">尾页</a>
+    			当前第${list.pageNum }/${list.pages }页，共${list. total}条，每页10条
+    				</td>
+    		</tr>			
 		      </tbody>
 	        </table>
      </div>
@@ -109,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <br/>
     <ul class=" page-content">
      <li><label class="label_name">分栏名称：</label><span class="add_name"><input  type="text" name="columnName" id="columnName" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">权限描述：</label><span class="add_name"><input  type="text" name="remark" id="remark111" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">分栏描述：</label><span class="add_name"><input  type="text" name="remark" id="remark111" class="text_add"/></span><div class="prompt r_f"></div></li>
     </ul>
     <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/>
  </div>
@@ -132,13 +163,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      		&nbsp;&nbsp;&nbsp;&nbsp;<select id="roles" name="roleId" multiple="multiple">
                 <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li> --%>
-            <li><label class="label_name">所在分栏：</label><span class="add_name"><select id="permissionColumnx" name="colId">
+            <li><label class="label_name">所在分栏：</label><span class="add_name"><select id="permissionColumnx" name="colId" data-selector>
                 <c:forEach items="${col}" var="c" ><option value="${c.columnId }">${c.columnName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
             <li><label class="label_name"></label><span class="add_name"></span><div class="prompt r_f"></div></li>
     <li><label class="label_name">操&nbsp;作&nbsp;人：</label><span class="add_name">&nbsp;&nbsp;${nowuser.userName }</span><div class="prompt r_f"></div></li>
     </ul><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br/><br/>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br/><br/><br/><br/><br/><br/><br/><br/>
  </div>
 </form>
  
@@ -150,29 +181,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <li><label class="label_name">权限名称：</label><span class="add_name"><input  type="text" name="permissionName" id="permissionName111" class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">权限方法：</label><span class="add_name"><input  type="text" name="permission" id="permission111" class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">权限描述：</label><span class="add_name"><input  type="text" name="remark" id="remark1" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">所在分栏：</label><span class="add_name"><select id="columnName111" name="columnName">
+     <li><label class="label_name">所在分栏：</label><span class="add_name"><select id="columnName111" name="columnName" data-selector>
                 <c:forEach items="${col}" var="c" ><option value="${c.columnName }">${c.columnName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
     </ul>
-    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
  </div>
  </div>
   </form>
  
  
- <!--给角色添加权限图层--> 
- <form action="add.do" method="post" onsubmit="return addroleperm()">
+ <!--给角色配置权限图层--> 
+ <form action="add.do" method="post" onsubmit="return addroleperm(this)">
 <div class="add_menber" id="add_menber_style" style="display:none">
   <br/>
     <ul class=" page-content">
-     <li><label class="label_name">角色名称：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="role111" name="role">
+     <li><label class="label_name">角色名称：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="role111" name="role" data-selector>
                 <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">权限名称：按住ctrl，点击多选</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="perm111" name="perm" multiple="multiple">
-                <c:forEach items="${perms}" var="p" ><option value="${p.permissionId }">${p.permissionName }</option></c:forEach>
+     <li><label class="label_name">权限名称：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="perm111" name="perm" data-selector data-selector-checks="true">
+                <c:forEach items="${list.list}" var="p" ><option value="${p.permissionId }">${p.permissionName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
-    </ul><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/>
+    </ul><br/><br/><br/><br/><br/>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
  </div>
   </form>
  
@@ -190,6 +221,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </body>
 </html>
 <script>
+new verSelector();
+
 /* 添加权限 */
 function addperm(){
 		var pass1 = document.getElementById("permissionName111").value;
@@ -297,9 +330,17 @@ function updateperm(){
 
 
 /* 给角色配置权限 */
-	function addroleperm(){
+	function addroleperm(obj){
 		var pass1 = document.getElementById("role111").value;
 		var pass2 = document.getElementById("perm111").value;
+		
+		var perm="";
+		$(".actives").each(function(i,e){
+		    
+		    perm+="perm="+$(this).attr("data-value")+"&";
+		});
+		obj.action=obj.action+"?"+perm;
+
 		
 		if (pass1==""){
 			  layer.alert('角色不能为空!',{

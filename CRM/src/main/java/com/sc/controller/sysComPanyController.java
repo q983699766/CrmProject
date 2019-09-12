@@ -6,8 +6,10 @@ import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sc.bean.SysBranch;
 import com.sc.bean.SysCOMPANY;
 import com.sc.bean.SysComoany;
 import com.sc.service.SysComPanyService;
@@ -60,4 +62,10 @@ public class sysComPanyController {
 		mav.setViewName("redirect:list.do");
 		return mav;
 	}
+		@RequestMapping("/detail.do")
+		@ResponseBody
+		public SysCOMPANY detail(ModelAndView mav,Long dutId) {
+			System.out.println("来了四弟111！");
+			return sysComPanyService.updateComoany(dutId);
+		}
 }

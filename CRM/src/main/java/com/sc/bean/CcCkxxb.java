@@ -2,6 +2,7 @@ package com.sc.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -16,6 +17,8 @@ public class CcCkxxb implements Serializable {
 
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastTime;	//最后修改时间
+    
+    List<Ccspxxb> ccspxxb;
 
     private static final long serialVersionUID = 1L;
 
@@ -30,8 +33,18 @@ public class CcCkxxb implements Serializable {
     public CcCkxxb() {
         super();
     }
+    
+    
 
-    public Long getCkBh() {
+    public List<Ccspxxb> getCcspxxb() {
+		return ccspxxb;
+	}
+
+	public void setCcspxxb(List<Ccspxxb> ccspxxb) {
+		this.ccspxxb = ccspxxb;
+	}
+
+	public Long getCkBh(){
         return ckBh;
     }
 

@@ -2,7 +2,6 @@ package com.sc.bean;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -25,8 +24,6 @@ public class PurProducts implements Serializable {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date lastDate;
     
-   
-	private  Ccspxxb  ccspxxb;  //一对一配置
 
     private static final long serialVersionUID = 1L;
 
@@ -42,26 +39,6 @@ public class PurProducts implements Serializable {
     }
 
    
-    
-    
-    
-
-	public Ccspxxb getCcspxxb() {
-		return ccspxxb;
-	}
-
-
-
-
-
-
-	public void setCcspxxb(Ccspxxb ccspxxb) {
-		this.ccspxxb = ccspxxb;
-	}
-
-
-
-
 
 
 	public Long getProId() {
@@ -132,12 +109,17 @@ public class PurProducts implements Serializable {
 		return serialVersionUID;
 	}
 
+
+
+
 	@Override
 	public String toString() {
 		return "PurProducts [proId=" + proId + ", productId=" + productId + ", deliveryTime=" + deliveryTime
 				+ ", active=" + active + ", operatorId=" + operatorId + ", remarksInfo=" + remarksInfo + ", comId="
-				+ comId + ", lastDate=" + lastDate + ", ccspxxb=" + ccspxxb + "]";
+				+ comId + ", lastDate=" + lastDate + "]";
 	}
+
+
 
 	
 }

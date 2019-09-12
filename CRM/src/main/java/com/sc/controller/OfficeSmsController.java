@@ -22,5 +22,14 @@ public class OfficeSmsController {
 		mav.setViewName("wanchenglong/agenda");
 		return mav;
 	}
+	
+	
+	@RequestMapping("/agenda1.do")
+	public ModelAndView agenda1(ModelAndView mav){
+//		mav.setViewName("custom/conper");
+		System.out.println("进入agenda1");
+		mav.setViewName("wanchenglong/schedule");
+		return mav;
+	}
 
 }

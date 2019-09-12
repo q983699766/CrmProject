@@ -6,11 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageInfo;
 import com.sc.bean.SysPermission;
 import com.sc.bean.SysPermissionExample;
 import com.sc.bean.SysPermissionRole;
 import com.sc.bean.SysPermissionRoleExample;
 import com.sc.bean.SysRole;
+import com.sc.bean.SysUsers;
 import com.sc.bean.SysUsersRoleExample;
 import com.sc.mapper.SysPermissionMapper;
 import com.sc.mapper.SysPermissionRoleMapper;
@@ -95,6 +97,39 @@ public class RolesServiceImpl implements RolesService{
 			
 		
 		return sysr;
+	}
+
+	@Override
+	public PageInfo<SysRole> selectRolePage(Integer pageNum, Integer pageSize) {
+		List<SysRole> list = SysRoleMapper.selectByExample(null);
+		
+		for (SysRole sysRole : list) {
+			Long higherRoleId = sysRole.getHigherRoleId();
+			SysRole r = SysRoleMapper.selectByPrimaryKey(higherRoleId);
+			if(!(r==null)){
+			sysRole.setHighRoleName(r.getRoleName());
+			}
+			
+			Long roleId = sysRole.getRoleId();
+			
+			SysPermissionRoleExample example = new SysPermissionRoleExample();
+			com.sc.bean.SysPermissionRoleExample.Criteria c = example.createCriteria();
+			c.andRoleIdEqualTo(roleId);
+			
+			List<SysPermissionRole> permSoles = SysPermissionRoleMapper.selectByExample(example);
+			
+			List<com.sc.bean.SysPermission> sysPerms =  new ArrayList<SysPermission>();
+			
+			for (SysPermissionRole sysPermissionRole : permSoles) {
+				Long permId = sysPermissionRole.getPermissionId();
+				com.sc.bean.SysPermission perms = SysPermission.selectByPrimaryKey(permId);
+				sysPerms.add(perms);
+			}
+			sysRole.setPerms(sysPerms);
+		}
+		
+		PageInfo<SysRole> pi = new PageInfo<SysRole>(list);
+		return pi;
 	}
 
 }

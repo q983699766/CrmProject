@@ -28,6 +28,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="../assets/js/jquery.dataTables.bootstrap.js"></script>
         <script src="../assets/layer/layer.js" type="text/javascript" ></script>          
         <script src="../assets/laydate/laydate.js" type="text/javascript"></script>
+        
+        
+        <!-- <script src="../verSelector/asset/js/select.js"></script>
+		<script src="../verSelector/verSelect.js"></script> -->
+		
 <title>管理角色</title>
 </head>
 
@@ -43,7 +48,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  });
 	}
 	if(ok=="2"){
-			layer.alert('操作失败',{
+			layer.alert('操作失败,角色名已存在！',{
+               title: '提示框',				
+			   icon:2,		   		
+			  });
+	}if(ok=="3"){
+			layer.alert('操作失败,该角色存在下级角色！',{
                title: '提示框',				
 			   icon:2,		   		
 			  });
@@ -52,6 +62,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
  <div class="margin clearfix">
+ 
+ 	<div class="search_style">
+    	<font size="80">${aa.ckM }</font> 
+    <form action="#" method="post">
+      <div class="title_names">角色名关键字查询</div>
+      <ul class="search_content clearfix">
+       <li><label class="l_f">模糊查询</label><input name="ccspxx" type="text"  class="text_add" placeholder="请输入关键字:"  style=" width:400px"/></li>
+       <li style="width:90px;"><button type="submit" class="btn_search"><i class="icon-search"></i>查询</button></li>
+      </ul>
+      </form>
+    </div>
+ 
    <div class="border clearfix">
        <span class="l_f">
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning" title="添加角色"><i class="fa fa-plus"></i>&nbsp;添加角色</a>
@@ -73,7 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    </thead>
              <tbody>
 			  <tr>
-			  <c:forEach items="${roles }" var="r">
+			  <c:forEach items="${list.list }" var="r">
 				<!-- <td class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td> -->
 				<td>${r.roleName }</td>
 				<td>${r.highRoleName == null||r.highRoleName == '0' ? "无":r.highRoleName }</td>
@@ -83,8 +105,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  <a title="编辑" onclick="jia(${r.roleId });member_edit('550');" href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
                  <a title="删除" href="javascript:;"  onclick="del_role(${r.roleId})" id="del_this" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
 				</td>
-			   </tr>	
-			   </c:forEach>											
+			   </tr>
+			   
+			   </c:forEach>	
+			   <tr style="text-align: center;">
+    				<td colspan="7">
+    			<a href="getlist.do?pageNum=${list.navigateFirstPage }">首页</a>
+    			<a href="getlist.do?pageNum=${list.prePage}">上一页</a>
+    			<a href="getlist.do?pageNum=${list.nextPage }">下一页</a>
+    			<a href="getlist.do?pageNum=${list.navigateLastPage }">尾页</a>
+    			当前第${list.pageNum }/${list.pages }页，共${list. total}条，每页10条
+    				</td>
+    		</tr>											
 		      </tbody>
 	        </table>
      </div>
@@ -102,12 +134,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <li><label class="label_name">角色描述：</label><span class="add_name"><input  type="text" name="roleDescribe" id="roleDescribex" class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">上级角色：</label><span class="add_name">
      		&nbsp;&nbsp;&nbsp;&nbsp;<select id="roles" name="higherRoleId">
-     		<option value="0">无</option>
-                <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
+     		<option value="0">无</option><c:forEach items="${list.list}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
     <li><label class="label_name">操&nbsp;作&nbsp;人：</label><span class="add_name">${nowuser.userName }</span><div class="prompt r_f"></div></li>
     </ul><br/><br/><br/><br/><br/><br/><br/><br/>
-    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br/><br/>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br/><br/><br/><br/><br/>
  </div>
 </form>
  
@@ -123,14 +154,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <div class="prompt r_f"></div>
      </li>
      <li><label class="label_name">上级角色：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="rolesx" name="higherRoleId">
-                <option value="0">无</option><c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
+                <option value="0">无</option><c:forEach items="${list.list}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">操&nbsp;作&nbsp;人：</label><span class="add_name">${nowuser.userName }</span><div class="prompt r_f"></div></li>
      
      <br/><br/><br/>
     	
     </ul>
-    <div class="center"><input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/>
+    <div class="center"><input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/><br/><br/><br/>
  </div>
   </form>
  
@@ -149,6 +180,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </body>
 </html>
 <script>
+
+
 /* 角色修改 */
 function update(){
 		var pass1 = document.getElementById("roleNamex").value;
@@ -274,10 +307,10 @@ function jia(roleId)
          $("#roleDescribex").val(data.roleDescribe);
          $("#higherRoleId").val(data.higherRoleId); 
          $("#highRoleName").val(data.highRoleName); 
-         var highRoleName = data.highRoleName;	
+           var highRoleName = data.highRoleName;	
          $("#roles").children().each(function(i, element) {
          	if(element.innerHTML == highRoleName)element.selected = "true";
-         });	   
+         });
       }
     });
 }

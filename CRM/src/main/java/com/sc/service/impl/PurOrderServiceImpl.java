@@ -9,6 +9,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sc.bean.PurOrder;
 import com.sc.bean.PurOrderExample;
+import com.sc.bean.PurOrderInfo;
+import com.sc.mapper.PurOrderInfoMapper;
 import com.sc.mapper.PurOrderMapper;
 import com.sc.mapper.PurSupInfoMapper;
 import com.sc.service.PurOrderService;
@@ -20,6 +22,9 @@ public class PurOrderServiceImpl implements PurOrderService {
 	PurOrderMapper purordermapper;
 @Autowired
   PurSupInfoMapper pursupinfomapper;
+
+@Autowired
+PurOrderInfoMapper  purOrderInfoMapper;
 	@Override
 	public PageInfo<PurOrder> selectallorder(Integer pageNum, Integer pageSize, PurOrder purorder) {
 		 //设置开始分页
@@ -42,13 +47,22 @@ public class PurOrderServiceImpl implements PurOrderService {
 
 	@Override
 	public void delinfo(Long purnumber) {
-		// TODO Auto-generated method stub
-
+		if(purnumber!=null){
+			purordermapper.deleteByPrimaryKey(purnumber);
+			}
 	}
 
 	@Override
 	public void updateinfo(Long purnumber) {
 		// TODO Auto-generated method stub
 
+	}
+  
+	//添加采购单详情
+	@Override
+	public void addpro(PurOrderInfo purOrderInfo) {
+		if(purOrderInfo!=null){}
+		purOrderInfoMapper.insert(purOrderInfo);
+		
 	}
 }

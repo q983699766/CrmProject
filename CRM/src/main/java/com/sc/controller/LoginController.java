@@ -1,6 +1,8 @@
 package com.sc.controller;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
@@ -28,9 +30,9 @@ public class LoginController {
 	
 	@RequestMapping("/login.do")
 	public ModelAndView login(ModelAndView mav , HttpServletRequest req){
-		System.out.println("登录失败了");
+		System.out.println("********登录失败了");
 		String msg = (String)req.getAttribute("shiroLoginFailure");
-		System.out.println("失败原因："+msg);
+		System.out.println("********失败原因："+msg);
 		String fail = "";
 		if(msg != null ){
 			if(msg.equals(UnknownAccountException.class.getName())){
@@ -49,19 +51,45 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/main.do")
-	public ModelAndView main(ModelAndView mav , HttpSession session){
+	public ModelAndView main(ModelAndView mav , HttpSession session, HttpServletRequest req,HttpServletResponse resp){
 		System.out.println("登录成功了");
-		
+		System.out.println((String) session.getAttribute("upass"));
 		
 		Subject subject = SecurityUtils.getSubject();
 		
 		SysUsers sysusers = (SysUsers)subject.getPrincipal();
 		
-		session.setAttribute("nowuser", sysusers);
+		String rememberme = (String) session.getAttribute("rememberme");
+
+
+		if(sysusers!=null){
+					String uname=sysusers.getUserName();
+					String upass=(String) session.getAttribute("upass");
+					if (rememberme != null) {
+						System.out.println("进入方法了");
+						System.out.println("用户名"+uname);
+						System.out.println("用户密码"+upass);
+						Cookie c1 = new Cookie("uname", uname);// 存储用户名
+						c1.setPath("/");//spring_boot需要加这句
+						c1.setMaxAge(3*24 * 60 * 60);// 一天有效期
+						Cookie c2 = new Cookie("upass", upass);// 存储密码
+						c2.setPath("/");//spring_boot需要加这句
+						c2.setMaxAge(3*24 * 60 * 60);// 一天有效期
+						resp.addCookie(c1);// cookie存入response
+						resp.addCookie(c2);// cookie存入response
+					}
+		}
 		
-		
-		mav.setViewName("redirect:../index.jsp");
-		return mav;
+		if(sysusers.getUserState() == "0"){
+			session.setAttribute("nowuser", sysusers);
+			mav.setViewName("redirect:../index.jsp");
+			return mav;
+		}else{
+			subject.logout();
+			String fail = "state";
+			mav.setViewName("redirect:../login.jsp?fail="+fail);
+			return mav;
+		}
 	}
 	
 	@RequestMapping("/islogin.do")
