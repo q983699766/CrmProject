@@ -85,6 +85,7 @@ public class PurProductsServiceImpl implements PurProductsService {
 	public void addpurproducts( PurProducts purproducts) {
 		purproductsmapper.insert(purproducts);
 	}
+
 	
 
 }
