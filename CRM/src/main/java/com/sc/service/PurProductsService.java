@@ -27,4 +27,6 @@ public interface PurProductsService {
 		public List<PurProducts> selectpurproducts();
 		
 		public void addpurproducts( PurProducts purproducts);
+		
+		
 }
