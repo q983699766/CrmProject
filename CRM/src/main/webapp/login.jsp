@@ -111,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 													<div class="clearfix">
 														<label class="inline">
-															<input type="checkbox" name="rememberme" value="1" class="ace">
+															<input type="checkbox" name="rememberme" value="1" class="ace" <% if(uname!=null){out.print("checked='checked'");} %>>
 															<span class="lbl">保存密码(保存三天)</span>
 														</label>
 
@@ -208,7 +208,7 @@ $('#login_btn').on('click',function(){
 	});
 	
 		
-		var isfail ='${param.fail=="state" ? "用户已停用！":"" }${param.fail=="nouser" ? "用户名不存在！":"" }${param.fail=="error" ? "用户名或密码错误！":"" }${param.fail=="codeerror" ? "验证码错误！":"" }${param.fail=="unknown" ? "用户名不存在！":""}';
+		var isfail ='${param.fail=="success" ? "修改成功！":"" }${param.fail=="state" ? "用户已停用！":"" }${param.fail=="nouser" ? "用户名不存在！":"" }${param.fail=="error" ? "用户名或密码错误！":"" }${param.fail=="codeerror" ? "验证码错误！":"" }${param.fail=="unknown" ? "用户名不存在！":""}';
 		function result(){
 			if(isfail != ""){
 				layer.alert(isfail,{

@@ -54,8 +54,9 @@ public class CcCkSpxxbController {
 				System.out.println("=========="+selectCcspxx);
 				for (Ccspxxb ccspxxb : selectCcspxx) {
 					if(p.getProductId()==ccspxxb.getProductId()){
+						Date date = new Date();
 						ccspxxb.setKcSl(ccspxxb.getKcSl()+p.getProductCount());
-						ccSpxxService.updateCcspxx(ccspxxb);
+						ccSpxxService.updateCcspxx(ccspxxb,p);
 						mav.setViewName("redirect:list.do");
 						return mav;
 					}
@@ -92,7 +93,7 @@ public class CcCkSpxxbController {
 				System.out.println("修改的的用户信息是："+u);
 				Date date = new Date();
 				u.setLastTime(date);
-				ccSpxxService.updateCcspxx(u);		
+				ccSpxxService.updateCcspxx(u,null);		
 				mav.setViewName("redirect:list.do");
 				return mav;
 			}
@@ -109,6 +110,7 @@ public class CcCkSpxxbController {
 				return byUid;
 				
 			}
+		//批量删除	
 		@RequestMapping("/sc.do")
 		public ModelAndView del(ModelAndView mav,HttpServletRequest req){
 			  String [] xx=req.getParameterValues("bb");
