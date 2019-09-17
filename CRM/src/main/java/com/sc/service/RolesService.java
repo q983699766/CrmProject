@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageInfo;
 import com.sc.bean.SysRole;
 import com.sc.bean.SysUsers;
 
@@ -22,6 +23,9 @@ public interface RolesService {
 	//添加角色
 	public void addRole(SysRole role);
 	
+	//分页
+		public PageInfo<SysRole> selectRolePage
+		(Integer pageNum, Integer pageSize);
 	
 	public SysRole selectById(Long roleId);
 }

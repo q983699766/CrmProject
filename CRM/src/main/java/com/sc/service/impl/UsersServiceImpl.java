@@ -8,6 +8,8 @@ import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sc.bean.SysEmpuser;
 import com.sc.bean.SysRole;
 import com.sc.bean.SysUsers;
@@ -15,6 +17,7 @@ import com.sc.bean.SysUsersExample;
 import com.sc.bean.SysUsersRole;
 import com.sc.bean.SysUsersRoleExample;
 import com.sc.bean.SysUsersRoleExample.Criteria;
+import com.sc.bean.Users;
 import com.sc.mapper.SysEmpuserMapper;
 import com.sc.mapper.SysRoleMapper;
 import com.sc.mapper.SysUsersMapper;
@@ -166,5 +169,41 @@ public class UsersServiceImpl implements UsersService{
 		}
 		
 		return null;
+	}
+
+	@Override
+	public PageInfo<SysUsers> selectUsersPage(Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		
+		List<SysUsers> list = SysUsersMapper.selectByExample(null);
+		
+		for (SysUsers sysUsers : list) {
+			Long empId = sysUsers.getEmpId();
+			
+			SysEmpuser emp = SysEmpuserMapper.selectByPrimaryKey(empId);
+			sysUsers.setEmpName(emp.getEmpName());
+			
+			Long userId = sysUsers.getUserId();
+			
+			SysUsersRoleExample sysUsersRoleExample = new SysUsersRoleExample();
+			Criteria c = sysUsersRoleExample.createCriteria();
+			c.andUserIdEqualTo(userId);
+			
+			List<SysUsersRole> userRole = SysUsersRoleMapper.selectByExample(sysUsersRoleExample);
+			if(!userRole.isEmpty()){
+				
+				ArrayList<SysRole> list2 = new ArrayList<SysRole>();
+				
+				for (SysUsersRole sysUsersRole : userRole) {
+					Long roleId = sysUsersRole.getRoleId();
+					SysRole role = SysRoleMapper.selectByPrimaryKey(roleId);
+					list2.add(role);
+				}
+				sysUsers.setRoles(list2);
+			}
+		}
+		
+		PageInfo<SysUsers> pi = new PageInfo<SysUsers>(list);
+		return pi;
 	}
 }

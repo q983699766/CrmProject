@@ -9,7 +9,7 @@ public interface UserInfoService {
 
 	
 	//查询自己账号的角色
-	public SysRole getMyRole(Long uid);
+	public List<SysRole> getMyRole(Long uid);
 	
 	//查询角色及相应说明
 	public List<SysRole> getRoleLst();

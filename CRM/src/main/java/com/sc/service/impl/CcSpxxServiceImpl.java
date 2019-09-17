@@ -90,10 +90,13 @@ public class CcSpxxServiceImpl implements CcSpxxService {
 		return pi;
 	}
 
-			
 
-	
-	
-	
+	@Override
+	public List<Ccspxxb> selectByExamplel(Ccspxxb ccspxx) {
+		// TODO Auto-generated method stub
+		return ccspxxbMapper.selectByExamplel(ccspxx);
+	}
+
+
 	
 }

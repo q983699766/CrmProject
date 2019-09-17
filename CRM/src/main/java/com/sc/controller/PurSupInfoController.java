@@ -2,7 +2,6 @@ package com.sc.controller;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sc.bean.PurSupInfo;
-import com.sc.bean.SalCustomInfo;
 import com.sc.service.PurSupInfoService;
 
 @Controller
