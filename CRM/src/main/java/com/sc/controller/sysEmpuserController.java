@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +37,11 @@ public class sysEmpuserController {
 	SysDutyService sysDutyService;
 	//查询职务信息
 	@RequestMapping("/list.do")
-	public ModelAndView listpage(ModelAndView mav){
+	public ModelAndView listpage(ModelAndView mav,HttpSession session){
 		//设置视图名称
 		mav.addObject("Empuser", sysEmpuserService.selectSysEmpuser());
+		//员工存session
+		session.setAttribute("Empuser", sysEmpuserService.selectSysEmpuser());
 		mav.setViewName("gongsi/empuser");
 		mav.addObject("com", sysComPanyService.selectComoany());
 		mav.addObject("coom", sysDutyService.selectDuty());

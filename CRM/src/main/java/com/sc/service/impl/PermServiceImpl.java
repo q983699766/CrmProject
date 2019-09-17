@@ -7,6 +7,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageInfo;
 import com.sc.bean.SysPermission;
 import com.sc.bean.SysPermissionColumn;
 import com.sc.bean.SysPermissionExample;
@@ -14,6 +15,7 @@ import com.sc.bean.SysPermissionRole;
 import com.sc.bean.SysPermissionRoleExample;
 import com.sc.bean.SysPermissionRoleExample.Criteria;
 import com.sc.bean.SysRole;
+import com.sc.bean.SysUsers;
 import com.sc.mapper.SysPermissionColumnMapper;
 import com.sc.mapper.SysPermissionMapper;
 import com.sc.mapper.SysPermissionRoleMapper;
@@ -134,6 +136,15 @@ public class PermServiceImpl implements PermissionService{
 		java.util.List<com.sc.bean.SysPermission> selectByExample = SysPermission.selectByExample(sysPermissionExample);
 		
 		return selectByExample;
+	}
+
+	@Override
+	public PageInfo<com.sc.bean.SysPermission> selectUsersPage(Integer pageNum, Integer pageSize) {
+		java.util.List<com.sc.bean.SysPermission> list = SysPermission.selectByExample(null);
+		
+		
+		PageInfo<SysPermission> pi = new PageInfo<SysPermission>(list);
+		return pi;
 	}
 
 }

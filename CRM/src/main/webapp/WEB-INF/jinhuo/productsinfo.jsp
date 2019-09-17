@@ -30,6 +30,7 @@
         <!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
 		<![endif]-->
+		<script src="<%=basePath%>My97DatePicker/WdatePicker.js" type="text/javascript" defer="defer"  charset="UTF-8"></script>
 			<script src="assets/js/jquery.min.js"></script>
 
 		<!-- <![endif]-->
@@ -85,7 +86,7 @@
      <div class="border clearfix">
        <span class="l_f">
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>生成采购单</a>
-        <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量生成采购单单</a>
+        <!-- <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量生成采购单单</a> -->
        </span>
     
      </div>
@@ -94,36 +95,34 @@
        <table class="table table-striped table-bordered table-hover" id="sample-table">
 		<thead>
 		 <tr>
-				<th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th> 
+				<!-- <th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>  -->
 				
 				<th style="width:60px;font-size:12px;">编号</th>
 				<th style="width:80px;font-size:12px;">产品编号</th>
-				<th style="width:80px;font-size:12px;">产品名称</th>
-                <th style="width:60px;font-size:12px;">单价</th>
-				<th style="width:80px;font-size:12px;">库存数量</th>
 			    <th style="width:20%;font-size:12px;">交货时间</th>
+			   	<th style="width:80px;font-size:12px;">状态</th>
+			   	<th style="width:80px;font-size:12px;">操作员</th>
 				<th style="width:80px;font-size:12px;">备注信息</th>
-				<th style="width:60px;font-size:12px;">状态</th>
-				<th style="width:80px;font-size:12px;">公司编号</th>
-				<th style="width:80px;font-size:12px;">操作</th>
+			    <th style="width:80px;font-size:12px;">公司编号</th>
+				<th style="width:80px;font-size:12px;">修改时间</th>
 				
            </tr>
 		</thead>
 	<tbody>
 	 <c:forEach items="${pi.list}" var="i">
 	<tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td> 
-           <td>${i.purproducts.proId}</td>
+        <!--   <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>  -->
+           <td>${i.proId}</td>
            <td>${i.productId}</td>
-           <td>${i.spMc}</td> 
-           <td>${i.cbj}</td>
-           <td>${i.kcSl}</td>
-           <td><fmt:formatDate value="${i.purproducts.deliveryTime}"
+           <td> <fmt:formatDate value="${i.deliveryTime}"
 				pattern="yyyy-MM-dd" /></td> 
-           <td class="text-l">${i.bzxx}</td> 
-          <td class="text-l">${i.purproducts.active}</td>
+           <td>${i.active}</td>
+           <td>${i.operatorId}</td>
+            <td class="text-l">${i.remarksInfo}</td> 
            <td>${i.comId}</td>
-           <td><a href="#">生成采购单</a></td>
+           <td><fmt:formatDate value="${i.lastDate}"
+				pattern="yyyy-MM-dd" /></td>
+     
         
    </tr>
 </c:forEach>
@@ -142,27 +141,170 @@
   </div>
  </div>
 </div>
-<!--添加用户图层-->
+<!-- 添加用户图层
 <div class="add_menber" id="add_menber_style" style="display:none">
- <table class="table table-striped table-bordered table-hover" id="sample-table">
-   <tr> <tr>
-				<th style="width:60px;font-size:12px;">编号</th>
-				<th style="width:80px;font-size:12px;">产品编号</th>
-				<th style="width:80px;font-size:12px;">产品名称</th>
-                <th style="width:60px;font-size:12px;">单价</th>
-				<th style="width:80px;font-size:12px;">数量</th>
-				<th style="width:80px;font-size:12px;">总价</th>
-			    <th style="width:80px;font-size:12px;">备注信息</th>
-			    <th style="width:20%;font-size:12px;">交货时间</th>
-				<th style="width:60px;font-size:12px;">状态</th>
-				<th style="width:80px;font-size:12px;">公司编号</th>
-				<th style="width:80px;font-size:12px;">操作</th>
+   <ul class=" page-content">
+     <li ><label class="label_name" style="width: 100px;">采购单编号：</label><span class="add_name"><input  type="text" name="采购单编号" id="purNumber" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;" >采购主题</label><span class="add_name"><input  type="text" name="采购主题" id="purTitle"class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">采购日期：</label><span class="add_name"><input  type="text" name="采购日期" id="purDate"class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">供应商编号：</label><span class="add_name"><input  type="text"  name="供应商编号" id="supInfoNum"class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">货款金额：</label><span class="add_name"><input  type="text"  name="固定电话" id="payAmount"class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">发票号码：</label><span class="add_name"><input  type="text"  name="移动电话"id="invoiceNumber"class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">付款情况：</label><span class="add_name"><input  type="text" name="联系传真" id="payStatus"class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">采购进展：</label><span class="add_name"><input  type="text" name="联系地址" id="purProgrees"class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">交货时间：</label><span class="add_name"><input  type="text" name="联系邮编" id="deliveryTime"class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">交货地点：</label><span class="add_name"><input  type="text"  name="邮箱" id="deliveryAddress"class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">交货方式：</label><span class="add_name"><input  type="text"  name="开户银行" id="deliveryMode"class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">操作人员：</label><span class="add_name"><input  type="text" name="银行账号" id="operatorId"class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">备注信息：</label><span class="add_name"><input  type="text"  name="公司主页" id="remarksInfo"class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">公司编号：</label><span class="add_name"><input  type="text" name="备注信息" id="comId"class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name" style="width: 100px;">修改时间：</label><span class="add_name"><input  type="text"  name="公司编号" id="lastDate"class="text_add"/></span><div class="prompt r_f"></div></li>
+  
+     </ul>
+ </div> -->
+	<!--添加用户图层-->
+	<script type="text/javascript">
+		function yz() {
+			var a = document.getElementById("a").value;
+			if (a == "") {
+				alert("供应商名称不能为空");
+				return false;
+			}
+			var b = document.getElementById("b").value;
+			if (b == "") {
+				alert("供应商简称不能为空");
+				return false;
+			}
+			var c = document.getElementById("c").value;
+			if (c == "") {
+				alert("联系人不能为空");
+				return false;
+			}
+			var d = document.getElementById("d").value;
+			if (d == "") {
+				alert("固定电话不能为空");
+				return false;
+			}
+			var e = document.getElementById("e").value;
+			if (e == "") {
+				alert("移动电话不能为空");
+				return false;
+			}
+			var f = document.getElementById("f").value;
+			if (f == "") {
+				alert("联系传真不能为空");
+				return false;
+			}
+			var g = document.getElementById("g").value;
+			if (g == "") {
+				alert("邮编不能为空");
+				return false;
+			}
+			var h = document.getElementById("h").value;
+			if (h == "") {
+				alert("开户银行不能为空");
+				return false;
+			}
+			var i = document.getElementById("i").value;
+			if (i == "") {
+				alert("银行账号不能为空");
+				return false;
+			}
+			var j = document.getElementById("j").value;
+			if (j == "") {
+				alert("公司主页不能为空");
+				return false;
+			}
+			var k = document.getElementById("k").value;
+			if (k == "") {
+				alert("备注信息不能为空");
+				return false;
+			}
+			var l = document.getElementById("l").value;
+			if (l == "") {
+				alert("必选项");
+				return false;
+			}
+	
+		}
+	</script>
+	<!-- //添加页面 -->
+	<form action="purorder/addinfo.do" method="post"
+		onsubmit="return yz()">
+		<div class="add_menber" id="add_menber_style" style="display:none">
+			<ul class=" page-content">
+			<!-- <li><label class="label_name" style="width: 100px;">采购单编号：</label><span
+					class="add_name"><input id="a" name="purNumber" type="text"
+						class="text_add" /></span>
+				<div class="prompt r_f"></div></li> -->
+				<li><label class="label_name" style="width: 100px;">采购主题：</label><span
+					class="add_name"><input id="b" name="purTitle" type="text"
+						class="text_add" /></span>
+				<div class="prompt r_f"></div></li>
+				<!-- <li><label class="label_name" style="width: 100px;">采购日期：</label><span
+					class="add_name"><input id="i" name="purDate"   style="width:170px;height: 27px;" class=" Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+                      </span></span>
+				<div class="prompt r_f"></div></li> -->
+				<li><label class="label_name" style="width: 100px;">供应商编号：</label><span
+					class="add_name"><input id="d" name="supInfoNum" type="text"
+						class="text_add" /></span>
+				<div class="prompt r_f"></div></li>
+				<!-- <li><label class="label_name" style="width: 100px;">货款金额：</label><span
+					class="add_name"><input id="e" name="payAmount" type="text"
+						class="text_add" /></span>
+				<div class="prompt r_f"></div></li> -->
+				<!-- <li><label class="label_name" style="width: 100px;">发票号码：</label><span
+					class="add_name"><input id="f" name="invoiceNumber" type="text"
+						class="text_add" /></span>
+				<div class="prompt r_f"></div></li> -->
+				<!-- 
+				<li><label class="label_name" style="width: 100px;">付款情况：</label><span
+					class="add_name"><input id="g" name="payStatus" type="text"
+						class="text_add" /></span>
+				<div class="prompt r_f"></div></li>
+				<li><label class="label_name" style="width: 100px;">采购进展：</label><span
+					class="add_name"><input id="h" name="purProgrees" type="text"
+						class="text_add" /></span>
+				<div class="prompt r_f"></div></li> -->
+				<li><label class="label_name" style="width: 100px;">交货时间：</label><span
+					class="add_name"><input id="i" name="deliveryTime"   style="width:170px;height: 27px;" class=" Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+                      </span>
+				<div class="prompt r_f"></div></li>
+				<li><label class="label_name" style="width: 100px;">交货地点：</label><span
+					class="add_name"><input id="j" name="deliveryAddress" type="text"
+						class="text_add" /></span>
+				<div class="prompt r_f"></div></li>
+						<li><label class="label_name" style="width: 100px;">交货方式：</label><span
+					class="add_name"><input id="k" name="deliveryMode"
+						type="text" class="text_add" /></span>
+				<div class="prompt r_f"></div></li>
+				<li><label class="label_name" style="width: 100px;">操作人员：</label><span
+					class="add_name"><input id="k" name="operatorId"
+						type="text" class="text_add" /></span>
+				<div class="prompt r_f"></div></li>
+				<li><label class="label_name" style="width: 100px;">备注信息：</label><span
+					class="add_name"><input id="k" name="remarksInfo"
+						type="text" class="text_add" /></span>
+				<div class="prompt r_f"></div></li>
+				<li><label class="label_name" style="width: 100px;">公司编号：</label><span
+					class="add_name"><input id="k" name="comId"
+						type="text" class="text_add" /></span>
+				<div class="prompt r_f"></div></li>
+				<!-- <li><label class="label_name" style="width: 100px;">修改时间：</label><span
+					class="add_name"><input id="k" name="lastDate"
+						type="text" class="text_add" /></span>
 				
-           </tr></tr>
-      
- </table>
-<div>
+			</ul>
+  -->
+			<center>
+				<div>
+					<input type="submit" value="提交" class="btn btn-primary">
+				</div>
+			</center>
+			<br>
+		</div>
 
+	</form>
 <!-- <div class="add_menber" id="add_menber_style" style="display:none">
    <ul class=" page-content">
      <li ><label class="label_name" style="width: 100px;">供应商编号：</label><span class="add_name"><input  type="text" name="供应商编号" id="SUP_INFO_NUM" class="text_add"/></span><div class="prompt r_f"></div></li>
@@ -256,12 +398,12 @@ jQuery(function($) {
  $('#member_add').on('click', function(){
     layer.open({
         type: 1,
-        title: '添加供应商信息',
+        title: '添加采购单信息',
 		maxmin: true, 
 		shadeClose: true, //点击遮罩关闭层
         area : ['800px' , ''],
         content:$('#add_menber_style'),
-		btn:['提交','取消'],
+		//btn:['提交','取消'],
 		yes:function(index,layero){	
 		 var num=0;
 		 var str="";

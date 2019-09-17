@@ -45,4 +45,6 @@ public interface SalOrderMapper {
     public int havePayOrderCountGroupByMonth(int month);
     
     public int waitPutOrderCountGroupByMonth(int month);
+    
+    public List<SalOrder> selectByLike(String message);
 }
