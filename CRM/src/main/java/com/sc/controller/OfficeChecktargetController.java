@@ -69,6 +69,23 @@ public class OfficeChecktargetController {
 		mav.setViewName("redirect:listofficechecktargetall.do");
 		return mav;
 	}
+	
+	@RequestMapping("/delallofficechecktarget.do") //批量删除调用的方法
+	public ModelAndView delall(ModelAndView mav,HttpServletRequest req) {
+		System.out.println("进入批量删除方法");
+		String[] idarr = req.getParameterValues("bb000");
+		OfficeChecktarget offchecktarget = new OfficeChecktarget();
+		Long idl = null;
+		for (String id : idarr) {
+			idl = Long.parseLong(id);
+			System.out.println("------------"+idl);
+			offchecktarget.setTargetId(idl);
+			officeChecktargetService.delOfficeChecktargetById(offchecktarget);
+		}
+		
+		mav.setViewName("redirect:listofficechecktargetall.do");
+		return mav;
+	}
 	/*
 	@RequestMapping("/goadd.do")
 	public ModelAndView goadd(ModelAndView mav,Users u) {

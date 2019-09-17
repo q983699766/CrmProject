@@ -315,62 +315,52 @@ public class OfficeChecktaskExample {
             return (Criteria) this;
         }
 
-        public Criteria andTaskPublisherEqualTo(String value) {
+        public Criteria andTaskPublisherEqualTo(Long value) {
             addCriterion("TASK_PUBLISHER =", value, "taskPublisher");
             return (Criteria) this;
         }
 
-        public Criteria andTaskPublisherNotEqualTo(String value) {
+        public Criteria andTaskPublisherNotEqualTo(Long value) {
             addCriterion("TASK_PUBLISHER <>", value, "taskPublisher");
             return (Criteria) this;
         }
 
-        public Criteria andTaskPublisherGreaterThan(String value) {
+        public Criteria andTaskPublisherGreaterThan(Long value) {
             addCriterion("TASK_PUBLISHER >", value, "taskPublisher");
             return (Criteria) this;
         }
 
-        public Criteria andTaskPublisherGreaterThanOrEqualTo(String value) {
+        public Criteria andTaskPublisherGreaterThanOrEqualTo(Long value) {
             addCriterion("TASK_PUBLISHER >=", value, "taskPublisher");
             return (Criteria) this;
         }
 
-        public Criteria andTaskPublisherLessThan(String value) {
+        public Criteria andTaskPublisherLessThan(Long value) {
             addCriterion("TASK_PUBLISHER <", value, "taskPublisher");
             return (Criteria) this;
         }
 
-        public Criteria andTaskPublisherLessThanOrEqualTo(String value) {
+        public Criteria andTaskPublisherLessThanOrEqualTo(Long value) {
             addCriterion("TASK_PUBLISHER <=", value, "taskPublisher");
             return (Criteria) this;
         }
 
-        public Criteria andTaskPublisherLike(String value) {
-            addCriterion("TASK_PUBLISHER like", value, "taskPublisher");
-            return (Criteria) this;
-        }
-
-        public Criteria andTaskPublisherNotLike(String value) {
-            addCriterion("TASK_PUBLISHER not like", value, "taskPublisher");
-            return (Criteria) this;
-        }
-
-        public Criteria andTaskPublisherIn(List<String> values) {
+        public Criteria andTaskPublisherIn(List<Long> values) {
             addCriterion("TASK_PUBLISHER in", values, "taskPublisher");
             return (Criteria) this;
         }
 
-        public Criteria andTaskPublisherNotIn(List<String> values) {
+        public Criteria andTaskPublisherNotIn(List<Long> values) {
             addCriterion("TASK_PUBLISHER not in", values, "taskPublisher");
             return (Criteria) this;
         }
 
-        public Criteria andTaskPublisherBetween(String value1, String value2) {
+        public Criteria andTaskPublisherBetween(Long value1, Long value2) {
             addCriterion("TASK_PUBLISHER between", value1, value2, "taskPublisher");
             return (Criteria) this;
         }
 
-        public Criteria andTaskPublisherNotBetween(String value1, String value2) {
+        public Criteria andTaskPublisherNotBetween(Long value1, Long value2) {
             addCriterion("TASK_PUBLISHER not between", value1, value2, "taskPublisher");
             return (Criteria) this;
         }
