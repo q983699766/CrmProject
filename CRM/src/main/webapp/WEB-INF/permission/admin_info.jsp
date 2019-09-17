@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <table class="table table-border table-bordered table-bg table-hover table-sort" id="sample-table">
     <thead>
       <tr class="text-c">
-        
+        <th width="100">角色编号</th>
         <th width="100">角色名称</th>
         <th>角色描述</th>
         <th width="25%">拥有权限</th>
@@ -106,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <c:forEach items="${roles }" var="r">
       <tr>
         
-        
+        <td>${r.roleId }</td>
         <td>${r.roleName }</td>
         <td>${r.roleDescribe }</td>
         <td><c:forEach items="${r.perms }" var="p"><p>${p.permissionName}</p></c:forEach></td>
