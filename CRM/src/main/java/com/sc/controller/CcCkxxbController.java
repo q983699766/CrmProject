@@ -68,6 +68,23 @@ public class CcCkxxbController {
 			return mav;
 		}
 		
+		//批量删除
+		@RequestMapping("/sc.do")
+		public ModelAndView del(ModelAndView mav,HttpServletRequest req){
+			  String [] xx=req.getParameterValues("bb");			 
+			    for (int i = 0; i < xx.length; i++) {
+			    	 long l = Long.parseLong(xx[i]);
+			    	 System.out.println("你要删除的数据："+l);
+			    	
+					
+					ccCkxxbService.delCcCkxx(l);
+				}
+				//重定向到列表方法
+				mav.setViewName("redirect:ck.do");
+				return mav;
+			}
+		
+		
 		//通过id查询
 		@RequestMapping("/select.do")
 		@ResponseBody
@@ -102,15 +119,18 @@ public class CcCkxxbController {
 				@RequestParam(defaultValue="1")Integer pageNum,
 				@RequestParam(defaultValue="5")Integer pageSize) throws IllegalStateException, IOException {
 			String ckBh = req.getParameter("ckBh");		
-			Long uid =(long) Integer.parseInt(ckBh);
-			System.out.println("获取到的用户编号为:"+uid);
+			Long uid =(long) Integer.parseInt(ckBh);			
 			CcCkxxb byUid = ccCkxxbService.selectCcCkxxbByUid(uid);
-			PageInfo<Ccspxxb> pi = ccCkxxbService.selectbyckidPage(pageNum, pageSize, byUid.getCkBh());//selectbyckid(byUid.getCkBh());
-			System.out.println("====="+pageSize);
-			System.out.println("111111"+pi);
-			byUid.setCcspxxb(pi.getList());
-			System.out.println("set之后的数据"+byUid);
+			PageInfo<Ccspxxb> pi = ccCkxxbService.selectbyckidPage(pageNum, pageSize, byUid.getCkBh());//selectbyckid(byUid.getCkBh());		
+			byUid.setCcspxxb(pi.getList());			
 			mav.addObject("aa", byUid);
+			System.out.println("f:"+pi.getFirstPage());
+			mav.addObject("aaaf",pi.getFirstPage());
+			mav.addObject("aaap",pi.getPrePage());
+			mav.addObject("aaan",pi.getNextPage());
+			mav.addObject("aaal",pi.getLastPage());
+			mav.addObject("aaapn",pi.getPageNum());
+			mav.addObject("aaaps",pi.getPages());
 			mav.setViewName("Ck/splb2");
 			return mav;
 		}
