@@ -32,6 +32,13 @@ public class SalOrder implements Serializable {
 
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastTime;
+    
+    //附加属性
+    private SysUsers user;
+    
+    private SalCustomInfo custom;
+    
+    private SysCOMPANY company;
 
     private static final long serialVersionUID = 1L;
 
@@ -54,7 +61,33 @@ public class SalOrder implements Serializable {
         super();
     }
 
-    public Long getOrderId() {
+    
+    
+	public SysCOMPANY getCompany() {
+		return company;
+	}
+
+	public void setCompany(SysCOMPANY company) {
+		this.company = company;
+	}
+
+	public SysUsers getUser() {
+		return user;
+	}
+
+	public void setUser(SysUsers user) {
+		this.user = user;
+	}
+
+	public SalCustomInfo getCustom() {
+		return custom;
+	}
+
+	public void setCustom(SalCustomInfo custom) {
+		this.custom = custom;
+	}
+
+	public Long getOrderId() {
         return orderId;
     }
 

@@ -26,11 +26,8 @@ public interface CcSpxxService {
 	
 	
 	public List<Ccspxxb> selectByExamplel(Ccspxxb ccspxx);
+	public PageInfo<Ccspxxb> selectmh(Integer pageNum, Integer pageSize, Ccspxxb ccspxx);
 }
 
 
-
-	
-	
-}
 
