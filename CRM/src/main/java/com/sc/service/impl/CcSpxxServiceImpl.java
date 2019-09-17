@@ -19,7 +19,8 @@ public class CcSpxxServiceImpl implements CcSpxxService {
 	@Override
 	public List<Ccspxxb> selectCcspxx() {
 		// TODO Auto-generated method stub
-		return null;
+		
+		return ccspxxbMapper.selectByExample(null);
 	}
 
 	//添加
@@ -27,10 +28,13 @@ public class CcSpxxServiceImpl implements CcSpxxService {
 	public void addCcspxx(Ccspxxb u) {
 		
 		if(u!=null){
+			
 			this.ccspxxbMapper.insert(u);
 			
 		}
-	
+		
+		
+		
 	}
 
 	//分页查询所有

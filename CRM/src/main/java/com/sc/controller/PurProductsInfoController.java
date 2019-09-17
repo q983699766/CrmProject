@@ -1,5 +1,9 @@
 package com.sc.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sc.bean.CcCkxxb;
+import com.sc.bean.PurOrderInfo;
 import com.sc.service.PurProductsInfoService;
 
 @Controller//注册成bean对象
@@ -30,6 +36,19 @@ public class PurProductsInfoController {
 				return mav;
 			}
 			
-			//2.通过id查询，
+		
+			//通过id查询
+			@RequestMapping("/select.do")
+			@ResponseBody
+			public PurOrderInfo selectById(ModelAndView mav,HttpServletRequest req) throws IllegalStateException, IOException {
+				System.out.println("进入查看弹层页面");
+				String purInfoNumber = req.getParameter("purInfoNumber");
+				Long uid=(long)Integer.parseInt(purInfoNumber);				
+				System.out.println("获取到的用户编号为:"+uid);
+				PurOrderInfo byUid = purProductsInfoService.selctPurOrderInfoByid(uid);
+				System.out.println("查出的用户为"+byUid);
+				return byUid;
+				
+			}
 			
 }

@@ -21,7 +21,7 @@ public class PurProductsInfoServiceImpl implements PurProductsInfoService {
 	//分页查询
 	@Override
 	public PageInfo<PurOrderInfo> selectPurOrderInfo(Integer pageNum, Integer pageSize ,Long purInfoNumber) {
-		PageHelper.startPage(pageNum,pageSize);
+		PageHelper.startPage(pageNum,pageSize);		
 		PurOrderInfoExample example = new PurOrderInfoExample();
 		example.setOrderByClause("PRODUCT_ID DESC");		
 		List<PurOrderInfo> list = purOrderInfoMapper.selectByExample(example);
@@ -29,7 +29,14 @@ public class PurProductsInfoServiceImpl implements PurProductsInfoService {
 		return pi;
 		
 	}
+
+	//通过ID查询
+	@Override
+	public PurOrderInfo selctPurOrderInfoByid(Long purInfoNumber) {
+		return	purOrderInfoMapper.selectByPrimaryKey(purInfoNumber);
+		
+	}
 	
 
-	
+
 }

@@ -1,6 +1,7 @@
 package com.sc.controller;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sc.bean.Ccspxxb;
+import com.sc.bean.PurOrderInfo;
 import com.sc.service.CcSpxxService;
 
 @Controller//注册成bean对象
@@ -47,11 +49,20 @@ public class CcCkSpxxbController {
 			
 			//添加
 			@RequestMapping("/add.do")
-			public ModelAndView add(ModelAndView mav , Ccspxxb u ){
-				
+			public ModelAndView add(ModelAndView mav , Ccspxxb u,PurOrderInfo p){
+				List<Ccspxxb> selectCcspxx = ccSpxxService.selectCcspxx();
+				System.out.println("=========="+selectCcspxx);
+				for (Ccspxxb ccspxxb : selectCcspxx) {
+					if(p.getProductId()==ccspxxb.getProductId()){
+						ccspxxb.setKcSl(ccspxxb.getKcSl()+p.getProductCount());
+						ccSpxxService.updateCcspxx(ccspxxb);
+						mav.setViewName("redirect:list.do");
+						return mav;
+					}
+				}
 				System.out.println("进入添加方法"+u);
 				Date date = new Date();
-				u.setLastTime(date);
+				u.setLastTime(date);				
 				//添加模型数据
 			    ccSpxxService.addCcspxx(u);			   
 				//设置视图名称         转发
@@ -92,9 +103,7 @@ public class CcCkSpxxbController {
 			public Ccspxxb selectById(HttpServletRequest req) throws IllegalStateException, IOException {
 				System.out.println("进入查看弹层页面");
 				String productId = req.getParameter("productId");
-				System.out.println(productId);
 				Long uid =(long) Integer.parseInt(productId);
-				System.out.println("获取到的用户编号为:"+uid);
 				Ccspxxb byUid = ccSpxxService.selectCcspxxByUid(uid);
 				System.out.println("查出的用户为"+byUid);
 				return byUid;
