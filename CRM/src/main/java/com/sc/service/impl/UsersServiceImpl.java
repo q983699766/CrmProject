@@ -105,7 +105,10 @@ public class UsersServiceImpl implements UsersService{
 	@Override
 	public void delUser(Long userId) {
 		SysUsersMapper.deleteByPrimaryKey(userId);
-		
+		SysUsersRoleExample sysUsersRoleExample = new SysUsersRoleExample();
+		Criteria c = sysUsersRoleExample.createCriteria();
+		c.andUserIdEqualTo(userId);
+		SysUsersRoleMapper.deleteByExample(sysUsersRoleExample);
 	}
 
 	@Override
