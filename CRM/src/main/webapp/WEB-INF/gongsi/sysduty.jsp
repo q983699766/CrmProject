@@ -147,6 +147,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <li><label class="label_name">修改时间：</label><span class="add_name"><input readonly="readonly" type="text" id="lastTime" class="text_add"/></span><div class="prompt r_f"></div></li>
    </ul>
  </div>
+ <div class="add_menber" id="show_menber_style" style="display:none"> 
+    <ul class=" page-content">
+     <li><label class="label_name">职位名称：</label><span class="add_name"><input  type="text" readonly="readonly" id="dutName" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">所属部门：</label><span class="add_name"><input  type="text" readonly="readonly" id="secId" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">备注说明：</label><span class="add_name"><input readonly="readonly" type="text" id="dutRemark" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">所属公司：</label><span class="add_name"><input readonly="readonly" type="text" id="comId" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">修改时间：</label><span class="add_name"><input readonly="readonly" type="text" id="lastTime" class="text_add"/></span><div class="prompt r_f"></div></li>
+   </ul>
+ </div>
 </body>
 </html>
 <script>
