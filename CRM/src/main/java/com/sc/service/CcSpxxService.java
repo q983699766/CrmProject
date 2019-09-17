@@ -5,6 +5,7 @@ import java.util.List;
 import com.github.pagehelper.PageInfo;
 
 import com.sc.bean.Ccspxxb;
+import com.sc.bean.PurOrderInfo;
 import com.sc.bean.PurSupInfo;
 
 public interface CcSpxxService {
@@ -20,7 +21,7 @@ public interface CcSpxxService {
 	//删除库存该商品
 	public void delCcspxx(Long productId);
 	//修改库存的商品信息
-	public void updateCcspxx(Ccspxxb u);
+	public void updateCcspxx(Ccspxxb u,PurOrderInfo p);
 	//商品模糊查询
 
 	

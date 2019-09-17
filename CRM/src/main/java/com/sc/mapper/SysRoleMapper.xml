@@ -86,6 +86,7 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
+    	order by ROLE_ID ASC
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
