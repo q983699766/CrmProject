@@ -6,7 +6,7 @@
       <idArg column="TASK_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
       <arg column="TASK_TITLE" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="TASK_CONTENT" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="TASK_PUBLISHER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="TASK_PUBLISHER" jdbcType="DECIMAL" javaType="java.lang.Long" />
       <arg column="TARGET_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
       <arg column="TASK_STARTTIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="TASK_ENDTIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
@@ -113,7 +113,7 @@
       TASK_ENDTIME, COM_ID, LAST_TIME
       )
     values (#{taskId,jdbcType=DECIMAL}, #{taskTitle,jdbcType=VARCHAR}, #{taskContent,jdbcType=VARCHAR}, 
-      #{taskPublisher,jdbcType=VARCHAR}, #{targetId,jdbcType=DECIMAL}, #{taskStarttime,jdbcType=TIMESTAMP}, 
+      #{taskPublisher,jdbcType=DECIMAL}, #{targetId,jdbcType=DECIMAL}, #{taskStarttime,jdbcType=TIMESTAMP}, 
       #{taskEndtime,jdbcType=TIMESTAMP}, #{comId,jdbcType=DECIMAL}, #{lastTime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -159,7 +159,7 @@
         #{taskContent,jdbcType=VARCHAR},
       </if>
       <if test="taskPublisher != null" >
-        #{taskPublisher,jdbcType=VARCHAR},
+        #{taskPublisher,jdbcType=DECIMAL},
       </if>
       <if test="targetId != null" >
         #{targetId,jdbcType=DECIMAL},
@@ -197,7 +197,7 @@
         TASK_CONTENT = #{record.taskContent,jdbcType=VARCHAR},
       </if>
       <if test="record.taskPublisher != null" >
-        TASK_PUBLISHER = #{record.taskPublisher,jdbcType=VARCHAR},
+        TASK_PUBLISHER = #{record.taskPublisher,jdbcType=DECIMAL},
       </if>
       <if test="record.targetId != null" >
         TARGET_ID = #{record.targetId,jdbcType=DECIMAL},
@@ -224,7 +224,7 @@
     set TASK_ID = #{record.taskId,jdbcType=DECIMAL},
       TASK_TITLE = #{record.taskTitle,jdbcType=VARCHAR},
       TASK_CONTENT = #{record.taskContent,jdbcType=VARCHAR},
-      TASK_PUBLISHER = #{record.taskPublisher,jdbcType=VARCHAR},
+      TASK_PUBLISHER = #{record.taskPublisher,jdbcType=DECIMAL},
       TARGET_ID = #{record.targetId,jdbcType=DECIMAL},
       TASK_STARTTIME = #{record.taskStarttime,jdbcType=TIMESTAMP},
       TASK_ENDTIME = #{record.taskEndtime,jdbcType=TIMESTAMP},
@@ -244,7 +244,7 @@
         TASK_CONTENT = #{taskContent,jdbcType=VARCHAR},
       </if>
       <if test="taskPublisher != null" >
-        TASK_PUBLISHER = #{taskPublisher,jdbcType=VARCHAR},
+        TASK_PUBLISHER = #{taskPublisher,jdbcType=DECIMAL},
       </if>
       <if test="targetId != null" >
         TARGET_ID = #{targetId,jdbcType=DECIMAL},
@@ -268,7 +268,7 @@
     update OFFICE_CHECKTASK
     set TASK_TITLE = #{taskTitle,jdbcType=VARCHAR},
       TASK_CONTENT = #{taskContent,jdbcType=VARCHAR},
-      TASK_PUBLISHER = #{taskPublisher,jdbcType=VARCHAR},
+      TASK_PUBLISHER = #{taskPublisher,jdbcType=DECIMAL},
       TARGET_ID = #{targetId,jdbcType=DECIMAL},
       TASK_STARTTIME = #{taskStarttime,jdbcType=TIMESTAMP},
       TASK_ENDTIME = #{taskEndtime,jdbcType=TIMESTAMP},

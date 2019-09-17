@@ -33,15 +33,17 @@
 <script type="text/javascript">
 	function sccc() {
 			var b = document.getElementsByName("bb000");
-			/* alert(b.length);  */
-			
+			alert(b.length); 
 			for(var b0=0;b0<b.length;b0++){
 				if(b[b0].checked){
 					document.getElementById('cc000').submit();
 					return;
 				}
 			} 
-			alert("请勾选后再批量删除");
+			/* if(){
+				document.getElementById('cc000').submit();
+			} */
+			
 		}   
 		/* $("#a1").click(function() {
 			var iii = $("#cc000").prev().find("input");
@@ -88,46 +90,58 @@
     </div>
     <div class="border clearfix">
        <span class="l_f">
-        <a href="javascript:sccc();" id="a1" class="btn btn-danger"><i class="fa fa-trash"></i>&nbsp;批量删除</a>
+        <!-- <a href="javascript:sccc();" id="a1" class="btn btn-danger"><i class="fa fa-trash"></i>&nbsp;批量删除</a> -->
         
         <!--<a href="javascript:ovid()" class="btn btn-sm btn-primary"><i class="fa fa-check"></i>&nbsp;已浏览</a>
         <a href="javascript:ovid()" class="btn btn-yellow"><i class="fa fa-times"></i>&nbsp;未浏览</a>-->
+        
        </span>
+       
        <span class="r_f"></span>
      </div>
-    <!--留言列表-->
+     
+     
+     
+    <!--列表-->
     <div class="Guestbook_list">
     <form action="officecc.do/delallofficechecktarget.do" method="post" id="cc000" >
       <table class="table table-striped table-bordered table-hover" id="sample-table">
       <thead>
 		 <tr>
           <th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
-          <th width="80">ID</th>
-          <th width="150px">考核指标集名称</th>
-          <th width="">考核指标集描述</th>
-          <th width="80">公司编号</th>
+          <th width="80">任务编号ID</th>
+          <th width="150px">任务标题</th>
+          <th width="">任务具体内容</th>
+          <th width="80">考核指标</th>
+          <th width="80">开始时间</th>
+          <th width="80">结束时间</th>
+          <th width="80">发布人</th>
+          <th width="80">公司ID</th>
           <th width="200px">最后修改时间</th>
-          <th width="70">修改</th>                
-          <th width="250">删除</th>
+           <th width="70">修改</th>            
+           <th width="250">删除</th> 
           </tr>
       </thead>
 	<tbody>
 	
 	<c:forEach items="${list }" var="u" varStatus="x">
 		<tr>
-     <td><label name="lll"><input type="checkbox" class="ace" name="bb000" id="inputt${x.index }" value="${u.targetId }"><span class="lbl" name="mmm"></span></label></td>
-          <td>${u.targetId }</td>
-          <td><!-- <u style="cursor:pointer"  class="text-primary" onclick="member_show('张小泉','member-show.html','1031','500','400')"> -->${u.checkTarget }<!-- </u> --></td>
-          <td class="text-l">
-          ${u.remark }
+     <td><label name="lll"><input type="checkbox" class="ace" name="bb000" id="inputt${x.index }" value="${u.taskId }"><span class="lbl" name="mmm"></span></label></td>
+          <td>${u.taskId }</td>
+          <td>${u.taskTitle }</td>
+          <td>${u.taskContent }</td>
+          <td>${u.officeChecktarget.checkTarget }</td>
+          <td><fmt:formatDate value="${u.taskStarttime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+          <td><fmt:formatDate value="${u.taskEndtime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+          <td>${u.sysUsers.userName }
+          <a onclick="Guestbook_iewre('${u.taskPublisher }')" title="此人接收"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>
           </td>
           <td>${u.comId }</td>
           <td><fmt:formatDate value="${u.lastTime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-          <td class="td-status"><a onclick="Guestbook_iew('${u.targetId }')" title="修改"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a></td>
+          <td class="td-status"><a onclick="Guestbook_iew('${u.taskId }')" title="修改"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a></td>
           <td class="td-manage">
-           <!--<a onClick="member_stop(this,'10001')"  href="javascript:;" title="已浏览"  class="btn btn-xs btn-success"><i class="fa fa-check  bigger-120"></i></a>   
-        <a  onclick="member_edit('回复','member-add.html','4','','510')" title="回复"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>   -->   
-        <a  href="javascript:;"  onclick="member_del(this,'${u.targetId }')" title="删除" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
+          <a onclick="Guestbook_iewrethisline('${u.taskId }')" title="此条接收详情"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>
+        <a  href="javascript:;"  onclick="member_del(this,'${u.taskId }')" title="删除" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
           </td>
         </tr>
         </c:forEach>
@@ -138,25 +152,92 @@
     </div>
  </div>
 </div>
-<!--留言详细-->
-<div id="Guestbook" style="display:none">
- <div class="content_style">
-  <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1">考核指标集名称</label>
-       <div class="col-sm-9"><input id="checkTarget" name="checkTarget" type="text" class="text_add" style=" width:250px"></div>
-	</div>
-   <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1">考核指标集描述</label>
-       <div class="col-sm-9"><textarea id="remark" name="remark" class="textarea" style=" margin-left:10px;" cols="50"></textarea></div>
-	</div>
-    <!-- <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1">是否回复 </label>
-       <div class="col-sm-9">
-       <label><input name="checkbox" type="checkbox" class="ace" id="checkbox"><span class="lbl"> 回复</span></label>
-       <div class="Reply_style">
-          <textarea name="权限描述" class="form-control" id="form_textarea" placeholder="" onkeyup="checkLength(this);"></textarea>
-          <span class="wordage">剩余字数：<span id="sy" style="color:Red;">200</span>字</span>
-       </div>
-       </div>
-	</div>-->
- </div>
+<!--此人接收-->
+<div id="Guestbookre" style="display:none">
+ <!--此条接收列表-->
+    <div class="Guestbook_list">
+    <form action="" method="post" id="ccre" >
+      <table class="table table-striped table-bordered table-hover" id="tablere">
+      <thead>
+		 <tr>
+          <th width="80">编号ID</th>
+          <th width="150px">任务编号ID</th>
+          <th width="">接收用户编号</th>
+          <th width="80">是否完成</th>
+          <th width="80">状态</th>
+          <th width="80">公司ID</th>
+          <th width="200px">最后修改时间</th>
+           <th width="70">修改</th>            
+           <th width="250">删除</th> 
+          </tr>
+      </thead>
+	<c:forEach items="${getre }" var="u" varStatus="x">
+		<tr>
+          <td>${u.idd }</td>
+          <td>${u.taskId }</td>
+          <td>${u.receiverId }</td>
+          <td>${u.isFinish==0? "未完成":"已完成" }</td>
+          <td>${u.statue }
+          	<c:if test="${u.statue==0 }">未开始</c:if>
+          	<c:if test="${u.statue==1 }">已生效</c:if>
+          	<c:if test="${u.statue==2 }">已逾期</c:if>
+          </td>
+          <td>${u.comId }</td>
+          <td><fmt:formatDate value="${u.lastTime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+          <td class="td-status"><a onclick="Guestbook_iewre('${u.taskId }')" title="修改"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a></td>
+          <td class="td-manage">
+          <a  href="javascript:;"  onclick="member_delre(this,'${u.taskId }')" title="删除" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
+          </td>
+        </tr>
+        </c:forEach>
+        
+      </table>
+      </form>
+    </div>
+</div>
+
+<!--此条接收-->
+<div id="Guestbookthisline" style="display:none">
+	<!--此条接收列表-->
+    <div class="Guestbook_list">
+    <form action="" method="post" id="ccthisline" >
+      <table class="table table-striped table-bordered table-hover" id="tablethisline">
+      <thead>
+		 <tr>
+          <th width="80">编号ID</th>
+          <th width="150px">任务编号ID</th>
+          <th width="">接收用户编号</th>
+          <th width="80">是否完成</th>
+          <th width="80">状态</th>
+          <th width="80">公司ID</th>
+          <th width="200px">最后修改时间</th>
+           <th width="70">修改</th>            
+           <th width="250">删除</th> 
+          </tr>
+      </thead>
+	<c:forEach items="${getthisline }" var="u" varStatus="x">
+		<tr>
+          <td>${u.idd }</td>
+          <td>${u.taskId }</td>
+          <td>${u.receiverId }</td>
+          <td>${u.isFinish==0? "未完成":"已完成" }</td>
+          <td>${u.statue }
+          	<c:if test="${u.statue==0 }">未开始</c:if>
+          	<c:if test="${u.statue==1 }">已生效</c:if>
+          	<c:if test="${u.statue==2 }">已逾期</c:if>
+          </td>
+          <td>${u.comId }</td>
+          <td><fmt:formatDate value="${u.lastTime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+          <td class="td-status"><a onclick="Guestbook_iewthisline('${u.taskId }')" title="修改"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a></td>
+          <td class="td-manage">
+          <a  href="javascript:;"  onclick="member_delthisline(this,'${u.taskId }')" title="删除" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
+          </td>
+        </tr>
+        </c:forEach>
+        
+      </table>
+      </form>
+    </div>
 </div>
 </body>
 </html>
@@ -177,7 +258,7 @@ function member_del(obj,id){
 			data:{"targetId":id}
 			
 		});*/
-		document.location.href="officecc.do/delofficechecktarget.do?targetId="+id;
+		//document.location.href="officecc.do/delofficechecktarget.do?relId="+id;
 		layer.msg('已删除!',{icon:1,time:1000});
 	});
 }
@@ -267,6 +348,62 @@ function Guestbook_iew(id){
 	   }
 	})	
 };
+
+/*此人接收*/
+function Guestbook_iewre(id){
+	var url="officeg.do/listre.do?id="+id;
+	$.ajax({
+		type:"post",
+      	url:url,
+      	dataType:"json",
+      	success:function(data)
+	      {
+	      
+	      }
+	});
+	var index = layer.open({
+        type: 1,
+        title: '修改界面',
+		maxmin: true, 
+		shadeClose:false,
+        area : ['600px' , ''],
+        content:$('#Guestbookre'),
+		btn:['关闭','取消'],
+		yes: function(index, layero){		 
+		   layer.closeAll();
+	   }
+	})	
+};
+
+/*此条接收*/
+function Guestbook_iewrethisline(id){
+	var url="officeg.do/listthisline.do?taskId="+id;
+	$.ajax({
+		type:"post",
+      	url:url,
+      	dataType:"json",
+      	
+      	success:function(data)
+	      {
+	        
+	      }
+	});
+	
+	var index = layer.open({
+        type: 1,
+        title: '接收详情',
+		maxmin: true, 
+		shadeClose:false,
+        area : ['600px' , ''],
+        content:$('#Guestbookthisline'),
+		btn:['关闭','取消'],
+		yes: function(index, layero){		 
+		   layer.closeAll();
+	   }
+	})
+	
+};
+
 	/*字数限制*/
 function checkLength(which) {
 	var maxChars = 200; //
