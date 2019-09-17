@@ -80,7 +80,7 @@ public class LoginController {
 					}
 		}
 		
-		if(sysusers.getUserState() == "0"){
+		if(sysusers.getUserState().equals("0")){
 			session.setAttribute("nowuser", sysusers);
 			mav.setViewName("redirect:../index.jsp");
 			return mav;

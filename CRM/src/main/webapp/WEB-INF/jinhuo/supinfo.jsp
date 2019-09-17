@@ -382,9 +382,9 @@
       -->
 				<li><label class="label_name" style="width: 100px;">状态：</label><span
 					class="add_name"> <label><input
-							name="form-field-radio1" type="radio" class="ace"><span
+							 name="form-field-radio1" type="radio" class="ace" value="启用"><span
 							class="lbl">启用</span></label>&nbsp;&nbsp;&nbsp; <label><input
-							name="form-field-radio1" type="radio" class="ace"><span
+							name="form-field-radio1" type="radio" class="ace" value="禁止"><span
 							class="lbl">禁止</span></label></span>
 				<div class="prompt r_f"></div></li>
 			</ul>
@@ -659,9 +659,13 @@
 				$("#lastDate").val(data.lastDate);
 				$("#comId2").val(data.comId); //将取出的值覆盖原来的值 （val对值进行操作)	
 				var r = data.effectiveOrnot;
+				
+				if (r == " ") {
+					$(".ace[name='form-field-radio1']").get(0).checked = "true";
+				}
 				if (r == "启用") {
 					$(".ace[name='form-field-radio1']").get(0).checked = "true";
-				} else {
+				} if(r=="禁止") {
 					$(".ace[name='form-field-radio1']").get(1).checked = "true";
 				}
 			}
@@ -690,7 +694,7 @@
 				$("#bankNumber1").text(data.bankNumber);
 				$("#comIndex1").text(data.comIndex);
 				$("#remarksInfo1").text(data.remarksInfo);
-				$("#effectiveOrnot1").text(data.effectiveOrnot);bankNature1
+				$("#effectiveOrnot1").text(data.effectiveOrnot);
 				$("#bankNature1").text(data.bankNature);
 				$("#comId1").text(data.comId);
 			//将取出的值覆盖原来的值 （val对值进行操作)			   
