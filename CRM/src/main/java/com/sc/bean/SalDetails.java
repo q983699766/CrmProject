@@ -22,12 +22,22 @@ public class SalDetails implements Serializable {
 
     private Long comId;
 
+    private Ccspxxb product;
+    
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastDate;
 
     private static final long serialVersionUID = 1L;
 
-    public SalDetails(Long detailsId, Long orderId, Long productId, Long productCount, BigDecimal productPrices, String remark, Long comId, Date lastDate) {
+    public Ccspxxb getProduct() {
+		return product;
+	}
+
+	public void setProduct(Ccspxxb product) {
+		this.product = product;
+	}
+
+	public SalDetails(Long detailsId, Long orderId, Long productId, Long productCount, BigDecimal productPrices, String remark, Long comId, Date lastDate) {
         this.detailsId = detailsId;
         this.orderId = orderId;
         this.productId = productId;
