@@ -100,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   }
 							
 	  </script>
-       <span class="r_f">共：<b>${pi.total }</b>条</span>
+       <span class="r_f">共：<b>${pi.total }</b>条</span> 
      </div>
      <!---->
      <div class="table_menu_list">
