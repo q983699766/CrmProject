@@ -12,7 +12,7 @@ public class OfficeChecktask implements Serializable {
 
     private String taskContent;
 
-    private String taskPublisher;
+    private Long taskPublisher;
 
     private Long targetId;
 
@@ -26,10 +26,30 @@ public class OfficeChecktask implements Serializable {
 
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastTime;
+    
+    private OfficeChecktarget officeChecktarget;
+    
+    private SysUsers sysUsers;
 
-    private static final long serialVersionUID = 1L;
+    public OfficeChecktarget getOfficeChecktarget() {
+		return officeChecktarget;
+	}
 
-    public OfficeChecktask(Long taskId, String taskTitle, String taskContent, String taskPublisher, Long targetId, Date taskStarttime, Date taskEndtime, Long comId, Date lastTime) {
+	public void setOfficeChecktarget(OfficeChecktarget officeChecktarget) {
+		this.officeChecktarget = officeChecktarget;
+	}
+
+	public SysUsers getSysUsers() {
+		return sysUsers;
+	}
+
+	public void setSysUsers(SysUsers sysUsers) {
+		this.sysUsers = sysUsers;
+	}
+
+	private static final long serialVersionUID = 1L;
+
+    public OfficeChecktask(Long taskId, String taskTitle, String taskContent, Long taskPublisher, Long targetId, Date taskStarttime, Date taskEndtime, Long comId, Date lastTime) {
         this.taskId = taskId;
         this.taskTitle = taskTitle;
         this.taskContent = taskContent;
@@ -69,12 +89,12 @@ public class OfficeChecktask implements Serializable {
         this.taskContent = taskContent == null ? null : taskContent.trim();
     }
 
-    public String getTaskPublisher() {
+    public Long getTaskPublisher() {
         return taskPublisher;
     }
 
-    public void setTaskPublisher(String taskPublisher) {
-        this.taskPublisher = taskPublisher == null ? null : taskPublisher.trim();
+    public void setTaskPublisher(Long taskPublisher) {
+        this.taskPublisher = taskPublisher;
     }
 
     public Long getTargetId() {
@@ -123,6 +143,5 @@ public class OfficeChecktask implements Serializable {
 				+ ", taskPublisher=" + taskPublisher + ", targetId=" + targetId + ", taskStarttime=" + taskStarttime
 				+ ", taskEndtime=" + taskEndtime + ", comId=" + comId + ", lastTime=" + lastTime + "]";
 	}
-    
     
 }

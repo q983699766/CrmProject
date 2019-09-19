@@ -10,4 +10,6 @@ public interface PurProductsInfoService {
 	
 	//通过id查询
 	public PurOrderInfo selctPurOrderInfoByid(Long purInfoNumber );
+	//模糊查询
+	public PageInfo<PurOrderInfo> mh(Integer pageNum, Integer pageSize,PurOrderInfo purInfoNumber );
 }

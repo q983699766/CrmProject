@@ -58,6 +58,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   icon:2,		   		
 			  });
 	}
+	if(ok=="4"){
+			layer.alert('操作失败,无法删除全部分栏！',{
+               title: '提示框',				
+			   icon:2,		   		
+			  });
+	}
+	if(ok=="5"){
+			layer.alert('操作失败,分栏内必须为空！',{
+               title: '提示框',				
+			   icon:2,		   		
+			  });
+	}
 </script>
 
 
@@ -89,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        	
        </span>
        <input type="submit" class="btn btn-warning" value="查看"/>
-       
+       <a href="javascript:;"  onclick="delpermcol()" class="btn btn-danger" title="超级管理员可用"><i class="fa fa-trash"></i> 删除当前的分栏</a>
        <a href="javascript:;"  onclick="delallperm()" class="btn btn-danger" title="超级管理员可用"><i class="fa fa-trash"></i> 一键取消除超管外所有角色权限</a>
      </div>
      </form>
@@ -197,7 +209,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <br/>
     <ul class=" page-content">
      <li><label class="label_name">角色名称：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="role111" name="role" data-selector>
-                <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
+                <c:forEach items="${roles}" var="r" ><c:if test="${r.roleId != 1}"><option value="${r.roleId }">${r.roleName }</option></c:if></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">权限名称：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="perm111" name="perm" data-selector data-selector-checks="true">
                 <c:forEach items="${list.list}" var="p" ><option value="${p.permissionId }">${p.permissionName }</option></c:forEach>
@@ -363,6 +375,25 @@ function updateperm(){
 
 
 <script type="text/javascript">
+/* 删除当前分栏 */
+function delpermcol(){
+		var colname = "${colName}";
+ 		layer.confirm('是否确定删除？',{
+                btn: ['是','否'] ,				
+				icon:2,
+				},
+				function(){
+						  location.href="delpermcol.do?colname="+colname;
+						  return true;
+					 	},
+				function(){
+					 	
+					 	}	
+ 		)
+ };
+
+
+
 /* 一键取消 */
 function delallperm(){
  		layer.confirm('是否确定全部取消？',{
@@ -552,7 +583,7 @@ function jia(permId)
  $('#member_add').on('click', function(){
     layer.open({
         type: 1,
-        title: '给角色配置权限',
+        title: '给角色配置权限,已有权限会被删除！',
 		maxmin: true, 
 		shadeClose: true, //点击遮罩关闭层
         area : ['800px' , ''],
