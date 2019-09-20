@@ -47,6 +47,8 @@
      <div class="border clearfix">
        <span class="l_f">
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning" title="添加员工信息"><i class="fa fa-plus"></i>&nbsp;添加员工信息</a>
+        <a href="sysEmpuser/sysEmpuserexcle.do" class="btn btn-warning"> <i class="layui-icon layui-icon-download-circle">&nbsp;导出Excel</i> </a>
+       
        </span>
      </div>
      <!--产品列表展示-->

@@ -324,10 +324,10 @@ $('.change_Password').on('click', function(){
 				     <li class="home"><a href="javascript:void(0)" name="home.html" class="iframeurl" title=""><i class="icon-dashboard"></i><span class="menu-text"> 系统首页 </span></a></li>
                      <li><a href="#" class="dropdown-toggle"><i class="icon-desktop"></i><span class="menu-text"> 公司管理</span><b class="arrow icon-angle-down"></b></a>
 					   <ul class="submenu">
-                         <li class="home"><a  href="javascript:void(0)" name="sysdutyctlr/listpage.do"  class="iframeurl"><i class="icon-double-angle-right"></i>职位管理</a></li>
-						 <li class="home"><a  href="javascript:void(0)" name="sycompanyctlr/list.do"  class="iframeurl"><i class="icon-double-angle-right"></i>公司管理</a></li>
-						 <li class="home"><a href="javascript:void(0)" name="sysEmpuser/list.do"  class="iframeurl"><i class="icon-double-angle-right"></i>员工管理</a></li>
-						<li class="home"><a href="javascript:void(0)" name="syBranchctlr/tiao.do"   class="iframeurl"><i class="icon-double-angle-right"></i>部门管理</a></li>
+                         <li class="home"><a  href="javascript:void(0)" name="sysdutyctlr/listpage.do"title="职位信息"  class="iframeurl"><i class="icon-double-angle-right"></i>职位管理</a></li>
+						 <li class="home"><a  href="javascript:void(0)" name="sycompanyctlr/list.do" title="公司信息" class="iframeurl"><i class="icon-double-angle-right"></i>公司管理</a></li>
+						 <li class="home"><a href="javascript:void(0)" name="sysEmpuser/list.do" title="员工信息" class="iframeurl"><i class="icon-double-angle-right"></i>员工管理</a></li>
+						<li class="home"><a href="javascript:void(0)" name="syBranchctlr/tiao.do"  title="部门信息" class="iframeurl"><i class="icon-double-angle-right"></i>部门管理</a></li>
 						</ul>
 					</li>
 					<li>

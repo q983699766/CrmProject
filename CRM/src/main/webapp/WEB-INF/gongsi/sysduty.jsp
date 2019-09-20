@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="../assets/js/jquery.dataTables.bootstrap.js"></script>
         <script src="../assets/layer/layer.js" type="text/javascript" ></script>          
         <script src="../assets/laydate/laydate.js" type="text/javascript"></script>
-<title>管理用户</title>
+	<title>职位信息</title>
 <style type="">
 .page{
 		margin-left: 1400px;
@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </style>
 </head>
 
-<body>
+<body style="text-align: center;">
  <div class="margin clearfix">
    <div class="border clearfix">
        <span class="l_f">
@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        
      </div>
      <div class="compete_list">
-       <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+       <table id="sample-table-1" class="table table-striped table-bordered table-hover" style="margin: 0">
 		 <thead>
 			<tr>
 			  
@@ -97,13 +97,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   </c:forEach>												
 		      </tbody>
 	        </table>
-	        <div class="page">
-    	<a href="listpage.do?pageNum=${pi.firstPage }">首页</a>
-           <a href="listpage.do?pageNum=${pi.prePage }">上页</a>
-           <a href="listpage.do?pageNum=${pi.nextPage }">下页</a>
-           <a href="listpage.do?pageNum=${pi.lastPage }">尾页</a>
-           	当前第${pi.pageNum }/ ${pi.pages }页，共${pi.total } 条数据。
-          </div>
+	       <div class="panel-footer">
+	     <ul class="pager pagination pagination-lg">
+      <li><a href="listpage.do?pageNum=${pi.firstPage }">首页</a></li>
+      <li><a href="listpage.do?pageNum=${pi.prePage }">上页</a></li>
+      <li><a href="listpage.do?pageNum=${pi.nextPage }">下页</a></li>
+      <li><a href="listpage.do?pageNum=${pi.lastPage }">尾页</a></li>
+      <li><a class="bg-success">当前第${pi.pageNum }/ ${pi.pages }页，共${pi.total } 条数据。</a></li>  
+  			</ul>
+       </div>
+    </div>
      </div>
  </div>
 
