@@ -66,7 +66,7 @@ public class Excel {
 	            rowNum++;
 	        }
 	        response.setContentType("application/octet-stream");
-	        response.setHeader("Content-disposition", "attachment;filename=" + fileName);
+	        response.setHeader("Content-disposition", "attachment;filename=" + fileName); 
 	        response.flushBuffer();
 	        workbook.write(response.getOutputStream());
 	    }
