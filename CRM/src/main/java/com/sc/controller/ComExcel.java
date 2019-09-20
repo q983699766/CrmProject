@@ -1,15 +1,13 @@
 package com.sc.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -21,25 +19,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.sc.bean.SysCOMPANY;
 import com.sc.bean.SysDuty;
-import com.sc.service.SysDutyService;
+import com.sc.service.SysComPanyService;
 @Controller
-@RequestMapping("sysdutyctlr")
-public class Excel {
+@RequestMapping("sycompanyctlr")
+public class ComExcel {
 	
 	@Autowired
-	 SysDutyService sysDutyService;
+	 SysComPanyService sysComPanyService;
 	
-	@RequestMapping("/excle.do")
+	@RequestMapping("/comexcle.do")
 	    public void UserExcelDownloads(HttpServletResponse response,SysDuty u)throws IOException {
 	        HSSFWorkbook workbook = new HSSFWorkbook();
-	        HSSFSheet sheet = workbook.createSheet("职位信息表");
-	       List<SysDuty> selectDuty = sysDutyService.selectDuty();
+	        HSSFSheet sheet = workbook.createSheet("公司信息表");
+	       List<SysCOMPANY> selectComoany = sysComPanyService.selectComoany();
 	        String str = "yyy-MM-dd HH:mm";
 	        SimpleDateFormat sdf = new SimpleDateFormat(str);
-	        String fileName = "sysduty" + ".xls";
+	        String fileName = "sysComPany" + ".xls";
 	        int rowNum = 1;
-	        String [] headers = {"职位编号","职位名称","所属部门","备注说明","所属公司","修改时间"};
+	        String [] headers = {"公司编号","公司名称","公司代码","公司邮箱","联系人","公司地址","固定电话","移动电话","传真","开户银行","银行账户","是否有效","备注信息","修改时间"};
 	        HSSFRow row = sheet.createRow(0);
 	      //创建Cell样式并设置样式
 	        HSSFCellStyle hstyle = workbook.createCellStyle();
@@ -54,14 +53,22 @@ public class Excel {
 	            HSSFRichTextString text = new HSSFRichTextString(headers[i]);
 	            cell.setCellValue(text);
 	        }
-	        for (SysDuty student : selectDuty){
+	        for (SysCOMPANY s : selectComoany){
 	            HSSFRow row1 = sheet.createRow(rowNum);
-	            row1.createCell((short) 0).setCellValue(student.getDutId());
-	            row1.createCell((short) 1).setCellValue(new HSSFRichTextString(student.getDutName()));
-	            row1.createCell((short) 2).setCellValue(student.getSecId());
-	            row1.createCell((short) 3).setCellValue(new HSSFRichTextString(student.getDutRemark()));
-	            row1.createCell((short) 4).setCellValue(student.getComId());
-	            row1.createCell((short) 5).setCellValue(sdf.format(student.getLastTime()));
+	            row1.createCell((short) 0).setCellValue(s.getComId());
+	            row1.createCell((short) 1).setCellValue(new HSSFRichTextString(s.getComName()));
+	            row1.createCell((short) 2).setCellValue(s.getComCode());
+	            row1.createCell((short) 3).setCellValue(new HSSFRichTextString(s.getComEmail()));
+	            row1.createCell((short) 4).setCellValue(new HSSFRichTextString(s.getComLinkman()));
+	            row1.createCell((short) 5).setCellValue(new HSSFRichTextString(s.getComAddress()));
+	            row1.createCell((short) 6).setCellValue(s.getComPhone());
+	            row1.createCell((short) 7).setCellValue(s.getComYphone());
+	            row1.createCell((short) 8).setCellValue(s.getComFax());
+	            row1.createCell((short) 9).setCellValue(new HSSFRichTextString(s.getComBank()));
+	            row1.createCell((short) 10).setCellValue(new HSSFRichTextString(s.getComBankuser()));
+	            row1.createCell((short) 11).setCellValue(new HSSFRichTextString(s.getComYesandno()));
+	            row1.createCell((short) 12).setCellValue(new HSSFRichTextString(s.getComRemark()));
+	            row1.createCell((short) 13).setCellValue(sdf.format(s.getLastTime()));
 	            rowNum++;
 	        }
 	        response.setContentType("application/octet-stream");
