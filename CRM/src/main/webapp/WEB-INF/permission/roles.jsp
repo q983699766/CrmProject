@@ -99,11 +99,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<!-- <td class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td> -->
 				<td>${r.roleName }</td>
 				<td>${r.highRoleName == null||r.highRoleName == '0' ? "无":r.highRoleName }</td>
-				<td class="hidden-480"><c:forEach items="${r.perms }" var="p"><p>${p.permissionName}</p></c:forEach></td>
+				<td class="hidden-480">${r.roleId==1 ? "一切权限":"" }<c:forEach items="${r.perms }" var="p"><p>${p.permissionName}</p></c:forEach></td>
 				<td>${r.roleDescribe }</td>
 				<td>
+				<c:if test="${r.roleId !=1 }">
                  <a title="编辑" onclick="jia(${r.roleId });member_edit('550');" href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
                  <a title="删除" href="javascript:;"  onclick="del_role(${r.roleId})" id="del_this" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
+				</c:if>
+				<c:if test="${r.roleId ==1 }">
+					无法操作
+				</c:if>
 				</td>
 			   </tr>
 			   

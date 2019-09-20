@@ -7,7 +7,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sc.bean.Ccspxxb;
 import com.sc.bean.CcspxxbExample;
+import com.sc.bean.PurOrderInfo;
 import com.sc.mapper.CcspxxbMapper;
+import com.sc.mapper.PurOrderInfoMapper;
 import com.sc.service.CcSpxxService;
 import com.sc.bean.CcspxxbExample.Criteria ;
 @Service
@@ -15,6 +17,8 @@ public class CcSpxxServiceImpl implements CcSpxxService {
 
 	@Autowired
 	CcspxxbMapper ccspxxbMapper;
+	@Autowired
+	PurOrderInfoMapper purOrderInfoMapper;
 
 	@Override
 	public List<Ccspxxb> selectCcspxx() {
@@ -66,11 +70,16 @@ public class CcSpxxServiceImpl implements CcSpxxService {
 
 	//修改
 	@Override
-	public void updateCcspxx(Ccspxxb u) {
+	public void updateCcspxx(Ccspxxb u,PurOrderInfo p ) {
 		if(u!=null&&u.getProductId()!=null){
 			this.ccspxxbMapper.updateByPrimaryKey(u);
 		}
-		
+		if(p!=null){			
+			PurOrderInfo key = purOrderInfoMapper.selectByPrimaryKey(p.getPurInfoNumber());
+			key.setWarehouseOrnot("已入库");
+			key.setRemarksInfom(p.getRemarksInfom());
+			purOrderInfoMapper.updateByPrimaryKey(key);
+		}
 	}
 
 	//模糊查询

@@ -394,4 +394,11 @@
 	)
   </select>
   
+  <select id="selectSPLB" resultType="java.lang.String">
+  	SELECT DISTINCT SP_LB  FROM CC_SPXXB
+  </select>
+  
+  <select id="selectSPXX" resultType="com.sc.bean.Ccspxxb">
+  	SELECT * FROM CC_SPXXB WHERE SP_LB LIKE #{type} AND SP_MC LIKE CONCAT(CONCAT('%',#{message}),'%')
+  </select>
 </mapper>

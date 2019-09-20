@@ -3,6 +3,7 @@ package com.sc.bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -39,6 +40,8 @@ public class SalOrder implements Serializable {
     private SalCustomInfo custom;
     
     private SysCOMPANY company;
+    
+    private List<SalDetails> SalDetailsList;
 
     private static final long serialVersionUID = 1L;
 
@@ -63,6 +66,36 @@ public class SalOrder implements Serializable {
 
     
     
+	public SalOrder(Long orderId, Date createTime, String invoiceNumber, Long userId, Long customId,
+			BigDecimal salMoney, Long orderOutState, Long rebate, Long orderState, String remark, Long comId,
+			Date lastTime, SysUsers user, SalCustomInfo custom, SysCOMPANY company, List<SalDetails> salDetailsList) {
+		super();
+		this.orderId = orderId;
+		this.createTime = createTime;
+		this.invoiceNumber = invoiceNumber;
+		this.userId = userId;
+		this.customId = customId;
+		this.salMoney = salMoney;
+		this.orderOutState = orderOutState;
+		this.rebate = rebate;
+		this.orderState = orderState;
+		this.remark = remark;
+		this.comId = comId;
+		this.lastTime = lastTime;
+		this.user = user;
+		this.custom = custom;
+		this.company = company;
+		SalDetailsList = salDetailsList;
+	}
+
+	public List<SalDetails> getSalDetailsList() {
+		return SalDetailsList;
+	}
+
+	public void setSalDetailsList(List<SalDetails> salDetailsList) {
+		SalDetailsList = salDetailsList;
+	}
+
 	public SysCOMPANY getCompany() {
 		return company;
 	}

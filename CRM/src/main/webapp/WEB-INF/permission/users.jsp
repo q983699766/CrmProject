@@ -53,6 +53,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   icon:2,		   		
 			  });
 	}
+	if(ok=="3"){
+			layer.alert('只有超级管理员可对超级管理员进行操作',{
+               title: '提示框',				
+			   icon:2,		   		
+			  });
+	}
 </script>
 
 	

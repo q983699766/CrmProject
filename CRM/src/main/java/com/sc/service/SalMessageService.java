@@ -1,6 +1,12 @@
 package com.sc.service;
 
+import java.util.List;
+
 import com.github.pagehelper.PageInfo;
+import com.sc.bean.Ccspxxb;
+import com.sc.bean.OrderGoodsMessageBean;
+import com.sc.bean.SalCustomInfo;
+import com.sc.bean.SalGoodsDetailsPageBean;
 import com.sc.bean.SalOrder;
 
 public interface SalMessageService {
@@ -43,4 +49,27 @@ public interface SalMessageService {
 	//发货
 	public void sendSalOrderBykey(Long orderid);
 	
+	//搜索商品信息
+	public List<Ccspxxb> selectSPXX(String type, String message);
+	
+	//搜索商品分类信息信息
+	public String[] selectSPLB();
+	
+	//按主键查找商品
+	public Ccspxxb selectSPXXBykey(Long id);
+	
+	//查找客户
+	public List<SalCustomInfo> selectCustom();
+	
+	//生成订单
+	public SalOrder salCreateOrder(OrderGoodsMessageBean goods,Long userid);
+	
+	//查询单条订单信息
+	public SalOrder selsalOrder(Long orderid);
+	
+	//更新订单信息
+	public SalOrder salOrderUpdate(OrderGoodsMessageBean goods);
+	
+	//批量删除订单
+	public void delSalOrders(Long[] orderid);
 }

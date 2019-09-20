@@ -21,10 +21,12 @@ import com.sc.bean.SysPermissionColumnExample;
 import com.sc.bean.SysPermissionExample;
 import com.sc.bean.SysPermissionExample.Criteria;
 import com.sc.bean.SysPermissionRole;
+import com.sc.bean.SysPermissionRoleExample;
 import com.sc.bean.SysRole;
 import com.sc.bean.SysUsers;
 import com.sc.mapper.SysPermissionColumnMapper;
 import com.sc.mapper.SysPermissionMapper;
+import com.sc.mapper.SysPermissionRoleMapper;
 import com.sc.service.PermissionService;
 import com.sc.service.RolesService;
 
@@ -43,6 +45,39 @@ public class PermissionController {
 	
 	@Autowired
 	SysPermissionColumnMapper SysPermissionColumnMapper;
+	
+	@Autowired
+	SysPermissionRoleMapper SysPermissionRoleMapper;
+	
+	
+	@RequestMapping("/delpermcol.do")
+	public ModelAndView delPermCol(ModelAndView mav , HttpSession session, 
+			HttpServletRequest req, String colname){
+		Integer ok = null;
+		if(colname == ""){
+			ok= 4;
+			
+		}else{
+			
+			SysPermissionExample sysPermissionExample = new SysPermissionExample();
+			Criteria c2 = sysPermissionExample.createCriteria();
+			c2.andPermissionColumnEqualTo(colname);
+			
+			List<SysPermission> selectByExample = SysPermissionMapper.selectByExample(sysPermissionExample);
+			if(selectByExample.isEmpty()){
+				ok=1;
+				SysPermissionColumnExample sysPermissionColumnExample = new SysPermissionColumnExample();
+				com.sc.bean.SysPermissionColumnExample.Criteria c = sysPermissionColumnExample.createCriteria();
+				c.andColumnNameEqualTo(colname);
+				SysPermissionColumnMapper.deleteByExample(sysPermissionColumnExample);
+			}else{
+				ok=5;
+			}
+		}
+		
+		mav.setViewName("redirect:../permisctlr/getPermission.do?ok="+ok);
+		return mav;
+	}
 	
 	
 	@RequestMapping("/getPermByCol.do")
@@ -203,6 +238,12 @@ public class PermissionController {
 		SysUsers user = (SysUsers)session.getAttribute("nowuser");
 		Long userId = user.getUserId();
 		
+		SysPermissionRoleExample sysPermissionRoleExample = new SysPermissionRoleExample();
+		com.sc.bean.SysPermissionRoleExample.Criteria createCriteria = sysPermissionRoleExample.createCriteria();
+		createCriteria.andRoleIdEqualTo(role);
+		
+		SysPermissionRoleMapper.deleteByExample(sysPermissionRoleExample);
+		
 		Date date = new Date();
 		for (Long l1 : perm) {
 			SysPermissionRole PR = new SysPermissionRole();
@@ -245,6 +286,7 @@ public class PermissionController {
 			List<SysPermissionColumn> list3 = PermissionService.getColumn();
 			mav.addObject("col", list3);
 			mav.addObject("ok", ok);
+			
 			mav.setViewName("permission/user_role");
 			return mav;
 		}
