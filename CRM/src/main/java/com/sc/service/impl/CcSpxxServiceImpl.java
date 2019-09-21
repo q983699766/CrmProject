@@ -77,6 +77,7 @@ public class CcSpxxServiceImpl implements CcSpxxService {
 		if(p!=null){			
 			PurOrderInfo key = purOrderInfoMapper.selectByPrimaryKey(p.getPurInfoNumber());
 			key.setWarehouseOrnot("已入库");
+			key.setRemarksInfom(p.getRemarksInfom());
 			purOrderInfoMapper.updateByPrimaryKey(key);
 		}
 	}

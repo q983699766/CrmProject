@@ -99,12 +99,10 @@ td {
 				</div>
 				<!--操作-->
 				<div class="border clearfix">
-					<span class="l_f"> <a href="javascript:"
-						id="administrator_add" class="btn btn-warning"><i
-							class="fa fa-plus"></i> 添加新订单</a> <a href="javascript:"
-						class="btn btn-danger"><i class="fa fa-trash"></i> 批量删除订单</a> <a
-						href="javascript:" class="btn btn-danger"><i
-							class="fa fa-thumb-tack bigger-120"></i> 批量审核</a>
+					<span class="l_f"> 
+					<a href="javascript:" id="administrator_add" class="btn btn-warning"><i class="fa fa-plus"></i> 添加新订单</a> 
+					<a href="javascript:" id="administrator_dele" class="btn btn-danger" ><i class="fa fa-trash"></i> 批量删除订单</a>
+				 	<!-- <a href="javascript:" class="btn btn-danger"><i class="fa fa-thumb-tack bigger-120"></i> 批量审核</a> -->
 					</span>
 				</div>
 				<!--订单列表-->
@@ -201,7 +199,7 @@ td {
 										<div style="height:3px;"></div> <a title="编辑"
 										onclick="member_edit(this,${bean.orderId })"
 										href="javascript:;" class="btn btn-xs btn-info"><i
-											class="fa fa-list bigger-120"></i></a>
+											class="fa fa-edit bigger-120"></i></a>
 										<div style="height:3px;"></div> <a title="删除"
 										href="javascript:;"
 										onclick="member_del(this,${bean.orderId })"
@@ -325,35 +323,94 @@ td {
 			<table style="width:100%;text-align:center">
 				<tr>
 					<td>发票编号:</td>
-					<td>111111</td>
+					<td id="invoiceNumber">111111</td>
 					<td>创建时间:</td>
-					<td>XXXX</td>
+					<td id="createTime">XXXX</td>
 				</tr>
 				<tr>
 					<td>客户:</td>
-					<td>XXXX</td>
+					<td id="customName">XXXX</td>
 					<td>操作用户:</td>
-					<td>XXXX</td>
+					<td id="userName">XXXX</td>
 				</tr>
 				<tr>
 					<td>出库状态:</td>
-					<td>XXXX</td>
+					<td id="orderOutState">XXXX</td>
 					<td>订单状态:</td>
-					<td>XXXX</td>
+					<td id="orderstate">XXXX</td>
 				</tr>
 				<tr>
 					<td>销售金额:</td>
-					<td>XXXX</td>
+					<td id="salMoney">XXXX</td>
 					<td>是否返利:</td>
-					<td>XXXX</td>
+					<td id="rebate">XXXX</td>
 				</tr>
 				<tr>
 					<td colspan="1">备注:</td>
-					<td colspan="3">XXXX</td>
+					<td colspan="3" id="remark1">XXXX</td>
 				</tr>
 			</table>
+			<br>
+			<script type="text/javascript">
+				//初始化订单详情
+				function orderDetails(m){
+					$("#invoiceNumber").html(m.invoiceNumber);
+					$("#createTime").html(m.createTime.substr(0,19).replace("T", " "));
+					$("#customName").html(m.custom.customName);
+					$("#userName").html(m.user.userName);
+					if(m.orderOutState)$("#orderOutState").html("已出库");
+					else $("#orderOutState").html("未出库");
+					switch(m.orderState){
+						case 0 :$("#orderstate").html("等待支付");break;
+						case 1 :$("#orderstate").html("支付完成");break;
+						case 2 :$("#orderstate").html("交易成功");break;
+						case 3 :$("#orderstate").html("交易失败");break;
+						case 4 :$("#orderstate").html("通过审核");break;
+					};
+					$("#salMoney").html(m.salMoney);
+					if(m.rebate)$("#rebate").html("是");
+					else $("#rebate").html("否");
+					$("#remark1").html(m.remark);
+					var list = m.salDetailsList;
+					$("#sal_details_table tbody").html("");
+					//初始化修改商品弹层
+					$("#totalMoney").html(m.salMoney);
+					$("#goodslist2").html("");
+					goods = {			//全局变量 用于存放添加订单的信息
+						"customId":0
+						,"remark":""
+						,"totalM":0
+						,"list":[]
+						,"orderId":m.orderId
+					};
+					for(var i in list){
+						$("#sal_details_table tbody").append(
+							'<tr><td >'+list[i].product.spMc+'</td>'+
+							'<td >'+list[i].product.ggSm+'</td>'+
+							'<td >'+list[i].product.lsj+'</td>'+
+							'<td >'+list[i].product.jxj+'</td>'+
+							'<td >'+list[i].productCount+'</td>'+
+							'<td >'+list[i].product.dw+'</td>'+
+							'<td >'+list[i].productPrices+'</td>'					
+						);
+						$("#goodslist2").append(
+						'<a href="javascript:" onclick="move(this)">'+list[i].product.spMc+'<span class="badge badge-light">'+list[i].productCount+'</span></a>')
+						$($("#goodslist2").children()[i]).attr("data-num", list[i].product.kcSl)
+						.attr("data-totalM",list[i].productPrices)
+						.attr("id",list[i].product.productId)
+						.attr("class","btn btn-secondary goodslist_a");
+						goods.list.push({
+						"name":list[i].product.spMc
+						,"num":list[i].productCount
+						,"id":list[i].productId
+						,"money":list[i].productPrices
+						})
+					};
+					
+				}
+			</script>
 			<p>商品列表：</p>
-			<table id="sal_details_table" style="width:100%;text-align: center">
+			<table id="sal_details_table" class="table table-bordered table-hover table-striped" style="width:100%;text-align: center">
 				<thead>
 					<tr>
 						<th style="font-size:12px;width:8%;text-align:center">产品名</th>
@@ -363,24 +420,22 @@ td {
 						<th style="font-size:12px;width:8%;text-align:center">数量</th>
 						<th style="font-size:12px;width:8%;text-align:center">单位</th>
 						<th style="font-size:12px;width:8%;text-align:center">总价</th>
-						<th style="font-size:12px;width:8%;text-align:center">操作</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td style="font-size:12px;width:8%;">产品名</td>
-						<td style="font-size:12px;width:8%;">规格</td>
-						<td style="font-size:12px;width:8%;">零售价</td>
-						<td style="font-size:12px;width:8%;">经销价</td>
-						<td style="font-size:12px;width:8%;">数量</td>
-						<td style="font-size:12px;width:8%;">单位</td>
-						<td style="font-size:12px;width:8%;">总价</td>
-						<td style="font-size:12px;width:8%;">操作</td>
+						<td >产品名</td>
+						<td >规格</td>
+						<td >零售价</td>
+						<td >经销价</td>
+						<td >数量</td>
+						<td >单位</td>
+						<td >总价</td>
 					</tr>
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="8" ><a href="#">添加产品</a></td>
+						<td colspan="8" ><a href="javascript:" id="administrator_update">修改产品列表</a></td>
 					</tr>
 				</tfoot>
 			</table>
@@ -397,13 +452,7 @@ td {
 			"searching" : false, //去掉搜索框
 			"paging" : false,
 		});
-		var oTable2 = $('#sal_details_table').dataTable({
-			"ordering" : false,
-			"bStateSave" : true, //状态保存
-			"bInfo" : false, //去掉显示数据条数
-			"searching" : false, //去掉搜索框
-			"paging" : false,
-		});
+		
 
 		$('[data-rel="tooltip"]').tooltip({
 			placement : tooltip_placement
@@ -428,7 +477,9 @@ td {
 			,"remark":""
 			,"totalM":0
 			,"list":[]
+			,"orderId":0
 		};
+	var checked = new Array();
 	$(function() {
 		var ischange = false;//用于商品信息搜索
 		$("#administrator").fix({
@@ -439,6 +490,40 @@ td {
 			spacingw:50,//设置隐藏时的距离
 			spacingh:270,//设置显示时间距
 		});
+		/* 批量删除 */
+		$("#administrator_dele").click(function(){
+			layer.confirm('确认删除?', {icon: 3, title:'提示'}, function(index){
+				$("#testIframe tbody tr").each(function(i, element) {
+					if($(this).find("input:checkbox").get(0).checked){
+						//console.log($(this).find("input:checkbox").get(0));
+						//console.log($(this).find("td:nth-child(2)").html());
+						checked.push($(this).find("td:nth-child(2)").html());
+					}
+				});
+				if(checked.length > 0){
+					//console.log(checked);
+					$.ajax({
+						type:"post"
+						,url:"salCtl/salOrderdelets"
+						,data:JSON.stringify(checked)
+						,contentType:"application/json;charset=utf-8"
+						,success:function(m){
+							layer.msg('已成功删除', {
+							  icon: 1,
+							  time: 2000 
+							  ,end:function(){location.reload();}
+							})
+						}
+					})	
+				}else{
+					layer.msg('请勾选数据', {
+					  icon: 5,
+					  time: 1000 
+					})
+				};
+			 	layer.close(index);
+			});
+		})
 		
 		
 		/*数量减少*/
@@ -464,7 +549,7 @@ td {
 			if(num < 0){
 				$("#num").html(1);
 			}
-			$("#totalM").html(num*jxj);
+			$("#totalM").html(parseInt($("#num").html())*jxj);
 		})
 		
 		/*添加商品*/
@@ -510,7 +595,49 @@ td {
 									,data:JSON.stringify(goods)
 									,contentType:"application/json;charset=utf-8"
 									,success:function(m){
-										console.log(m);
+										//清空json
+										goods = {			
+											"customId":0
+											,"remark":""
+											,"totalM":0
+											,"list":[]
+											,"orderId":0
+										};
+										$("#totalMoney").html("0");
+										$("#goodslist2").html("");
+										orderDetails(m);
+										layer.open({
+											type:1
+											,title:'订单详情'
+											,content:$('#order_details')
+											,area:["500",""]
+											,shadeClose:true
+											,btn:['确定']
+											,btn1:function(){
+												//清空json
+												goods = {			
+													"customId":0
+													,"remark":""
+													,"totalM":0
+													,"list":[]
+													,"orderId":0
+												};
+												$("#totalMoney").html("0");
+												$("#goodslist2").html("");
+											}
+											,cancel:function(){
+												//清空json
+												goods = {			
+													"customId":0
+													,"remark":""
+													,"totalM":0
+													,"list":[]
+													,"orderId":0
+												};
+												$("#totalMoney").html("0");
+												$("#goodslist2").html("");
+											}
+										});
 									}
 								}) 								
 							}
@@ -592,7 +719,101 @@ td {
 				});
 		})
 			
-	
+		/* 修改商品列表*/
+		$('#administrator_update').on('click', function(event){
+				var x = positionBody(event).x;
+				var y = positionBody(event).y;
+				y = y > 100 ? y-100:y;
+				var that = this;
+				var Interval = null;
+				layer.open({
+					type: 1
+					,title:'添加商品'
+					,area: ['700px','']
+					,offset:[y,x]
+					,shadeClose: true //是否点击遮罩关闭
+					,content: $('#add_goods')
+					,btn:['退出','确认']
+					,btn1:function(){
+						if(Interval != null)clearTimeout(Interval);
+					}
+					,btn2:function(){
+						//将总金额存到json
+						goods.totalM = parseInt($("#totalMoney").html());
+						console.log(goods);
+						$.ajax({
+							type:"post"
+							,url:"<%=basePath%>salCtl/salOrderUpdate"
+							,data:JSON.stringify(goods)
+							,contentType:"application/json;charset=utf-8"
+							,success:function(m){
+								//console.log(m);
+								orderDetails(m);
+							}
+						})
+					}
+					,cancel:function(){
+						if(Interval != null)clearTimeout(Interval);
+					}
+					,success:function(){
+						//获取商品种类信息 
+                		$.ajax({
+                			type:"post"
+                			,url:'salCtl/selSPLB'
+                			,success:function(m){
+                				//console.log(m);
+                				$("#CcSPLB").children().each(function(i, element) {
+                					if(i > 0)$(this).remove();//删除之前的种类信息
+                				})
+                				for(var i in m){
+  									$("#CcSPLB").append('<option value="'+m[i]+'">'+m[i]+'</option>');
+                				}
+                				ischange = true;//更新商品列表
+                			}
+                		});
+                		//给select绑定change事件
+						$("#CcSPLB").change(function(e) {
+							//console.log($("#CcSPLB").val());
+							ischange = true;
+						})
+                		//循环获取输入框的值
+                		Interval = setInterval(function() {
+                			var newval = $("#serch_goods_text").val();
+                			//如果输入框的值发生了改变，则把值绑定到元素上
+                			if(newval != $("#serch_goods_text").attr("data-val")){
+                				$("#serch_goods_text").attr("data-val",newval);
+                				//console.log($("#serch_goods_text").val());
+                				ischange = true;
+                			};
+                			if(ischange){
+                				//console.log("ischange");
+                				ischange = false;
+                				var type = $("#CcSPLB").val();
+                				var message = $("#serch_goods_text").val();
+                				$.ajax({
+                					type:"post"
+                					,url:"salCtl/selSPXX"
+                					,data:"type="+type+"&message="+message
+                					,success:function(m){
+                						if(m != ""){
+                							$("#goodslist1").children().each(function(i, element) {
+                								$(this).remove();
+                							});
+			                				for(var i in m){
+												$("#goodslist1").append(
+												'<a href="javascript:" class="btn btn-secondary goodslist_a" id="'+m[i].productId+'"'+
+												'onclick="move(this)">'+m[i].spMc+'<span class="badge badge-light">'+m[i].kcSl+'</span></a>')
+			                				}
+                						}
+                					}
+                				})
+                			}
+                		}, 500);
+					}
+				});
+		})
+		
+		
 	
 		/* 复选框 */
 		$('table th input:checkbox').on('click' , function(){
@@ -618,6 +839,8 @@ td {
 			event: 'focus' 
 		});
 	});
+	
+	
 	
 	/* 移动商品 */	
 	function move(obj,event){
@@ -797,17 +1020,50 @@ td {
 	
 	/*产品-编辑*/
 	function member_edit(obj,id){
-		alert(id);
-		layer.open({
-			type:1
-			,title:'订单详情'
-			,content:$('#order_details')
-			,area:["500",""]
-			,shadeClose:true
-			,btn:['确定','取消']
-			,btn1:function(){}
-			,btn2:function(){}
-		});
+		$.ajax({
+			type:"post"
+			,url:"salCtl/salOrderDetails"
+			,data:"id="+id
+			,success:function(m){
+				console.log(m);
+				orderDetails(m);
+				console.log(m);
+				layer.open({
+					type:1
+					,title:'订单详情'
+					,content:$('#order_details')
+					,area:["500",""]
+					,shadeClose:true
+					,btn:['确定']
+					,btn1:function(){
+						//清空json
+						goods = {			
+							"customId":0
+							,"remark":""
+							,"totalM":0
+							,"list":[]
+							,"orderId":0
+						};
+						$("#totalMoney").html("0");
+						$("#goodslist2").html("");
+					}
+					,cancel:function(){
+						//清空json
+						goods = {			
+							"customId":0
+							,"remark":""
+							,"totalM":0
+							,"list":[]
+							,"orderId":0
+						};
+						$("#totalMoney").html("0");
+						$("#goodslist2").html("");
+					}
+				});
+			}
+		})
+		
+		
 	}
 
 	/*产品-删除*******************************************************/
@@ -869,7 +1125,7 @@ td {
 									'<td class="td-manage">'+
 										'<a href="javascript:;" member_send(this,'+bean.orderId +','+bean.orderOutState+') style="cursor:not-allowed" title="审核"  class="btn btn-xs btn-success"><i class="fa fa-thumb-tack bigger-120"></i></a>'+
 										'<div style="height:3px;"></div>  '+
-										'<a title="编辑"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-list bigger-120"></i></a>'+       
+										'<a title="编辑"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>'+       
 										'<div style="height:3px;"></div>  '+
 										'<a title="删除" href="javascript:;"  onclick="member_del(this,'+bean.orderId +')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>'+
 									'</td></tr>'

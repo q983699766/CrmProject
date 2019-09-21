@@ -31,8 +31,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <script type="text/javascript" src="assets/layer/layer.js"></script>
 <title>登陆</title>
 
-<script>
-	
+<script type="text/javascript"> 
+		if (window != top) 
+		top.location.href = location.href; 
 </script>
 
 </head>

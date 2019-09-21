@@ -246,4 +246,32 @@ public class SalMessageServiceImpl<E> implements SalMessageService {
 		return order;
 	}
 
+	@Override
+	public SalOrder salOrderUpdate(OrderGoodsMessageBean goods) {
+		Date date = new Date();
+		//更新订单总金额
+		SalOrder selectByPrimaryKey = som.selectByPrimaryKey(goods.getOrderId());
+		selectByPrimaryKey.setSalMoney(goods.getTotalM());
+		som.updateByPrimaryKey(selectByPrimaryKey);
+		//更新商品信息
+		SalDetailsExample salDetailsExample = new SalDetailsExample();
+		com.sc.bean.SalDetailsExample.Criteria qbc = salDetailsExample.createCriteria();
+		qbc.andOrderIdEqualTo(goods.getOrderId());
+		sdm.deleteByExample(salDetailsExample);
+		SalGoodsDetailsPageBean[] list = goods.getList();
+		for (SalGoodsDetailsPageBean sgp : list) {
+			SalDetails salDetails = new SalDetails(null, goods.getOrderId(), sgp.getId(), sgp.getNum(), sgp.getMoney(),selectByPrimaryKey.getRemark() , selectByPrimaryKey.getComId(),date);
+			sdm.insert(salDetails);
+		}
+		//返回订单信息
+		return selsalOrder(goods.getOrderId());
+	}
+
+	@Override
+	public void delSalOrders(Long[] orderid) {
+		for (Long long1 : orderid) {
+			delSalOrderBykey(long1);
+		}
+	}
+
 }
