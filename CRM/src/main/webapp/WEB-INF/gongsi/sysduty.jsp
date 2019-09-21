@@ -199,6 +199,7 @@ $('.member_show').on('click', function(){
  
 function jia(dutId)
     {
+    
         var url='detail.do?dutId='+dutId;
    //ajax异步请求
    $.ajax
