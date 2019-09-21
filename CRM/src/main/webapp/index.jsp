@@ -338,11 +338,9 @@ $('.change_Password').on('click', function(){
 							</ul>
 						</li>
 					<li>
-					<a href="#" class="dropdown-toggle"><i class="icon-list"></i><span class="menu-text"> 余懿 </span><b class="arrow icon-angle-down"></b></a>
+					<a href="#" class="dropdown-toggle"><i class="icon-list"></i><span class="menu-text"> 销售订单 </span><b class="arrow icon-angle-down"></b></a>
                     <ul class="submenu">
-                    <li class="home"><a href="javascript:void(0)" name="salCtl/countSal" title="交易信息"  class="iframeurl"><i class="icon-double-angle-right"></i>交易信息</a></li>
                     <li class="home"><a href="javascript:void(0)" name="salCtl/salMessCtl" title="订单管理"  class="iframeurl"><i class="icon-double-angle-right"></i>订单管理</a></li>
-                    <li class="home"><a href="javascript:void(0)" name="Order_handling.html" title="订单处理"  class="iframeurl"><i class="icon-double-angle-right"></i>订单处理</a></li>
                    </ul>
 				  </li>
                   <li>
