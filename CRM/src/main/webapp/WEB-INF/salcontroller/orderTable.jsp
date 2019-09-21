@@ -199,7 +199,7 @@ td {
 										<div style="height:3px;"></div> <a title="编辑"
 										onclick="member_edit(this,${bean.orderId })"
 										href="javascript:;" class="btn btn-xs btn-info"><i
-											class="fa fa-list bigger-120"></i></a>
+											class="fa fa-edit bigger-120"></i></a>
 										<div style="height:3px;"></div> <a title="删除"
 										href="javascript:;"
 										onclick="member_del(this,${bean.orderId })"
@@ -1125,7 +1125,7 @@ td {
 									'<td class="td-manage">'+
 										'<a href="javascript:;" member_send(this,'+bean.orderId +','+bean.orderOutState+') style="cursor:not-allowed" title="审核"  class="btn btn-xs btn-success"><i class="fa fa-thumb-tack bigger-120"></i></a>'+
 										'<div style="height:3px;"></div>  '+
-										'<a title="编辑"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-list bigger-120"></i></a>'+       
+										'<a title="编辑"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>'+       
 										'<div style="height:3px;"></div>  '+
 										'<a title="删除" href="javascript:;"  onclick="member_del(this,'+bean.orderId +')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>'+
 									'</td></tr>'
