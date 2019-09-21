@@ -1,5 +1,6 @@
 package com.sc.mapper;
 
+import com.sc.bean.Ccspxxb;
 import com.sc.bean.SalOrder;
 import com.sc.bean.SalOrderExample;
 import java.util.List;
@@ -45,4 +46,17 @@ public interface SalOrderMapper {
     public int havePayOrderCountGroupByMonth(int month);
     
     public int waitPutOrderCountGroupByMonth(int month);
+    
+    public List<SalOrder> selectByLike(String message);
+    
+    
+    
+    
+    //商品表
+    public String[] selectSPLB();
+    
+    public List<Ccspxxb> selectSPXX(@Param("type") String type,@Param("message") String message);
+    
+    
+    
 }

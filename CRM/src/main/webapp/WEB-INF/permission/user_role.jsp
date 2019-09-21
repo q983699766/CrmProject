@@ -58,10 +58,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   icon:2,		   		
 			  });
 	}
+	if(ok=="4"){
+			layer.alert('操作失败,无法删除全部分栏！',{
+               title: '提示框',				
+			   icon:2,		   		
+			  });
+	}
+	if(ok=="5"){
+			layer.alert('操作失败,分栏内必须为空！',{
+               title: '提示框',				
+			   icon:2,		   		
+			  });
+	}
 </script>
 
 
  <div class="margin clearfix">
+ 
+ 	<div class="search_style">
+    	<font size="80">${aa.ckM }</font> 
+    <form action="#" method="post">
+      <div class="title_names">权限名关键字查询</div>
+      <ul class="search_content clearfix">
+       <li><label class="l_f">模糊查询</label><input name="ccspxx" type="text"  class="text_add" placeholder="请输入关键字:"  style=" width:400px"/></li>
+       <li style="width:90px;"><button type="submit" class="btn_search"><i class="icon-search"></i>查询</button></li>
+      </ul>
+      </form>
+    </div>
+ 
  <form action="getPermByCol.do" method="post">
    <div class="border clearfix">
        <span class="l_f">
@@ -77,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        	
        </span>
        <input type="submit" class="btn btn-warning" value="查看"/>
-       
+       <a href="javascript:;"  onclick="delpermcol()" class="btn btn-danger" title="超级管理员可用"><i class="fa fa-trash"></i> 删除当前的分栏</a>
        <a href="javascript:;"  onclick="delallperm()" class="btn btn-danger" title="超级管理员可用"><i class="fa fa-trash"></i> 一键取消除超管外所有角色权限</a>
      </div>
      </form>
@@ -94,7 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    </thead>
              <tbody>
              
-             <c:forEach items="${perms }" var="p">
+             <c:forEach items="${list.list }" var="p">
              		
 			  <tr>
 				<!-- <td class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td> -->
@@ -107,7 +131,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           			<a title="删除" href="javascript:;"  onclick="del_perm(${p.permissionId })" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
 				</td>
 			   </tr>
-			   </c:forEach>				
+			   </c:forEach>	
+			   <tr style="text-align: center;">
+    				<td colspan="7">
+    			<a href="getPermission.do?pageNum=${list.navigateFirstPage }">首页</a>
+    			<a href="getPermission.do?pageNum=${list.prePage}">上一页</a>
+    			<a href="getPermission.do?pageNum=${list.nextPage }">下一页</a>
+    			<a href="getPermission.do?pageNum=${list.navigateLastPage }">尾页</a>
+    			当前第${list.pageNum }/${list.pages }页，共${list. total}条，每页10条
+    				</td>
+    		</tr>			
 		      </tbody>
 	        </table>
      </div>
@@ -119,7 +152,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <br/>
     <ul class=" page-content">
      <li><label class="label_name">分栏名称：</label><span class="add_name"><input  type="text" name="columnName" id="columnName" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">权限描述：</label><span class="add_name"><input  type="text" name="remark" id="remark111" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">分栏描述：</label><span class="add_name"><input  type="text" name="remark" id="remark111" class="text_add"/></span><div class="prompt r_f"></div></li>
     </ul>
     <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/>
  </div>
@@ -142,13 +175,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      		&nbsp;&nbsp;&nbsp;&nbsp;<select id="roles" name="roleId" multiple="multiple">
                 <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li> --%>
-            <li><label class="label_name">所在分栏：</label><span class="add_name"><select id="permissionColumnx" name="colId">
+            <li><label class="label_name">所在分栏：</label><span class="add_name"><select id="permissionColumnx" name="colId" data-selector>
                 <c:forEach items="${col}" var="c" ><option value="${c.columnId }">${c.columnName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
             <li><label class="label_name"></label><span class="add_name"></span><div class="prompt r_f"></div></li>
     <li><label class="label_name">操&nbsp;作&nbsp;人：</label><span class="add_name">&nbsp;&nbsp;${nowuser.userName }</span><div class="prompt r_f"></div></li>
     </ul><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br/><br/>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br/><br/><br/><br/><br/><br/><br/><br/>
  </div>
 </form>
  
@@ -170,16 +203,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </form>
  
  
- <!--给角色添加权限图层--> 
- <form action="add.do" method="post" onsubmit="return addroleperm()">
+ <!--给角色配置权限图层--> 
+ <form action="add.do" method="post" onsubmit="return addroleperm(this)">
 <div class="add_menber" id="add_menber_style" style="display:none">
   <br/>
     <ul class=" page-content">
-     <li><label class="label_name">角色名称：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="role111" name="role">
-                <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
+     <li><label class="label_name">角色名称：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="role111" name="role" data-selector>
+                <c:forEach items="${roles}" var="r" ><c:if test="${r.roleId != 1}"><option value="${r.roleId }">${r.roleName }</option></c:if></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">权限名称：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="perm111" name="perm" multiple="multiple">
-                <c:forEach items="${perms}" var="p" ><option value="${p.permissionId }">${p.permissionName }</option></c:forEach>
+     <li><label class="label_name">权限名称：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="perm111" name="perm" data-selector data-selector-checks="true">
+                <c:forEach items="${list.list}" var="p" ><option value="${p.permissionId }">${p.permissionName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
     </ul><br/><br/><br/><br/><br/>
     <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
@@ -309,9 +342,17 @@ function updateperm(){
 
 
 /* 给角色配置权限 */
-	function addroleperm(){
+	function addroleperm(obj){
 		var pass1 = document.getElementById("role111").value;
 		var pass2 = document.getElementById("perm111").value;
+		
+		var perm="";
+		$(".actives").each(function(i,e){
+		    
+		    perm+="perm="+$(this).attr("data-value")+"&";
+		});
+		obj.action=obj.action+"?"+perm;
+
 		
 		if (pass1==""){
 			  layer.alert('角色不能为空!',{
@@ -334,6 +375,25 @@ function updateperm(){
 
 
 <script type="text/javascript">
+/* 删除当前分栏 */
+function delpermcol(){
+		var colname = "${colName}";
+ 		layer.confirm('是否确定删除？',{
+                btn: ['是','否'] ,				
+				icon:2,
+				},
+				function(){
+						  location.href="delpermcol.do?colname="+colname;
+						  return true;
+					 	},
+				function(){
+					 	
+					 	}	
+ 		)
+ };
+
+
+
 /* 一键取消 */
 function delallperm(){
  		layer.confirm('是否确定全部取消？',{
@@ -523,7 +583,7 @@ function jia(permId)
  $('#member_add').on('click', function(){
     layer.open({
         type: 1,
-        title: '给角色配置权限',
+        title: '给角色配置权限,已有权限会被删除！',
 		maxmin: true, 
 		shadeClose: true, //点击遮罩关闭层
         area : ['800px' , ''],

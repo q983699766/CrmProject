@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sc.bean.OfficeDetailSms;
 import com.sc.bean.OfficeSms;
 import com.sc.bean.SalConper;
 import com.sc.bean.SalCustomInfo;
@@ -149,19 +150,35 @@ public class HR_ScheduleController1 {
 		
 		//添加联系人信息
 		@RequestMapping("/selectsmsuser.do")
-		public List<SysUsers> selectsmsuserById(ModelAndView mav,SysUsers sysUsers,
+		@ResponseBody
+		public List<SysUsers> selectsmsuser(ModelAndView mav,SysUsers sysUsers,
 				SalConper con) throws IllegalStateException, IOException{
 			System.out.println("进入查询用户");
 			
-			List<SysUsers> selectuserByExample = hrScheService.selectuserByExample(null);
-			//for (SysUsers sysUsers2 : selectuserByExample) {
-			//	System.out.println("用户信息为："+sysUsers2);
-			//}
-			//mav.addObject("conper",custom );
-			//mav.setViewName("custom/bleed");
-			
-			return selectuserByExample;
+			List<SysUsers> user = hrScheService.selectuserByExample(null);
+			return user;
 		}
+		
+		
+		
+		//添加联系人信息
+				@RequestMapping("/selectsmsbyid.do")
+				@ResponseBody
+				public OfficeSms selectsmsbyid(ModelAndView mav,SysUsers sysUsers,HttpServletRequest req,
+						SalConper con) throws IllegalStateException, IOException{
+					String detailId = req.getParameter("detailId");
+					System.out.println("获得的detailId为：==="+detailId);
+					long l = Long.parseLong(detailId);
+					OfficeDetailSms selectdetailsmsById = hrScheService.selectdetailsmsById(l);
+					Long smsId = selectdetailsmsById.getSmsId();
+					OfficeSms selectById = hrScheService.selectById(smsId);
+					//Long smsSender = selectById.getSmsSender();
+					//System.out.println("发送者smsSender为：===="+smsSender);
+					
+					
+					//List<SysUsers> user = hrScheService.selectuserByExample(null);
+					return selectById;
+				}
 	
 		//修改联系人信息
 		@RequestMapping("/updateSalConper.do")

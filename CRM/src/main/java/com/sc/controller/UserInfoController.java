@@ -5,7 +5,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sc.bean.SysEmpuser;
 import com.sc.bean.SysRole;
 import com.sc.bean.SysUsers;
+import com.sc.bean.SysUsersExample;
+import com.sc.bean.SysUsersExample.Criteria;
 import com.sc.service.RolesService;
 import com.sc.service.UserInfoService;
 
@@ -40,6 +44,8 @@ public class UserInfoController {
 		
 		mav.setViewName("permission/admin_info");
 		return mav;
+		
+		
 	
 	}
 	
@@ -63,12 +69,13 @@ public class UserInfoController {
 		
 		if(old.equals(pass)){
 			userInfoService.updateUserPassw(password, user);
-			
+			Subject subject = SecurityUtils.getSubject();
+			subject.logout();
 			mav.addObject("success", "success");
-			mav.setViewName("permission/admin_info");
+			mav.setViewName("redirect:../login.jsp?fail=success");
 			return mav;
 		}else{
-			System.out.println("密码修改失败");
+			
 			mav.addObject("success", "fail");
 			mav.setViewName("permission/admin_info");
 			return mav;

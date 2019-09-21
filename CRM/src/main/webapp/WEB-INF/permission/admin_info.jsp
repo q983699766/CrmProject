@@ -65,7 +65,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			<form action="updatePassword.do" method="get" >
           	</form>
           <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">账户角色： </label>
-          <div class="col-sm-9" > <span>${role.roleName == null ? "无":role.roleName }</span></div>
+          <div class="col-sm-9" > <span>${role.get(0) == null ? "无":"" }<c:forEach items="${role }" var="r">
+          	${r.roleName }&nbsp;
+          </c:forEach></span></div>
           </div>
           
           <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">员工编号： </label>
@@ -92,8 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <table class="table table-border table-bordered table-bg table-hover table-sort" id="sample-table">
     <thead>
       <tr class="text-c">
-        
-        <th width="80">角色编号</th>
+        <th width="100">角色编号</th>
         <th width="100">角色名称</th>
         <th>角色描述</th>
         <th width="25%">拥有权限</th>

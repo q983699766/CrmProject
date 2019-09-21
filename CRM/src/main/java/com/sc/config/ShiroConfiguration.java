@@ -75,6 +75,7 @@ public class ShiroConfiguration {
 		formAuthenticationFilter.setUsernameParam("uname");
 		formAuthenticationFilter.setPasswordParam("upass");
 		formAuthenticationFilter.setRememberMeParam("randomcode");
+		formAuthenticationFilter.setRememberMeParam("rememberme");
 		
 		ShiroFilterFactoryBean shiroFilter=new ShiroFilterFactoryBean();
 		shiroFilter.setSecurityManager(securityManager());

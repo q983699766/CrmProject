@@ -30,7 +30,40 @@
         <script src="assets/laydate/laydate.js" type="text/javascript"></script>
 <title>留言</title>
 </head>
-
+<script type="text/javascript">
+	function sccc() {
+			var b = document.getElementsByName("bb000");
+			/* alert(b.length);  */
+			
+			for(var b0=0;b0<b.length;b0++){
+				if(b[b0].checked){
+					document.getElementById('cc000').submit();
+					return;
+				}
+			} 
+			alert("请勾选后再批量删除");
+		}   
+		/* $("#a1").click(function() {
+			var iii = $("#cc000").prev().find("input");
+			var aaa = '';
+			$(iii).each(function() {
+				if($(this).prop("checked") == true){
+					document.getElementById('cc000').submit();
+					return;
+				}
+			})
+		}) */
+		/* function sccc(){
+			var iii = $("#cc000").prev().find("input");
+			var aaa = '';
+			$(iii).each(function() {
+				if($(this).prop("checked") == true){
+					document.getElementById('cc000').submit();
+					return;
+				}
+			})
+		} */
+	</script>
 <body>
 <div class="margin clearfix">
  <div class="Guestbook_style">
@@ -55,14 +88,16 @@
     </div>
     <div class="border clearfix">
        <span class="l_f">
-        <a href="javascript:ovid()" class="btn btn-danger"><i class="fa fa-trash"></i>&nbsp;批量删除</a>
+        <a href="javascript:sccc();" id="a1" class="btn btn-danger"><i class="fa fa-trash"></i>&nbsp;批量删除</a>
+        
         <!--<a href="javascript:ovid()" class="btn btn-sm btn-primary"><i class="fa fa-check"></i>&nbsp;已浏览</a>
         <a href="javascript:ovid()" class="btn btn-yellow"><i class="fa fa-times"></i>&nbsp;未浏览</a>-->
        </span>
-       <!-- <span class="r_f">共：<b>2334</b>条</span> -->
+       <span class="r_f"></span>
      </div>
     <!--留言列表-->
     <div class="Guestbook_list">
+    <form action="officecc.do/delallofficechecktarget.do" method="post" id="cc000" >
       <table class="table table-striped table-bordered table-hover" id="sample-table">
       <thead>
 		 <tr>
@@ -77,9 +112,10 @@
           </tr>
       </thead>
 	<tbody>
-	<c:forEach items="${list }" var="u" >
+	
+	<c:forEach items="${list }" var="u" varStatus="x">
 		<tr>
-     <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
+     <td><label name="lll"><input type="checkbox" class="ace" name="bb000" id="inputt${x.index }" value="${u.targetId }"><span class="lbl" name="mmm"></span></label></td>
           <td>${u.targetId }</td>
           <td><!-- <u style="cursor:pointer"  class="text-primary" onclick="member_show('张小泉','member-show.html','1031','500','400')"> -->${u.checkTarget }<!-- </u> --></td>
           <td class="text-l">
@@ -95,8 +131,10 @@
           </td>
         </tr>
         </c:forEach>
+        
         </tbody>
       </table>
+      </form>
     </div>
  </div>
 </div>
@@ -122,6 +160,7 @@
 </div>
 </body>
 </html>
+
 <script type="text/javascript">
  /*用户-查看*/
 function member_show(title,url,id,w,h){

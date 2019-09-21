@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="../assets/js/jquery.dataTables.bootstrap.js"></script>
         <script src="../assets/layer/layer.js" type="text/javascript" ></script>          
         <script src="../assets/laydate/laydate.js" type="text/javascript"></script>
-<title>管理用户</title>
+	<title>职位信息</title>
 <style type="">
 .page{
 		margin-left: 1400px;
@@ -41,17 +41,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </style>
 </head>
 
-<body>
+<body style="text-align: center;">
  <div class="margin clearfix">
    <div class="border clearfix">
        <span class="l_f">
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning" title="添加用户"><i class="fa fa-plus"></i>&nbsp;添加职位信息</a>
-        
+        <a href="excle.do" class="btn btn-warning"> <i class="layui-icon layui-icon-download-circle">&nbsp;导出Excel</i> </a>
        </span>
        
      </div>
      <div class="compete_list">
-       <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+       <table id="sample-table-1" class="table table-striped table-bordered table-hover" style="margin: 0">
 		 <thead>
 			<tr>
 			  
@@ -97,13 +97,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   </c:forEach>												
 		      </tbody>
 	        </table>
-	        <div class="page">
-    	<a href="listpage.do?pageNum=${pi.firstPage }">首页</a>
-           <a href="listpage.do?pageNum=${pi.prePage }">上页</a>
-           <a href="listpage.do?pageNum=${pi.nextPage }">下页</a>
-           <a href="listpage.do?pageNum=${pi.lastPage }">尾页</a>
-           	当前第${pi.pageNum }/ ${pi.pages }页，共${pi.total } 条数据。
-          </div>
+	       <div class="panel-footer">
+	     <ul class="pager pagination pagination-lg">
+      <li><a href="listpage.do?pageNum=${pi.firstPage }">首页</a></li>
+      <li><a href="listpage.do?pageNum=${pi.prePage }">上页</a></li>
+      <li><a href="listpage.do?pageNum=${pi.nextPage }">下页</a></li>
+      <li><a href="listpage.do?pageNum=${pi.lastPage }">尾页</a></li>
+      <li><a class="bg-success">当前第${pi.pageNum }/ ${pi.pages }页，共${pi.total } 条数据。</a></li>  
+  			</ul>
+       </div>
+    </div>
      </div>
  </div>
 
@@ -139,6 +142,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <!-- 查看详情 -->
 <div class="add_menber" id="show_menber_style" style="display:none"> 
+    <ul class=" page-content">
+     <li><label class="label_name">职位名称：</label><span class="add_name"><input  type="text" readonly="readonly" id="dutName" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">所属部门：</label><span class="add_name"><input  type="text" readonly="readonly" id="secId" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">备注说明：</label><span class="add_name"><input readonly="readonly" type="text" id="dutRemark" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">所属公司：</label><span class="add_name"><input readonly="readonly" type="text" id="comId" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">修改时间：</label><span class="add_name"><input readonly="readonly" type="text" id="lastTime" class="text_add"/></span><div class="prompt r_f"></div></li>
+   </ul>
+ </div>
+ <div class="add_menber" id="show_menber_style" style="display:none"> 
     <ul class=" page-content">
      <li><label class="label_name">职位名称：</label><span class="add_name"><input  type="text" readonly="readonly" id="dutName" class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">所属部门：</label><span class="add_name"><input  type="text" readonly="readonly" id="secId" class="text_add"/></span><div class="prompt r_f"></div></li>
