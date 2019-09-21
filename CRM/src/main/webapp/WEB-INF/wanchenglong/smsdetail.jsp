@@ -73,9 +73,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <ul class="search_content clearfix">
        <li><label class="l_f">请输入</label><input name="smsHeadline" type="text"  class="text_add" placeholder="输入消息标题"  style=" width:400px"/></li>
       <!--  <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li> -->
-       <li style="width:90px;"><input type="submit" value="查询" class="btn_search"></i></li>
+       <li style=" width:90px;"> <input type="submit" value="查询" class="btn_search"></i></li>
       </ul>
-      </form>
+      </form> 
     </div>
     
      <!---->
@@ -84,6 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <a onclick="jiaaa()" href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>发送信息</a>
         <%-- <a title="编辑" onclick="jia(${per.smsId });member_edit('550')" href="javascript:;"   >${per.officeSms.smsHeadline}</a> --%>
         <!-- <a href="javascript:ovid()"  onclick="fun()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a> -->
+        <a href="Office/selectinfo.do"  class="btn btn-success"><i class="icon-plus"></i>我的信息</a>
         <a href="javascript:shanchu()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
        
        <script type="text/javascript">

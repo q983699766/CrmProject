@@ -408,6 +408,11 @@ public class HR_ScheduleConroller {
 			  String [] xx=req.getParameterValues("test11");
 			  System.out.println("-----------"+xx);
 			  System.out.println("进入删除3333333333333333");
+			  if(xx==null||xx.length==0){
+				  System.out.println("数组为空");
+				  mav.setViewName("redirect:./selectdetailinfo.do");
+					return mav;
+			  }else{
 			    for (int i = 0; i < xx.length; i++) {
 			    	 long l = Long.parseLong(xx[i]);
 			    	 System.out.println("111111111111"+l);
@@ -423,6 +428,7 @@ public class HR_ScheduleConroller {
 				//重定向到列表方法
 				mav.setViewName("redirect:./selectdetailinfo.do");
 				return mav;
+			  }
 			}
 		
 		
@@ -434,6 +440,10 @@ public class HR_ScheduleConroller {
 			  String [] xx=req.getParameterValues("test111");
 			  System.out.println("-----------我的"+xx);
 			  System.out.println("进入删除3333333333333333");
+			  if(xx==null||xx.length==0){
+				  mav.setViewName("redirect:./selectinfo.do");
+					return mav;
+			  }else{
 			    for (int i = 0; i < xx.length; i++) {
 			    	 long l = Long.parseLong(xx[i]);
 			    	 System.out.println("111111111111"+l);
@@ -449,6 +459,7 @@ public class HR_ScheduleConroller {
 				//重定向到列表方法
 				mav.setViewName("redirect:./selectinfo.do");
 				return mav;
+			  }
 			}
 		
 		
