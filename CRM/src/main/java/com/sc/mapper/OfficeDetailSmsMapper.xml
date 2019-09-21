@@ -238,4 +238,102 @@
 
     where DETAIL_ID = #{${record.detailId},jdbcType=DECIMAL}
   </update>
+  
+  
+  
+  
+  <!-- <resultMap id="detailMap" type="com.sc.bean.OfficeDetailSms" >
+    
+      <id column="DETAIL_ID"  property="detailId" />
+      <result column="SMS_ID"  property="smsId" />
+      <result column="RECEIVER_ID"  property="receiverId" />
+      <result column="SMS_STATE"  property="smsState" />
+      <result column="COM_ID"  property="comId" />
+      <result column="LAST_TIME"  property="lastTime" />
+      
+       一对一配置
+        <association property="officeSms" javaType="OfficeSms"> 
+            <id column="SMS_ID" property="smsId"/>
+	        <result column="SMS_HEADLINE" property="smsHeadline"/>
+	        <result column="SMS_CONTENT" property="smsContent"/>
+	        <result column="SMS_SENDER" property="smsSender"/>
+	        <result column="COM_ID" property="comId"/>
+	        <result column="LAST_TIME" property="lastTime"/>
+        </association>
+
+  </resultMap>
+  
+  <select id="selectdetailsmsAndsms" resultMap="detailMap" parameterType="java.String">
+        SELECT D.*
+		FROM OFFICE_SMS O
+		LEFT JOIN OFFICE_DETAIL_SMS D
+		ON O.SMS_ID=D.SMS_ID
+		WHERE O.SMS_HEADLINE like concat(concat("%",#{hideline}),"%");
+    </select> -->
+    
+      <select id="selectdetailsmsAndmysms" parameterType="com.sc.bean.OfficeSms" resultType="com.sc.bean.OfficeDetailSms" >
+     	SELECT D.*
+		FROM OFFICE_DETAIL_SMS D
+		LEFT JOIN OFFICE_SMS O
+		ON O.SMS_ID=D.SMS_ID
+		WHERE O.SMS_HEADLINE LIKE CONCAT(CONCAT('%',#{smsHeadline}),'%')
+		<!-- OR O LIKE CONCAT('%',#{keyWord},'%') -->
+		<!-- AND O.SMS_SENDER=#{userId} -->
+		AND D.RECEIVER_ID=#{smsSender}
+		
+  </select>  
+  
+   <select id="selectdetailsmsAndsms" parameterType="com.sc.bean.OfficeSms" resultType="com.sc.bean.OfficeDetailSms" >
+     	SELECT D.*
+		FROM OFFICE_DETAIL_SMS D
+		LEFT JOIN OFFICE_SMS O
+		ON O.SMS_ID=D.SMS_ID
+		WHERE O.SMS_HEADLINE LIKE CONCAT(CONCAT('%',#{smsHeadline}),'%')
+		<!-- OR O LIKE CONCAT('%',#{keyWord},'%') -->
+		 AND O.SMS_SENDER=#{smsSender} 
+		 <!-- AND D.RECEIVER_ID=#{smsSender}  -->
+		
+  </select> 
+  
+   <select id="selectdetailsmsAnduser" parameterType="java.lang.Long" resultType="com.sc.bean.OfficeDetailSms" >
+     		SELECT D.*
+			FROM OFFICE_DETAIL_SMS D
+			WHERE D.RECEIVER_ID=#{userId}
+ 	 </select> 
+ 	 
+ 	 <select id="selectdetailsmsAndall" parameterType="java.lang.Long" resultType="com.sc.bean.OfficeDetailSms" >
+     		SELECT D.*
+			FROM OFFICE_DETAIL_SMS D
+			LEFT JOIN OFFICE_SMS O
+			ON O.SMS_ID=D.SMS_ID
+			WHERE O.SMS_SENDER=#{userId}
+ 	 </select> 
+ 	 
+ 	 
+ 	 <select id="selectdetailread" parameterType="com.sc.bean.OfficeSms" resultType="com.sc.bean.OfficeDetailSms" >
+     	SELECT D.*
+		FROM OFFICE_DETAIL_SMS D
+		LEFT JOIN OFFICE_SMS O
+		ON O.SMS_ID=D.SMS_ID
+		WHERE 
+		<!-- O.SMS_HEADLINE LIKE CONCAT(CONCAT('%',#{smsHeadline}),'%') -->
+		<!-- OR O LIKE CONCAT('%',#{keyWord},'%') -->
+		 D.SMS_STATE=1
+		AND D.RECEIVER_ID=#{smsSender}
+		
+  </select> 
+    
+    
+     <select id="selectdetailread1" parameterType="com.sc.bean.OfficeSms" resultType="com.sc.bean.OfficeDetailSms" >
+     	SELECT D.*
+		FROM OFFICE_DETAIL_SMS D
+		LEFT JOIN OFFICE_SMS O
+		ON O.SMS_ID=D.SMS_ID
+		WHERE 
+		
+		 D.SMS_STATE=0
+		AND D.RECEIVER_ID=#{smsSender}
+		
+  </select>  
+  
 </mapper>

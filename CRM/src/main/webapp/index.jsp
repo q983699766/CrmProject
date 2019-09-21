@@ -356,10 +356,10 @@ $('.change_Password').on('click', function(){
 				  </li>
 						<li><a href="#" class="dropdown-toggle"><i class="icon-edit"></i><span class="menu-text"> 万成龙</span><b class="arrow icon-angle-down"></b></a>
 							<ul class="submenu">
-								<li class="home"><a href="javascript:void(0)" name="Office/selectinfo.do" title="消息列表" class="iframeurl"><i class="icon-double-angle-right"></i>消息列表</a></li>
-                                <li class="home"><a href="javascript:void(0)" name="Office/selectdetailinfo.do" title="意见反馈" class="iframeurl"><i class="icon-double-angle-right"></i>意见反馈</a></li>
-                                <li class="home"><a href="javascript:void(0)" name="officectlr/agenda.do" title="日程安排" class="iframeurl"><i class="icon-double-angle-right"></i>日程安排</a></li>
-                                <li class="home"><a href="javascript:void(0)" name="officectlr/agenda1.do" title="日程安排1" class="iframeurl"><i class="icon-double-angle-right"></i>日程安排1</a></li>
+								<li class="home"><a href="javascript:void(0)" name="Office/selectinfo.do" title="消息列表" class="iframeurl"><i class="icon-double-angle-right"></i>我的接收消息</a></li>
+                                <li class="home"><a href="javascript:void(0)" name="Office/selectdetailinfo.do" title="意见反馈" class="iframeurl"><i class="icon-double-angle-right"></i>我的发送信息</a></li>
+                               <!--  <li class="home"><a href="javascript:void(0)" name="officectlr/agenda.do" title="日程安排" class="iframeurl"><i class="icon-double-angle-right"></i>日程安排</a></li>  -->
+                                <li class="home"><a href="javascript:void(0)" name="officectlr/agenda1.do" title="日程安排1" class="iframeurl"><i class="icon-double-angle-right"></i>日程安排</a></li>
 							</ul>
 						</li>
 						<li><a href="#" class="dropdown-toggle"><i class="icon-edit"></i><span class="menu-text"> 范宇星 </span><b class="arrow icon-angle-down"></b></a>
