@@ -20,8 +20,18 @@ public class OfficeTaskdetail implements Serializable {
 
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastTime;
+    
+    private SysUsers sysUsers;
+    
+    public SysUsers getSysUsers() {
+		return sysUsers;
+	}
 
-    private static final long serialVersionUID = 1L;
+	public void setSysUsers(SysUsers sysUsers) {
+		this.sysUsers = sysUsers;
+	}
+
+	private static final long serialVersionUID = 1L;
 
     public OfficeTaskdetail(Long idd, Long taskId, Long receiverId, Long isFinish, Long statue, Long comId, Date lastTime) {
         this.idd = idd;

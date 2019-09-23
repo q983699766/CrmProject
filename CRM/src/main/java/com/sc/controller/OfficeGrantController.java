@@ -24,6 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sc.bean.OfficeChecktarget;
+import com.sc.bean.OfficeChecktask;
+import com.sc.bean.OfficeGrant;
 import com.sc.bean.OfficeTaskdetail;
 import com.sc.bean.SysUsers;
 import com.sc.bean.Users;
@@ -38,40 +40,118 @@ public class OfficeGrantController {
 	@Autowired
 	OfficeGrantService officeGrantService;
 	
+	@RequestMapping("/del.do")
+	public ModelAndView del(ModelAndView mav,HttpServletRequest req,HttpServletResponse resp) {
+		SysUsers nowuser = (SysUsers)req.getSession().getAttribute("nowuser");
+		String staskId = req.getParameter("taskId");
+		Long taskId = Long.valueOf(staskId);
+		String scomId = req.getParameter("comId");
+		Long comId = Long.valueOf(scomId);
+		officeGrantService.del(taskId, nowuser.getUserId(), comId);
+		mav.setViewName("redirect:list.do");//响应视图名称：路径/web-inf/
+		return mav;
+	}
+	
+	@RequestMapping("/fabu.do")
+	public ModelAndView fabu00(ModelAndView mav,HttpServletRequest req,OfficeChecktask off) {
+		System.out.println("进入发布方法");
+		SysUsers nowuser = (SysUsers)req.getSession().getAttribute("nowuser");
+		String[] receiverIds = req.getParameterValues("receiverId");
+		Long[] LreceiverIds = new Long[receiverIds.length];
+		for(int i=0;i<receiverIds.length;i++) {
+			LreceiverIds[i] = Long.parseLong(receiverIds[i]);
+		}
+		officeGrantService.fabu(off, LreceiverIds, nowuser.getUserId());
+		mav.setViewName("redirect:list.do");
+		return mav;
+	}
+	
+	@RequestMapping("/prereceiver.do")
+	@ResponseBody
+	public List<SysUsers> prereceiver(HttpServletRequest req) {
+		SysUsers nowuser = (SysUsers)req.getSession().getAttribute("nowuser");
+		List<SysUsers> list = officeGrantService.prereceiver(nowuser.getUserId());
+		System.out.println("list:"+list);
+		
+		return list;
+	}
+	
+	@RequestMapping("/pretargetId.do")
+	@ResponseBody
+	public List<OfficeChecktarget> pretargetId() {
+		List<OfficeChecktarget> list = officeGrantService.pretargetId();
+		System.out.println("list:"+list);
+		
+		return list;
+	}
+	
+	@RequestMapping("/updateisfinish.do")
+	public ModelAndView updateisfinish(ModelAndView mav,HttpServletRequest req,HttpServletResponse resp) {
+		String Stringidd = req.getParameter("idd");
+		Long idd = Long.valueOf(Stringidd);
+		officeGrantService.updateisfinish(idd);
+		
+		mav.setViewName("redirect:listree.do");
+		return mav;
+	}
+	
+	@RequestMapping("/listree.do")
+	public ModelAndView listree(ModelAndView mav,HttpServletRequest req,HttpServletResponse resp) {
+		SysUsers nowuser = (SysUsers)req.getSession().getAttribute("nowuser");
+//		System.out.println("nowuser,username:"+nowuser.getUserId());
+		List<OfficeTaskdetail> list = officeGrantService.selectre(nowuser.getUserId());
+		mav.addObject("list",list);
+		mav.setViewName("fyx/officelistree");//响应视图名称：路径/web-inf/
+		return mav;
+	}
+	
+	@RequestMapping("/listdetail.do")
+	public ModelAndView listdetail(ModelAndView mav,HttpServletRequest req,HttpServletResponse resp) {
+		String taskIds = req.getParameter("taskId");
+		String StringtaskPublisher = req.getParameter("taskPublisher");
+		Long taskId = Long.valueOf(taskIds);
+		Long taskPublisher = Long.valueOf(StringtaskPublisher);
+		// 查出考核任务表所有数据
+		List<OfficeTaskdetail> list = officeGrantService.selectthisline(taskId,taskPublisher);
+		mav.addObject("list",list);
+		mav.setViewName("fyx/officelistdetail");//响应视图名称：路径/web-inf/
+		return mav;
+	}
+	
 	@RequestMapping("/list.do")
 	public ModelAndView list(ModelAndView mav,HttpServletRequest req,HttpServletResponse resp) {
-//		SysUsers nowuser = (SysUsers)req.getSession().getAttribute("nowuser");
+		SysUsers nowuser = (SysUsers)req.getSession().getAttribute("nowuser");
 		
 		// 查询出改用户的所有下级，在他的一个公司内进行查询，总公司的人员公司编号为空，则进行查询所有分公司的授权关系返给视图层，进行显示
 //		mav.addObject("list",officeGrantService.selectgrantunderme(nowuser.getUserId(),nowuser.getComId()));//传入两个参数，我的编号作为上级编号和公司编号
 		
 		// 查出考核任务表所有数据
-		mav.addObject("list",officeGrantService.selectall());
+		mav.addObject("list",officeGrantService.selectall(nowuser.getUserId()));
 		mav.setViewName("fyx/officegrant");//响应视图名称：路径/web-inf/
 		return mav;
 	}
 	
-	@RequestMapping("/listthisline.do")
-	@ResponseBody
-	public List<OfficeTaskdetail> listthisline(HttpServletRequest req) {
-		String taskIds = req.getParameter("taskId");
-		Long taskId = Long.valueOf(taskIds);
-		
-		List<OfficeTaskdetail> selectthisline = officeGrantService.selectthisline(taskId);
-		req.getSession().setAttribute("getthisline", selectthisline);
-		return selectthisline;
-	}
+//	@RequestMapping("/listthisline.do")
+//	@ResponseBody
+//	public List<OfficeTaskdetail> listthisline(HttpServletRequest req) {
+//		String taskIds = req.getParameter("taskId");
+//		Long taskId = Long.valueOf(taskIds);
+//		
+//		List<OfficeTaskdetail> selectthisline = officeGrantService.selectthisline(taskId);
+//		req.getSession().setAttribute("getthisline", selectthisline);
+//		return selectthisline;
+//	}
 	
-	@RequestMapping("/listre.do")
-	@ResponseBody
-	public List<OfficeTaskdetail> listre(HttpServletRequest req) {
-		String Ids = req.getParameter("id");
-		Long pblishid = Long.valueOf(Ids);
-		
-		List<OfficeTaskdetail> selectre = officeGrantService.selectre(pblishid);
-		req.getSession().setAttribute("getre", selectre);
-		return selectre;
-	}
+//	@RequestMapping("/listre.do")
+//	@ResponseBody
+//	public List<OfficeTaskdetail> listre(HttpServletRequest req) {
+//		String Ids = req.getParameter("id");
+//		Long pblishid = Long.valueOf(Ids);
+//		
+//		List<OfficeTaskdetail> selectre = officeGrantService.selectre(pblishid);
+//		req.getSession().setAttribute("getre", selectre);
+//		return selectre;
+//	}
 	
 	/*
 	@RequestMapping("/listjson.do")
