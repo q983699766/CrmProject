@@ -130,9 +130,24 @@ public class SalCtlController {
 		return salCreateOrder;
 	}
 	
-	@RequestMapping("list")
+	@RequestMapping("salOrderDetails")
 	@ResponseBody
-	public Object salMessTable(){
-		return "";
+	public SalOrder salOrderDetails(Long id){
+		SalOrder selsalOrder = sms.selsalOrder(id);
+		return selsalOrder;
+	}
+	
+	@RequestMapping("salOrderUpdate")
+	@ResponseBody
+	public SalOrder salOrderUpdate(@RequestBody OrderGoodsMessageBean goods){
+		return sms.salOrderUpdate(goods);
+	}
+	
+	@RequestMapping("salOrderdelets")
+	@ResponseBody
+	public String salOrderdelets(@RequestBody Long[] checked){
+		//System.out.println(checked[0]);
+		sms.delSalOrders(checked);
+		return "ok";
 	}
 }

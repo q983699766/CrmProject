@@ -66,4 +66,10 @@ public interface SalMessageService {
 	
 	//查询单条订单信息
 	public SalOrder selsalOrder(Long orderid);
+	
+	//更新订单信息
+	public SalOrder salOrderUpdate(OrderGoodsMessageBean goods);
+	
+	//批量删除订单
+	public void delSalOrders(Long[] orderid);
 }
