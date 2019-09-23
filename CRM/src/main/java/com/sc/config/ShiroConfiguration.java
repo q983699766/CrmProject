@@ -2,14 +2,18 @@ package com.sc.config;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.Filter;
+import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.web.filter.authc.LogoutFilter;
 import org.apache.shiro.web.filter.authz.PermissionsAuthorizationFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -17,14 +21,24 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.sc.bean.SysPermission;
+import com.sc.bean.SysUsers;
 import com.sc.formAuthenticationFilter.CustomFormAuthenticationFilter;
+import com.sc.mapper.SysPermissionMapper;
+import com.sc.mapper.SysPermissionRoleMapper;
+import com.sc.mapper.SysUsersMapper;
+import com.sc.mapper.SysUsersRoleMapper;
 import com.sc.realm.CustomRealmMd5;
+import com.sc.service.PermissionService;
 
 @Configuration
 public class ShiroConfiguration {
 
 	/*@Resource
 	SysPermissionService sysPermissionInfoService;*/
+	
+	@Resource
+	PermissionService PermissionService;
 	
 	@Bean
 	public CustomRealmMd5 customRealmMD5(){
@@ -74,7 +88,7 @@ public class ShiroConfiguration {
 		formAuthenticationFilter.setLoginUrl("/loginctlr/login.do");
 		formAuthenticationFilter.setUsernameParam("uname");
 		formAuthenticationFilter.setPasswordParam("upass");
-		formAuthenticationFilter.setRememberMeParam("randomcode");
+		/*formAuthenticationFilter.setRememberMeParam("randomcode");*/
 		formAuthenticationFilter.setRememberMeParam("rememberme");
 		
 		ShiroFilterFactoryBean shiroFilter=new ShiroFilterFactoryBean();
@@ -118,14 +132,24 @@ public class ShiroConfiguration {
 		
 		
 		//设置功能权限
-		/*List<SysPermission> list=sysPermissionInfoService.selectAllSysPermission();
-		for (SysPermission sysPermission : list) {
-			if(sysPermission.getSysRemarks()!=null&&!sysPermission.getSysRemarks().equals("")
-				&&sysPermission.getSysPermission()!=null&&!sysPermission.getSysPermission().equals("")	){
-				System.out.println("===1=="+sysPermission.getSysPermission()+"====="+sysPermission.getSysRemarks());
-				filterChainDefinitionMap.put(sysPermission.getSysPermission(), "perms["+sysPermission.getSysRemarks()+"]");
-			}
+		/*SysUsers user = (SysUsers)session.getAttribute("nowuser");
+		Long uId = user.getUserId();
+		List<SysPermission> myPerm = PermissionService.getMyPerm(uId);
+		for (SysPermission sysPermission : myPerm) {
+			if(sysPermission.getPermissionName()!=null&&!sysPermission.getPermissionName().equals("")
+					&&sysPermission.getPermission()!=null&&!sysPermission.getPermission().equals("")	){
+					System.out.println("===1=="+sysPermission.getPermission()+"====="+sysPermission.getPermissionName());
+					filterChainDefinitionMap.put(sysPermission.getPermission(), "perms["+sysPermission.getPermissionName()+"]");
+				}
 		}*/
+		List<SysPermission> list=PermissionService.getPermList();
+		for (SysPermission sysPermission : list) {
+			if(sysPermission.getPermissionName()!=null&&!sysPermission.getPermissionName().equals("")
+				&&sysPermission.getPermission()!=null&&!sysPermission.getPermission().equals("")	){
+				System.out.println("===1=="+sysPermission.getPermission()+"====="+sysPermission.getPermissionName());
+				filterChainDefinitionMap.put(sysPermission.getPermission(), "perms["+sysPermission.getPermissionName()+"]");
+			}
+		}
 		
 		filterChainDefinitionMap.put("/**", "authc");
 		shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMap);

@@ -1,45 +1,50 @@
 package com.sc.realm;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.sc.bean.SysPermission;
 import com.sc.bean.SysUsers;
+import com.sc.service.PermissionService;
 import com.sc.service.SysUsersService;
 
 public class CustomRealmMd5 extends AuthorizingRealm {
 
-	//×¢ÈëÓÃ»§µÄservice
+	
 	@Autowired
 	SysUsersService sysuserService;
 	
-	/*@Autowired
-	SysPermissionService syspermissionService;*/
+	@Autowired
+	PermissionService permissionService;
 	
-	//ÓÃ»§ÊÚÈ¨
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
+		System.out.println("88888888888888888è¿›å…¥æˆæƒæ–¹æ³•äº†ï¼ï¼ï¼ï¼");
 		
-		System.out.println("½øÈëÓÃ»§ÊÚÈ¨");
 		SysUsers sysuser = (SysUsers)arg0.getPrimaryPrincipal();
-		System.out.println("ĞèÒªÊÚÈ¨µÄÓÃ»§ÊÇ£º"+sysuser.getUserName());
+		System.out.println("è·å–åˆ°çš„å¯¹è±¡æ˜¯ï¼š7777777777777777777"+sysuser);
+		Long uid = sysuser.getUserId();
 		
-		//Í¨¹ıÓÃ»§Ãû´ÓÊı¾İ¿â²éÑ¯¸ÃÓÃ»§ËùÓµÓĞµÄÈ¨ÏŞ
-		/*ArrayList<String> perms = new ArrayList<String>();
-		List<SysPermission> list = syspermissionService.getPermsByUid(sysuser.getId());
 		
+		ArrayList<String> perms = new ArrayList<String>();
+		List<SysPermission> list = permissionService.getMyPerm(uid);
+		System.out.println("*****************"+list);
 		if(list != null && list.size() > 0){
 			for (SysPermission per : list) {
-				String percode = per.getPercode();
+				String percode = per.getPermissionName();
 				if(percode != null && !percode.equals("")){
-					perms.add(per.getPercode());
-					System.out.println("------¸ÃÓÃ»§ÓµÓĞµÄÈ¨ÏŞ×ÊÔ´ÊÇ£º"+per.getPercode());
+					perms.add(percode);
 				}
 				
 			}
@@ -49,30 +54,26 @@ public class CustomRealmMd5 extends AuthorizingRealm {
 		if(perms != null && perms.size() > 0){
 			info.addStringPermissions(perms);
 		}
-		return info;*/
-		
-		return null;
+		return info;
 	}
 
 	
-	//ÓÃ»§ÈÏÖ¤
+
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken arg0) throws AuthenticationException {
-		System.out.println("½øÈë×Ô¶¨Òårealm");
-		//»ñÈ¡µÇÂ¼µÄÓÃ»§Ãû
+		
 		String uname = (String)arg0.getPrincipal();
-		System.out.println("µÇÂ¼µÄÓÃ»§ÃûÊÇ£º" + uname);
+		System.out.println("è·å–åˆ°çš„MINGZIæ˜¯ï¼š22222222222222222"+uname);
 		
 		SysUsers sysuser = sysuserService.login(uname);
-		System.out.println("Êı¾İ¿â²éÑ¯µÄÓÃ»§¶ÔÏóÊÇ£º"+sysuser);
-		//Í¨¹ı¸ÃÓÃ»§Ãû²éÑ¯Êı¾İ¿âÊÇ·ñ´æÔÚ¸ÃÓÃ»§
+		
 		if(sysuser == null){
-			return null;//²»´æÔÚ´ËÓÃ»§£¬Ö±½Ó·µ»Ø
+			return null;
 		}
 		
 		String pass = sysuser.getUserPassword();
 		String salt = "qwerty";
-		//°ÑÓÃ»§ÃûºÍÃÜÂë´«Èë£¬ÑéÖ¤ÃÜÂëÊÇ·ñÕıÈ·
+		
 		SimpleAuthenticationInfo info = 
 				new SimpleAuthenticationInfo(sysuser, pass, ByteSource.Util.bytes(salt), super.getName());
 		

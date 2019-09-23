@@ -246,7 +246,7 @@ function update(){
 function del_role(uId){
  		layer.confirm('是否确定删除？',{
                 btn: ['是','否'] ,				
-				icon:2,
+				icon:0,
 				},
 				function(){
 						  location.href="del.do?roleId="+uId;

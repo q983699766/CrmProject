@@ -192,7 +192,7 @@ $('.change_Password').on('click', function(){
   $('#Exit_system').on('click', function(){
       layer.confirm('是否确定退出系统？', {
      btn: ['是','否'] ,//按钮
-	 icon:2,
+	 icon:0,
     }, 
 	function(){
 	  location.href="logout";

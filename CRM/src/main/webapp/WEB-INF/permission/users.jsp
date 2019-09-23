@@ -59,6 +59,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   icon:2,		   		
 			  });
 	}
+	if(ok=="5"){
+			layer.alert('员工编号不存在！',{
+               title: '提示框',				
+			   icon:2,		   		
+			  });
+	}
 </script>
 
 	
@@ -205,17 +211,19 @@ function add(obj){
 		var pass4 = document.getElementById("uname").value;
 		var pass5 = document.getElementById("upass").value;
 		var pass1 = document.getElementById("empId").value;
-		var pass2 = document.getElementById("comId").value;
-		var pass3 = document.getElementById("roles").value;
+		/* var pass2 = document.getElementById("comId").value; */
+		/* var pass3 = document.getElementById("roles").value; */
 		
 		var roleId="";
 		$(".actives").each(function(i,e){
-		    /* alert($(this).attr("data-value")); */
+		    
 		    roleId+="roleId="+$(this).attr("data-value")+"&";
+		    alert(roleId);
 		});
 		
 		obj.action=obj.action+"?"+roleId;
-		/* alert(obj.action); */
+		alert(obj.action); 
+		
 		if (pass4==""){
 			  layer.alert('用户名不能为空!',{
               title: '提示框',				
@@ -265,12 +273,12 @@ function add(obj){
 		
 		var roleId="";
 		$(".actives").each(function(i,e){
-		    /* alert($(this).attr("data-value")); */
+		    alert($(this).attr("data-value")); 
 		    roleId+="roleId="+$(this).attr("data-value")+"&";
 		});
 		obj.action=obj.action+"?"+roleId;
-		/* alert(obj.action);
-		alert(roleId); */
+		alert(obj.action);
+		alert(roleId); 
 		if (pass1==""){
 			  layer.alert('员工编号不能为空!',{
               title: '提示框',				
@@ -305,7 +313,7 @@ function add(obj){
 function del_user(uId){
  		layer.confirm('是否确定删除？',{
                 btn: ['是','否'] ,				
-				icon:2,
+				icon:0,
 				},
 				function(){
 						  location.href="del.do?userId="+uId;

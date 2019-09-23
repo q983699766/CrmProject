@@ -380,7 +380,7 @@ function delpermcol(){
 		var colname = "${colName}";
  		layer.confirm('是否确定删除？',{
                 btn: ['是','否'] ,				
-				icon:2,
+				icon:0,
 				},
 				function(){
 						  location.href="delpermcol.do?colname="+colname;
@@ -398,7 +398,7 @@ function delpermcol(){
 function delallperm(){
  		layer.confirm('是否确定全部取消？',{
                 btn: ['是','否'] ,				
-				icon:2,
+				icon:0,
 				},
 				function(){
 						  location.href="reset.do";
@@ -416,7 +416,7 @@ function delallperm(){
 function del_perm(permId){
  		layer.confirm('是否确定删除？',{
                 btn: ['是','否'] ,				
-				icon:2,
+				icon:0,
 				},
 				function(){
 						  location.href="del.do?permId="+permId;
