@@ -157,7 +157,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <li><label class="label_name">用户密码：</label><span class="add_name">&nbsp;&nbsp;&nbsp;●●●●●●<!-- <input  type="password" name="userPassword" id="userPassword" class="text_add"/> --></span><div class="prompt r_f"></div></li>
      
      <li><label class="label_name">员工编号：</label><span class="add_name"><input  type="text" name="empId" id="empIdx" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">公司编号：</label><span class="add_name"><input  type="text" name="comId" id="comIdx" class="text_add"/></span><div class="prompt r_f"></div></li><li><label class="label_name">用户角色：</label><span class="add_name">
+     <!-- <li><label class="label_name">公司编号：</label><span class="add_name"><input  type="text" name="comId" id="comIdx" class="text_add"/></span><div class="prompt r_f"></div></li> --><li><label class="label_name">用户角色：</label><span class="add_name">
      		&nbsp;&nbsp;&nbsp;&nbsp;<select id="rolesx" name="roleId"  data-selector data-selector-checks="true">
                 <c:forEach items="${roles}" var="r" ><option value="${r.roleId }" >${r.roleName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
@@ -180,7 +180,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <div class="prompt r_f"></div>
      </li>
      <li><label class="label_name">员工编号：</label><span class="add_name"><input name="empId" id="empId" type="text"  class="text_add" placeholder="必填" /></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">公司编号：</label><span class="add_name"><input name="comId" id="comId" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <!-- <li><label class="label_name">公司编号：</label><span class="add_name"><input name="comId" id="comId" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li> -->
      <li><label class="label_name">添加角色：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;
              <select id="roles" name="roleId" data-selector data-selector-checks="true">
                 <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
