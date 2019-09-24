@@ -1,6 +1,5 @@
 package com.sc.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.github.pagehelper.PageInfo;
 import com.sc.bean.SysBranch;
 import com.sc.bean.SysDuty;
 import com.sc.service.SysDutyService;
@@ -108,7 +106,7 @@ public class sysDutyController {
 	//查询要修改的信息
 	@RequestMapping("/detail.do")
 	@ResponseBody
-	public SysDuty detail(ModelAndView mav,Long dutId) {
+	public SysDuty detail(ModelAndView mav,Long dutId,SysDuty u) {
 		System.out.println("来了四弟111！"+dutId);
 		return sysDutyService.update(dutId);
 	}

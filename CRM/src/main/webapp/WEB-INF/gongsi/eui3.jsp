@@ -103,8 +103,8 @@
   <div class="layui-form-item">
     <label class="layui-form-label">审核状态</label>
     <div class="layui-input-block">
-             <select   name="empState">
-      <option value="0">请选择--</option>
+             <select name="empState" required  lay-verify="required">
+      <option value=" ">请选择--</option>
       <option value="1">审核通过</option>
       <option value="2">审核失败</option>
       </select>
@@ -119,8 +119,8 @@
    <div class="layui-form-item">
     <label class="layui-form-label">员工状态</label>
     <div class="layui-input-block">
-             <select  name="empSysstate">
-      <option value="0">请选择--</option>
+             <select name="empSysstate" required  lay-verify="required">
+      <option value=" ">请选择--</option>
       <option value="1">在职</option>
       <option value="2">离职</option>
       </select>
@@ -135,8 +135,8 @@
    <div class="layui-form-item">
     <label class="layui-form-label">公司编号</label>
     <div class="layui-input-block">
-          <select name="comId">
-                  <option value="0">请选择--</option>
+          <select name="comId" required  lay-verify="required">
+                  <option value=" ">请选择--</option>
                 <c:forEach items="${m }" var="c">
                <option value="${c.comId}">${c.comName}</option>
                 </c:forEach>
