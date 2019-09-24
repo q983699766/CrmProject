@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sc.bean.SysPermission;
 import com.sc.bean.SysPermissionColumn;
@@ -148,8 +149,9 @@ public class PermServiceImpl implements PermissionService{
 
 	@Override
 	public PageInfo<com.sc.bean.SysPermission> selectUsersPage(Integer pageNum, Integer pageSize) {
-		java.util.List<com.sc.bean.SysPermission> list = SysPermission.selectByExample(null);
+		PageHelper.startPage(pageNum, pageSize);
 		
+		java.util.List<com.sc.bean.SysPermission> list = SysPermission.selectByExample(null);
 		
 		PageInfo<SysPermission> pi = new PageInfo<SysPermission>(list);
 		return pi;

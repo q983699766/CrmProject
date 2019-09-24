@@ -112,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  <!-- <th class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th> -->
 			  <th>权限名称</th>
               <th>权限所在分栏</th>
-			  <th class="hidden-480">描述</th>             
+			  <th class="hidden-480">权限别名</th>             
 			  <th class="hidden-480">操作</th>
              </tr>
 		    </thead>
@@ -134,10 +134,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   </c:forEach>	
 			   <tr style="text-align: center;">
     				<td colspan="7">
-    			<a href="getPermission.do?pageNum=${list.navigateFirstPage }">首页</a>
-    			<a href="getPermission.do?pageNum=${list.prePage}">上一页</a>
-    			<a href="getPermission.do?pageNum=${list.nextPage }">下一页</a>
-    			<a href="getPermission.do?pageNum=${list.navigateLastPage }">尾页</a>
+    			<a href="getPermByCol.do?pageNum=${list.navigateFirstPage }&columnName=${colName}">首页</a>
+    			<a href="getPermByCol.do?pageNum=${list.prePage}&columnName=${colName}">上一页</a>
+    			<a href="getPermByCol.do?pageNum=${list.nextPage }&columnName=${colName}">下一页</a>
+    			<a href="getPermByCol.do?pageNum=${list.navigateLastPage }&columnName=${colName}">尾页</a>
     			当前第${list.pageNum }/${list.pages }页，共${list. total}条，每页10条
     				</td>
     		</tr>			

@@ -98,7 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <th>用户密码</th>
               <th>用户姓名</th>
               <th>用户所拥有角色</th>
-              <th>上次操作时间</th>
+              <th>上次修改时间</th>
 			  <th class="hidden-480">用户状态</th>             
 			  <th class="hidden-480">操作</th>
              </tr>
@@ -268,17 +268,17 @@ function add(obj){
 /* 修改判断 */
 	function update(obj){
 		var pass1 = document.getElementById("empIdx").value;
-		var pass2 = document.getElementById("comIdx").value;
+		/* var pass2 = document.getElementById("comIdx").value; */
 		//var pass3 = document.getElementById("rolesx");
 		
 		var roleId="";
 		$(".actives").each(function(i,e){
-		    alert($(this).attr("data-value")); 
+		    //alert($(this).attr("data-value")); 
 		    roleId+="roleId="+$(this).attr("data-value")+"&";
 		});
 		obj.action=obj.action+"?"+roleId;
-		alert(obj.action);
-		alert(roleId); 
+		//alert(obj.action);
+		//alert(roleId); 
 		if (pass1==""){
 			  layer.alert('员工编号不能为空!',{
               title: '提示框',				
