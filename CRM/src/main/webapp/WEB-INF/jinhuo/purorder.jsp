@@ -60,20 +60,31 @@
 <script src="assets/laydate/laydate.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-function hhh(){
-var url = "purorder/goadd.do" 
+function gb(){
+var danjia=document.getElementById("danjia").value;
+var sl=document.getElementById("aa").value;
+$("#bb").val(danjia*sl);
+}
+
+function hhh(e){
+document.getElementById("xx").value=e;
+     var url = "purorder/goadd.do" 
 		//ajax异步请求
 		$.ajax({
 			type : "post",
 			url : url,
 			dataType : "json",
 			success : function(data) { //从前台回调回来的数组，处理后的数据
-				 var h="";
+				 var a="";
+				       a="<option value='0'>请选择</option>";
+				       
 			          $.each(data,function(i,d)//两个参数，第一个参数表示遍历的数组的下标，第二个参数表示下标对应的值
 			          {  
-			              h+="<option value='"+d.productId+"'>"+d.productId+"</option>" 
+			              
+			              a+="<option value='"+d.productId+"'>"+d.productId+"</option>" 
 			          });
-			          $("#searchs").html(h);
+			         
+			          $("#searchs").html(a);
 				
 			}
 		});
@@ -89,43 +100,25 @@ var url = "purorder/goadd.do"
 		<div id="Member_Ratings">
 			<div class="d_Confirm_Order_style">
 				<div class="search_style">
-					<form action="pursupinfo/selectinfo.do" method="post">
+					<form action="purorder/selectinfo.do" method="post">
 						<div class="title_names">搜索查询</div>
 						<ul class="search_content clearfix">
-							<li><label class="l_f">供应商编号</label><input name="supName"
-								type="text" class="text_add" placeholder="输入供应商名称、电话、联系人"
+							<li><label class="l_f">采购单主题</label><input name="purTitle"
+								type="text" class="text_add" placeholder="输入采购单主题"
 								style=" width:400px" /></li>
-							<!-- <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li> -->
-							<li style="width:90px;"><input type="submit" value="查询"
-								class="btn_search"></li>
+	              <li style="width:90px;"><input type="submit" value="查询" class="btn_search"></li>
 						</ul>
 				</div>
 				</form>
-				<!---->
-				<!-- <button type="button" class="btn_search"><i class="icon-search"></i>查询</button> -->
-				<div class="border clearfix">
-					<span class="l_f"> <!-- <a href="javascript:ovid()" name="pursupinfo/goaddinfo.do" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加采购单</a>
-       --> <a href="javascript:ovid()" class="btn btn-danger"><i
-							class="icon-trash"></i>批量审核采购单</a>
-					</span>
-					<script type="text/javascript:shanchu()">
-						function shanchu() {
-						document.getElementById("cc").submit();
-						var a=document.getElementsByName("bb");
-						}
-							
-					</script>
-				</div>
-				<!---->
+	
+			
 				<div class="table_menu_list">
 					<table class="table table-striped table-bordered table-hover"
 						id="sample-table">
 						<thead>
 							<tr>
-								<th width="25"><label><input type="checkbox"
-										class="ace"><span class="lbl"></span></label></th>
 								<th style="width:80px;font-size:12px;">采购单编号</th>
-								<th style="width:80px;font-size:12px;">采购主题</th>
+								<th style="width:100px;font-size:12px;">采购主题</th>
 								<th style="width:100px;font-size:12px;">采购日期</th>
 								<th style="width:80px;font-size:12px;">供应商编号</th>
 								<th style="width:80px;font-size:12px;">货款金额</th>
@@ -136,11 +129,11 @@ var url = "purorder/goadd.do"
 								<th style="width:50px;font-size:12px;">交货地点</th>
 								<th style="width:50px;font-size:12px;">交货方式</th>
 								<th style="width:50px;font-size:12px;">操作人员</th>
-								<th style="width:50px;font-size:12px;">备注信息</th>
+								<th style="width:80px;font-size:12px;">备注信息</th>
 								<th style="width:50px;font-size:12px;">公司编号</th>
 								<th style="width:100px;font-size:12px;">最后修改时间</th>
-								<th style="width:130px;font-size:12px;">操作</th>
-								<th style="width:130px;font-size:12px;">查看</th>
+								<th style="width:100px;font-size:12px;">操作</th>
+								<th style="width:90px;font-size:12px;">查看</th>
 
 							</tr>
 						</thead>
@@ -148,17 +141,21 @@ var url = "purorder/goadd.do"
 							<form action="pursupinfo/delall.do" id="cc" method="post">
 								<c:forEach items="${pi.list}" var="i">
 									<tr>
-										<td><label><input type="checkbox" class="ace"
-												name="bb" value="${i.purNumber}">><span class="lbl"></span></label></td>
+										
 										<td>${i.purNumber}</td>
 										<td>${i.purTitle}</td>
 										<td><fmt:formatDate value="${i.purDate}"
 												pattern="yyyy-MM-dd " /></td>
 										<td>${i.supInfoNum}</td>
 										<td>${i.payAmount}</td>
-										<td class="text-l">${i.invoiceNumber}</td>
-										<td>${i.payStatus=="1"?"待付款":"已付款"}</td>
-										<td>${i.purProgrees=="2" ? "采购中":"已入库"}</td>
+										<td class="text-l" style="width: 120px">${i.invoiceNumber}</td>
+										<c:if test="${i.payStatus=='2'}">
+										<td style="color: red">已付款</td>
+										</c:if>
+										<c:if test="${i.payStatus=='1'}">
+										<td>未付款</td>
+										</c:if>
+										<td>${i.purProgrees=="2" ? "待采购":"已入库"}</td>
 										<td><fmt:formatDate value="${i.deliveryTime}"
 												pattern="yyyy-MM-dd" /></td>
 										<td>${i.deliveryAddress}</td>
@@ -168,26 +165,44 @@ var url = "purorder/goadd.do"
 										<td>${i.comId}</td>
 										<td><fmt:formatDate value="${i.lastDate}"
 												pattern="yyyy-MM-dd " /></td>
-										<td style="font-size:15px;width: 200px">
-											<!-- <a onClick="member_stop(this,'10001')"  href="javascript:;"  title="查看详情"  class="btn btn-xs btn-success"><i class="icon-plus"></i></a>  -->
-											<a href="javascript:ovid()" name="pursupinfo/goaddinfo.do" onclick="hhh()"
-											id="member_add" class="btn btn-xs btn-warning"><i
-												class="icon-plus bigger-120"></i></a> <%--  <a title="编辑" onclick="jia(${i.purNumber });member_edit('550');" href="javascript:"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-           --%> <a title="删除"
+									<c:if test="${i.payStatus=='2'}">			
+										<td style="color: red">已付款</td>
+										<td><a href="purorder/oderinfo.do?purNumber=${i.purNumber}">查看详单</a></td>
+                                       </tr>
+							    	</c:if>	
+									<c:if test="${i.payStatus=='1'}">			
+									   <td style="font-size:15px;width: 200px">
+									   
+									   <c:if test="${i.purProgrees=='2'}">
+										<a title="添加" href="javascript:ovid()" name="pursupinfo/goaddinfo.do" onclick="hhh(${i.purNumber});dd()"
+											class="btn btn-xs btn-warning"><i
+												class="icon-plus bigger-120"></i></a>
+										</c:if>
+										 <c:if test="${i.purProgrees=='1'}">
+										<a title="添加" href="javascript:return false;" onclick="return false;" style='opacity: 0.4'"
+											class="btn btn-xs btn-warning"><i
+												class="icon-plus bigger-120"></i></a>
+										</c:if>
+											 <a title="删除"
 											href="purorder/delinfo.do?purNumber=${i.purNumber}"
 											onclick="return window.confirm('是否确定删除此订单?')"
-											class="btn btn-xs btn-warning"><i
-												class="icon-trash  bigger-120"></i></a> <a href="javascript:"
-											onclick="jia1(${i.purNumber})" class="member_show"></a>
-
+											class="btn btn-xs btn-warning">
+											<i class="icon-trash  bigger-120"></i></a>
+											 <a href="javascript:" onclick="jia1(${i.purNumber})" class="member_show"></a>
+                                     <c:if test="${i.purProgrees!='2'}">
+									  <a title="付款" href="purorder/fukuan.do?purNumber=${i.purNumber}"
+											class="btn btn-xs btn-primary"><i
+												class="icon-ok bigger-100"></i></a>
+									</c:if>
 										</td>
 										<td><a href="purorder/oderinfo.do?purNumber=${i.purNumber}">查看详单</a></td>
 
 									</tr>
+								</c:if>	
 								</c:forEach>
 							</form>
 							<tr>
-								<td colspan="17" style="text-align: center"><a
+								<td colspan="18" style="text-align: center"><a
 									href="purorder/selectinfo.do?pageNum=${pi.navigateFirstPage}">首页</a>
 									<a href="purorder/selectinfo.do?pageNum=${pi.prePage }">上一页</a>
 									<a href="purorder/selectinfo.do?pageNum=${pi.nextPage }">下一页</a>
@@ -216,28 +231,49 @@ var url = "purorder/goadd.do"
 		<th style="width:5%;font-size:12px;text-align: center">数量</th>
 		<th style="width:8%;font-size:12px;text-align: center">总价</th>
 		<th style="width:18%;font-size:12px;text-align: center">备注信息</th>
-		<th style="width:18%;font-size:12px;text-align: center">交货时间</th>
+		<!-- <th style="width:18%;font-size:12px;text-align: center">交货时间</th> -->
 	 </tr>
 	 <tr>
-	    <td> <select style="width:80px;" name="searchs" id="searchs"  >
-	         <option  value="1">请选择商品编号</option>
+	    <td> <select style="width:80px;" name="productId" id="searchs"  onchange="cz()">
 	        </select>
 	    </td> 
 	    
+	    
 		<td><input type="text"  style="width:80px;font-size:12px;"  id="mingcheng" name="spMc"readonly="readonly"></td> 
 		<td ><input type="text" style="width:50px;font-size:12px;"  id="danjia" name="cbj" readonly="readonly"></td> 
-		<td ><input type="text"style="width:50px;font-size:12px;"   id="" name=""></td> 
-		<td ><input type="text" style="width:80px;font-size:12px;"  id="" name=""></td> 
-		<td ><input type="text" style="width:80px;font-size:12px;"   id="" name="" ></td> 
-		<td ><input type="date" style="width:150px;font-size:12px;"  id="" name=""></td>
+		<td ><input type="text"style="width:50px;font-size:12px;"   id="aa" name="productCount" oninput="gb()"></td>  <!--  //数量 -->
+		<td ><input type="text" style="width:80px;font-size:12px;"  id="bb" name="payAmount" readonly="readonly"> </td> <!--  //总价 -->
+		<td ><input type="text" style="width:80px;font-size:12px;"   id="" name="remarksInfom" ></td> 
+		<td ><%-- <fmt:formatDate value="${i.lastDate}"pattern="yyyy-MM-dd " />
+			<input type="date" style="width:150px;font-size:12px;"  id="" name="lastDate" > --%>
+		<input type="hidden" style="width:150px;font-size:12px;"  id="xx" name="vvv">
+		</td>
 	</tr>
 	  <tr> <td colspan="10">
-	   <input type="submit" value="提交" class="btn btn-primary">
+	   <input type="submit" value="提交" class="btn btn-primary" >
 	</td></tr>	
 	</form>
 
 </body>
-
+<script type="text/javascript">
+ function cz(){
+   var id=document.getElementById("searchs").value;
+     var url="purorder/quzhi.do?productId="+id;
+     document.getElementById("aa").value="";
+     document.getElementById("bb").value="";
+   //ajax异步请求
+   $.ajax ({
+      type:"post",
+      url:url,
+      dataType:"json",
+      success:function(data)
+      {//从前台回调回来的数组，处理后的数据
+      	$("#mingcheng").val(data.spMc);
+        $("#danjia").val(data.cbj);
+       }
+        });
+        }
+</script>
 <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
 <script src="asset/js/select.js"></script>
 <script src="verSelector/verSelect.js"></script>
@@ -289,13 +325,13 @@ var url = "purorder/goadd.do"
 	})
 	/*用户-添加*/
 
-	$('#member_add').on('click', function() {
+	function dd() {
 		layer.open({
 			type : 1,
 			title : '添加采购单信息',
 			maxmin : true,
 			shadeClose : true, //点击遮罩关闭层
-			area : [ '1200px', '500px' ],
+			area : [ '600px', '' ],
 			content : $('#add_menber_style'),
 			yes : function(index, layero) {
 				var num = 0;
@@ -322,7 +358,7 @@ var url = "purorder/goadd.do"
 				}
 			}
 		});
-	});
+	};
 	/*用户-查看*/
 	function member_show(title, url, id, w, h) {
 		layer_show(title, url + '#?=' + id, w, h);

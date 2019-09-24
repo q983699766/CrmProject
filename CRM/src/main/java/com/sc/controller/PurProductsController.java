@@ -11,7 +11,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
 import com.sc.bean.Ccspxxb;
+import com.sc.bean.PurOrderInfo;
 import com.sc.bean.PurProducts;
+import com.sc.mapper.PurOrderInfoMapper;
 import com.sc.mapper.PurProductsMapper;
 import com.sc.service.CcSpxxService;
 import com.sc.service.PurProductsService;
@@ -28,28 +30,30 @@ public class PurProductsController {
 		CcSpxxService ccspxxservice;
 		@Autowired
 		PurProductsMapper purProductsMapper;
-		
-		
-		
-		//查询所有待采购产品库存信息(没用)
-		@RequestMapping("/selectproducts.do")
-		public ModelAndView selectproducts (ModelAndView mav,
-				@RequestParam(defaultValue="1")Integer pageNum,
-				@RequestParam(defaultValue="5")Integer pageSize){
-			System.out.println("查询所有待采购产品库存信息+++++"+ccspxxservice.selectCcspxxPage(pageNum, pageSize));
-			mav.addObject("pi", ccspxxservice.selectCcspxxPage(pageNum, pageSize));
-			System.out.println(ccspxxservice.selectCcspxxPage(pageNum, pageSize)+"xxxxx");
-            mav.setViewName("jinhuo/productsinfo");
-		    return mav;
-		}
+		@Autowired
+		PurOrderInfoMapper purOrderInfoMapper ;
+	
 		
 		//查询所有待采购产品库存信息
 		@RequestMapping("/selectproducts11.do")
 		public ModelAndView selectproducts11 (ModelAndView mav,
 				@RequestParam(defaultValue="1")Integer pageNum,
 				@RequestParam(defaultValue="5")Integer pageSize ,Ccspxxb ccspxx,PurProducts purProducts){
+		
+			List<PurOrderInfo> selectByExample2 = purOrderInfoMapper.selectByExample(null);
+			for (PurOrderInfo purOrderInfo : selectByExample2) {
+				Long productId = purOrderInfo.getProductId();
+			}
+			
 			List<PurProducts> selectByExample = purProductsMapper.selectByExample(null);
 			   System.out.println(selectByExample+"111111111111111111");
+			  for (PurProducts purProducts2 : selectByExample) {
+				  Long productId = purProducts2.getProductId();
+				  System.out.println(productId);
+			}
+			  
+			  
+			  
 			   if(!(selectByExample.isEmpty())){
 			
 			List<Ccspxxb> list = ccspxxservice.selectByExamplel(ccspxx);
@@ -59,15 +63,22 @@ public class PurProductsController {
 		        System.out.println("小于50的数据输"+ccspxxb);
 				Long productId = ccspxxb.getProductId();
 				Long comId = ccspxxb.getComId();
-				
+				Long kcSl = ccspxxb.getKcSl();
+				System.out.println(kcSl+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 				System.out.println(productId);
 			 //  PurProducts products = purproductsservice.SelectById(productId);
 			   
 			   purProducts.setActive("缺货");
 			   Date date = new Date();
 			   purProducts.setLastDate(date);
-			   purProducts.setDeliveryTime(date);
-			   purProducts.setProductId(productId);
+			   
+			   long time = date.getTime();
+			   long time1=time+86400000*7;
+			   Date date1 = new Date(time1);
+			   System.out.println("到货时间是"+date1);
+			   
+			   purProducts.setDeliveryTime(date1);
+		       purProducts.setProductId(productId);
 			   purProducts.setComId(comId);
 			   purProducts.setRemarksInfo("加急采购");
 			    int k = 0;
@@ -80,15 +91,8 @@ public class PurProductsController {
 			}
 			   if(k==0){
 				   purproductsservice.addpurproducts(purProducts);
+				
 			   }
-			   
-			      /*for (PurProducts purProducts2 : selectByExample) {
-				     Long id = purProducts2.getProductId();
-				     System.out.println("222222222222"+id);
-				     
-				     if(id!=productId){
-					   purproductsservice.addpurproducts(purProducts);
-				      }*/
 			   }
 		 } 
 		if(selectByExample.isEmpty()) {
@@ -105,7 +109,13 @@ public class PurProductsController {
 			   purProducts.setActive("缺货");
 			   Date date = new Date();
 			   purProducts.setLastDate(date);
-			   purProducts.setDeliveryTime(date);
+			   
+			   long time = date.getTime();
+			   long time1=time+86400000*7;
+			   Date date1 = new Date(time1);
+			   System.out.println("到货时间是"+date1);
+			   
+			   purProducts.setDeliveryTime(date1);
 			   purProducts.setProductId(productId);
 			   purProducts.setComId(comId);
 			   purProducts.setRemarksInfo("加急采购");
@@ -116,6 +126,10 @@ public class PurProductsController {
 		}
 			
 			 PageInfo<PurProducts> info = purproductsservice.selectpurproducts(pageNum, pageSize);
+			 
+	
+			 
+			 System.out.println(info.getList()+".........................");
 				mav.addObject("pi",info);
 		           mav.setViewName("jinhuo/productsinfo");
 				    return mav;
