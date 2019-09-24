@@ -380,8 +380,7 @@ $('.change_Password').on('click', function(){
 								<li class="home"><a href="javascript:void(0)" name="usersctlr/getlist1.do" title="账户管理"  class="iframeurl"><i class="icon-double-angle-right"></i>账户管理</a></li>
 								<li class="home"><a href="javascript:void(0)" name="rolesctlr/getlist.do" title="角色管理"  class="iframeurl"><i class="icon-double-angle-right"></i>角色管理</a></li>
 								<li class="home"><a href="javascript:void(0)" name="permisctlr/getPermission.do" title="权限管理"  class="iframeurl"><i class="icon-double-angle-right"></i>权限管理</a></li>
-                   
-								  
+								<li class="home"><a href="javascript:void(0)" name="syslogctrl/showLOg" title="系统日志"  class="iframeurl"><i class="icon-double-angle-right"></i>系统日志</a></li>  
 							</ul>
 						</li>
 					</ul>

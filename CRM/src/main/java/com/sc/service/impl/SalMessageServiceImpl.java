@@ -117,6 +117,7 @@ public class SalMessageServiceImpl<E> implements SalMessageService {
 	public PageInfo<SalOrder> selectSalOrder(Integer pageNum, Integer pageSize) {
 		String orderBy = "LAST_TIME DESC";
 		PageHelper.startPage(pageNum, pageSize,orderBy);
+		//PageHelper.startPage(pageNum, pageSize);
 		List<SalOrder> selectByExample = som.selectByExample(null);
 		PageInfo<SalOrder> pageInfo = new PageInfo<SalOrder>(selectByExample);
 		List<SalOrder> list = pageInfo.getList();
@@ -131,8 +132,9 @@ public class SalMessageServiceImpl<E> implements SalMessageService {
 
 	@Override
 	public PageInfo<SalOrder> selectSalOrderLike(Integer pageNum, Integer pageSize, String type, String message) {
-		String orderBy = "LAST_TIME DESC";
-		PageHelper.startPage(pageNum, pageSize, orderBy);
+		//String orderBy = "LAST_TIME DESC";
+		//PageHelper.startPage(pageNum, pageSize, orderBy);
+		PageHelper.startPage(pageNum, pageSize);
 		List<SalOrder> SalOrderList = null;
 		if("0".equals(type)){
 			SalOrderExample salOrderExample = new SalOrderExample();

@@ -141,8 +141,7 @@ td {
 						id="sample_table">
 						<thead>
 							<tr>
-								<th width="25px"><label><input type="checkbox"
-										class="ace"><span class="lbl"></span></label></th>
+								<th width="25px"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
 								<th style="font-size:12px;width:8%;">编号</th>
 								<th style="font-size:12px;width:8%;">创建日期</th>
 								<th style="font-size:12px;width:12%;">发票编号</th>
@@ -492,17 +491,17 @@ td {
 		});
 		/* 批量删除 */
 		$("#administrator_dele").click(function(){
-			layer.confirm('确认删除?', {icon: 3, title:'提示'}, function(index){
-				$("#testIframe tbody tr").each(function(i, element) {
-					if($(this).find("input:checkbox").get(0).checked){
-						//console.log($(this).find("input:checkbox").get(0));
-						//console.log($(this).find("td:nth-child(2)").html());
-						checked.push($(this).find("td:nth-child(2)").html());
-					}
-				});
-				if(checked.length > 0){
-					//console.log(checked);
-					$.ajax({
+			$("#testIframe tbody tr").each(function(i, element) {
+				if($(this).find("input:checkbox").get(0).checked){
+					//console.log($(this).find("input:checkbox").get(0));
+					//console.log($(this).find("td:nth-child(2)").html());
+					checked.push($(this).find("td:nth-child(2)").html());
+				}
+			});
+			if(checked.length > 0){
+				//console.log(checked);
+				layer.confirm('确认删除?', {icon: 0, title:'提示'}, function(index){
+				 	$.ajax({
 						type:"post"
 						,url:"salCtl/salOrderdelets"
 						,data:JSON.stringify(checked)
@@ -514,15 +513,15 @@ td {
 							  ,end:function(){location.reload();}
 							})
 						}
-					})	
-				}else{
-					layer.msg('请勾选数据', {
-					  icon: 5,
-					  time: 1000 
-					})
-				};
-			 	layer.close(index);
-			});
+					});	
+				 	layer.close(index);
+				});
+			}else{
+				layer.msg('请勾选数据', {
+				  icon: 0,
+				  time: 1000 
+				})
+			};
 		})
 		
 		
@@ -614,28 +613,10 @@ td {
 											,shadeClose:true
 											,btn:['确定']
 											,btn1:function(){
-												//清空json
-												goods = {			
-													"customId":0
-													,"remark":""
-													,"totalM":0
-													,"list":[]
-													,"orderId":0
-												};
-												$("#totalMoney").html("0");
-												$("#goodslist2").html("");
+												location.reload();
 											}
 											,cancel:function(){
-												//清空json
-												goods = {			
-													"customId":0
-													,"remark":""
-													,"totalM":0
-													,"list":[]
-													,"orderId":0
-												};
-												$("#totalMoney").html("0");
-												$("#goodslist2").html("");
+												location.reload();
 											}
 										});
 									}
@@ -867,7 +848,7 @@ td {
 						  ,content:"是否继续添加?<br>(继续添加将覆盖原有商品)"
 						  ,title:"重复的添加操作"
 						  ,btn:["继续","取消"]
-						  ,icon:3
+						  ,icon:0
 						  ,btn1:function(){//移除掉重复的dom
 							$("#goodslist2").children("#"+goodsid).remove();
 							//移除数据
@@ -1010,7 +991,7 @@ td {
 						layer.msg('已审核!',{icon: 1,time:1000});
 					},
 					error:function(){
-						layer.msg('审核失败！请联系管理员!',{icon: 5,time:1000});
+						layer.msg('审核失败！请联系管理员!',{icon:2,time:1000});
 					}
 				})
 				
@@ -1068,7 +1049,7 @@ td {
 
 	/*产品-删除*******************************************************/
 	function member_del(obj,id){
-		layer.confirm('确认要删除吗？',function(index){
+		layer.confirm('确认要删除吗？',{icon:0},function(index){
 			$.ajax({
 				type:"post",
 				url:"salCtl/dele",
@@ -1137,7 +1118,7 @@ td {
 					}
 				},
 				error:function(){
-					layer.msg('未成功删除!\n请联系管理员',{icon:1,time:1000});
+					layer.msg('未成功删除!\n请联系管理员',{icon:2,time:1000});
 				}
 			});
 			
