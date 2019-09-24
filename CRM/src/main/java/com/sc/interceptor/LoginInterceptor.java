@@ -39,10 +39,10 @@ public class LoginInterceptor implements HandlerInterceptor {
 		String permissionName = sls.getPermissionName(servletPath);
 		HttpSession session = arg0.getSession();
 		SysUsers user = (SysUsers)session.getAttribute("nowuser");
-		System.out.println("当前用户："+user.getUserName());
 		System.out.println("用户权限："+permissionName);
 		System.out.println("url："+servletPath);
 		if(user != null){
+			System.out.println("当前用户："+user.getUserName());
 			if((!"null".equals(permissionName))&&(!"查看日志".equals(permissionName))){
 				String hostAddress = InetAddress.getLocalHost().getHostAddress();
 				Date date = new Date();
