@@ -105,15 +105,11 @@
 		<thead>
 		 <tr>
 				<th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
+				<th width="80px">销售单详情编号</th>
 				<th width="80px">销售单编号</th>
-				<th width="80px">制单日期</th>
-				<th width="250px">发票号码</th>
-				<th width="100px">用户编号</th>
-                <th width="100px">客户编号</th>	
-                <th width="100px">销售金额</th>			
-				<th width="180px">销售出库状态</th>
-                <th width="80px">是否返利</th>
-				<th width="250px">订单状态</th>
+				<th width="250px">商品编号</th>
+				<th width="100px">商品数量</th>
+                <th width="100px">商品价格</th>					           
 				<th width="70px">备注信息</th>
 				 <th width="70px">公司编号</th>
 				<th width="100px">最后修改时间</th>                 
@@ -122,49 +118,23 @@
 		</thead>
 	<tbody>
 	<form action="cgxqctlr/sc.do" id="cc" method="post" >
-	<c:forEach items="${pi.list }" var="u">
+	<c:forEach items="${pi.list }" var="u"> 
 		<tr>				
-          <td><label><input type="checkbox"  class="ace" name="bb" value="${u.orderId}"><span class="lbl"></span></label></td>                   
-         <td>${u.orderId }</td> <!-- 销售单编号 -->         
-      	  <td><fmt:formatDate value="${u.createTime}" pattern="yyyy-MM-dd" /></td>      <!-- 制单日期 -->   
-          <td>${u.invoiceNumber }</td>  <!-- 发票编号 -->
-          <td>${u.userId }</td>   		<!--用户编号  -->
-          <td>${u.customId }</td>		 <!-- 客户编号 -->
-          <td>${u.salMoney }</td>		<!--销售金额  -->
-          
-          <c:if test="${u.orderOutState==1 }">
-          <td>出库</td> <!--销售出库状态  -->
-          </c:if>
-          
-          <c:if test="${u.orderOutState==0 }">
-          <td>未出库</td> <!--销售出库状态  -->
-          </c:if>
-          
-         
-                         
-          <td >${u.rebate }</td>  <!--是否返利  -->  
-          <c:if test="${u.orderState ==1}">                              
-          <td>已审核</td>	<!--订单状态  -->	
-          </c:if>
-          <c:if test="${u.orderState !=1}">                              
-          <td>未审核</td>	<!--订单状态  -->	
-          </c:if>		
-          <td>${u.remark }</td>	<!--备注信息-->
-          <td>${u.comId }</td>         <!-- 公司编号 -->
-          <td><fmt:formatDate value="${u.lastTime}" pattern="yyyy-MM-dd" /></td>   <!--最后修改时间  -->      
+          <td><label><input type="checkbox"  class="ace" name="bb" value="${u.detailsId}"><span class="lbl"></span></label></td>                  
+          <td>${u.detailsId }</td>   			<!--销售单详情编号  -->
+          <td>${u.orderId }</td>                <!-- 销售单编号 -->               	
+          <td>${u.productId }</td>              <!-- 商品编号 -->
+          <td>${u.productCount }</td>   		<!--商品数量  -->
+          <td>${u.productPrices }</td>		    <!-- 商品价格-->        
+          <td>${u.remark }</td>                 <!--备注信息 -->        
+          <td >${u.comId }</td>                 <!-- 公司编号 -->                            
+          <td><fmt:formatDate value="${u.lastDate}" pattern="yyyy-MM-dd" /></td>   <!--最后修改时间  --> 	       
           <td class="td-manage">
-          <c:if test="${u.orderState==1&&u.orderOutState!=1}">
-		   <a title="详情" ;member_edit('550')" href="ccspxxctlr/xsid.do?orderId=${u.orderId }"  class="btn btn-warning"><i class="icon-plus"></i></a> 
-		  </c:if>
-		  <c:if test="${u.orderState==0&&u.orderOutState!=1}">
-		    <a title="详情" ;member_edit('550') disabled  class="btn btn-active"><i class="icon-plus"></i></a> 
-		  </c:if>
-		   <c:if test="${u.orderState==1&&u.orderOutState==1}">
-		    <a title="详情" ;member_edit('550') disabled  class="btn btn-active"><i class="icon-plus"></i></a> 
-		  </c:if>
+		   <a title="出库" ;member_edit('550')" href="ccspxxctlr/chuku.do?a=${u.productId }&cc=${u.productCount}&orderId=${u.orderId }"  class="btn btn-warning"><i class="icon-plus"></i></a> 
+		
           </td>
 		</tr>
-       </c:forEach>
+       </c:forEach> 
        	</form>	              
            <tr>
               <td colspan="15" style="text-align: center;">

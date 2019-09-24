@@ -146,15 +146,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</tr>
        </c:forEach>
        		</form>          
-           <tr>
+          
+       
+        <tr>
+	 		<c:if test="${spMc==null}">
               <td colspan="15" style="text-align: center;">
                   <a href="ccspxxctlr/list.do?pageNum=${pi.firstPage }">首页</a>
                   <a href="ccspxxctlr/list.do?pageNum=${pi.prePage }">上一页</a>
                   <a href="ccspxxctlr/list.do?pageNum=${pi.nextPage }">下一页</a>
                   <a href="ccspxxctlr/list.do?pageNum=${pi.lastPage }">尾页</a>
-                                       当前${pi.pageNum }/${pi.pages }页
+                                       当前${pi.pageNum }/${pi.pages }页，共${pi.total }条
               </td>
+              </c:if>
+              
+	 		<c:if test="${spMc!=null}">
+              <td colspan="15" style="text-align: center;">
+                  <a href="ccspxxctlr/mh.do?pageNum=${pi.firstPage}&spMc=${spMc }">首页</a>
+                  <a href="ccspxxctlr/mh.do?pageNum=${pi.prePage }&spMc=${spMc}">上一页</a>
+                  <a href="ccspxxctlr/mh.do?pageNum=${pi.nextPage }&spMc=${spMc}">下一页</a>
+                  <a href="ccspxxctlr/mh.do?pageNum=${pi.lastPage }&spMc=${spMc}">尾页</a>
+                                       当前${pi.pageNum }/${pi.pages }页，共${pi.total }条
+              </td>
+              </c:if>
            </tr>
+       
+       
        
        
       </tbody>

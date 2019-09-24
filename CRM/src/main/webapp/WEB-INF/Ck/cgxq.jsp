@@ -159,7 +159,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</tr>
        </c:forEach>
        	</form>	              
-           <tr>
+           <%-- <tr>
               <td colspan="15" style="text-align: center;">
                   <a href="cgxqctlr/ck.do?pageNum=${pi.firstPage }">首页</a>
                   <a href="cgxqctlr/ck.do?pageNum=${pi.prePage }">上一页</a>
@@ -168,6 +168,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                        当前${pi.pageNum }/${pi.pages }页
               </td>
            </tr>
+        --%>
+        
+        
+        <tr>
+	 		<c:if test="${warehouseOrnot==null}">
+              <td colspan="15" style="text-align: center;">
+                   <a href="cgxqctlr/ck.do?pageNum=${pi.firstPage }">首页</a>
+                  <a href="cgxqctlr/ck.do?pageNum=${pi.prePage }">上一页</a>
+                  <a href="cgxqctlr/ck.do?pageNum=${pi.nextPage }">下一页</a>
+                  <a href="cgxqctlr/ck.do?pageNum=${pi.lastPage }">尾页</a>
+                                       当前${pi.pageNum }/${pi.pages }页，共${pi.total }条
+              </td>
+              </c:if>
+              
+	 		<c:if test="${warehouseOrnot!=null}">
+              <td colspan="15" style="text-align: center;">
+                  <a href="cgxqctlr/mh.do?pageNum=${pi.firstPage}&warehouseOrnot=${warehouseOrnot }">首页</a>
+                  <a href="cgxqctlr/mh.do?pageNum=${pi.prePage }&warehouseOrnot=${warehouseOrnot}">上一页</a>
+                  <a href="cgxqctlr/mh.do?pageNum=${pi.nextPage }&warehouseOrnot=${warehouseOrnot}">下一页</a>
+                  <a href="cgxqctlr/mh.do?pageNum=${pi.lastPage }&warehouseOrnot=${warehouseOrnot}">尾页</a>
+                                       当前${pi.pageNum }/${pi.pages }页，共${pi.total }条
+              </td>
+              </c:if>
+           </tr>
+       
        
        
       </tbody>

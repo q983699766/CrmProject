@@ -135,6 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       
        
 	 <tr>
+	 		<c:if test="${CKM==null}">
               <td colspan="15" style="text-align: center;">
                   <a href="ccckxxctlr/ck.do?pageNum=${pi.firstPage }">首页</a>
                   <a href="ccckxxctlr/ck.do?pageNum=${pi.prePage }">上一页</a>
@@ -142,6 +143,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <a href="ccckxxctlr/ck.do?pageNum=${pi.lastPage }">尾页</a>
                                        当前${pi.pageNum }/${pi.pages }页，共${pi.total }条
               </td>
+              </c:if>
+              
+	 		<c:if test="${CKM!=null}">
+              <td colspan="15" style="text-align: center;">
+                  <a href="ccckxxctlr/mh.do?pageNum=${pi.firstPage}&ckM=${CKM}">首页</a>
+                  <a href="ccckxxctlr/mh.do?pageNum=${pi.prePage }&ckM=${CKM}">上一页</a>
+                  <a href="ccckxxctlr/mh.do?pageNum=${pi.nextPage }&ckM=${CKM}">下一页</a>
+                  <a href="ccckxxctlr/mh.do?pageNum=${pi.lastPage }&ckM=${CKM}">尾页</a>
+                                       当前${pi.pageNum }/${pi.pages }页，共${pi.total }条
+              </td>
+              </c:if>
            </tr>
        
        
