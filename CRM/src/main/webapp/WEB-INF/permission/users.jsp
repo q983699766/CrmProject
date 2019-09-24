@@ -192,8 +192,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</label><span class="add_name">
-     <label><input name="userState" value="0" type="radio" checked="checked" class="ace"><span class="lbl">启用</span></label>&nbsp;&nbsp;&nbsp;
-     <label><input name="userState" value="1" type="radio" class="ace"><span class="lbl">不启用</span></label></span><div class="prompt r_f"></div></li><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+     <label><input name="userState" value="0" type="radio" class="ace"><span class="lbl">启用</span></label>&nbsp;&nbsp;&nbsp;
+     <label><input name="userState" value="1" type="radio" checked="checked" class="ace"><span class="lbl">不启用</span></label></span><div class="prompt r_f"></div></li><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     	<!-- <input name="roleId" type="hidden" id="myroleid" > -->
     </ul>
     <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
