@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sc.bean.SysPermission;
 import com.sc.bean.SysPermissionExample;
@@ -101,6 +102,8 @@ public class RolesServiceImpl implements RolesService{
 
 	@Override
 	public PageInfo<SysRole> selectRolePage(Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		
 		List<SysRole> list = SysRoleMapper.selectByExample(null);
 		
 		for (SysRole sysRole : list) {

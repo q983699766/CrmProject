@@ -9,9 +9,18 @@ public class OrderGoodsMessageBean implements Serializable{
 	private String remark;
 	private BigDecimal totalM; 
 	private SalGoodsDetailsPageBean[] list;
+	private Long orderId;
 	
 	public OrderGoodsMessageBean() {
 		super();
+	}
+
+	public Long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
 	}
 
 	public Long getCustomId() {
@@ -46,6 +55,9 @@ public class OrderGoodsMessageBean implements Serializable{
 		this.list = list;
 	}
 
+	
+
+	
 	
 
 	@Override

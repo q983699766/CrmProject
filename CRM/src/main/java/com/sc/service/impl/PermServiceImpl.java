@@ -4,9 +4,12 @@ import java.awt.List;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sc.bean.SysPermission;
 import com.sc.bean.SysPermissionColumn;
@@ -16,10 +19,13 @@ import com.sc.bean.SysPermissionRoleExample;
 import com.sc.bean.SysPermissionRoleExample.Criteria;
 import com.sc.bean.SysRole;
 import com.sc.bean.SysUsers;
+import com.sc.bean.SysUsersRole;
+import com.sc.bean.SysUsersRoleExample;
 import com.sc.mapper.SysPermissionColumnMapper;
 import com.sc.mapper.SysPermissionMapper;
 import com.sc.mapper.SysPermissionRoleMapper;
 import com.sc.mapper.SysRoleMapper;
+import com.sc.mapper.SysUsersRoleMapper;
 import com.sc.service.PermissionService;
 
 @Service
@@ -36,6 +42,9 @@ public class PermServiceImpl implements PermissionService{
 	
 	@Autowired
 	SysRoleMapper SysRoleMapper;
+	
+	@Autowired
+	SysUsersRoleMapper SysUsersRoleMapper;
 	
 	@Override
 	public java.util.List<com.sc.bean.SysPermission> getPermList() {
@@ -140,11 +149,38 @@ public class PermServiceImpl implements PermissionService{
 
 	@Override
 	public PageInfo<com.sc.bean.SysPermission> selectUsersPage(Integer pageNum, Integer pageSize) {
-		java.util.List<com.sc.bean.SysPermission> list = SysPermission.selectByExample(null);
+		PageHelper.startPage(pageNum, pageSize);
 		
+		java.util.List<com.sc.bean.SysPermission> list = SysPermission.selectByExample(null);
 		
 		PageInfo<SysPermission> pi = new PageInfo<SysPermission>(list);
 		return pi;
+	}
+
+	@Override
+	public java.util.List<SysPermission> getMyPerm(Long uid) {
+		SysUsersRoleExample sysUsersRoleExample = new SysUsersRoleExample();
+		com.sc.bean.SysUsersRoleExample.Criteria createCriteria = sysUsersRoleExample.createCriteria();
+		createCriteria.andUserIdEqualTo(uid);
+		java.util.List<SysUsersRole> UR = SysUsersRoleMapper.selectByExample(sysUsersRoleExample);
+		
+		ArrayList<com.sc.bean.SysPermission> perms = new ArrayList<SysPermission>();
+		
+		for (SysUsersRole sysUsersRole : UR) {
+			Long rId = sysUsersRole.getRoleId();
+			
+			SysPermissionRoleExample sysPermissionRoleExample = new SysPermissionRoleExample();
+			Criteria c = sysPermissionRoleExample.createCriteria();
+			c.andRoleIdEqualTo(rId);
+			java.util.List<SysPermissionRole> selectByExample = SysPermissionRoleMapper.selectByExample(sysPermissionRoleExample);
+			
+			for (SysPermissionRole PR : selectByExample) {
+				Long pId = PR.getPermissionId();
+				com.sc.bean.SysPermission p = SysPermission.selectByPrimaryKey(pId);
+				perms.add(p);
+			}
+		}
+		return perms;
 	}
 
 }

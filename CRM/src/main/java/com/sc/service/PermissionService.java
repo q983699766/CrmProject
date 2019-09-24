@@ -2,6 +2,8 @@ package com.sc.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import com.github.pagehelper.PageInfo;
 import com.sc.bean.SysPermission;
 import com.sc.bean.SysPermissionColumn;
@@ -44,5 +46,7 @@ public interface PermissionService {
 		//分页
 		public PageInfo<SysPermission> selectUsersPage
 		(Integer pageNum, Integer pageSize);
-	
+		
+		//获取本用户权限
+		public java.util.List<SysPermission> getMyPerm(Long uid);
 }

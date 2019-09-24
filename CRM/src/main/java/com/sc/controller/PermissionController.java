@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sc.bean.SysPermission;
 import com.sc.bean.SysPermissionColumn;
@@ -85,7 +86,9 @@ public class PermissionController {
 			HttpServletRequest req, String columnName,
 			@RequestParam(defaultValue="1")Integer pageNum,
 			@RequestParam(defaultValue="10")Integer pageSize){
+		PageHelper.startPage(pageNum, pageSize);
 		
+		if(columnName!=""){
 		if(columnName.equals("all")){
 			PageInfo<SysPermission> list = PermissionService.selectUsersPage(pageNum, pageSize);
 			mav.addObject("list", list);
@@ -94,6 +97,18 @@ public class PermissionController {
 			PageInfo<SysPermission> pi = new PageInfo<SysPermission>(list);
 			mav.addObject("list", pi);
 		}
+		
+		List<SysRole> list2 = RolesService.getRoleList();
+		mav.addObject("roles", list2);
+		List<SysPermissionColumn> list3 = PermissionService.getColumn();
+		mav.addObject("col", list3);
+		
+		mav.addObject("colName", columnName);
+		mav.setViewName("permission/user_role");
+		return mav;
+		}
+		PageInfo<SysPermission> list = PermissionService.selectUsersPage(pageNum, pageSize);
+		mav.addObject("list", list);
 		
 		List<SysRole> list2 = RolesService.getRoleList();
 		mav.addObject("roles", list2);

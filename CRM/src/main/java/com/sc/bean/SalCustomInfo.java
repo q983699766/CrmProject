@@ -62,6 +62,18 @@ public class SalCustomInfo implements Serializable {
     private Long comId;
     
     private List<SalConper> salconper;
+ 
+    //拓展属性--销售出库
+  	private SalOrder salorder;
+
+  	public SalOrder getSalorder() {
+  		return salorder;
+  	}
+
+  	public void setSalorder(SalOrder salorder) {
+  		this.salorder = salorder;
+  	}
+
 
     public List<SalConper> getSalconper() {
 		return salconper;
@@ -79,6 +91,16 @@ public class SalCustomInfo implements Serializable {
 
 	public void setSalrecord(List<SalRecord> salrecord) {
 		this.salrecord = salrecord;
+	}
+	
+	private SalBleed salbleed;
+
+	public SalBleed getSalbleed() {
+		return salbleed;
+	}
+
+	public void setSalbleed(SalBleed salbleed) {
+		this.salbleed = salbleed;
 	}
 
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")

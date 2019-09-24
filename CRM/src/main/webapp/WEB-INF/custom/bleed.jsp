@@ -104,22 +104,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 		</thead>
 	<tbody>
-		<!-- <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td style="font-size:13px;">张三</td>
-          <td style="font-size:13px;">SanZhang</td>
-          <td style="font-size:13px;">客户经理</td>
-          <td style="font-size:13px;w">销售部</td>
-          <td style="font-size:13px;">13871753294</td>
-          <td style="font-size:13px;">0710-3445921</td>
-          <td style="font-size:13px;">123@163.com</td>
-          <td style="font-size:13px;">隆中路206号六零九15栋</td>
-          <td style="font-size:13px;">销售冠军</td>
-          <td class="td-manage">
-          <a title="编辑" onclick="member_edit('550')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          </td>
-		</tr> -->
 		<c:forEach items="${conper.salconper}" var="a">
 		<tr>
 		<td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>	
@@ -132,10 +116,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <td style="font-size:13px;">${a.email}</td>
           <td style="font-size:13px;">${a.address}</td>
           <td style="font-size:13px;">${a.remark}</td>
-          <td class="td-manage">
+          <td class="td-manage" style="font-size:13px;">
           <a title="编辑" onclick="aaa(${a.conperId});member_edit('550')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
           <a title="删除" href="javascript:;"  onclick="member_del(this,'1');del(${a.conperId})" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          <a href="conctlr/gotoRecord.do?customId=${a.customId}">联系记录</a>
+          <a title="联系记录" href="conctlr/gotoRecord.do?conperId=${a.conperId}"   class="btn btn-xs btn-success" ><i class="icon-comment  bigger-120"></i></a>
           </td>
 		</tr>
 		</c:forEach>
@@ -248,6 +232,41 @@ jQuery(function($) {
 				}
 			})
 
+/*用户-添加*/
+  $('#member_add').on('click', function(){
+    layer.open({
+        type: 1,
+        title: '添加联系人',
+		maxmin: true, 
+		shadeClose: true, //点击遮罩关闭层
+        area : ['800px' , ''],
+        content:$('#add_menber_style'),
+		yes:function(index,layero){	
+		 var num=0;
+		 var str="";
+     $(".add_menber input[type$='text']").each(function(n){
+          if($(this).val()=="")
+          {
+               
+			   layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
+                title: '提示框',				
+				icon:0,								
+          }); 
+		    num++;
+            return false;            
+          } 
+		 });
+		  if(num>0){  return false;}	 	
+          else{
+			  layer.alert('添加成功！',{
+               title: '提示框',				
+			icon:1,		
+			  });
+			   layer.close(index);	
+		  }		  		     				
+		}
+    });
+}); 
 
 
 /*用户-编辑*/

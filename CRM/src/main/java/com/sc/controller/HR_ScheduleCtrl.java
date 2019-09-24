@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sc.bean.OOfficePerSche;
+import com.sc.bean.SysUsers;
 import com.sc.service.HR_PerAgendaService;
 
 @Controller
@@ -32,8 +33,13 @@ public class HR_ScheduleCtrl {
 		
 		
 		//---需要获取用户id和公司id---start
-		sche.setUid("1");
-		sche.setCid("1");
+		SysUsers sysUsers = (SysUsers)session.getAttribute("nowuser");
+		Long userId = sysUsers.getUserId();
+		String userName = sysUsers.getUserName();
+		Long comId = sysUsers.getComId();
+		System.out.println("本用户ID"+userId+"本用户名字"+userName+comId);
+		sche.setUid(String.valueOf(userId));
+		sche.setCid(String.valueOf(comId));
 		//---需要获取用户id和公司id---end
 		
 		System.out.println("=====对象信息list====="+sche);
@@ -52,8 +58,15 @@ public class HR_ScheduleCtrl {
 		
 		
 		//---需要获取用户id和公司id---start
-		sche.setUid("1");
-		sche.setCid("1");
+		SysUsers sysUsers = (SysUsers)session.getAttribute("nowuser");
+		Long userId = sysUsers.getUserId();
+		String userName = sysUsers.getUserName();
+		Long comId = sysUsers.getComId();
+		System.out.println("本用户ID"+userId+"本用户名字"+userName);
+		sche.setUid(String.valueOf(userId));
+		sche.setCid(String.valueOf(comId));
+		//sche.setUid("1");
+		//sche.setCid("1");
 		//---需要获取用户id和公司id---end
 		
 		sche.setAllDay("0");
@@ -75,8 +88,15 @@ public class HR_ScheduleCtrl {
 		
 		
 		//---需要获取用户id和公司id---start
-		sche.setUid("1");
-		sche.setCid("1");
+		SysUsers sysUsers = (SysUsers)session.getAttribute("nowuser");
+		Long userId = sysUsers.getUserId();
+		String userName = sysUsers.getUserName();
+		Long comId = sysUsers.getComId();
+		System.out.println("本用户ID"+userId+"本用户名字"+userName);
+		sche.setUid(String.valueOf(userId));
+		sche.setCid(String.valueOf(comId));
+		//sche.setUid("1");
+		//sche.setCid("1");
 		//---需要获取用户id和公司id---end
 		
 		sche.setAllDay("0");

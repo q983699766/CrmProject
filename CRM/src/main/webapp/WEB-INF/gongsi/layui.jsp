@@ -15,11 +15,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
        	<link  rel="stylesheet" href="<%=basePath%>layui/css/layui.css" media="all"/>
+       	<link href="<%=basePath%>assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="<%=basePath%>css/style.css"/>       
+        <link href="<%=basePath%>assets/css/codemirror.css" rel="stylesheet">
+        <link rel="stylesheet" href="<%=basePath%>assets/css/ace.min.css" />
+        <link rel="stylesheet" href="<%=basePath%>font/css/font-awesome.min.css" />
 		<script src="<%=basePath%>layui/layui.js"></script>
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-
+<script src="<%=basePath%>js/jquery-1.9.1.min.js"></script>
+        <script src="<%=basePath%>assets/js/bootstrap.min.js"></script>
+		<script src="<%=basePath%>assets/js/typeahead-bs2.min.js"></script>           	
+		<script src="<%=basePath%>assets/js/jquery.dataTables.min.js"></script>
+		<script src="<%=basePath%>assets/js/jquery.dataTables.bootstrap.js"></script>
+        <script src="<%=basePath%>assets/layer/layer.js" type="text/javascript" ></script>          
+        <script src="<%=basePath%>assets/laydate/laydate.js" type="text/javascript"></script>
   </head>
   
   <body>
@@ -82,15 +93,16 @@ layui.use('table', function(){
     }
   });
     table.on('toolbar(test)', function(obj){
-  layer.open({
+ 	layer.open({
         type: 1,
         title: '添加职务',
 		maxmin: true, 
 		shadeClose: true, //点击遮罩关闭层
         area : ['800px' , '600px'],
-        content:$('#cs')
-    });
+        content:''
+      
   });
+  
   table.on('tool(test)', function(obj){
     var data = obj.data;
     //console.log(obj)
@@ -112,4 +124,17 @@ layui.use('table', function(){
     }
   });
 });
+</script>
+<script>
+ $('#member_add').on('click', function(){
+    layer.open({
+        type: 1,
+        title: '添加职位',
+		maxmin: true, 
+		shadeClose: true, //点击遮罩关闭层
+        area : ['800px' , ''],
+        content:$('#add_menber_style')
+		})
+}); 
+
 </script>
