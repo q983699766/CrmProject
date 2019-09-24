@@ -124,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 	<tbody>
 	<form action="ccspxxctlr/sc.do" id="cc" method="post">
-	<c:forEach items="${aa.ccspxxb }" var="u" >
+	<c:forEach items="${aa.ccspxxb }" var="u" varStatus="x">
 		<tr>
           <td><label><input type="checkbox" class="ace" name="bb" value="${u.productId}"><span class="lbl"></span></label></td>
           <td>${u.productId }</td>
@@ -148,15 +148,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</tr>
        </c:forEach>
        	</form>              
-          <%-- <tr>
+          <tr>
               <td colspan="15" style="text-align: center;">
-                  <a href="ccckxxctlr/select1.do?pageNum=${aaaf.firstPage }">首页</a>
-                  <a href="ccckxxctlr/select1.do?pageNum=${aaap.prePage }">上一页</a>
-                  <a href="ccckxxctlr/select1.do?pageNum=${aaan.nextPage }">下一页</a>
-                  <a href="ccckxxctlr/select1.do?pageNum=${aaal.lastPage }">尾页</a>
-                                       当前${aaapn.pageNum }/${aaaps.pages }页
+                  <a href="ccckxxctlr/select1.do?pageNum=${pi.firstPage }&ckBh=${ckBh }">首页</a>
+                  <a href="ccckxxctlr/select1.do?pageNum=${pi.prePage  }&ckBh=${ckBh }">上一页</a>
+                  <a href="ccckxxctlr/select1.do?pageNum=${pi.nextPage  }&ckBh=${ckBh }">下一页</a>
+                  <a href="ccckxxctlr/select1.do?pageNum=${pi.lastPage}&ckBh=${ckBh }">尾页</a>
+                                              当前${pi.pageNum }/${pi.pages}页
+               
               </td>
-           </tr> --%>
+           </tr>
        
        
       </tbody>

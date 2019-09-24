@@ -64,6 +64,8 @@ public class PurProductsInfoController {
 
 		mav.addObject("pi", purProductsInfoService.mh(pageNum, pageSize, purOrderInfo));
 		System.out.println(purProductsInfoService.mh(pageNum, pageSize, purOrderInfo));
+		String warehouseOrnot = purOrderInfo.getWarehouseOrnot();
+		mav.addObject("warehouseOrnot", warehouseOrnot);
 		mav.setViewName("Ck/cgxq");
 
 		return mav;
@@ -80,12 +82,15 @@ public class PurProductsInfoController {
 		PurOrderInfo pinfo = new PurOrderInfo();
 		for (int i = 0; i < xx.length; i++) {
 			long l = Long.parseLong(xx[i]);
-			long x01 = Long.parseLong(x1[i]);			
+			System.out.println("+++++++"+l);
+			long x01 = Long.parseLong(x1[i]);
+			System.out.println("产品编号为"+x01);
 			pinfo.setPurInfoNumber(l);
 			PurOrderInfo byid = purProductsInfoService.selctPurOrderInfoByid(l);
 			pinfo.setRemarksInfom(byid.getRemarksInfom());
 			System.out.println("+++++"+purProductsInfoService.selctPurOrderInfoByid(l));
 			Ccspxxb ccspxxByUid = ccSpxxService.selectCcspxxByUid(x01);
+			System.out.println("+++"+ccspxxByUid);
 			ccspxxByUid.setKcSl(ccspxxByUid.getKcSl() + Long.parseLong(x2[i]));
 			ccSpxxService.updateCcspxx(ccspxxByUid, pinfo);
 

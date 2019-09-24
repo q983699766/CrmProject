@@ -336,7 +336,7 @@ $('.change_Password').on('click', function(){
 						<li class="home"><a href="javascript:void(0)" name="ccckxxctlr/ck.do" title="库存信息" class="iframeurl"><i class="icon-double-angle-right"></i>库存信息</a></li>
 						<li class="home"><a href="javascript:void(0)" name="ccspxxctlr/list.do" title="库存商品信息"  class="iframeurl"><i class="icon-double-angle-right"></i>库存商品信息</a></li>
 						<li class="home"><a href="javascript:void(0)" name="cgxqctlr/ck.do" title="采购详情"  class="iframeurl"><i class="icon-double-angle-right"></i>采购详情</a></li>
-						<li class="home"><a href="javascript:void(0)" name="ccspxxctlr/list.do" title="销售详情"  class="iframeurl"><i class="icon-double-angle-right"></i>销售详情</a></li>
+						<li class="home"><a href="javascript:void(0)" name="ccspxxctlr/xs.do" title="销售详情"  class="iframeurl"><i class="icon-double-angle-right"></i>销售详情</a></li>
 							</ul>
 						</li>
 					<li>

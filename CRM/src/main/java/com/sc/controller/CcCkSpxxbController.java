@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.pagehelper.PageInfo;
 import com.sc.bean.Ccspxxb;
 import com.sc.bean.PurOrderInfo;
+import com.sc.bean.SalDetails;
+import com.sc.bean.SalOrder;
 import com.sc.service.CcSpxxService;
 
 @Controller // 注册成bean对象
@@ -22,6 +25,8 @@ import com.sc.service.CcSpxxService;
 public class CcCkSpxxbController {
 	@Autowired
 	CcSpxxService ccSpxxService;
+	
+	
 
 	// 1.分页查看仓库商品列表（以测试）
 	@RequestMapping("/list.do")
@@ -66,11 +71,12 @@ public class CcCkSpxxbController {
 		//添加
 		System.out.println("进入添加方法" + u);
 		Date date = new Date();
+		
 		u.setLastTime(date);
 		// 添加模型数据
 		ccSpxxService.addCcspxx(u);
 		// 设置视图名称 转发
-		mav.setViewName("redirect:list.do");// 响应的视图名称，路径是：/WEB-INF/users/list.jsp
+		mav.setViewName("redirect:");// 响应的视图名称，路径是：/WEB-INF/users/list.jsp
 		return mav;
 	}
 
@@ -83,6 +89,8 @@ public class CcCkSpxxbController {
 
 		mav.addObject("pi", ccSpxxService.selectmh(pageNum, pageSize, ccspxx));
 		System.out.println(ccSpxxService.selectmh(pageNum, pageSize, ccspxx));
+		String spMc = ccspxx.getSpMc();
+		mav.addObject("spMc",spMc);
 		mav.setViewName("Ck/splb");
 
 		return mav;
@@ -129,4 +137,76 @@ public class CcCkSpxxbController {
 		return mav;
 	}
 
+	//查询销售出库单
+	
+	@RequestMapping("/xs.do")
+	public ModelAndView xs(ModelAndView mav, @RequestParam(defaultValue = "1") Integer pageNum,
+			@RequestParam(defaultValue = "5") Integer pageSize) {
+
+		System.out.println("进入查询方法1111");
+		// 添加模型数据
+		mav.addObject("pi", ccSpxxService.selectSalOrder(pageNum, pageSize));
+		// 设置视图名称 转发
+		mav.setViewName("Ck/xsxq");// 响应的视图名称，路径是：/WEB-INF/users/list.jsp
+		return mav;
+	}
+	
+	// 销售根据订单状态查询
+		@RequestMapping("xsmh.do")
+		public ModelAndView xsmh(ModelAndView mav, @RequestParam(defaultValue = "1") Integer pageNum,
+				@RequestParam(defaultValue = "5") Integer pageSize, SalOrder salOrder) {
+
+			System.out.println("进入查询销售信息方法" + salOrder.getOrderState());
+
+			mav.addObject("pi", ccSpxxService.xsmh(pageNum, pageSize, salOrder));
+			System.out.println(ccSpxxService.xsmh(pageNum, pageSize, salOrder));
+	
+			mav.setViewName("Ck/xsxq");
+
+			return mav;
+		}
+	
+		//通过销售单id查询该条商品的销售订单详情
+		@RequestMapping("/xsid.do")
+	
+		public ModelAndView  selectSalDetailsByUid(HttpServletRequest req,ModelAndView mav, @RequestParam(defaultValue = "1") Integer pageNum,
+				@RequestParam(defaultValue = "5") Integer pageSize ,Long orderId ) {
+			System.out.println("进入查询销售信息方法" );
+			String orderid = req.getParameter("orderId");
+			Long uid = (long) Integer.parseInt(orderid);
+			System.out.println("销售详情的销售单编号"+uid);
+			PageInfo<SalDetails> list = ccSpxxService.selectSalDetailsByUid(pageNum, pageSize, orderId);		
+			mav.addObject("pi",list);
+			mav.setViewName("Ck/xsxq2");
+			return mav ;
+		}
+		
+		//销售出库
+		@RequestMapping("/chuku.do")
+		public ModelAndView ck(ModelAndView mav, Ccspxxb u, SalOrder p ,HttpServletRequest req)
+		{
+			String xx = req.getParameter("a");
+			Long xxx=Long.parseLong(xx);
+			String cc = req.getParameter("cc");
+			Long ccc=Long.parseLong(cc);
+			System.out.println(xx+"xxxxxxxxxxxxxxxxxxxx");
+			System.out.println(ccc+"ccccccccccccccccccc");
+			//出库
+			List<Ccspxxb> selectCcspxx = ccSpxxService.selectCcspxx();
+			System.out.println("进入出库方法" + selectCcspxx);
+			for (Ccspxxb ccspxxb : selectCcspxx)
+			{
+				if (xxx.equals(ccspxxb.getProductId())) 
+					{  
+						System.out.println("+++++++++++++++++++");
+						Date date = new Date();
+						ccspxxb.setKcSl(ccspxxb.getKcSl()-ccc);			
+						ccSpxxService.updaCcspxx(ccspxxb,p);
+						System.out.println("+++++++++++++++++++");
+						mav.setViewName("redirect:xs.do");
+						
+					}
+			}
+			return mav;
+		}
 }
