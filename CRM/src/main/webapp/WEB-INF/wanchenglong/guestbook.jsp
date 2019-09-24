@@ -33,6 +33,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <script src="<%=basePath%>assets/layer/layer.js" type="text/javascript" ></script>          
         <script src="<%=basePath%>assets/laydate/laydate.js" type="text/javascript"></script>
 <title>留言</title>
+
+<!--引入bootstrap的css文件-->
+    <link rel="stylesheet" href="<%=basePath%>css/bootstrap.min.css">
+    <!--先引入jquery的js文件（bootstrap本身未自带，需拷贝）-->
+    <script src="<%=basePath%>js/jquery.min.js"></script>
+    <!--再引入bootstrap的js文件-->
+    <script src="<%=basePath%>js/bootstrap.min.js"></script>
 </head>
 
 <body onload="load()">
@@ -73,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="Guestbook_list">
       <table class="table table-striped table-bordered table-hover" id="sample-table">
       <thead>
-		 <tr>
+		 <tr class="warning">
          <th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
 				<th width="80">ID</th>
 				<th width="100">信息标题</th>
@@ -91,10 +98,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<c:forEach items="${smsinfo.list}" var="i">
 		<tr>
-		  <td><label><input type="checkbox" name="test111" value="${i.detailId }" class="ace"><span class="lbl"></span></label></td>
+		  <td class="danger"><label><input type="checkbox" name="test111" value="${i.detailId }" class="ace"><span class="lbl"></span></label></td>
           <%-- <td><label><input type="checkbox" value="${i.detailId }" class="ace"><span class="lbl"></span></label></td> --%>
           <td style="font-size:11px;">${i.detailId }</td>
-         <td style="font-size:11px;"><a title="详情" onclick="jia(${i.smsId });Guestbook_iew('12')" href="javascript:;"   >${i.officeSms.smsHeadline}</a> </td>
+         <td  style="font-size:11px;"><a title="详情" onclick="jia(${i.detailId  });Guestbook_iew('12')" href="javascript:;"   >${i.officeSms.smsHeadline}</a> </td>
+         
+        
+         
           <%-- <td> <a href="javascript:;" onclick="Guestbook_iew('12')">${i.smsHeadline}</a></td> --%>
           <td style="font-size:11px;">${i.sysUsers.userName}</td>
 				
@@ -104,21 +114,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            
          
          
-          <td class="td-status"><span class="label label-success radius">
+          
 
 					<c:if test="${i.smsState==1}">
-						已阅读
+						<td class="td-status"><span class="label label-danger radius">已阅读</span></td>
 					</c:if>
 					<c:if test="${i.smsState==0}">
-						未阅读
+						<td class="td-status"><span class="label label-warning radius">未阅读</span></td>
 					</c:if>
-					</span></td>
+					
          
           <td class="td-manage">
-          <a title="设为未读"  class="btn btn-xs btn-success" href='Office/selectmysmsById.do?id=${i.detailId }'>改变状态</a>
+         
+           <!-- <a onclick="changenum()" href="javascript:;">点我</a> -->
+         <%--  <a title="设为未读"  class="btn btn-xs btn-success" href='Office/selectmysmsById.do?id=${i.detailId }'>改变状态</a> --%>
            <a onclick="jiaaa(${i.detailId });member_add('550')" href="javascript:ovid()" id="member_add" class="btn btn-xs btn-warning">回复信息</a>
         	<!-- <a  href="javascript:;"  onclick="member_del(this,'1')" title="删除" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a> -->
-          	<a title="删除"  onclick="delet(${i.detailId });member_del(this,'1')" href="javascript:;"   class="btn btn-xs btn-warning" >删除</a>
+          	<a title="删除"  onclick="delet(${i.detailId });member_del(this,'1')" href="javascript:;"   class="btn btn-xs btn-warning" >删除<i class="icon-trash  bigger-120"></i></a>
           </td>
 		</tr>
        </c:forEach>
@@ -155,19 +167,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 
 <!--添加用户图层-->
+<form action="Office/setstate11.do" id="changenum1" method="post" onsubmit="return yan(this)">
 <div class="add_menber" id="add_menber_style" style="display:none">
   
     <ul class=" page-content">
      <li><label class="label_name">信息标题：</label><span class="add_name"><input readonly="true" id="sms1" value="" name="用户名" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name"></label><span class="add_name"></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">信息内容：</label><span class="add_name"><textarea readonly="true" id="sms2"  type="text"  class="text_add"></textarea></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">信息内容：</label><span class="add_name"><textarea style="resize: none;" readonly="true" id="sms2"  type="text"  class="text_add"></textarea></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">发送人：</label><span class="add_name"><input readonly="true" id="sms3"  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">发送公司：</label><span class="add_name"><input readonly="true" id="sms4"  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">发送时间：</label><span class="add_name"><input readonly="true" id="sms5"  type="text"  dateFmt="yyyy-MM-dd HH:mm:ss"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     
-    </ul>
+    
+    </ul><br><br><br><br><br><br><br><br><br><br><br><br>
+    <!-- <a onclick="changenum()" href="javascript:;">确定并关闭</a>  -->
+    <div class="center"> <a onclick="submitnum()" href="javascript:;">确定并关闭</a> </div><br><br><br><br><br><br>
+   <!--  <div class="center"> <input  class="btn btn-primary" type="submit" id="submit" value="确定并关闭"></div><br><br><br><br><br><br> -->
  </div>
-
+</form>
 
 <script>
  function yan(c){
@@ -297,7 +313,7 @@ function Guestbook_iew(id){
         title: '留言信息',
 		maxmin: true, 
 		shadeClose:false,
-        area : ['600px' , ''],
+        area : ['800px' , ''],
         content:$('#add_menber_style'),
 		
 				
@@ -393,9 +409,9 @@ function jiaaa(detailId)
 			
 			
 /* 查看详情的ajax */
-function jia(smsId)
+function jia(detail)
     {
-        var url="detail/selectsmsById.do?smsId="+smsId;
+        var url="detail/selectsmsById.do?detail="+detail;
    //ajax异步请求
    $.ajax
    ({
@@ -530,5 +546,22 @@ function member_del(obj,id){
     event: 'focus' 
 }); 
 
-			
+		function submitnum(){
+		document.getElementById("changenum1").submit();
+		var nums=window.top.document.getElementsByName('num');
+		for(var i=0;i<nums.length;i++){nums[i].innerHTML="${num}"-1;}		
+		
+		}
+
+
+		function changenum1(){
+		var nums=window.top.document.getElementsByName('num');
+		for(var i=0;i<nums.length;i++){nums[i].innerHTML="${num}"+1;}
+		}
+		
+		function changenum2(){
+		var nums=window.top.document.getElementsByName('num');
+		for(var i=0;i<nums.length;i++){nums[i].innerHTML="${num}"-1;}
+		}
+					
 </script>

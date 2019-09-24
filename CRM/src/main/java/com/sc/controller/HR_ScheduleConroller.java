@@ -20,6 +20,7 @@ import com.sc.bean.OfficeDetailSms;
 import com.sc.bean.OfficeSms;
 import com.sc.bean.SalCustomInfo;
 import com.sc.bean.SysCOMPANY;
+import com.sc.bean.SysEmpuser;
 import com.sc.bean.SysUsers;
 import com.sc.service.HrScheDetailService;
 //import com.sc.service.HrScheDetailService;
@@ -150,7 +151,7 @@ public class HR_ScheduleConroller {
 		//设置状态
 		@RequestMapping("/Officestate.do")
 		@ResponseBody//比如异步获取json数据，加上@responsebody后，会直接返回json数据
-		public ModelAndView selectById(ModelAndView mav,HttpServletRequest req,OfficeDetailSms officeDetailSms) throws IllegalStateException, IOException {
+		public ModelAndView selectById(ModelAndView mav,HttpServletRequest req,OfficeDetailSms officeDetailSms,HttpSession session) throws IllegalStateException, IOException {
 			System.out.println("进入状态改变");
 			 String idd = req.getParameter("id");
 			System.out.println("获取到的用户编号为:"+idd);
@@ -185,6 +186,13 @@ public class HR_ScheduleConroller {
 			//hrScheDetailService.updatesmsById(officeDetailSms);
 	//		SalCustomInfo custom = conperService.selectById(uid);
 			
+			
+			SysUsers user = (SysUsers)session.getAttribute("nowuser");
+			Long uid = user.getUserId();
+			
+			Integer num = hrScheDetailService.countnum(uid);
+			session.setAttribute("num",num );
+			
 			mav.setViewName("redirect:./selectdetailinfo.do");
 			return mav;
 			
@@ -197,7 +205,7 @@ public class HR_ScheduleConroller {
 		//设置我的状态
 				@RequestMapping("/selectmysmsById.do")
 				@ResponseBody//比如异步获取json数据，加上@responsebody后，会直接返回json数据
-				public ModelAndView selectmysmsById(ModelAndView mav,HttpServletRequest req,OfficeDetailSms officeDetailSms) throws IllegalStateException, IOException {
+				public ModelAndView selectmysmsById(ModelAndView mav,HttpServletRequest req,OfficeDetailSms officeDetailSms,HttpSession session) throws IllegalStateException, IOException {
 					System.out.println("进入状态改变==========-");
 					 String idd = req.getParameter("id");
 					System.out.println("获取到的用户编号为:"+idd);
@@ -223,7 +231,7 @@ public class HR_ScheduleConroller {
 						System.out.println("officeDetailSms2---"+officeDetailSms);
 					}
 					
-					
+					System.out.println("更新后的officeDetailSms"+officeDetailSms);
 					hrScheDetailService.updatestate(officeDetailSms);
 					//OfficeDetailSms selesmsByid = hrScheDetailService.selesmsByid(Long.valueOf(id));
 					//System.out.println("-----"+selesmsByid);
@@ -232,11 +240,55 @@ public class HR_ScheduleConroller {
 					//hrScheDetailService.updatesmsById(officeDetailSms);
 			//		SalCustomInfo custom = conperService.selectById(uid);
 					
+					SysUsers user = (SysUsers)session.getAttribute("nowuser");
+					Long uid = user.getUserId();
+					
+					Integer num = hrScheDetailService.countnum(uid);
+					session.setAttribute("num",num );
 					mav.setViewName("redirect:./selectinfo.do");
 					return mav;
 					
 
 				}
+				
+				
+				
+				
+				//改变状态新
+				@RequestMapping("/setstate.do")
+				public ModelAndView setstate(ModelAndView mav,HttpSession session,OfficeDetailSms officeDetailSms
+						) throws IllegalStateException, IOException{
+					
+					System.out.println("进入发送信息！！————————————————————————"+officeDetailSms);
+					//officeDetailSms.setSmsState("0");
+					//hrScheDetailService.updatestate(officeDetailSms);
+					SysUsers user = (SysUsers)session.getAttribute("nowuser");
+					Long uid = user.getUserId();
+					
+					Integer num = hrScheDetailService.countnum(uid);
+					session.setAttribute("num",num );
+					mav.setViewName("redirect:./selectdetailinfo.do");
+					return mav;
+				}
+				
+				
+				//改变我的状态新
+				@RequestMapping("/setstate11.do")
+				public ModelAndView setstate1(ModelAndView mav,HttpSession session,OfficeDetailSms officeDetailSms
+						) throws IllegalStateException, IOException{
+					
+					System.out.println("进入发送信息！！————————————————————————"+officeDetailSms);
+					//officeDetailSms.setSmsState("0");
+					//hrScheDetailService.updatestate(officeDetailSms);
+					SysUsers user = (SysUsers)session.getAttribute("nowuser");
+					Long uid = user.getUserId();
+					
+					Integer num = hrScheDetailService.countnum(uid);
+					session.setAttribute("num",num );
+					mav.setViewName("redirect:././selectinfo.do");
+					return mav;
+				}
+				
 				
 				
 		
@@ -256,6 +308,7 @@ public class HR_ScheduleConroller {
 				
 				//session.setAttribute("nowuser", sysusers);
 				SysUsers sysUsers = (SysUsers)session.getAttribute("nowuser");
+				//System.out.println("$$$$$$$$$$$$$$$$$$$$"+sysUsers);
 				Long smssend = sysUsers.getUserId();
 				
 				System.out.println(officeSms+"+"+officeDetailSms);
@@ -269,27 +322,45 @@ public class HR_ScheduleConroller {
 				officeSms.setSmsContent(smsdetail1);
 				officeSms.setSmsSender(Long.valueOf(smssend));
 				//根据发送者id查找发送者公司 
-				SysUsers seleuserById = hrScheService.seleuserById(Long.valueOf(smssend));
-				officeSms.setComId(seleuserById.getComId());
+				//System.out.println("%%%%%%%%%%%%%%%%%%%%%%%"+smssend);
+				SysUsers seleuserById = hrScheService.seleuserById(smssend);
+				Long empId = seleuserById.getEmpId();
+				SysEmpuser seletempById = hrScheService.seletempById(empId);
+				Long comId = seletempById.getComId();
+				
+				
+				officeSms.setComId(comId);
+				//officeSms.setComId(seleuserById.getComId());
+				
 				officeSms.setLastTime(date);
-				//System.out.println(officeSms+"-------------------");
+				System.out.println(officeSms+"-------------------");
 				//System.out.println(date);
 				hrScheService.addsmsInfo(officeSms);
 				
-				System.out.println("新取到的smsid---------"+officeSms.getSmsId());
+				//System.out.println("新取到的smsid888888888888888888---------"+officeSms.getSmsId());
 				officeDetailSms.setSmsId(officeSms.getSmsId());
 				officeDetailSms.setReceiverId(long1);
 				officeDetailSms.setSmsState("0");
 				//根据发送者id查找接收者公司 
+				//System.out.println("!!!!!!!!!!!!!!!!!!"+long1);
 				SysUsers seleuserById2 = hrScheService.seleuserById(long1);
-				officeDetailSms.setComId(seleuserById2.getComId());
+				//System.out.println("^^^^^^^^^^^^^^^^^^^^^^"+seleuserById2);
+				Long empId2 = seleuserById2.getEmpId();
+				SysEmpuser seletempById2 = hrScheService.seletempById(empId);
+				
+				Long comId2 = seletempById2.getComId();
+				officeDetailSms.setComId(comId2);
+				//officeDetailSms.setComId(seleuserById2.getComId());
 				officeDetailSms.setLastTime(date);
 				hrScheService.adddetailsms(officeDetailSms);
 				
 				System.out.println("-------"+long1+"+++++++"+officeSms+officeDetailSms);
 			}
 			
-			
+			SysUsers user = (SysUsers)session.getAttribute("nowuser");
+			Long uid = user.getUserId();
+			Integer num = hrScheDetailService.countnum(uid);
+			session.setAttribute("num",num );
 			mav.setViewName("redirect:./selectdetailinfo.do");
 			return mav;
 		}
@@ -463,6 +534,8 @@ public class HR_ScheduleConroller {
 			}
 		
 		
+		  
+		  
 		
 		
 }

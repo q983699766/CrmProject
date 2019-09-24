@@ -60,6 +60,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <script src="<%=basePath%>assets/layer/layer.js" type="text/javascript" ></script>
         <script src="<%=basePath%>assets/laydate/laydate.js" type="text/javascript"></script>
 <title>用户列表</title>
+
+	<!--引入bootstrap的css文件-->
+    <link rel="stylesheet" href="<%=basePath%>css/bootstrap.min.css">
+    <!--先引入jquery的js文件（bootstrap本身未自带，需拷贝）-->
+    <%-- <script src="<%=basePath%>js/jquery.min.js"></script> --%>
+    <!--再引入bootstrap的js文件-->
+    <script src="<%=basePath%>js/bootstrap.min.js"></script>
+    
 </head>
 
 <body>
@@ -73,9 +81,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <ul class="search_content clearfix">
        <li><label class="l_f">请输入</label><input name="smsHeadline" type="text"  class="text_add" placeholder="输入消息标题"  style=" width:400px"/></li>
       <!--  <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li> -->
-       <li style=" width:90px;"> <input type="submit" value="查询" class="btn_search"></i></li>
+       <li style="width:90px;"><input type="submit" value="查询" class="btn_search"></i></li>
       </ul>
-      </form> 
+      </form>
     </div>
     
      <!---->
@@ -83,8 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        <span class="l_f">
         <a onclick="jiaaa()" href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>发送信息</a>
         <%-- <a title="编辑" onclick="jia(${per.smsId });member_edit('550')" href="javascript:;"   >${per.officeSms.smsHeadline}</a> --%>
-        <!-- <a href="javascript:ovid()"  onclick="fun()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a> -->
-        <a href="Office/selectinfo.do"  class="btn btn-success"><i class="icon-plus"></i>我的信息</a>
+         <a href="detail/countunread.do"  class="btn btn-warning"></i>我的未读信息个数:${num} </a> 
         <a href="javascript:shanchu()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
        
        <script type="text/javascript">
@@ -106,7 +113,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <div class="table_menu_list">
        <table class="table table-striped table-bordered table-hover" id="sample-table">
 		<thead>
-		 <tr>
+		 <tr class="success">
 				<th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
 				<th width="80">ID</th>
 				<th width="100">信息标题</th>
@@ -126,10 +133,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 			<c:forEach items="${smsdetailinfo.list }" var="per">
 				<tr>
-					<td><label><input type="checkbox" name="test11" value="${per.detailId }" class="ace"><span class="lbl"></span></label></td>
+					<td class="danger"><label><input type="checkbox" name="test11" value="${per.detailId }" class="ace"><span class="lbl"></span></label></td>
 					<td style="font-size:11px;">${per.detailId }</td>
 					<%-- <td style="font-size:11px;">${per.officeSms.smsHeadline}</td> --%>
-					<td style="font-size:11px;"><a title="详情" onclick="jia(${per.smsId });member_edit('550')" href="javascript:;"   >${per.officeSms.smsHeadline}</a> </td>
+					<td style="font-size:11px;"><a title="详情" onclick="jia(${per.detailId });member_edit('550')" href="javascript:;"   >${per.officeSms.smsHeadline}</a> </td>
 				
 					<td style="font-size:11px;">${per.sysUsers.userName}</td>
 				
@@ -139,15 +146,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 				
 				
-					<td class="td-status"><span class="label label-success radius">
+					
 
 					<c:if test="${per.smsState==1}">
-						已阅读
+						<td class="td-status"><span class="label label-danger radius">已阅读</span></td>
 					</c:if>
 					<c:if test="${per.smsState==0}">
-						未阅读
+						<td class="td-status"><span class="label label-warning radius">未阅读</span></td>
 					</c:if>
-					</span></td>
+					
 				
 					<td class="td-manage">
 						<a title="设为未读"  class="btn btn-xs btn-success" href='Office/Officestate.do?id=${per.detailId }'><i class="icon-ok bigger-120"></i></a>
@@ -162,15 +169,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 			</c:forEach>
 		</form>
+			
 			<tr>
 	           			<td colspan="12" style="text-align: center">
-	           			<a href="Office/selectdetailinfo.do?pageNum=${smsdetailinfo.firstPage }&smsHeadline=${smsHeadline}">首页</a>
-	           			<a href="Office/selectdetailinfo.do?pageNum=${smsdetailinfo.prePage }&smsHeadline=${smsHeadline}">上一页</a>
-	           			<a href="Office/selectdetailinfo.do?pageNum=${smsdetailinfo.nextPage }&smsHeadline=${smsHeadline}">下一页</a>
-	           			<a href="Office/selectdetailinfo.do?pageNum=${smsdetailinfo.lastPage }&smsHeadline=${smsHeadline}">尾页</a>
-	           			当前${smsdetailinfo.pageNum}/${smsdetailinfo.pages}页,共${smsdetailinfo.total}条
+	           			<ul class="pagination"> 
+	           			<li><a href="Office/selectdetailinfo.do?pageNum=${smsdetailinfo.firstPage }&smsHeadline=${smsHeadline}">首页</a></li>
+	           			<li><a href="Office/selectdetailinfo.do?pageNum=${smsdetailinfo.prePage }&smsHeadline=${smsHeadline}">&laquo;上一页</a></li>
+	           			<li><a href="Office/selectdetailinfo.do?pageNum=${smsdetailinfo.nextPage }&smsHeadline=${smsHeadline}">下一页&raquo;</a></li>
+	           			<li><a href="Office/selectdetailinfo.do?pageNum=${smsdetailinfo.lastPage }&smsHeadline=${smsHeadline}">尾页</a></li>
+	           			<!-- <li><a href="#">&raquo;</a></li> -->
+	           			<li><a href="#">当前${smsdetailinfo.pageNum}/${smsdetailinfo.pages}页,共${smsdetailinfo.total}条</a></li>
+	           			</ul>
 	           			</td>
 	           </tr>
+	           
       </tbody>
 	</table>
    </div>
@@ -178,18 +190,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </div>
 </div>
 <!--添加用户图层-->
+<form action="Office/setstate.do" method="post" onsubmit="return yan(this)">
 <div class="add_menber" id="add_menber_style" style="display:none">
   
     <ul class=" page-content">
-     <li><label class="label_name">信息标题：</label><span class="add_name"><input readonly="true" id="sms1" value="" name="用户名" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">信息标题：</label><span class="add_name"><input style="border:none;" readonly="true" id="sms1" value="" name="用户名" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name"></label><span class="add_name"></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">信息内容：</label><span class="add_name"><textarea readonly="true" id="sms2"  type="text"  class="text_add"></textarea></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">发送人：</label><span class="add_name"><input readonly="true" id="sms3"  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">发送公司：</label><span class="add_name"><input readonly="true" id="sms4"  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">发送时间：</label><span class="add_name"><input readonly="true" id="sms5"  type="text"  dateFmt="yyyy-MM-dd HH:mm:ss"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     
-    </ul>
+     <li><label class="label_name">信息内容：</label><span class="add_name"><textarea  style="resize: none;border:none;" readonly="true" id="sms2"  type="text"  class="text_add"></textarea></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">发送人：</label><span class="add_name"><input style="border:none;" readonly="true" id="sms3"  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">发送公司：</label><span class="add_name"><input style="border:none;" readonly="true" id="sms4"  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">发送时间：</label><span class="add_name"><input style="border:none;" readonly="true" id="sms5"  type="text"  dateFmt="yyyy-MM-dd HH:mm:ss"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <!-- <li><label class="label_name">发送时间：</label><span class="add_name"><input readonly="true" id="sms5"  type="text"  dateFmt="yyyy-MM-dd HH:mm:ss"  class="text_add"/></span><div class="prompt r_f"></div></li> -->
+     <%-- <fmt:formatDate value="${per.lastTime}" pattern="yyyy-MM-dd HH:mm:ss" /> --%>
+    </ul><br>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="确定并关闭"></div><br><br><br><br><br><br>
  </div>
+ </form>
  <script>
  function yan(c){
  //alert("进入js了");
@@ -210,14 +226,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <ul class=" page-content">
      <!-- <li style="display:hidden"><label class="label_name">客户编号：</label><span class="add_name"><input  type="text" id="customId" class="text_add"/></span><div class="prompt r_f"></div></li> -->
      
-   	<li>接&nbsp;&nbsp;收&nbsp;&nbsp;人：<select name="searchs" id="searchs" data-selector data-selector-checks="true"><option>接收人</option></select></li>
+   	<li><label class="label_name">接&nbsp;&nbsp;收&nbsp;&nbsp;人：：</label><select name="searchs" id="searchs" data-selector data-selector-checks="true"><option>接收人</option></select></li>
      <li><label class="label_name"></label><div class="prompt r_f"></div></li>
-     <li><label class="label_name">信息标题：</label><span class="add_name"><input  type="text" name="smshidle" id="detail2" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">信息标题：</label><span class="add_name"><input    type="text" name="smshidle" id="detail2" class="text_add"/></span><div class="prompt r_f"></div></li>
 	<li><label class="label_name"></label><div class="prompt r_f"></div></li>
 	<li><label class="label_name"></label><div class="prompt r_f"></div></li>
      <!-- <li><label class="label_name">接收人公司：</label><span class="add_name"><input  type="text" name="companyid" id="owner" class="text_add"/></span><div class="prompt r_f"></div></li> -->
 	<li><label class="label_name"></label><div class="prompt r_f"></div></li>
-     <li><label class="label_name">信息内容：</label><textarea style="width: 100%;height:100px; "   name="smsdetail1" id="detail3" ></textarea></li>
+     <li><label class="label_name">信息内容：</label><textarea style="resize: none;" style="width: 100%;height:100px; "   name="smsdetail1" id="detail3" ></textarea></li>
 
 
 		<%-- <select id="rolesx" name="roleId"  data-selector data-selector-checks="true">
@@ -227,7 +243,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </select></span><div class="prompt r_f"></div></li> --%>
             
     </ul><br><br><br><br><br><br><br><br><br><br><br><br>
-    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="发送"></div><br><br><br><br><br><br>
+    <br><br>
+    <div class="center" > <input onclick="changenum1()" class="btn btn-primary" type="submit" id="submit" value="发送"></div><br><br><br><br><br><br>
  </div>
  </form>
 </body>
@@ -360,9 +377,9 @@ laydate({
  */
 
 /* 查看详情的ajax */
-function jia(smsId)
+function jia(detail)
     {
-        var url="detail/selectsmsById.do?smsId="+smsId;
+        var url="detail/selectsmsById.do?detail="+detail;
    //ajax异步请求
    $.ajax
    ({
@@ -484,6 +501,10 @@ function member_del(obj,id){
     }
 
 
+	function changenum1(){
+		var nums=window.top.document.getElementsByName('num');
+		for(var i=0;i<nums.length;i++){nums[i].innerHTML="${num}+1";}
+		}
 
 
 </script>

@@ -48,4 +48,7 @@ public interface HrScheDetailService {
 			
 			//通过id修改供应商信息
 			public void updatestate(OfficeDetailSms officeDetailSms);
+
+
+			public Integer countnum(long uid);
 }
