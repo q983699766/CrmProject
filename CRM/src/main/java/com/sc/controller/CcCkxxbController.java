@@ -118,19 +118,17 @@ public class CcCkxxbController {
 		public ModelAndView select1(ModelAndView mav,HttpServletRequest req,
 				@RequestParam(defaultValue="1")Integer pageNum,
 				@RequestParam(defaultValue="5")Integer pageSize) throws IllegalStateException, IOException {
-			String ckBh = req.getParameter("ckBh");		
+			String ckBh = req.getParameter("ckBh");	
+			System.out.println("777777777777"+ckBh);
 			Long uid =(long) Integer.parseInt(ckBh);			
 			CcCkxxb byUid = ccCkxxbService.selectCcCkxxbByUid(uid);
 			PageInfo<Ccspxxb> pi = ccCkxxbService.selectbyckidPage(pageNum, pageSize, byUid.getCkBh());//selectbyckid(byUid.getCkBh());		
 			byUid.setCcspxxb(pi.getList());			
 			mav.addObject("aa", byUid);
 			System.out.println("f:"+pi.getFirstPage());
-			mav.addObject("aaaf",pi.getFirstPage());
-			mav.addObject("aaap",pi.getPrePage());
-			mav.addObject("aaan",pi.getNextPage());
-			mav.addObject("aaal",pi.getLastPage());
-			mav.addObject("aaapn",pi.getPageNum());
-			mav.addObject("aaaps",pi.getPages());
+		
+			mav.addObject("ckBh",ckBh);
+			mav.addObject("pi",pi);
 			mav.setViewName("Ck/splb2");
 			return mav;
 		}
@@ -144,7 +142,9 @@ public class CcCkxxbController {
 			System.out.println("进入查询供应商信息方法"+ccCkxxb);
 		
 			mav.addObject("pi", ccCkxxbService.selectmh(pageNum, pageSize, ccCkxxb));
-			
+			String ckM = ccCkxxb.getCkM();
+			System.out.println("6666666666666666"+ckM);
+			mav.addObject("CKM",ckM);
 		    mav.setViewName("Ck/cclb");
 			
 		    return mav;

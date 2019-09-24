@@ -230,29 +230,30 @@ $('.change_Password').on('click', function(){
 							</ul>
 						</li>
 	                   <li class="purple">
-						<a data-toggle="dropdown" class="dropdown-toggle" href="#" style="height: 45px;"><i class="icon-bell-alt"></i><span class="badge badge-important">8</span></a>
+						<a data-toggle="dropdown" class="dropdown-toggle" href="#" style="height: 45px;"><i class="icon-bell-alt"></i><span class="badge badge-important" name="num">${num}</span></a>
 							<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
-                            <li class="dropdown-header"><i class="icon-warning-sign"></i>8条通知</li>
+                            <li class="dropdown-header"><i class="icon-warning-sign"></i><span name="num">${num}</span>条未读短信</li>
                             <li>
                               <a href="#">
 										<div class="clearfix">
 											<span class="pull-left">
-												<i class="btn btn-xs no-hover btn-pink icon-comment"></i>
-												新闻评论
+												<!-- <i class="btn btn-xs no-hover btn-pink icon-comment"></i> -->
+												<!-- <a href="Office/selectreaded.do?read=0" class="btn btn-yellow"><i class="fa fa-times"></i>&nbsp;我的未读短信</a> -->
+												<a href="javascript:void(0)" name="Office/selectreaded.do?read=0" title="未读消息" class="iframeurl"><i class="icon-double-angle-right"></i>我的未读消息</a>
 											</span>
-											<span class="pull-right badge badge-info">+12</span>
+											<span class="pull-right badge badge-info" name="num">${num}</span>
 										</div>
 									</a>
 								</li>
 
 								<li>
-									<a href="#">
-										<i class="btn btn-xs btn-primary icon-user"></i>
-										切换为编辑登录..
-									</a>
+									
+										<a href="javascript:void(0)" name="officectlr/agenda1.do" title="日程安排1" class="iframeurl"><i class="icon-double-angle-right"></i>我的日程安排</a>
+									
 								</li> 
+								
 
-								<li>
+								<!-- <li>
 									<a href="#">
 										<div class="clearfix">
 											<span class="pull-left">
@@ -272,13 +273,14 @@ $('.change_Password').on('click', function(){
 											<span class="pull-right badge badge-info">+11</span>
 										</div>
 									</a>
-								</li>
+								</li> -->
 
 								<li>
-									<a href="#">
-										查看所有通知
+									<!-- <a href="#">
+										查看我接收的所有短信
 										<i class="icon-arrow-right"></i>
-									</a>
+									</a> -->
+									<a href="javascript:void(0)" name="Office/selectinfo.do" title="消息列表" class="iframeurl"><i class="icon-double-angle-right"></i>查看我接收的所有短信<i class="icon-arrow-right"></i></a>
 								</li>
 							</ul>
 						</li>
@@ -328,7 +330,7 @@ $('.change_Password').on('click', function(){
 						 <li class="home"><a  href="javascript:void(0)" name="sycompanyctlr/list.do" title="公司信息" class="iframeurl"><i class="icon-double-angle-right"></i>公司管理</a></li>
 						 <li class="home"><a href="javascript:void(0)" name="sysEmpuser/list.do" title="员工信息" class="iframeurl"><i class="icon-double-angle-right"></i>员工管理</a></li>
 						<li class="home"><a href="javascript:void(0)" name="syBranchctlr/tiao.do"  title="部门信息" class="iframeurl"><i class="icon-double-angle-right"></i>部门管理</a></li>
-						</ul>
+						</ul> 
 					</li>
 					<li>
 					<a href="#" class="dropdown-toggle"><i class="icon-picture "></i><span class="menu-text">仓库</span><b class="arrow icon-angle-down"></b></a>
@@ -336,7 +338,7 @@ $('.change_Password').on('click', function(){
 						<li class="home"><a href="javascript:void(0)" name="ccckxxctlr/ck.do" title="库存信息" class="iframeurl"><i class="icon-double-angle-right"></i>库存信息</a></li>
 						<li class="home"><a href="javascript:void(0)" name="ccspxxctlr/list.do" title="库存商品信息"  class="iframeurl"><i class="icon-double-angle-right"></i>库存商品信息</a></li>
 						<li class="home"><a href="javascript:void(0)" name="cgxqctlr/ck.do" title="采购详情"  class="iframeurl"><i class="icon-double-angle-right"></i>采购详情</a></li>
-						<li class="home"><a href="javascript:void(0)" name="ccspxxctlr/list.do" title="销售详情"  class="iframeurl"><i class="icon-double-angle-right"></i>销售详情</a></li>
+						<li class="home"><a href="javascript:void(0)" name="ccspxxctlr/xs.do" title="销售详情"  class="iframeurl"><i class="icon-double-angle-right"></i>销售详情</a></li>
 							</ul>
 						</li>
 					<li>

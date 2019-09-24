@@ -49,41 +49,7 @@ public class UsersController {
 	
 	@RequestMapping("/update.do")
 	public ModelAndView update111(ModelAndView mav, HttpSession session , HttpServletRequest req, SysUsers user, Long[] roleId){
-		
-		/*String uname = user.getUserName();
-		SysUsersExample sysUsersExample = new SysUsersExample();
-		Criteria c = sysUsersExample.createCriteria();
-		c.andUserNameEqualTo(uname);
-		
-		List<SysUsers> list3 = SysUsersMapper.selectByExample(sysUsersExample);
-		
-		if(list3.size() == 0){
-			Date date = new Date();
-			user.setLastTime(date);
-			
-			SysUsers u = (SysUsers)session.getAttribute("nowuser");
-			
-			Long uid = u.getUserId();
-			
-			UsersService.updateUserRole(user, roleId, uid);
-			mav.addObject("ok", "1");
-		}else if(list3.size() ==1){
-			if(list3.get(0).getUserId() == user.getUserId()){
-				Date date = new Date();
-				user.setLastTime(date);
-				
-				SysUsers u = (SysUsers)session.getAttribute("nowuser");
-				
-				Long uid = u.getUserId();
-				
-				UsersService.updateUserRole(user, roleId, uid);
-				mav.addObject("ok", "1");
-			}
-			mav.addObject("ok", "2");
-			
-		}else {
-			mav.addObject("ok", "2");
-		}*/
+		System.out.println("********************"+roleId);
 		
 		SysUsers u = (SysUsers)session.getAttribute("nowuser");
 		
@@ -98,6 +64,7 @@ public class UsersController {
 		if(list.isEmpty()){
 			for (Long long1 : roleId) {
 				if(long1 == 1){
+					
 					Integer ok=3;
 					mav.setViewName("redirect:../usersctlr/getlist1.do?ok="+ok);
 					return mav;
@@ -185,6 +152,7 @@ public class UsersController {
 				
 				SysUsers u = UsersService.selectByName(userName);
 				Long userId = u.getUserId();
+				if(roleId!=null){
 				for (Long rId : roleId) {
 					
 				SysUsersRole sysUsersRole1 = new SysUsersRole();
@@ -194,6 +162,7 @@ public class UsersController {
 				sysUsersRole1.setUserId(userId);
 				
 				SysUsersRoleMapper.insert(sysUsersRole1);
+				}
 				}
 					Integer ok=1;
 					mav.setViewName("redirect:../usersctlr/getlist1.do?ok="+ok);

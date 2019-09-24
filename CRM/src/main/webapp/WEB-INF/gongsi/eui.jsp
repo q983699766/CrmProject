@@ -37,8 +37,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <div class="layui-form-item">
     <label class="layui-form-label">所属部门</label>
     <div class="layui-input-block">
-      <select name="secId" lay-verify="required">
-      <option value="0">请选择--</option>
+      <select name="secId" required  lay-verify="required">
+      <option value=" ">请选择--</option>
         <c:forEach items="${lss }" var="u">
     			<option value="${u.secId}">${u.secName}</option>
     		 </c:forEach>
@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <label class="layui-form-label">所属公司</label>
     <div class="layui-input-block">
       <select name="comId" lay-verify="required">
-      <option value="0">请选择--</option>
+      <option value=" ">请选择--</option>
          <c:forEach items="${css }" var="k">
     	<option value="${k.comId}">${k.comName}</option>
     	 </c:forEach>

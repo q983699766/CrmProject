@@ -232,6 +232,7 @@
 		var empFace = document.getElementById("empFace1").value;
 		var empSchool = document.getElementById("empSchool1").value;
 		var empPhone = document.getElementById("empPhone1").value;
+		var regTel = /0?(13|14|15|18|17)[0-9]{9}/;
 		if (empName==""){
 			  layer.alert('员工姓名不能为空!',{
               title: '提示框',				
@@ -281,8 +282,8 @@
 			 });
 			return false;
           } 
-             if (empPhone==""){
-			  layer.alert('员工电话不能为空!',{
+             if (!regTel.test(empPhone) ){
+			  layer.alert('电话格式不正确!',{
               title: '提示框',				
 				icon:0, 
 			 });

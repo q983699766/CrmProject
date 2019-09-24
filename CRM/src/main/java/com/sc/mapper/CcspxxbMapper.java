@@ -1,7 +1,10 @@
 package com.sc.mapper;
 
+import com.github.pagehelper.PageInfo;
 import com.sc.bean.Ccspxxb;
 import com.sc.bean.CcspxxbExample;
+import com.sc.bean.SalOrder;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

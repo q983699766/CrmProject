@@ -132,7 +132,7 @@
                   <a href="products/selectproducts11.do?pageNum=${pi.prePage }">上一页</a>
                   <a href="products/selectproducts11.do?pageNum=${pi.nextPage }">下一页</a>
                   <a href="products/selectproducts11.do?pageNum=${pi.lastPage }">尾页</a>
-                                       当前${pi.pageNum }/${pi.pages }页，共${pi.total }条
+                  <a class="bg-success">当前${pi.pageNum }/${pi.pages }页，共${pi.total }条。</a>
               </td>
            </tr>
       </tbody>

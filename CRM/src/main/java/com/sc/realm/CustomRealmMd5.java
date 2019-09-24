@@ -15,6 +15,7 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sc.bean.SysPermission;
+import com.sc.bean.SysRole;
 import com.sc.bean.SysUsers;
 import com.sc.service.PermissionService;
 import com.sc.service.SysUsersService;
@@ -28,16 +29,40 @@ public class CustomRealmMd5 extends AuthorizingRealm {
 	@Autowired
 	PermissionService permissionService;
 	
+	@Autowired
+	com.sc.service.UserInfoService UserInfoService;
+	
+	
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
 		System.out.println("88888888888888888进入授权方法了！！！！");
+		
+		ArrayList<String> perms = new ArrayList<String>();
 		
 		SysUsers sysuser = (SysUsers)arg0.getPrimaryPrincipal();
 		System.out.println("获取到的对象是：7777777777777777777"+sysuser);
 		Long uid = sysuser.getUserId();
 		
-		
-		ArrayList<String> perms = new ArrayList<String>();
+		List<SysRole> myRole = UserInfoService.getMyRole(uid);
+		if(!myRole.isEmpty()){
+		for (SysRole sysRole : myRole) {
+			Long rId = sysRole.getRoleId();
+			if(rId == 1){
+				List<SysPermission> permList = permissionService.getPermList();
+				for (SysPermission per : permList) {
+					String percode = per.getRemark();
+					if(percode != null && !percode.equals("")){
+						perms.add(percode);
+					}
+				}
+				SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+				if(perms != null && perms.size() > 0){
+					info.addStringPermissions(perms);
+				}
+				return info;
+			}
+		}
+		}
 		List<SysPermission> list = permissionService.getMyPerm(uid);
 		System.out.println("*****************"+list);
 		if(list != null && list.size() > 0){

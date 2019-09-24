@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
+import com.sc.bean.SysPermissionRole;
 import com.sc.bean.SysRole;
 import com.sc.bean.SysRoleExample;
 import com.sc.bean.SysRoleExample.Criteria;
 import com.sc.bean.SysUsers;
+import com.sc.mapper.SysPermissionRoleMapper;
 import com.sc.mapper.SysRoleMapper;
 import com.sc.service.RolesService;
 
@@ -30,6 +32,9 @@ public class RoleController {
 	
 	@Autowired
 	SysRoleMapper SysRoleMapper;
+	
+	@Autowired
+	SysPermissionRoleMapper SysPermissionRoleMapper;
 	
 	@RequestMapping("/update.do")
 	public ModelAndView update111(ModelAndView mav, HttpSession session , HttpServletRequest req, SysRole role){
@@ -108,6 +113,24 @@ public class RoleController {
 			role.setLastTime(date);
 			
 			RolesService.addRole(role);
+			
+			SysRoleExample sysRoleExample1 = new SysRoleExample();
+			Criteria c1 = sysRoleExample1.createCriteria();
+			c1.andRoleNameEqualTo(rname);
+			List<SysRole> selectByExample1 = SysRoleMapper.selectByExample(sysRoleExample1);
+			
+			SysRole sysRole = selectByExample1.get(0);
+			Long roleId = sysRole.getRoleId();
+			
+			SysPermissionRole PR = new SysPermissionRole();
+			Long PID = (long) 154;
+			PR.setPermissionId(PID);
+			PR.setRoleId(roleId);
+			PR.setLastTime(date);
+			PR.setOperatorId(userId);
+			
+			SysPermissionRoleMapper.insert(PR);
+			
 			ok=1;
 		}else{
 			ok=2;

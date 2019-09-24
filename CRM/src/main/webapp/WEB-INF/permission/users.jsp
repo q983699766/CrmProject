@@ -98,7 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <th>用户密码</th>
               <th>用户姓名</th>
               <th>用户所拥有角色</th>
-              <th>上次操作时间</th>
+              <th>上次修改时间</th>
 			  <th class="hidden-480">用户状态</th>             
 			  <th class="hidden-480">操作</th>
              </tr>
@@ -192,8 +192,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</label><span class="add_name">
-     <label><input name="userState" value="0" type="radio" checked="checked" class="ace"><span class="lbl">启用</span></label>&nbsp;&nbsp;&nbsp;
-     <label><input name="userState" value="1" type="radio" class="ace"><span class="lbl">不启用</span></label></span><div class="prompt r_f"></div></li><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+     <label><input name="userState" value="0" type="radio" class="ace"><span class="lbl">启用</span></label>&nbsp;&nbsp;&nbsp;
+     <label><input name="userState" value="1" type="radio" checked="checked" class="ace"><span class="lbl">不启用</span></label></span><div class="prompt r_f"></div></li><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     	<!-- <input name="roleId" type="hidden" id="myroleid" > -->
     </ul>
     <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
@@ -218,11 +218,11 @@ function add(obj){
 		$(".actives").each(function(i,e){
 		    
 		    roleId+="roleId="+$(this).attr("data-value")+"&";
-		    alert(roleId);
+		    
 		});
 		
 		obj.action=obj.action+"?"+roleId;
-		alert(obj.action); 
+		
 		
 		if (pass4==""){
 			  layer.alert('用户名不能为空!',{
@@ -268,17 +268,17 @@ function add(obj){
 /* 修改判断 */
 	function update(obj){
 		var pass1 = document.getElementById("empIdx").value;
-		var pass2 = document.getElementById("comIdx").value;
+		/* var pass2 = document.getElementById("comIdx").value; */
 		//var pass3 = document.getElementById("rolesx");
 		
 		var roleId="";
 		$(".actives").each(function(i,e){
-		    alert($(this).attr("data-value")); 
+		    //alert($(this).attr("data-value")); 
 		    roleId+="roleId="+$(this).attr("data-value")+"&";
 		});
 		obj.action=obj.action+"?"+roleId;
-		alert(obj.action);
-		alert(roleId); 
+		//alert(obj.action);
+		//alert(roleId); 
 		if (pass1==""){
 			  layer.alert('员工编号不能为空!',{
               title: '提示框',				

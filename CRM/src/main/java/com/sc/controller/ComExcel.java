@@ -27,7 +27,7 @@ import com.sc.service.SysComPanyService;
 public class ComExcel {
 	
 	@Autowired
-	 SysComPanyService sysComPanyService;
+	SysComPanyService sysComPanyService;
 	
 	@RequestMapping("/comexcle.do")
 	    public void UserExcelDownloads(HttpServletResponse response,SysDuty u)throws IOException {
@@ -67,7 +67,7 @@ public class ComExcel {
 	            row1.createCell((short) 9).setCellValue(new HSSFRichTextString(s.getComBank()));
 	            row1.createCell((short) 10).setCellValue(new HSSFRichTextString(s.getComBankuser()));
 	            row1.createCell((short) 11).setCellValue(new HSSFRichTextString(s.getComYesandno()));
-	            row1.createCell((short) 12).setCellValue(new HSSFRichTextString(s.getComRemark()));
+	            row1.createCell((short) 12).setCellValue(s.getComRemark());
 	            row1.createCell((short) 13).setCellValue(sdf.format(s.getLastTime()));
 	            rowNum++;
 	        }
