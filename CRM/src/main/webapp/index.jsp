@@ -351,7 +351,7 @@ $('.change_Password').on('click', function(){
 					<a href="#" class="dropdown-toggle"><i class="icon-user"></i><span class="menu-text"> 客户管理 </span><b class="arrow icon-angle-down"></b></a>
                     <ul class="submenu">
                     <li class="home"><a href="javascript:void(0)" name="conctlr/custom.do" title="客户信息"  class="iframeurl"><i class="icon-double-angle-right"></i>客户信息</a></li>
-
+					<li class="home"><a href="javascript:void(0)" name="conctlr/lose.do" title="客户流失"  class="iframeurl"><i class="icon-double-angle-right"></i>客户流失</a></li>
                    </ul>
 				  </li>
 						<li><a href="#" class="dropdown-toggle"><i class="icon-edit"></i><span class="menu-text"> 万成龙</span><b class="arrow icon-angle-down"></b></a>

@@ -1,5 +1,7 @@
 package com.sc.mapper;
 
+import com.sc.bean.SalConper;
+import com.sc.bean.SalConperExample;
 import com.sc.bean.SalCustomInfo;
 import com.sc.bean.SalCustomInfoExample;
 import java.util.List;
@@ -27,5 +29,9 @@ public interface SalCustomInfoMapper {
     int updateByPrimaryKeySelective(SalCustomInfo record);
 
     int updateByPrimaryKey(SalCustomInfo record);
+    
+  //通过客户ID找出最后下单时间的所有客户
+    List<SalCustomInfo> selectByOrderId(SalCustomInfoExample example);
+  
     
 }

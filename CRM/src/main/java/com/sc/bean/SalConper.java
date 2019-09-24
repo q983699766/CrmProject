@@ -31,8 +31,29 @@ public class SalConper implements Serializable {
 
     private Long comId;
     
-    //拓展属性
-   
+    //拓展属性--联系记录
+    private List<SalRecord> salrecord;
+  	
+	public List<SalRecord> getSalrecord() {
+		return salrecord;
+	}
+
+	public void setSalrecord(List<SalRecord> salrecord) {
+		this.salrecord = salrecord;
+	}
+	
+	
+	//拓展属性--销售出库
+	private SalOrder salorder;
+
+	public SalOrder getSalorder() {
+		return salorder;
+	}
+
+	public void setSalorder(SalOrder salorder) {
+		this.salorder = salorder;
+	}
+
 
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastTime;
