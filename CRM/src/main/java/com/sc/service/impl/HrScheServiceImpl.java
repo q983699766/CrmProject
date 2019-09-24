@@ -11,11 +11,13 @@ import com.sc.bean.OfficeDetailSms;
 import com.sc.bean.OfficeSms;
 import com.sc.bean.OfficeSmsExample;
 import com.sc.bean.SysCOMPANY;
+import com.sc.bean.SysEmpuser;
 import com.sc.bean.SysUsers;
 import com.sc.bean.SysUsersExample;
 import com.sc.mapper.OfficeDetailSmsMapper;
 import com.sc.mapper.OfficeSmsMapper;
 import com.sc.mapper.SysCOMPANYMapper;
+import com.sc.mapper.SysEmpuserMapper;
 import com.sc.mapper.SysUsersMapper;
 import com.sc.service.HrScheDetailService;
 import com.sc.service.HrScheService;
@@ -37,6 +39,9 @@ public class HrScheServiceImpl implements HrScheService{
 	
 	@Autowired
 	HrScheDetailService hrScheDetailService;
+	
+	@Autowired
+	SysEmpuserMapper sysEmpuserMapper;
 	
 	//查询所有
 	@Override
@@ -169,5 +174,11 @@ public class HrScheServiceImpl implements HrScheService{
 		}
 		pageInfo.setList(list);
 		return pageInfo;
+	}
+
+	@Override
+	public SysEmpuser seletempById(long empid) {
+		
+		return sysEmpuserMapper.selectByPrimaryKey(empid);
 	}
 }

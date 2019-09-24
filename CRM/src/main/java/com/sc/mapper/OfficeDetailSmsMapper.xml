@@ -280,7 +280,7 @@
 		<!-- OR O LIKE CONCAT('%',#{keyWord},'%') -->
 		<!-- AND O.SMS_SENDER=#{userId} -->
 		AND D.RECEIVER_ID=#{smsSender}
-		
+		ORDER BY D.LAST_TIME DESC
   </select>  
   
    <select id="selectdetailsmsAndsms" parameterType="com.sc.bean.OfficeSms" resultType="com.sc.bean.OfficeDetailSms" >
@@ -292,13 +292,14 @@
 		<!-- OR O LIKE CONCAT('%',#{keyWord},'%') -->
 		 AND O.SMS_SENDER=#{smsSender} 
 		 <!-- AND D.RECEIVER_ID=#{smsSender}  -->
-		
+		ORDER BY D.LAST_TIME DESC
   </select> 
   
    <select id="selectdetailsmsAnduser" parameterType="java.lang.Long" resultType="com.sc.bean.OfficeDetailSms" >
      		SELECT D.*
 			FROM OFFICE_DETAIL_SMS D
 			WHERE D.RECEIVER_ID=#{userId}
+			ORDER BY D.LAST_TIME DESC
  	 </select> 
  	 
  	 <select id="selectdetailsmsAndall" parameterType="java.lang.Long" resultType="com.sc.bean.OfficeDetailSms" >
@@ -307,6 +308,7 @@
 			LEFT JOIN OFFICE_SMS O
 			ON O.SMS_ID=D.SMS_ID
 			WHERE O.SMS_SENDER=#{userId}
+			ORDER BY D.LAST_TIME DESC
  	 </select> 
  	 
  	 
@@ -320,7 +322,7 @@
 		<!-- OR O LIKE CONCAT('%',#{keyWord},'%') -->
 		 D.SMS_STATE=1
 		AND D.RECEIVER_ID=#{smsSender}
-		
+		ORDER BY D.LAST_TIME DESC
   </select> 
     
     
@@ -333,7 +335,7 @@
 		
 		 D.SMS_STATE=0
 		AND D.RECEIVER_ID=#{smsSender}
-		
+		ORDER BY D.LAST_TIME DESC
   </select>  
   
 </mapper>
