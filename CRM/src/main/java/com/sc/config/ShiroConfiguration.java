@@ -144,10 +144,11 @@ public class ShiroConfiguration {
 		}*/
 		List<SysPermission> list=PermissionService.getPermList();
 		for (SysPermission sysPermission : list) {
-			if(sysPermission.getPermissionName()!=null&&!sysPermission.getPermissionName().equals("")
+			if(sysPermission.getRemark()!=null&&!sysPermission.getRemark().equals("")
 				&&sysPermission.getPermission()!=null&&!sysPermission.getPermission().equals("")	){
-				System.out.println("===1=="+sysPermission.getPermission()+"====="+sysPermission.getPermissionName());
-				filterChainDefinitionMap.put(sysPermission.getPermission(), "perms["+sysPermission.getPermissionName()+"]");
+				System.out.println("===1=="+sysPermission.getPermission()+"====="+sysPermission.getRemark());
+				//filterChainDefinitionMap.put("/userctrl/list.do", "perms[users:list]");
+				filterChainDefinitionMap.put(sysPermission.getPermission(), "perms["+sysPermission.getRemark()+"]");
 			}
 		}
 		

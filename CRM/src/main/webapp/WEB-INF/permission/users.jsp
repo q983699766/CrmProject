@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
  <div class="margin clearfix">
  
- 	<div class="search_style">
+ 	<%-- <div class="search_style">
     	<font size="80">${aa.ckM }</font> 
     <form action="#" method="post">
       <div class="title_names">账户、用户名关键字查询</div>
@@ -80,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        <li style="width:90px;"><button type="submit" class="btn_search"><i class="icon-search"></i>查询</button></li>
       </ul>
       </form>
-    </div>
+    </div> --%>
     
    <div class="border clearfix">
        <span class="l_f">

@@ -109,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <td>${r.roleId }</td>
         <td>${r.roleName }</td>
         <td>${r.roleDescribe }</td>
-        <td><c:forEach items="${r.perms }" var="p"><p>${p.permissionName}</p></c:forEach></td>
+        <td>${r.roleId == 1 ? "一切权限":""}<c:forEach items="${r.perms }" var="p"><p>${p.permissionName}</p></c:forEach></td>
         <td>${r.higherRoleId }</td>
         <td><fmt:formatDate value="${r.lastTime }" pattern="yyyy-MM-dd"/></td>      
       </tr>

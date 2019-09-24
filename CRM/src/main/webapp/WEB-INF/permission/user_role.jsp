@@ -75,7 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
  <div class="margin clearfix">
  
- 	<div class="search_style">
+ 	<%-- <div class="search_style">
     	<font size="80">${aa.ckM }</font> 
     <form action="#" method="post">
       <div class="title_names">权限名关键字查询</div>
@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        <li style="width:90px;"><button type="submit" class="btn_search"><i class="icon-search"></i>查询</button></li>
       </ul>
       </form>
-    </div>
+    </div> --%>
  
  <form action="getPermByCol.do" method="post">
    <div class="border clearfix">
@@ -192,7 +192,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <ul class=" page-content">
      <li><label class="label_name">权限名称：</label><span class="add_name"><input  type="text" name="permissionName" id="permissionName111" class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">权限方法：</label><span class="add_name"><input  type="text" name="permission" id="permission111" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">权限描述：</label><span class="add_name"><input  type="text" name="remark" id="remark1" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">权限别名：</label><span class="add_name"><input placeholder="必须型如：user：add" type="text" name="remark" id="remark1" class="text_add" /></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">所在分栏：</label><span class="add_name"><select id="columnName111" name="columnName" data-selector>
                 <c:forEach items="${col}" var="c" ><option value="${c.columnName }">${c.columnName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>

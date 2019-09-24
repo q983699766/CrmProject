@@ -42,7 +42,7 @@ public class CustomRealmMd5 extends AuthorizingRealm {
 		System.out.println("*****************"+list);
 		if(list != null && list.size() > 0){
 			for (SysPermission per : list) {
-				String percode = per.getPermissionName();
+				String percode = per.getRemark();
 				if(percode != null && !percode.equals("")){
 					perms.add(percode);
 				}
