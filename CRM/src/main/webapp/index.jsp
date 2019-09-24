@@ -340,11 +340,9 @@ $('.change_Password').on('click', function(){
 							</ul>
 						</li>
 					<li>
-					<a href="#" class="dropdown-toggle"><i class="icon-list"></i><span class="menu-text"> 余懿 </span><b class="arrow icon-angle-down"></b></a>
+					<a href="#" class="dropdown-toggle"><i class="icon-list"></i><span class="menu-text"> 销售订单 </span><b class="arrow icon-angle-down"></b></a>
                     <ul class="submenu">
-                    <li class="home"><a href="javascript:void(0)" name="salCtl/countSal" title="交易信息"  class="iframeurl"><i class="icon-double-angle-right"></i>交易信息</a></li>
                     <li class="home"><a href="javascript:void(0)" name="salCtl/salMessCtl" title="订单管理"  class="iframeurl"><i class="icon-double-angle-right"></i>订单管理</a></li>
-                    <li class="home"><a href="javascript:void(0)" name="Order_handling.html" title="订单处理"  class="iframeurl"><i class="icon-double-angle-right"></i>订单处理</a></li>
                    </ul>
 				  </li>
                   <li>
@@ -384,8 +382,7 @@ $('.change_Password').on('click', function(){
 								<li class="home"><a href="javascript:void(0)" name="usersctlr/getlist1.do" title="账户管理"  class="iframeurl"><i class="icon-double-angle-right"></i>账户管理</a></li>
 								<li class="home"><a href="javascript:void(0)" name="rolesctlr/getlist.do" title="角色管理"  class="iframeurl"><i class="icon-double-angle-right"></i>角色管理</a></li>
 								<li class="home"><a href="javascript:void(0)" name="permisctlr/getPermission.do" title="权限管理"  class="iframeurl"><i class="icon-double-angle-right"></i>权限管理</a></li>
-                   
-								  
+								<li class="home"><a href="javascript:void(0)" name="syslogctrl/showLOg" title="系统日志"  class="iframeurl"><i class="icon-double-angle-right"></i>系统日志</a></li>  
 							</ul>
 						</li>
 					</ul>

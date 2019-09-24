@@ -392,6 +392,7 @@
 	  	OR SC.COM_NAME LIKE CONCAT(CONCAT('%',#{message}),'%')
 	  	OR SO.REMARK LIKE CONCAT(CONCAT('%',#{message}),'%')
 	)
+	ORDER BY SO.LAST_TIME DESC
   </select>
   
   <select id="selectSPLB" resultType="java.lang.String">

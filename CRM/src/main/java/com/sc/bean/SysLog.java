@@ -18,8 +18,30 @@ public class SysLog implements Serializable {
     private Date accessTime;
 
     private Long comId;
+    
+    //附加属性
+    private SysUsers user;
+    private SysCOMPANY company;
+    
+    
 
-    private static final long serialVersionUID = 1L;
+    public SysUsers getUser() {
+		return user;
+	}
+
+	public void setUser(SysUsers user) {
+		this.user = user;
+	}
+
+	public SysCOMPANY getCompany() {
+		return company;
+	}
+
+	public void setCompany(SysCOMPANY company) {
+		this.company = company;
+	}
+
+	private static final long serialVersionUID = 1L;
 
     public SysLog(Long logId, Long userId, String accessIp, String permission, Date accessTime, Long comId) {
         this.logId = logId;
