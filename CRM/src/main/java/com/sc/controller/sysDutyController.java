@@ -1,6 +1,5 @@
 package com.sc.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -13,13 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.github.pagehelper.PageInfo;
 import com.sc.bean.SysBranch;
 import com.sc.bean.SysDuty;
 import com.sc.service.SysDutyService;
-
-import net.minidev.json.JSONArray;
 
 @Controller
 @RequestMapping("sysdutyctlr")

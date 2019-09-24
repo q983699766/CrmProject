@@ -92,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </td>   
         <td width="4%">${t.comRemark }</td>    
         <td width="4%"><fmt:formatDate value="${t.lastTime}" pattern="yyyy-MM-dd" /></td>
-        <td width="5%"><a href="javascript:"  class="member_show"  onclick="jia(${t.comId })">查看详情</a></td>
+        <td width="5%"><a href="javascript:"  class="member_show"  onclick="jia(${t.comId})">查看详情</a></td>
         <td class="td-manage" width="5%">
         <a title="编辑" onclick="Competence_modify('560')" href='update.do?comId=${t.comId}'  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
         <a title="删除" href='del.do?comId=${t.comId}' onclick="return window.confirm('是否确定删除此用户?')"class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
@@ -146,19 +146,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    <!-- 查看详情 -->
  <div class="add_menber" id="show_menber_style" style="display:none"> 
     <ul class=" page-content">
-     <li><label class="label_name">公司名称：</label><span class="add_name"><input  type="text" readonly="readonly" id="comName" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">公司代码：</label><span class="add_name"><input  type="text" readonly="readonly" id="comCode" class="text_add"/></span><div class="prompt r_f"></div></li>
-      <li><label class="label_name">公司邮箱：</label><span class="add_name"><input readonly="readonly" type="text" id="comEmail" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">联系人：</label><span class="add_name"><input readonly="readonly" type="text" id="comLinkman" class="text_add"/></span><div class="prompt r_f"></div></li>
-        <li><label class="label_name">公司地址：</label><span class="add_name"><input  type="text" readonly="readonly" id="comAddress" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">固定电话：</label><span class="add_name"><input  type="text" readonly="readonly" id="comPhone" class="text_add"/></span><div class="prompt r_f"></div></li>
-      <li><label class="label_name">移动电话：</label><span class="add_name"><input readonly="readonly" type="text" id="comYphone" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">传真：</label><span class="add_name"><input readonly="readonly" type="text"  id="comFax" class="text_add"/></span><div class="prompt r_f"></div></li>
-        <li><label class="label_name">开户银行：</label><span class="add_name"><input  type="text" readonly="readonly" id="comBank" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">银行账户：</label><span class="add_name"><input  type="text" readonly="readonly" id="comBankuser" class="text_add"/></span><div class="prompt r_f"></div></li>
-      <li><label class="label_name">是否有效：</label><span class="add_name"><input readonly="readonly" type="text" id="comYesandno" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">备注信息：</label><span class="add_name"><input readonly="readonly" type="text" id="comRemark" class="text_add"/></span><div class="prompt r_f"></div></li>
-      <li><label class="label_name">修改时间：</label><span class="add_name"><input readonly="readonly" type="text" id="lastTime" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">公司名称：</label><span class="add_name"><input  type="text" readonly="readonly" id="comName1" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">公司代码：</label><span class="add_name"><input  type="text" readonly="readonly" id="comCode1" class="text_add"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">公司邮箱：</label><span class="add_name"><input readonly="readonly" type="text" id="comEmail1" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">联系人：</label><span class="add_name"><input readonly="readonly" type="text" id="comLinkman1" class="text_add"/></span><div class="prompt r_f"></div></li>
+        <li><label class="label_name">公司地址：</label><span class="add_name"><input  type="text" readonly="readonly" id="comAddress1" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">固定电话：</label><span class="add_name"><input  type="text" readonly="readonly" id="comPhone1" class="text_add"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">移动电话：</label><span class="add_name"><input readonly="readonly" type="text" id="comYphone1" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">传真：</label><span class="add_name"><input readonly="readonly" type="text"  id="comFax1" class="text_add"/></span><div class="prompt r_f"></div></li>
+        <li><label class="label_name">开户银行：</label><span class="add_name"><input  type="text" readonly="readonly" id="comBank1" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">银行账户：</label><span class="add_name"><input  type="text" readonly="readonly" id="comBankuser1" class="text_add"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">是否有效：</label><span class="add_name"><input readonly="readonly" type="text" id="comYesandno1" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">备注信息：</label><span class="add_name"><input readonly="readonly" type="text" id="comRemark1" class="text_add"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">修改时间：</label><span class="add_name"><input readonly="readonly" type="text" id="lastTime1" class="text_add"/></span><div class="prompt r_f"></div></li>
    </ul>
  </div> 
 </body>
@@ -262,19 +262,19 @@ function jia(dutId)
       dataType:"json",
       success:function(data)
       {
-       	 $("#comName").val(data.comName);
-         $("#comCode").val(data.comCode);//将取出的值覆盖原来的值 （val对值进行操作)
-         $("#comEmail").val(data.comEmail);
-         $("#comLinkman").val(data.comLinkman); 
-          $("#comAddress").val(data.comAddress);
-         $("#comPhone").val(data.comPhone);//将取出的值覆盖原来的值 （val对值进行操作)
-         $("#comYphone").val(data.comYphone);
-         $("#comFax").val(data.comFax); 
-          $("#comBankuser").val(data.comBankuser);
-         $("#comYesandno").val(data.comYesandno);//将取出的值覆盖原来的值 （val对值进行操作)
-         $("#comBank").val(data.comBank);
-         $("#comRemark").val(data.comRemark);
-          $("#lastTime").val(data.lastTime);   
+       	 $("#comName1").val(data.comName);
+         $("#comCode1").val(data.comCode);//将取出的值覆盖原来的值 （val对值进行操作)
+         $("#comEmail1").val(data.comEmail);
+         $("#comLinkman1").val(data.comLinkman); 
+          $("#comAddress1").val(data.comAddress);
+         $("#comPhone1").val(data.comPhone);//将取出的值覆盖原来的值 （val对值进行操作)
+         $("#comYphone1").val(data.comYphone);
+         $("#comFax1").val(data.comFax); 
+          $("#comBankuser1").val(data.comBankuser);
+         $("#comYesandno1").val(data.comYesandno);//将取出的值覆盖原来的值 （val对值进行操作)
+         $("#comBank1").val(data.comBank);
+         $("#comRemark1").val(data.comRemark);
+          $("#lastTime1").val(data.lastTime);   
            
       }
     });   
