@@ -63,4 +63,14 @@ public class SysLogServiceImpl implements SysLogService {
 		}
 	}
 
+	@Override
+	public List<SysLog> sysLog() {
+		List<SysLog> list = slm.selectByExample(null);
+		for (SysLog sysLog : list) {
+			sysLog.setCompany(scm.selectByPrimaryKey(sysLog.getComId()));
+			sysLog.setUser(sum.selectByPrimaryKey(sysLog.getUserId()));
+		}
+		return list;
+	}
+
 }

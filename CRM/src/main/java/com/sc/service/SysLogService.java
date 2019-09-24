@@ -14,4 +14,7 @@ public interface SysLogService {
 	
 	//插入一条日志
 	public void insertSysLog(SysLog log);
+	
+	//查询全部系统日志
+	public List<SysLog> sysLog();
 }

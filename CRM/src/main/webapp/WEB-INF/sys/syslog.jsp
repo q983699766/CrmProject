@@ -70,7 +70,7 @@ td {
 		</tbody>
 		<tfoot>
 			<tr class="pagebotton">
-				<td colspan="13" style="text-align: center"><a
+				<td colspan="5" style="text-align: center"><a
 					href="syslogctrl/showLOg?pageNum=${SysLog.firstPage }">首页</a>
 					<a id="prePage"
 					href="syslogctrl/showLOg?pageNum=${SysLog.prePage }">上一页</a>
@@ -79,7 +79,11 @@ td {
 					<a
 					href="syslogctrl/showLOg?pageNum=${SysLog.lastPage }">尾页</a>
 					当前<span id="pageNum">${SysLog.pageNum}</span>/<span id="pages">${SysLog.pages}</span>页,共<span
-					id="total">${SysLog.total}</span>条</td>
+					id="total">${SysLog.total}</span>条
+				</td>
+				<td colspan="1" style="text-align: center">
+					<a href="syslogctrl/excle.do">导出excle表</a>
+				</td>
 			</tr>
 		</tfoot>
 	</table>
