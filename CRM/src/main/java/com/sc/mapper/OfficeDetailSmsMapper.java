@@ -2,6 +2,8 @@ package com.sc.mapper;
 
 import com.sc.bean.OfficeDetailSms;
 import com.sc.bean.OfficeDetailSmsExample;
+import com.sc.bean.OfficeSms;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -29,4 +31,17 @@ public interface OfficeDetailSmsMapper {
     int updateByPrimaryKey(OfficeDetailSms record);
     
     int updatestaByKey(OfficeDetailSms record) ;
+    
+    
+    List<OfficeDetailSms> selectdetailsmsAndsms(OfficeSms officeSms);
+    
+    List<OfficeDetailSms> selectdetailsmsAndmysms(OfficeSms officeSms);
+    
+    List<OfficeDetailSms> selectdetailsmsAnduser(Long userId);
+    
+    List<OfficeDetailSms> selectdetailsmsAndall(Long userId);
+    
+    List<OfficeDetailSms> selectdetailread(OfficeSms officeSms);
+    
+    List<OfficeDetailSms> selectdetailread1(OfficeSms officeSms);
 }

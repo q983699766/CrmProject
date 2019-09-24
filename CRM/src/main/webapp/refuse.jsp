@@ -25,6 +25,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body style="background-image: url('images/refuse.jpg')">
   
-  		<%response.setHeader("refresh", "5;url=main.jsp"); %>
+  		<%response.setHeader("refresh", "5;url=salCtl/countSal"); %>
   </body>
 </html>

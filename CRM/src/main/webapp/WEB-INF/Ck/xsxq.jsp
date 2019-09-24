@@ -51,8 +51,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!-- page specific plugin scripts -->
 		<script src="<%=basePath%>assets/js/jquery.dataTables.min.js"></script>
 		<script src="<%=basePath%>assets/js/jquery.dataTables.bootstrap.js"></script>
-        <%-- <script type="text/javascript" src="<%=basePath%>js/H-ui.js"></script>  --%>
-        <%-- <script type="text/javascript" src="<%=basePath%>js/H-ui.admin.js"></script>  --%>
+        <script type="text/javascript" src="<%=basePath%>js/H-ui.js"></script> 
+        <script type="text/javascript" src="<%=basePath%>js/H-ui.admin.js"></script> 
         <script src="<%=basePath%>assets/layer/layer.js" type="text/javascript" ></script>
         <script src="<%=basePath%>assets/laydate/laydate.js" type="text/javascript"></script>
 <title>用户列表</title>
@@ -100,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   }
 							
 	  </script>
-       <span class="r_f">共：<b>${pi.total }</b>条</span>
+       <span class="r_f">共：<b>${pi.total }</b>条</span> 
      </div>
      <!---->
      <div class="table_menu_list">
@@ -108,15 +108,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead>
 		 <tr>
 				<th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
-				<th width="80px">采购详情编号</th>
-				<th width="250px">采购编号</th>
-				<th width="100px">产品编号</th>
-                <th width="100px">产品价格</th>	
-                <th width="100px">产品数量</th>			
-				<th width="180px">是否入库</th>
-                <th width="80px">操作人员</th>
-				<th width="250px">备注信息</th>
-				<th width="70px">公司编号</th> 
+				<th width="80px">销售单编号</th>
+				<th width="80px">制单日期</th>
+				<th width="250px">发票号码</th>
+				<th width="100px">用户编号</th>
+                <th width="100px">客户编号</th>	
+                <th width="100px">销售金额</th>			
+				<th width="180px">销售出库状态</th>
+                <th width="80px">是否返利</th>
+				<th width="250px">订单状态</th>
+				<th width="70px">备注信息</th>
+				 <th width="70px">公司编号</th>
 				<th width="100px">最后修改时间</th>                 
 				<th width="200px">操作</th>
 			</tr>
@@ -143,7 +145,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <td >${u.warehouseOrnot }</td>  <!--是否入库  -->   
           </c:if>                       
           <td>${u.operatorId }</td>			<!--操作人员  -->
-          <td>${u.remarksInfom }<input type="hidden" class="ace" name="g" value="${u.remarksInfom }"></td>	<!--备注信息  -->
+          <td>${u.remarksInfom }</td>	<!--备注信息  -->
           <td>${u.comId }</td>         <!-- 公司编号 -->
           <td><fmt:formatDate value="${u.lastDate}" pattern="yyyy-MM-dd" /></td>   <!--最后修改时间  -->      
            
@@ -191,7 +193,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <li><label class="label_name">产品数量</label><span class="add_name"><input id="productCount2" name="productCount" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
      <li style="display: none"><label class="label_name">是否入库</label><span class="add_name"><input id="warehouseOrnot2" name="warehouseOrnot" type="hidden"  class="text_add" required readonly="readonly"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">操作人员</label><span class="add_name"><input id="operatorId2" name="operatorId" type="text"  class="text_add" required readonly="readonly"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">备注信息</label><span class="add_name"><input id="remarksInfom2" name="remarksInfom" type="text"  class="text_add" readonly required "/></span><div class="prompt r_f"></div></li>     
+     <li><label class="label_name">备注信息</label><span class="add_name"><input id="remarksInfom2" name="remarksInfom" type="text"  class="text_add" required "/></span><div class="prompt r_f"></div></li>     
      <li><label class="label_name">公司编号</label><span class="add_name"><input id="comId2" name="comId" type="text"  class="text_add" required readonly="readonly"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">入库时间</label><span class="add_name"><input id="lastDate2" name="lastDate" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
      <div class="prompt r_f"></div>
@@ -216,7 +218,15 @@ jQuery(function($) {
 		] } );
 				
 				
-				 
+				$('table th input:checkbox').on('click' , function(){
+					var that = this;
+					$(this).closest('table').find('tr > td:first-child input:checkbox')
+					.each(function(){
+						this.checked = that.checked;
+						$(this).closest('tr').toggleClass('selected');
+					});
+						
+				});
 			
 			
 				$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
@@ -234,19 +244,7 @@ jQuery(function($) {
 				}
 			})
 
-/* 批量选择函数 */
-$('table th input:checkbox').on('click' , function(){
-	var that = this;
-	$(this).closest('table').find('tr > td:first-child input:checkbox')
-	.each(function(){
-		console.log(this.disabled);
-		if(!this.disabled){
-			this.checked = that.checked;
-			$(this).closest('tr').toggleClass('selected');
-		}
-	});
-		
-});
+
 /*入库*/
 function member_edit(id){
 	  layer.open({
