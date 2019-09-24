@@ -19,6 +19,8 @@ public interface PurOrderInfoMapper {
     List<PurOrderInfo> selectByExample(PurOrderInfoExample example);
 
     PurOrderInfo selectByPrimaryKey(Long purInfoNumber);
+    
+    List<PurOrderInfo> selectBypurNumber(Long purNumber);
 
     int updateByExampleSelective(@Param("record") PurOrderInfo record, @Param("example") PurOrderInfoExample example);
 

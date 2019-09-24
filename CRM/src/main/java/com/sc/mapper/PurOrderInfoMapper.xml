@@ -98,6 +98,14 @@
     from PUR_ORDER_INFO
     where PUR_INFO_NUMBER = #{purInfoNumber,jdbcType=DECIMAL}
   </select>
+  
+   <select id="selectBypurNumber" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from PUR_ORDER_INFO
+    where PUR_NUMBER = #{purNumber,jdbcType=DECIMAL}
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from PUR_ORDER_INFO
     where PUR_INFO_NUMBER = #{purInfoNumber,jdbcType=DECIMAL}

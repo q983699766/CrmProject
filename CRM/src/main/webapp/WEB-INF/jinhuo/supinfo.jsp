@@ -78,8 +78,8 @@
 					<form action="pursupinfo/selectinfo.do" method="post">
 						<div class="title_names">搜索查询</div>
 						<ul class="search_content clearfix">
-							<li><label class="l_f">供应商编号</label><input name="supName"
-								type="text" class="text_add" placeholder="输入供应商名称、电话、联系人"
+							<li><label class="l_f">供应商信息</label><input name="supName"
+								type="text" class="text_add" placeholder="输入供应商名称"
 								style=" width:400px" /></li>
 							<!-- <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li> -->
 							<li style="width:90px;"><input type="submit" value="查询"
@@ -99,8 +99,13 @@
 					</span>
 					<script type="text/javascript">
 						function shanchu() {
-						document.getElementById("cc").submit();
 						var a=document.getElementsByName("bb");
+						if(a=="")
+						alert("11111");
+					       {confirm("你还没有勾选！");}
+					   
+					       document.getElementById("cc").submit();
+						
 						}
 							
 					</script>
@@ -143,14 +148,12 @@
 										onclick="jia1(${i.supInfoNum})" class="member_show">查看详情</a></td>
 									<td class="td-status"><span
 										class="label label-success radius">${i.effectiveOrnot}</span></td>
-									<td class="td-manage"> <a title="编辑"
-										onclick="jia(${i.supInfoNum });member_edit('550');"
-										href="javascript:" class="btn btn-xs btn-info"><i
-											class="icon-edit bigger-120"></i></a> <a title="删除"
-										href="pursupinfo/delinfo.do?supInfoNum=${i.supInfoNum}"
-										onclick="return window.confirm('是否确定删除此用户?')"
-										class="btn btn-xs btn-warning"><i
-											class="icon-trash  bigger-120"></i></a></td>
+									<td class="td-manage"> 
+									<a title="编辑" onclick="jia(${i.supInfoNum });member_edit('550');"
+									  href="javascript:" class="btn btn-xs btn-info"><i class="icon-edit bigger-120"></i></a>
+									 <a title="删除" href="pursupinfo/delinfo.do?supInfoNum=${i.supInfoNum}"
+										onclick="return window.confirm('是否确定删除此用户?')"	class="btn btn-xs btn-warning">
+										<i class="icon-trash  bigger-120"></i></a></td>
 								</tr>
 							</c:forEach>
 </form>
@@ -378,14 +381,12 @@
 					class="add_name"><input readonly="readonly" type="text"
 						id="comId2" name="comId" class="text_add" /></span>
 				<div class="prompt r_f"></div></li>
-				<!--  <li><label class="label_name" style="width: 100px;">最后修改时间：</label><span class="add_name"><input  type="text" id="lastDate" name="lastDate"class="text_add"/></span><div class="prompt r_f"></div></li>
-      -->
 				<li><label class="label_name" style="width: 100px;">状态：</label><span
-					class="add_name"> <label><input
-							 name="form-field-radio1" type="radio" class="ace" value="启用"><span
-							class="lbl">启用</span></label>&nbsp;&nbsp;&nbsp; <label><input
-							name="form-field-radio1" type="radio" class="ace" value="禁止"><span
-							class="lbl">禁止</span></label></span>
+					class="add_name"> <label>
+					<input name="effectiveOrnot" type="radio" class="ace" value="启用">
+					<span  class="lbl">启用</span> </label>&nbsp;&nbsp;&nbsp; <label>
+					<input name="effectiveOrnot" type="radio" class="ace" value="禁止">
+					<span  class="lbl">禁止</span></label></span>
 				<div class="prompt r_f"></div></li>
 			</ul>
 
@@ -661,13 +662,14 @@
 				var r = data.effectiveOrnot;
 				
 				if (r == " ") {
-					$(".ace[name='form-field-radio1']").get(0).checked = "true";
+					$(".ace[name='effectiveOrnot']").get(0).checked = "true";
 				}
 				if (r == "启用") {
-					$(".ace[name='form-field-radio1']").get(0).checked = "true";
+					$(".ace[name='effectiveOrnot']").get(0).checked = "true";
 				} if(r=="禁止") {
-					$(".ace[name='form-field-radio1']").get(1).checked = "true";
+					$(".ace[name='effectiveOrnot']").get(1).checked = "true";
 				}
+			
 			}
 		});
 
