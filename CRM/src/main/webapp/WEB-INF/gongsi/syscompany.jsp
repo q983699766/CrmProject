@@ -79,8 +79,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <tr>
         
         <td width="4%">${t.comId }</td>               
-        <td width="4%"><u style="cursor:pointer" class="text-primary" onclick="">${t.comName}</u></td>
-         <td width="4%">${t.comLinkman}</td>
+        <td width="4%"><u style="cursor:pointer" class="text-primary">${t.comName}</u></td>
+        <td width="4%">${t.comLinkman}</td>
         <td width="4%">${t.comAddress}</td>
         <td width="4%">${t.comPhone }</td> 
         <td width="4%">

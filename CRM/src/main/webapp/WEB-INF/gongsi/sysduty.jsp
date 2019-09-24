@@ -71,21 +71,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <td width="10%">${t.dutId }</td>               
         <td width="10%">${t.dutName}</td>
         <td width="10%">
-        <c:if test="${t.secId==1 }">物流部</c:if>
-        <c:if test="${t.secId==2 }">客服部</c:if>
-        <c:if test="${t.secId==7 }">人事部</c:if>
-        <c:if test="${t.secId==8 }">决策部</c:if>
+        <c:if test="${t.secId==1 }">销售部</c:if>
+        <c:if test="${t.secId==2 }">学习部</c:if>
+        <c:if test="${t.secId==3 }">人事部</c:if>
+        <c:if test="${t.secId==4 }">售后部</c:if>
+        <c:if test="${t.secId==5 }">决策部</c:if>
         </td>
         <td width="10%">${t.dutRemark }</td> 
         <td width="10%">
-         <c:if test="${t.comId==1}">小管有限公司</c:if>
-       	 <c:if test="${t.comId==2}">小唐有限公司</c:if>
+         <c:if test="${t.comId==1}">小万有限公司</c:if>
+       	 <c:if test="${t.comId==2}">小管有限公司</c:if>
        	 <c:if test="${t.comId==3}">小余有限公司</c:if>
-       	 <c:if test="${t.comId==10}">小万有限公司</c:if>
-       	 <c:if test="${t.comId==11}">小陈有限公司</c:if>
-       	 <c:if test="${t.comId==12}">小钟有限公司</c:if>
-       	 <c:if test="${t.comId==13}">小樊有限公司</c:if>
-       	 <c:if test="${t.comId==14}">小刘有限公司</c:if>
+       	 <c:if test="${t.comId==4}">小陈有限公司</c:if>
+       	 <c:if test="${t.comId==5}">小钟有限公司</c:if>
+       	 <c:if test="${t.comId==6}">小樊有限公司</c:if>
+       	 <c:if test="${t.comId==7}">小刘有限公司</c:if>
         </td>         
         <td width="10%"><fmt:formatDate value="${t.lastTime}" pattern="yyyy-MM-dd" /></td>
         <td width="10%"><a href="javascript:"  class="member_show"  onclick="jia(${t.dutId})">查看详情</a></td>
@@ -94,18 +94,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                <a title="删除" href='del.do?dutId=${t.dutId}'   class="btn btn-xs btn-warning" onclick="return window.confirm('是否确定删除此用户?')"><i class="fa fa-trash  bigger-120"></i></a>
 				</td>
 			   </tr>
-			   </c:forEach>												
+			   </c:forEach>	
+			   	<tr>
+		<td colspan="11" style="text-align: center;">
+      <a href="listpage.do?pageNum=${pi.firstPage }">首页</a>
+      <a href="listpage.do?pageNum=${pi.prePage }">上页</a>
+      <a href="listpage.do?pageNum=${pi.nextPage }">下页</a>
+      <a href="listpage.do?pageNum=${pi.lastPage }">尾页</a>
+      <a class="bg-success">当前${pi.pageNum }/${pi.pages }页,共${pi.total }条。</a>
+  			</td>
+			   	</tr>								
 		      </tbody>
 	        </table>
-	       <div class="panel-footer">
-	     <ul class="pager pagination pagination-lg">
-      <li><a href="listpage.do?pageNum=${pi.firstPage }">首页</a></li>
-      <li><a href="listpage.do?pageNum=${pi.prePage }">上页</a></li>
-      <li><a href="listpage.do?pageNum=${pi.nextPage }">下页</a></li>
-      <li><a href="listpage.do?pageNum=${pi.lastPage }">尾页</a></li>
-      <li><a class="bg-success">当前第${pi.pageNum }/ ${pi.pages }页，共${pi.total } 条数据。</a></li>  
-  			</ul>
-       </div>
     </div>
      </div>
  </div>

@@ -21,7 +21,6 @@ import com.sc.service.SysDutyService;
 @Controller
 @RequestMapping("sysdutyctlr")
 public class Excel {
-
 	@Autowired
 	SysDutyService sysDutyService;
 	
@@ -29,11 +28,11 @@ public class Excel {
 	public void UserExcelDownloads(HttpServletResponse response, SysDuty u) throws IOException {
 		HSSFWorkbook workbook = new HSSFWorkbook();  
 		HSSFSheet sheet = workbook.createSheet("职位信息表");
-		sheet.setColumnWidth(5, 256*20); //设置列的宽度
+		sheet.setColumnWidth(5, 256*20);//设置列的宽度
 		List<SysDuty> selectDuty = sysDutyService.selectDuty();
 		String str = "yyy-MM-dd HH:mm";
 		SimpleDateFormat sdf = new SimpleDateFormat(str);
-		String fileName = "sysduty" + ".xls";
+		String fileName = "sysduty"+".xls";
 		int rowNum = 1;
 		String[] headers = { "职位编号", "职位名称", "所属部门", "备注说明", "所属公司", "修改时间" };
 		HSSFRow row = sheet.createRow(0);
