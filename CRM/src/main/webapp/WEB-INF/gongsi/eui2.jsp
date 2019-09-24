@@ -79,8 +79,8 @@
   <div class="layui-form-item">
     <label class="layui-form-label">开户银行</label>
     <div class="layui-input-block">
-             <select   name="comBank">
-      <option value="0">请选择--</option>
+             <select name="comBank" required  lay-verify="required">
+      <option value=" ">请选择--</option>
       <option value="1">招商银行</option>
       <option value="2">中国银行</option>
       <option value="3">建设银行</option>
@@ -98,8 +98,8 @@
    <div class="layui-form-item">
     <label class="layui-form-label">是否有效</label>
     <div class="layui-input-block">
-             <select  name="comYesandno">
-      <option value="0">请选择--</option>
+           <select name="comYesandno" required  lay-verify="required">
+      <option value=" ">请选择--</option>
       <option value="1">有效</option>
       <option value="2">无效</option>
       </select>

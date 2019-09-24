@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <label class="layui-form-label">所属公司</label>
     <div class="layui-input-block">
       <select name="comId" lay-verify="required">
-      <option value="0">请选择--</option>
+      <option value=" ">请选择--</option>
           <option value="0">选择公司</option>
                   <c:forEach items="${as }" var="k">
     			<option value="${k.comId}">${k.comName}</option>

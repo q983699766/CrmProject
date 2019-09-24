@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
++<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
@@ -95,7 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <td width="5%"><a href="javascript:"  class="member_show"  onclick="jia(${t.comId })">查看详情</a></td>
         <td class="td-manage" width="5%">
         <a title="编辑" onclick="Competence_modify('560')" href='update.do?comId=${t.comId}'  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
-        <a title="删除" href='del.do?comId=${t.comId}' onclick="Competence_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
+        <a title="删除" href='del.do?comId=${t.comId}' onclick="return window.confirm('是否确定删除此用户?')"class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
 		 </td>
 		</tr>
     </c:forEach>											
@@ -111,16 +111,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <form action="goadde.do" method="post"  onsubmit=" return t()">
 
     <ul class=" page-content">
-     <li><label class="label_name">公司名称：</label><span class="add_name"><input  name="comName" type="text"  class="text_add" placeholder="必填"/><input type="hidden" name="comId"></span><div class="prompt r_f"></div></li>
-      <li><label class="label_name">公司代码：</label><span class="add_name"><input  name="comCode" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">公司邮箱：</label><span class="add_name"><input  name="comEmail" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-      <li><label class="label_name">联系人：</label><span class="add_name"><input  name="comLinkman" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-   	 <li><label class="label_name">公司地址：</label><span class="add_name"><input  name="comAddress" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">固定电话：</label><span class="add_name"><input  name="comPhone" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">移动电话：</label><span class="add_name"><input   name="comYphone" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">传真：</label><span class="add_name"><input  name="comFax" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">公司名称：</label><span class="add_name"><input id="comName" name="comName" type="text"  class="text_add" placeholder="必填"/><input type="hidden" name="comId"></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">公司代码：</label><span class="add_name"><input  id="comCode" name="comCode" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">公司邮箱：</label><span class="add_name"><input  id="comEmail" name="comEmail" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">联系人：</label><span class="add_name"><input  id="comLinkman" name="comLinkman" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+   	 <li><label class="label_name">公司地址：</label><span class="add_name"><input  id="comAddress" name="comAddress" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">固定电话：</label><span class="add_name"><input  id="comPhone" name="comPhone" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">移动电话：</label><span class="add_name"><input  id="comYphone"  name="comYphone" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">传真：</label><span class="add_name"><input  id="comFax" name="comFax" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
       <li><label class="label_name">开户银行：</label><span class="add_name">
-       <select   name="comBank"  style="width: 170px;color:green;">
+       <select   id="comBank" name="comBank"  style="width: 170px;color:green;">
       <option value="0">请选择--</option>
       <option value="1">招商银行</option>
       <option value="2">中国银行</option>
@@ -129,9 +129,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <option value="5">平安银行</option>
       </select>
       </span><div class="prompt r_f"></div></li>
-      <li><label class="label_name">银行账户：</label><span class="add_name"><input name="comBankuser" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+      <li><label class="label_name">银行账户：</label><span class="add_name"><input id="comBankuser" name="comBankuser" type="text" class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
       <li><label class="label_name">是否有效：</label><span class="add_name">
-      <select   name="comYesandno"  style="width: 170px;color:green;">
+      <select id="comYesandno"  name="comYesandno"  style="width: 170px;color:green;">
       <option value="0">请选择--</option>
       <option value="1">有效</option>
       <option value="2">无效</option>
@@ -173,6 +173,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var comPhone = document.getElementById("comPhone").value;
 		var comYphone = document.getElementById("comYphone").value;
 		var comFax = document.getElementById("comFax").value;
+		var regTel = /0?(13|14|15|18|17)[0-9]{9}/;
+		var emal= /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/;
 		if (comName==""){
 			  layer.alert('公司名称不能为空!',{
               title: '提示框',				
@@ -180,15 +182,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 });
 			return false;
           } 
-         if (comCode==""){
+            if (comCode==""){
 			  layer.alert('公司代码不能为空!',{
               title: '提示框',				
 				icon:0, 
 			 });
 			return false;
           } 
-          if (comEmail==""){
-			  layer.alert('公司邮箱不能为空!',{
+          if (!emal.test(comEmail)){
+			  layer.alert('公司邮箱格式错误!',{
               title: '提示框',				
 				icon:0, 
 			 });
@@ -208,8 +210,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 });
 			return false;
           } 
-             if (comPhone==""){
-			  layer.alert('公司电话不能为空!',{
+             if (!regTel.test(comPhone)){
+			  layer.alert('电话格式错误!',{
               title: '提示框',				
 				icon:0, 
 			 });
