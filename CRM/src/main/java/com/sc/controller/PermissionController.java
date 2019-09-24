@@ -30,6 +30,7 @@ import com.sc.mapper.SysPermissionMapper;
 import com.sc.mapper.SysPermissionRoleMapper;
 import com.sc.service.PermissionService;
 import com.sc.service.RolesService;
+import com.sc.service.impl.PermServiceImpl;
 
 @Controller
 @RequestMapping("permisctlr")
@@ -102,7 +103,8 @@ public class PermissionController {
 		mav.addObject("roles", list2);
 		List<SysPermissionColumn> list3 = PermissionService.getColumn();
 		mav.addObject("col", list3);
-		
+		List<SysPermission> permList = PermissionService.getPermList();
+		mav.addObject("permList", permList);
 		mav.addObject("colName", columnName);
 		mav.setViewName("permission/user_role");
 		return mav;
@@ -115,6 +117,8 @@ public class PermissionController {
 		List<SysPermissionColumn> list3 = PermissionService.getColumn();
 		mav.addObject("col", list3);
 		
+		List<SysPermission> permList = PermissionService.getPermList();
+		mav.addObject("permList", permList);
 		mav.addObject("colName", columnName);
 		mav.setViewName("permission/user_role");
 		return mav;
@@ -256,7 +260,7 @@ public class PermissionController {
 		SysPermissionRoleExample sysPermissionRoleExample = new SysPermissionRoleExample();
 		com.sc.bean.SysPermissionRoleExample.Criteria createCriteria = sysPermissionRoleExample.createCriteria();
 		createCriteria.andRoleIdEqualTo(role);
-		
+		System.out.println("***********777777777"+perm[0]);
 		SysPermissionRoleMapper.deleteByExample(sysPermissionRoleExample);
 		
 		Date date = new Date();
@@ -266,11 +270,9 @@ public class PermissionController {
 			PR.setPermissionId(l1);
 			PR.setRoleId(role);
 			PR.setOperatorId(userId);
-			
+			System.out.println("***********777777777"+PR);
 			PermissionService.roleAddPerm(PR);
 		}
-		
-		
 		
 		Integer ok = 1;
 		mav.setViewName("redirect:../permisctlr/getPermission.do?ok="+ok);
@@ -301,6 +303,9 @@ public class PermissionController {
 			List<SysPermissionColumn> list3 = PermissionService.getColumn();
 			mav.addObject("col", list3);
 			mav.addObject("ok", ok);
+			
+			List<SysPermission> permList = PermissionService.getPermList();
+			mav.addObject("permList", permList);
 			
 			mav.setViewName("permission/user_role");
 			return mav;

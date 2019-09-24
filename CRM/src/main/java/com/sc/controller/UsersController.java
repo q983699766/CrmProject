@@ -152,6 +152,7 @@ public class UsersController {
 				
 				SysUsers u = UsersService.selectByName(userName);
 				Long userId = u.getUserId();
+				if(roleId!=null){
 				for (Long rId : roleId) {
 					
 				SysUsersRole sysUsersRole1 = new SysUsersRole();
@@ -161,6 +162,7 @@ public class UsersController {
 				sysUsersRole1.setUserId(userId);
 				
 				SysUsersRoleMapper.insert(sysUsersRole1);
+				}
 				}
 					Integer ok=1;
 					mav.setViewName("redirect:../usersctlr/getlist1.do?ok="+ok);

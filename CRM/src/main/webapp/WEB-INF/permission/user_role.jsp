@@ -212,7 +212,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <c:forEach items="${roles}" var="r" ><c:if test="${r.roleId != 1}"><option value="${r.roleId }">${r.roleName }</option></c:if></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">权限名称：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;<select id="perm111" name="perm" data-selector data-selector-checks="true">
-                <c:forEach items="${list.list}" var="p" ><option value="${p.permissionId }">${p.permissionName }</option></c:forEach>
+                <c:forEach items="${permList}" var="p" ><option value="${p.permissionId }">${p.permissionName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
     </ul><br/><br/><br/><br/><br/>
     <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
@@ -348,11 +348,10 @@ function updateperm(){
 		
 		var perm="";
 		$(".actives").each(function(i,e){
-		    
-		    perm+="perm="+$(this).attr("data-value")+"&";
+			if(i!=0)perm+="perm="+$(this).attr("data-value")+"&";
 		});
 		obj.action=obj.action+"?"+perm;
-
+	
 		
 		if (pass1==""){
 			  layer.alert('角色不能为空!',{

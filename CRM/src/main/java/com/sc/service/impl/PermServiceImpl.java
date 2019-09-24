@@ -1,10 +1,7 @@
 package com.sc.service.impl;
 
-import java.awt.List;
 import java.util.ArrayList;
 import java.util.Date;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +15,6 @@ import com.sc.bean.SysPermissionRole;
 import com.sc.bean.SysPermissionRoleExample;
 import com.sc.bean.SysPermissionRoleExample.Criteria;
 import com.sc.bean.SysRole;
-import com.sc.bean.SysUsers;
 import com.sc.bean.SysUsersRole;
 import com.sc.bean.SysUsersRoleExample;
 import com.sc.mapper.SysPermissionColumnMapper;

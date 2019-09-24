@@ -44,7 +44,7 @@ public class CustomRealmMd5 extends AuthorizingRealm {
 		Long uid = sysuser.getUserId();
 		
 		List<SysRole> myRole = UserInfoService.getMyRole(uid);
-		if(myRole != null && myRole.size() > 0){
+		if(!myRole.isEmpty()){
 		for (SysRole sysRole : myRole) {
 			Long rId = sysRole.getRoleId();
 			if(rId == 1){
