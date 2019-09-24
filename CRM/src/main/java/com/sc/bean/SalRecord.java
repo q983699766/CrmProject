@@ -10,13 +10,15 @@ public class SalRecord implements Serializable {
 
     private String recordTitle;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date recordTime;
 
+    //联系人编号
     private Long customId;
 
     private String recordContent;
 
+    
     private Long comId;
 
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")

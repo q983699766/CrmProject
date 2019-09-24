@@ -21,7 +21,7 @@ public class OfficeDetailSms implements Serializable {
     
     private SysCOMPANY syscompany;//配置一对一，定义另外一方的对象
     private SysUsers sysUsers;//配置一对一，定义另外一方的对象
-    private OfficeSms officeSms;
+    private OfficeSms officeSms;//配置一对一，定义另外一方的对象
     
     
     

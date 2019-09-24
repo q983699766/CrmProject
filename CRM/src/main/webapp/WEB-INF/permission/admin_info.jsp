@@ -73,9 +73,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">员工编号： </label>
           <div class="col-sm-9" > <span>${nowuser.empId }</span></div>
           </div>
-          <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">公司编号： </label>
+          <%-- <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">公司编号： </label>
           <div class="col-sm-9" > <span>${nowuser.comId }</span></div>
-          </div>
+          </div> --%>
            <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">账户状态： </label>
           <div class="col-sm-9" > <span>${nowuser.userState == '0' ? "可用":"不可用" }</span></div>
           </div>
@@ -109,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <td>${r.roleId }</td>
         <td>${r.roleName }</td>
         <td>${r.roleDescribe }</td>
-        <td><c:forEach items="${r.perms }" var="p"><p>${p.permissionName}</p></c:forEach></td>
+        <td>${r.roleId == 1 ? "一切权限":""}<c:forEach items="${r.perms }" var="p"><p>${p.permissionName}</p></c:forEach></td>
         <td>${r.higherRoleId }</td>
         <td><fmt:formatDate value="${r.lastTime }" pattern="yyyy-MM-dd"/></td>      
       </tr>

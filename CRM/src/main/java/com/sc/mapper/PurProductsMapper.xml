@@ -102,6 +102,11 @@
     delete from PUR_PRODUCTS
     where PRO_ID = #{proId,jdbcType=DECIMAL}
   </delete>
+
+  <delete id="deleteByPrimaryproductid" parameterType="java.lang.Long" >
+    delete from PUR_PRODUCTS
+    where PRODUCT_ID = #{productId,jdbcType=DECIMAL}
+  </delete>
   <delete id="deleteByExample" parameterType="com.sc.bean.PurProductsExample" >
     delete from PUR_PRODUCTS
     <if test="_parameter != null" >
@@ -177,8 +182,8 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  
-  <select id="selectByid" parameterType="com.sc.bean.PurProductsExample" resultType="java.lang.Integer" >
+  <select id="selectByid" parameterType="java.lang.Long" resultType="com.sc.bean.PurProducts">
+ 
    SELECT * FROM PUR_PRODUCTS 
   WHERE PRODUCT_ID=#{productId}
   </select>

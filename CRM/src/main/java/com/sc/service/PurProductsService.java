@@ -27,4 +27,13 @@ public interface PurProductsService {
 		public List<PurProducts> selectpurproducts();
 		
 		public void addpurproducts( PurProducts purproducts);
+		
+		//根据id删除
+		public void delpurproducts(Long productId);	
+		
+		public void delpurproduct(Long productId);	
+		
+		
+		
+		
 }

@@ -51,8 +51,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!-- page specific plugin scripts -->
 		<script src="<%=basePath%>assets/js/jquery.dataTables.min.js"></script>
 		<script src="<%=basePath%>assets/js/jquery.dataTables.bootstrap.js"></script>
-        <%-- <script type="text/javascript" src="<%=basePath%>js/H-ui.js"></script>  --%>
-        <%-- <script type="text/javascript" src="<%=basePath%>js/H-ui.admin.js"></script>  --%>
+        <script type="text/javascript" src="<%=basePath%>js/H-ui.js"></script> 
+        <script type="text/javascript" src="<%=basePath%>js/H-ui.admin.js"></script> 
         <script src="<%=basePath%>assets/layer/layer.js" type="text/javascript" ></script>
         <script src="<%=basePath%>assets/laydate/laydate.js" type="text/javascript"></script>
 <title>用户列表</title>
@@ -63,46 +63,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div id="Member_Ratings">
       <div class="d_Confirm_Order_style">
     <div class="search_style">
+     <div class="title_names">采购单详情</div>
     
-   
-      <form action="cgxqctlr/mh.do" method="post">
-      <div class="title_names">采购详情单</div>
-      <ul class="search_content clearfix">
-       <li><label class="l_f">产品查询</label><input name="warehouseOrnot" type="text"  class="text_add" placeholder="请输入你要搜索的信息:"  style=" width:400px"/></li>
-       <li style="width:90px;"><button type="submit" class="btn_search"><i class="icon-search"></i>查询</button></li>
-      </ul>
     </div>
+  <%--   <form action="ccspxxctlr/mh.do" method="post">
+     
     </form>
-    
-    </div>
-    
      <!---->
      <div class="border clearfix">
        <span class="l_f">
-        <a href="javascript:sc()" class="btn btn-danger"><i class="icon-trash"></i>批量入库</a>
+       
         
        </span>
-         <script type="text/javascript">
-			function sc() 
-			  {		
-				var a=document.getElementsByName("bb");			
-				for(var a0=0;a0<a.length;a0++)
-				  {
-					if(a[a0].checked)
-					{								
-						document.getElementById("cc").submit();
-						return;
-					}
-				  }
-				  
-				  	alert("请选择你要删除的商品！");
-			 
-			   }
-							
-	  </script>
+    
        <span class="r_f">共：<b>${pi.total }</b>条</span>
      </div>
-     <!---->
+     <!----> --%>
+     
+        <script type="text/javascript">
+			function sc() {
+			document.getElementById("cc").submit();
+			var a=document.getElementsByName("bb");
+			}
+							
+	  </script>
      <div class="table_menu_list">
        <table class="table table-striped table-bordered table-hover" id="sample-table">
 		<thead>
@@ -111,9 +95,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th width="80px">采购详情编号</th>
 				<th width="250px">采购编号</th>
 				<th width="100px">产品编号</th>
-                <th width="100px">产品价格</th>	
-                <th width="100px">产品数量</th>			
-				<th width="180px">是否入库</th>
+			    <th width="100px">产品价格</th>
+				<th width="100px">采购数量</th>
+            	<th width="180px">是否入库</th>
                 <th width="80px">操作人员</th>
 				<th width="250px">备注信息</th>
 				<th width="70px">公司编号</th> 
@@ -122,87 +106,111 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 		</thead>
 	<tbody>
-	<form action="cgxqctlr/sc.do" id="cc" method="post" >
-	<c:forEach items="${pi.list }" var="u">
-		<tr>		
-		  <c:if test="${u.warehouseOrnot=='已入库' }">
-          <td><label><input type="checkbox" disabled class="ace" name="bb" value="${u.purInfoNumber}"><span class="lbl"></span></label></td>
-          </c:if>
-          <c:if test="${u.warehouseOrnot!='已入库' }">
-          <td><label><input type="checkbox"  class="ace" name="bb" value="${u.purInfoNumber}"><span class="lbl"></span></label></td>
-          </c:if>
+	<c:forEach items="${u}" var="u"> 
+		<tr>
+		
+		 <c:if test="${u.warehouseOrnot =='已入库' }">        
+          <td><label><input type="checkbox" disabled="disabled" class="ace"><span class="lbl"></span></label></td>
+          </c:if>  <!--是否入库  -->  
+          <c:if test="${u.warehouseOrnot !='已入库' }">        
+          <td><label><input type="checkbox"  class="ace"><span class="lbl"></span></label></td>
+          </c:if>  <!--是否入库  -->  
+          
           <td>${u.purInfoNumber }</td> <!-- 采购详情编号 -->
           <td>${u.purNumber }</td>     <!-- 采购单编号 -->
-          <td>${u.productId }<input type="hidden" class="ace" name="e" value="${u.productId }"></td>		<!-- 产品编号 -->
+          <td>${u.productId }</td>		<!-- 产品编号 -->
           <td>${u.proPrice }</td>		<!--产品价格  -->
-          <td>${u.productCount }<input type="hidden" class="ace" name="f" value="${u.productCount }"></td> <!--产品数量  -->
-          <c:if test="${u.warehouseOrnot=='已入库' }"> 
-           <td style="color: red">${u.warehouseOrnot }</td>  <!--是否入库  -->   
-          </c:if> 
-          <c:if test="${u.warehouseOrnot!='已入库' }"> 
-            <td >${u.warehouseOrnot }</td>  <!--是否入库  -->   
-          </c:if>                       
+          <td>${u.productCount }</td> <!--产品数量  -->
+           
+          <c:if test="${u.warehouseOrnot =='已入库' }">        
+          <td style="color: red">${u.warehouseOrnot }</td> 
+          </c:if>  <!--是否入库  -->  
+           
+          <c:if test="${u.warehouseOrnot !='已入库' }">        
+          <td >${u.warehouseOrnot }</td> 
+          </c:if>  <!--是否入库  --> 
+              
           <td>${u.operatorId }</td>			<!--操作人员  -->
-          <td>${u.remarksInfom }<input type="hidden" class="ace" name="g" value="${u.remarksInfom }"></td>	<!--备注信息  -->
+          <td>${u.remarksInfom }</td>	<!--备注信息  -->
           <td>${u.comId }</td>         <!-- 公司编号 -->
+          
           <td><fmt:formatDate value="${u.lastDate}" pattern="yyyy-MM-dd" /></td>   <!--最后修改时间  -->      
            
-          <td class="td-manage">
-         <c:if test="${u.warehouseOrnot=='已入库' }">
-             	入库成功   
-         <!--  <a  href="javascript:"  style="background-color: gray;width: 30px;height:20px;display:inline-block;"><i class="icon-plus" style="color: gray;"></i></a> --> 
-		</c:if>  
-		<c:if test="${u.warehouseOrnot!='已入库' }">
-		  <a title="入库" onclick="jia(${u.purInfoNumber });member_edit('550')" href="javascript:"  class="btn btn-warning"><i class="icon-plus"></i></a> 
-		</c:if>
-          </td>
+           <c:if test="${u.warehouseOrnot !='已入库' }">
+          <td class="td-manage">         
+          <a title="入库" onclick="jia(${u.purInfoNumber});member_edit(this)"  href="javascript:"  class="btn btn-warning"><i class="icon-plus"></i></a> 
+        </td>
+        </c:if>
+         <c:if test="${u.warehouseOrnot =='已入库' }">
+            <td class="td-manage" style="color: red">         
+                   入库成功 
+        </td>
+        </c:if>
 		</tr>
-       </c:forEach>
-       	</form>	              
-           <tr>
+       </c:forEach> 
+       		              
+          <%--  <tr>
               <td colspan="15" style="text-align: center;">
-                  <a href="cgxqctlr/ck.do?pageNum=${pi.firstPage }">首页</a>
-                  <a href="cgxqctlr/ck.do?pageNum=${pi.prePage }">上一页</a>
-                  <a href="cgxqctlr/ck.do?pageNum=${pi.nextPage }">下一页</a>
-                  <a href="cgxqctlr/ck.do?pageNum=${pi.lastPage }">尾页</a>
+                  <a href="purorder/oderinfo.do?pageNum=${pi.firstPage }">首页</a>
+                  <a href="purorder/oderinfo.do?pageNum=${pi.prePage }">上一页</a>
+                  <a href="purorder/oderinfo.do?pageNum=${pi.nextPage }">下一页</a>
+                  <a href="purorder/oderinfo.do?pageNum=${pi.lastPage }">尾页</a>
                                        当前${pi.pageNum }/${pi.pages }页
               </td>
-           </tr>
+           </tr> --%>
        
        
       </tbody>
 	</table>
-   </div>·
+   </div>
   </div>
  </div>
 </div>
 
  <!--修改用户图层  -->
- <form action="ccspxxctlr/add.do" method="post">
+ <%-- <form action="purorder/add.do" method="post">
 <div class="update_menber" id="update_menber_style" style="display:none">
   
     <ul class=" page-content">
      <input  type="hidden" id="purInfoNumber2" name="purInfoNumber" class="text_add"/> 
+     <input  type="hidden" id="purNumber2" name="purNumber" class="text_add"/> 
     <!--  <li><label class="label_name">商品详情编号：</label><span class="add_name"><input id="purInfoNumber2"  name="purInfoNumber" type="text" class="text_add"  required /></span><div class="prompt r_f"></div></li> -->
      <li><label class="label_name">采购单编号</label><span class="add_name"><input id="purNumber2" name="purNumber" type="text"  class="text_add" required readonly="readonly"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">产品编号</label><span class="add_name"><input id="productId2" name="productId" type="text"  class="text_add" readonly="readonly" /></span><div class="prompt r_f"></div></li>
-     
+     <li><label class="label_name">产品数量</label><span class="add_name"><input id="productCount2" name="productCount" type="text"  class="text_add" required readonly="readonly"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">产品价格</label><span class="add_name"><input id="proPrice2" name="proPrice" type="text"  class="text_add" required readonly="readonly"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">产品数量</label><span class="add_name"><input id="productCount2" name="productCount" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
-     <li style="display: none"><label class="label_name">是否入库</label><span class="add_name"><input id="warehouseOrnot2" name="warehouseOrnot" type="hidden"  class="text_add" required readonly="readonly"/></span><div class="prompt r_f"></div></li>
+     <li style="display: none"><label class="label_name">是否入库</label><span class="add_name"><input type="hidden" id="warehouseOrnot2" name="warehouseOrnot" type="text"  class="text_add" required readonly="readonly" /></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">操作人员</label><span class="add_name"><input id="operatorId2" name="operatorId" type="text"  class="text_add" required readonly="readonly"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">备注信息</label><span class="add_name"><input id="remarksInfom2" name="remarksInfom" type="text"  class="text_add" readonly required "/></span><div class="prompt r_f"></div></li>     
+     <li><label class="label_name">备注信息</label><span class="add_name"><input id="remarksInfom2" name="remarksInfom" type="text"  class="text_add" required readonly="readonly"/></span><div class="prompt r_f"></div></li>     
      <li><label class="label_name">公司编号</label><span class="add_name"><input id="comId2" name="comId" type="text"  class="text_add" required readonly="readonly"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">入库时间</label><span class="add_name"><input id="lastDate2" name="lastDate" type="text"  class="text_add" required/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">入库时间</label><span class="add_name"><input id="lastDate2" name="lastDate" type="text"  class="text_add" required/ readonly="readonly"></span><div class="prompt r_f"></div></li>
      <div class="prompt r_f"></div>
     
     <center>
-    <label><input name="form-field-radio1"type="submit"  value="入库" class="btn btn-prompt r_f"><span class="lbl"></span></label></span><div class="prompt r_f"></div></li>   
+    <label><input name="form-field-radio1" type="submit"   value="入库" class="btn btn-prompt r_f"><span class="lbl"></span></label></span><div class="prompt r_f"></div></li>   
  	</center>
+ 	<br/>
  </div>
 
- </form>
- 
+ </form> --%>
+ <div class="update_menber" id="update_menber_style" style="display:none">
+  
+    <ul class=" page-content">
+     <input  type="hidden" id="purInfoNumber2" name="purInfoNumber" class="text_add"/> 
+
+    <!--  <li><label class="label_name">商品详情编号：</label><span class="add_name"><input id="purInfoNumber2"  name="purInfoNumber" type="text" class="text_add"  required /></span><div class="prompt r_f"></div></li> -->
+     <li><label class="label_name">采购单编号</label><span class="add_name"><input id="purNumber2" name="purNumber" type="text"  class="text_add" required readonly="readonly"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">产品编号</label><span class="add_name"><input id="productId2" name="productId" type="text"  class="text_add" readonly="readonly" /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">产品数量</label><span class="add_name"><input id="productCount2" name="productCount" type="text"  class="text_add" required readonly="readonly"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">产品价格</label><span class="add_name"><input id="proPrice2" name="proPrice" type="text"  class="text_add" required readonly="readonly"/></span><div class="prompt r_f"></div></li>
+     <li style="display: none"><label class="label_name">是否入库</label><span class="add_name"><input type="hidden" id="warehouseOrnot2" name="warehouseOrnot" type="text"  class="text_add" required readonly="readonly" /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">操作人员</label><span class="add_name"><input id="operatorId2" name="operatorId" type="text"  class="text_add" required readonly="readonly"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">备注信息</label><span class="add_name"><input id="remarksInfom2" name="remarksInfom" type="text"  class="text_add" required readonly="readonly"/></span><div class="prompt r_f"></div></li>     
+     <li><label class="label_name">公司编号</label><span class="add_name"><input id="comId2" name="comId" type="text"  class="text_add" required readonly="readonly"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">入库时间</label><span class="add_name"><input id="lastDate2" name="lastDate" type="text"  class="text_add" required/ readonly="readonly"></span><div class="prompt r_f"></div></li>
+     <div class="prompt r_f"></div>
+ 	<br/>
+ </div>
 </body>
 </html>
 <script>
@@ -216,7 +224,15 @@ jQuery(function($) {
 		] } );
 				
 				
-				 
+				$('table th input:checkbox').on('click' , function(){
+					var that = this;
+					$(this).closest('table').find('tr > td:first-child input:checkbox')
+					.each(function(){
+						this.checked = that.checked;
+						$(this).closest('tr').toggleClass('selected');
+					});
+						
+				});
 			
 			
 				$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
@@ -234,60 +250,58 @@ jQuery(function($) {
 				}
 			})
 
-/* 批量选择函数 */
-$('table th input:checkbox').on('click' , function(){
-	var that = this;
-	$(this).closest('table').find('tr > td:first-child input:checkbox')
-	.each(function(){
-		console.log(this.disabled);
-		if(!this.disabled){
-			this.checked = that.checked;
-			$(this).closest('tr').toggleClass('selected');
-		}
-	});
-		
-});
+
 /*入库*/
-function member_edit(id){
+function member_edit(obj){
+		console.log(obj);
 	  layer.open({
         type: 1,
-        title: '修改用户信息',
+        title: '入库',
 		maxmin: true, 
 		shadeClose:false, //点击遮罩关闭层
         area : ['800px' , ''],
         content:$('#update_menber_style'),
-		//btn:['提交','取消'],
-		yes:function(index,layero){	
-		 var num=0;
-		 var str="";
-     $(".add_menber input[type$='text']").each(function(n){
-          if($(this).val()=="")
-          {
-               
-			   layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
-                title: '提示框',				
-				icon:0,								
-          }); 
-		    num++;
-            return false;            
-          } 
-		 });
-		  if(num>0){  return false;}	 	
-          else{
-			  layer.alert('添加成功！',{
-               title: '提示框',				
-			icon:1,		
-			  });
-			   layer.close(index);	
-		  }		  		     				
-		}
+        btn:["入库"],
+	      btn1:function(){
+	      	puroderinfo.purInfoNumber = $("#purInfoNumber2").val();
+	        puroderinfo.purNumber = $("#purNumber2").val();
+	        puroderinfo.productId = $("#productId2").val();//商品类型
+	        puroderinfo.productCount = $("#productCount2").val();//规格说明
+	        puroderinfo.proPrice = $("#proPrice2").val();//单位
+	        puroderinfo.warehouseOrnot = $("#warehouseOrnot2").val();//库存数量 
+	        puroderinfo.operatorId = $("#operatorId2").val();
+	        puroderinfo.remarksInfom = $("#remarksInfom2").val();//零售价       
+	        puroderinfo.comId = $("#comId2").val();//公司编号
+	      	$.ajax({
+	      		type:"post"
+	      		,url:"purorder/add.do"
+	      		,data:JSON.stringify(puroderinfo)
+	      		,contentType:"application/json;charset=utf-8"
+	      		,success:function(m){
+	      			layer.msg("入库成功",{icon:1,time:1000,end:function(){
+	      				$(obj).parents("tr").children("td:nth-child(7)").html("已入库").css("color", "red");
+						$(obj).parent().html("入库成功").css("color", "red");
+	      			}});
+	      		}
+	      	})
+	      },
     });
 }
-
+ var puroderinfo = {
+   		purInfoNumber : 0
+   		,purNumber : 0
+   		,productId : 0
+   		,proPrice : 0
+   		,warehouseOrnot : ""
+   		,operatorId : 0
+   		,remarksInfom : ""
+   		,comId : 0
+   		,productCount : 0
+   }
 //编辑函数
  function jia(purInfoNumber)
     {
-        var url="cgxqctlr/select.do?purInfoNumber="+purInfoNumber;
+        var url="purorder/select1.do?purInfoNumber="+purInfoNumber;
    //ajax异步请求
    $.ajax
    ({

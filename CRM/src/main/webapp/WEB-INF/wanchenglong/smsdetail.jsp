@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -66,21 +67,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div id="Member_Ratings">
       <div class="d_Confirm_Order_style">
     <div class="search_style">
+      <form action="Office/selectdetailinfo.do" method="post">
+      
       <div class="title_names">搜索查询</div>
       <ul class="search_content clearfix">
-       <li><label class="l_f">会员名称</label><input name="" type="text"  class="text_add" placeholder="输入会员名称、电话、邮箱"  style=" width:400px"/></li>
-       <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li>
-       <li style="width:90px;"><button type="button" class="btn_search"><i class="icon-search"></i>查询</button></li>
+       <li><label class="l_f">请输入</label><input name="smsHeadline" type="text"  class="text_add" placeholder="输入消息标题"  style=" width:400px"/></li>
+      <!--  <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li> -->
+       <li style=" width:90px;"> <input type="submit" value="查询" class="btn_search"></i></li>
       </ul>
+      </form> 
     </div>
+    
      <!---->
      <div class="border clearfix">
        <span class="l_f">
-        <a onclick="jiaaa();member_edit('550')" href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>发送信息</a>
+        <a onclick="jiaaa()" href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>发送信息</a>
         <%-- <a title="编辑" onclick="jia(${per.smsId });member_edit('550')" href="javascript:;"   >${per.officeSms.smsHeadline}</a> --%>
-        <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
+        <!-- <a href="javascript:ovid()"  onclick="fun()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a> -->
+        <a href="Office/selectinfo.do"  class="btn btn-success"><i class="icon-plus"></i>我的信息</a>
+        <a href="javascript:shanchu()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
+       
+       <script type="text/javascript">
+						function shanchu() {
+						//alert("進入刪除！！")
+						document.getElementById("delmany").submit();
+						var a=document.getElementsByName("test11");
+						
+						}
+							
+					</script>
+       
        </span>
-       <span class="r_f">共：<b>2345</b>条</span>
+       
+       
+      
      </div>
      <!---->
      <div class="table_menu_list">
@@ -102,68 +122,52 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 		</thead>
 	<tbody>
-			<!-- <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>1</td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','500','400')">张三</u></td>
-          <td>男</td>
-          <td>13000000000</td>
-          <td>admin@mail.com</td>
-          <td class="text-l">北京市 海淀区</td>
-          <td>2014-6-11 11:11:42</td>
-          <td>普通用户</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('550')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          </td>
-		</tr> -->
+		<form action="Office/delallaa.do" id="delmany" method="post">
 		
-		
-		
-		
-		<c:forEach items="${smsdetailinfo.list }" var="per">
-			<tr>
-				<td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-				<td style="font-size:11px;">${per.detailId }</td>
-				<%-- <td style="font-size:11px;">${per.officeSms.smsHeadline}</td> --%>
-				<td style="font-size:11px;"><a title="编辑" onclick="jia(${per.smsId });member_edit('550')" href="javascript:;"   >${per.officeSms.smsHeadline}</a> </td>
+			<c:forEach items="${smsdetailinfo.list }" var="per">
+				<tr>
+					<td><label><input type="checkbox" name="test11" value="${per.detailId }" class="ace"><span class="lbl"></span></label></td>
+					<td style="font-size:11px;">${per.detailId }</td>
+					<%-- <td style="font-size:11px;">${per.officeSms.smsHeadline}</td> --%>
+					<td style="font-size:11px;"><a title="详情" onclick="jia(${per.smsId });member_edit('550')" href="javascript:;"   >${per.officeSms.smsHeadline}</a> </td>
 				
-				<td style="font-size:11px;">${per.sysUsers.userName}</td>
+					<td style="font-size:11px;">${per.sysUsers.userName}</td>
 				
-				<td style="font-size:11px;">${per.syscompany.comName}</td>
-				<td style="font-size:11px;"><fmt:formatDate value="${per.lastTime}"
-				pattern="yyyy-MM-dd HH:mm:ss" /></td>
+					<td style="font-size:11px;">${per.syscompany.comName}</td>
+					<td style="font-size:11px;"><fmt:formatDate value="${per.lastTime}"
+					pattern="yyyy-MM-dd HH:mm:ss" /></td>
 				
 				
 				
-				<td class="td-status"><span class="label label-success radius">
+					<td class="td-status"><span class="label label-success radius">
 
-				<c:if test="${per.smsState==1}">
-					已阅读
-				</c:if>
-				<c:if test="${per.smsState==0}">
-					未阅读
-				</c:if>
-				</span></td>
+					<c:if test="${per.smsState==1}">
+						已阅读
+					</c:if>
+					<c:if test="${per.smsState==0}">
+						未阅读
+					</c:if>
+					</span></td>
 				
-				<td class="td-manage">
-					<%-- <a href='Office/Officestate.do?sta="+${per.smsState}+"&&id="+${per.detailId }+"'>确认设为未读</a> --%>
-          			<a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          			<a title="编辑"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          			<a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          		</td>
+					<td class="td-manage">
+						<a title="设为未读"  class="btn btn-xs btn-success" href='Office/Officestate.do?id=${per.detailId }'><i class="icon-ok bigger-120"></i></a>
+          				
+          				<!-- <a title="编辑"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a>  -->
+          			
+          			 	<a title="删除"  onclick="delet(${per.detailId });member_del(this,'1')" href="javascript:;"   class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
+          				
+          			</td>
 				
 				
-			</tr>
+				</tr>
 			</c:forEach>
+		</form>
 			<tr>
 	           			<td colspan="12" style="text-align: center">
-	           			<a href="Office/selectdetailinfo.do?pageNum=${smsdetailinfo.firstPage }">首页</a>
-	           			<a href="Office/selectdetailinfo.do?pageNum=${smsdetailinfo.prePage }">上一页</a>
-	           			<a href="Office/selectdetailinfo.do?pageNum=${smsdetailinfo.nextPage }">下一页</a>
-	           			<a href="Office/selectdetailinfo.do?pageNum=${smsdetailinfo.lastPage }">尾页</a>
+	           			<a href="Office/selectdetailinfo.do?pageNum=${smsdetailinfo.firstPage }&smsHeadline=${smsHeadline}">首页</a>
+	           			<a href="Office/selectdetailinfo.do?pageNum=${smsdetailinfo.prePage }&smsHeadline=${smsHeadline}">上一页</a>
+	           			<a href="Office/selectdetailinfo.do?pageNum=${smsdetailinfo.nextPage }&smsHeadline=${smsHeadline}">下一页</a>
+	           			<a href="Office/selectdetailinfo.do?pageNum=${smsdetailinfo.lastPage }&smsHeadline=${smsHeadline}">尾页</a>
 	           			当前${smsdetailinfo.pageNum}/${smsdetailinfo.pages}页,共${smsdetailinfo.total}条
 	           			</td>
 	           </tr>
@@ -186,33 +190,53 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      
     </ul>
  </div>
+ <script>
+ function yan(c){
+ //alert("进入js了");
+		var id="";
+		$(".actives").each(function(i,e) {		
+			id += "id=" + $(this).attr("data-value")+"&";
+		});
+		c.action=c.action+"?"+id;
+		//alert(c.action);
  
+ }
+ </script>
  
  <!--添加用户图层-->
-<form action="Office/addsmsInfo.do" method="post">
+<form action="Office/addsmsInfo.do" method="post" onsubmit="return yan(this)">
 <div class="add_menber" id="add_sms_style" style="display:none">
   
     <ul class=" page-content">
      <!-- <li style="display:hidden"><label class="label_name">客户编号：</label><span class="add_name"><input  type="text" id="customId" class="text_add"/></span><div class="prompt r_f"></div></li> -->
      
-     <li><label class="label_name">接&nbsp;&nbsp;收&nbsp;&nbsp;人：</label><span class="add_name"><input  type="text" name="smsreciver" id="ticketCode" class="text_add"/></span><div class="prompt r_f"></div></li>
+   	<li>接&nbsp;&nbsp;收&nbsp;&nbsp;人：<select name="searchs" id="searchs" data-selector data-selector-checks="true"><option>接收人</option></select></li>
      <li><label class="label_name"></label><div class="prompt r_f"></div></li>
-     <li><label class="label_name">信息标题：</label><span class="add_name"><input  type="text" name="smshidle" id="customName" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">信息标题：</label><span class="add_name"><input  type="text" name="smshidle" id="detail2" class="text_add"/></span><div class="prompt r_f"></div></li>
 	<li><label class="label_name"></label><div class="prompt r_f"></div></li>
 	<li><label class="label_name"></label><div class="prompt r_f"></div></li>
      <!-- <li><label class="label_name">接收人公司：</label><span class="add_name"><input  type="text" name="companyid" id="owner" class="text_add"/></span><div class="prompt r_f"></div></li> -->
 	<li><label class="label_name"></label><div class="prompt r_f"></div></li>
-     <li><label class="label_name">信息内容：</label><textarea style="width: 100%;height:100px; "   name="smsdetail1" id="customProperties" ></textarea></li>
+     <li><label class="label_name">信息内容：</label><textarea style="width: 100%;height:100px; "   name="smsdetail1" id="detail3" ></textarea></li>
 
+
+		<%-- <select id="rolesx" name="roleId"  data-selector data-selector-checks="true">
+                <c:forEach items="${roles}" var="r" >
+                <option value="${r.roleId }">${r.roleName }</option>
+                </c:forEach>
+            </select></span><div class="prompt r_f"></div></li> --%>
+            
     </ul><br><br><br><br><br><br><br><br><br><br><br><br>
     <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="发送"></div><br><br><br><br><br><br>
  </div>
  </form>
- 
- 
- 
- 
 </body>
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script src="asset/js/select.js"></script>
+<script src="verSelector/verSelect.js"></script>
+<script>
+    new verSelector();
+</script>
 </html>
 <script>
 jQuery(function($) {
@@ -322,7 +346,7 @@ function member_edit(id){
     });
 }
 /*用户-删除*/
-function member_del(obj,id){
+/* function member_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
 		$(obj).parents("tr").remove();
 		layer.msg('已删除!',{icon:1,time:1000});
@@ -333,7 +357,7 @@ laydate({
     event: 'focus' 
 });
 
-
+ */
 
 /* 查看详情的ajax */
 function jia(smsId)
@@ -404,45 +428,60 @@ function jiaaa(smsId)
       url:url,
       dataType:"json",
       success:function(data)
-      {//从前台回调回来的数组，处理后的数据
-       //alert(JSON.stringify(data));
-       	// $("#sms1").val(data.smsHeadline);
-        // $("#sms2").val(data.smsContent);//将取出的值覆盖原来的值 （val对值进行操作)
-        // $("#sms3").val(data.sysUsers.userName);
-         //$("#sms4").val(data.syscompany.comName);
-         //$("#sms5").val(data.lastTime);
-         
-         /* $("#superiorUnitsx").val(data.superiorUnits);
-         $("#ownerx").val(data.owner);
-         $("#staffx").val(data.staff);
-         $("#tradeNumberx").val(data.tradeNumber);
-         $("#customTypex").val(data.customType);
-         $("#customStatex").val(data.customState);
-         $("#customSourcex").val(data.customSource);
-         $("#fixedPhonex").val(data.fixedPhone);
-         $("#cellPhonex").val(data.cellPhone);
-         $("#customFaxx").val(data.customFax);
-         $("#depositBankx").val(data.depositBank);
-         $("#bankAccoutx").val(data.bankAccout);
-         $("#nextcontactTimex").val(data.nextcontactTime.substr(0, 10));
-         $("#emailx").val(data.email);
-         $("#sicCodex").val(data.sicCode);
-         $("#payWayx").val(data.payWay);
-         $("#effectivityx").val(data.effectivity);
-         $("#detailAddressx").val(data.detailAddress);
-         $("#remarkx").val(data.remark);
-         $("#comIdx").val(data.comId);
-         var customState = data.customState;
-         if(customState == "正在合作"){
-         	$(".ace[name=form-field-radio1]").get(2).checked = "true";
-         }else{
-         	$(".ace[name=form-field-radio1]").get(3).checked = "true";
-         }	; */	   
+      {
+     /*  var roleName = data.roleName;	
+         $("#roles").children().each(function(i, element) {
+         	if(element.innerHTML == roleName)element.selected = "true";
+         }); */
+      
+      
+      
+      
+      var h="";
+			          $.each(data,function(i,d)//两个参数，第一个参数表示遍历的数组的下标，第二个参数表示下标对应的值
+			          {  
+			              h+="<option value='"+d.userId+"'>"+d.userName+"</option>" 
+			          });
+			          $("#searchs").html(h); 
       }
     });
        
     }
     
+
+
+
+/*用户-删除*/
+function member_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+	     
+		$(obj).parents("tr").remove();
+		layer.msg('已删除!',{icon:1,time:1000});
+	});
+}
+ laydate({
+    elem: '#start',
+    event: 'focus' 
+}); 
+
+/*用户-删除ajax*/
+
+ function delet(detailId)
+    {
+        var url="Office/delsmsInfo.do?detailId="+detailId;
+        
+	   //ajax异步请求
+	   $.ajax
+	   ({
+	      type:"post",
+	      url:url,
+	      dataType:"json",
+	      success:function(data)
+	      {//从前台回调回来的数组，处理后的数据 
+	      }
+	    });
+       
+    }
 
 
 

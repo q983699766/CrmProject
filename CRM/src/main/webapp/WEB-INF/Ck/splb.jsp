@@ -79,10 +79,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <a href="javascript:sc()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
        </span>
        <script type="text/javascript">
-			function sc() {
-			document.getElementById("cc").submit();
-			var a=document.getElementsByName("bb");
-			}
+			function sc() 
+			  {		
+				var a=document.getElementsByName("bb");			
+				for(var a0=0;a0<a.length;a0++)
+				  {
+					if(a[a0].checked)
+					{								
+						document.getElementById("cc").submit();
+						return;
+					}
+				  }
+				  
+				  	alert("请选择你要删除的商品！");
+			 
+			   }
 							
 	  </script>
        <span class="r_f">共：<b>${pi.total }</b>条</span>
@@ -110,9 +121,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 		</thead>
 	<tbody>
+	<form action="ccspxxctlr/sc.do" id="cc" method="post">
 	<c:forEach items="${pi.list }" var="u">
 		<tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
+          <td><label><input type="checkbox" class="ace" name="bb" value="${u.productId}"><span class="lbl"></span></label></td>          
           <td>${u.productId }</td>
           <td>${u.spMc }</td>
           <td>${u.spLb }</td>
@@ -133,7 +145,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </td>
 		</tr>
        </c:forEach>
-       		              
+       		</form>          
            <tr>
               <td colspan="15" style="text-align: center;">
                   <a href="ccspxxctlr/list.do?pageNum=${pi.firstPage }">首页</a>

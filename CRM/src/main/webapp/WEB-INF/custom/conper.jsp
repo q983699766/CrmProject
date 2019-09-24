@@ -20,19 +20,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<script src="assets/js/jquery.min.js"></script>
-	<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="css/style.css"/>       
-        <link href="assets/css/codemirror.css" rel="stylesheet">
-        <link rel="stylesheet" href="assets/css/ace.min.css" />
-        <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+	<script src="<%=basePath%>assets/js/jquery.min.js"></script>
+	<link href="<%=basePath%>assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="<%=basePath%>css/style.css"/>       
+        <link href="<%=basePath%>assets/css/codemirror.css" rel="stylesheet">
+        <link rel="stylesheet" href="<%=basePath%>assets/css/ace.min.css" />
+        <link rel="stylesheet" href="<%=basePath%>assets/css/font-awesome.min.css" />
 		<!--[if IE 7]>
 		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
 		<![endif]-->
         <!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
 		<![endif]-->
-			<script src="assets/js/jquery.min.js"></script>
+			<script src="<%=basePath%>assets/js/jquery.min.js"></script>
 
 		<!-- <![endif]-->
 
@@ -57,45 +57,59 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript">
 			if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		</script>
-		<script src="assets/js/bootstrap.min.js"></script>
-		<script src="assets/js/typeahead-bs2.min.js"></script>
+		<script src="<%=basePath%>assets/js/bootstrap.min.js"></script>
+		<script src="<%=basePath%>assets/js/typeahead-bs2.min.js"></script>
 		<!-- page specific plugin scripts -->
-		<script src="assets/js/jquery.dataTables.min.js"></script>
-		<script src="assets/js/jquery.dataTables.bootstrap.js"></script>
-        <script type="text/javascript" src="js/H-ui.js"></script> 
-        <script type="text/javascript" src="js/H-ui.admin.js"></script> 
-        <script src="assets/layer/layer.js" type="text/javascript" ></script>
-        <script src="assets/laydate/laydate.js" type="text/javascript"></script>
+		<script src="<%=basePath%>assets/js/jquery.dataTables.min.js"></script>
+		<script src="<%=basePath%>assets/js/jquery.dataTables.bootstrap.js"></script>
+        <script type="text/javascript" src="<%=basePath%>js/H-ui.js"></script> 
+        <script type="text/javascript" src="<%=basePath%>js/H-ui.admin.js"></script> 
+        <script src="<%=basePath%>assets/layer/layer.js" type="text/javascript" ></script>
+        <script src="<%=basePath%>assets/laydate/laydate.js" type="text/javascript"></script>
 
 	
 
   </head>
   
   <body>
-  <form action="conctlr/custom.do" method="post">
+  
    	<div class="page-content clearfix">
     <div id="Member_Ratings">
       <div class="d_Confirm_Order_style">
+    <form action="conctlr/custom.do" method="post">
     <div class="search_style">
       <div class="title_names">搜索查询</div>
       <ul class="search_content clearfix">
-       <li><label class="l_f">客户名称</label><input name="customName" type="text"  class="text_add" placeholder="输入客户名称"  style=" width:400px"/></li>
+       <li><label class="l_f">客户名称</label><input name="message" type="text"  class="text_add" placeholder="输入客户名称"  style=" width:400px"/></li>
        <li style="width:90px;"><input type="submit"  class="btn_search" value="查询"></li>
       </ul>
     </div>
-
+   </form>
      <!---->
+     
+       <script type="text/javascript">
+       function dell(){
+       if(document.getElementById("box").checked == true){
+       document.getElementById("myform").submit();
+       }else{
+       	confirm("请勾选！");
+       }
+       }
+       </script>
      <div class="border clearfix">
        <span class="l_f">
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加客户</a>
+        <a href="javascript:dell();" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
        </span>
+     
      </div>
+     <form action="conctlr/delAll.do" id="myform" method="post">
      <!---->
      <div class="table_menu_list">
        <table class="table table-striped table-bordered table-hover" id="sample-table">
 		<thead>
 		 <tr>
-				<th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
+				<th width="25"><label><input type="checkbox"  class="ace"><span class="lbl"></span></label></th>
 				<th style="width:100px;font-size:12px;">客户编号</th>
 				<th style="width:60px;font-size:12px;">客户名</th>
 				<th style="width:30px;font-size:12px;">客户属性</th>
@@ -130,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<c:forEach items="${pi.list }" var="per">
 			<tr>
-				<td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
+				<td><label><input type="checkbox" id="box" name="box" value="${per.customId }" class="ace"><span class="lbl"></span></label></td>
 				<td style="font-size:11px;">${per.customId }</td>
 				<td style="font-size:11px;">${per.customName}</td>
 				<td style="font-size:11px;">${per.customProperties}</td>
@@ -138,35 +152,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td style="font-size:11px;">${per.cellPhone}</td>
 				<td style="font-size:11px;">${per.comId}</td>
 				<td style="font-size:11px;"><fmt:formatDate value="${per.nextcontactTime}"
-				pattern="yyyy-MM-dd HH:mm:ss" /></td>
+				pattern="yyyy-MM-dd" /></td>
 				<td style="font-size:11px;"><a href="javascript:" class="member_show" onclick="jia1(${per.customId })">查看客户</a></td>
 				<td class="td-status"><span class="label label-success radius">${per.customState}</span></td>
-				<td class="td-manage">
+				<td class="td-manage" style="font-size:11px;">
 		          <a title="编辑" onclick="jia(${per.customId });member_edit('550');" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-		          <a title="删除" href="javascript:;"  onclick="member_del(this,'1');del(${per.customId })" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-		          <a href="conctlr/gotoConper.do?customId=${per.customId}">联系人</a>
+		          <a title="删除" href="javascript:;"  onclick="member_del(${per.customId });" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
+		          <a title="联系人" href="conctlr/gotoConper.do?customId=${per.customId}"   class="btn btn-xs btn-primary" ><i class="icon-user  bigger-120"></i></a>
+		          <a title="反馈记录" href="conctlr/feedback.do?customId=${per.customId}"   class="btn btn-xs btn-danger" ><i class="icon-list-alt  bigger-120"></i></a>
 		        </td>
 			</tr>
 			</c:forEach>
+			
 			<tr>
 	           			<td colspan="12" style="text-align: center">
-	           			<a href="conctlr/custom.do?pageNum=${pi.firstPage }">首页</a>
-	           			<a href="conctlr/custom.do?pageNum=${pi.prePage }">上一页</a>
-	           			<a href="conctlr/custom.do?pageNum=${pi.nextPage }">下一页</a>
-	           			<a href="conctlr/custom.do?pageNum=${pi.lastPage }">尾页</a>
+	           			<a href="conctlr/custom.do?pageNum=${pi.firstPage }&message=${message}">首页</a>
+	           			<a href="conctlr/custom.do?pageNum=${pi.prePage }&message=${message}">上一页</a>
+	           			<a href="conctlr/custom.do?pageNum=${pi.nextPage }&message=${message}">下一页</a>
+	           			<a href="conctlr/custom.do?pageNum=${pi.lastPage }&message=${message}">尾页</a>
 	           			当前${pi.pageNum}/${pi.pages}页,共${pi.total}条
 	           		</td>
 	           </tr>
       </tbody>
 	</table>
    </div>
+   </form>
   </div>
  </div>
 </div>
-</form>
 <!--添加用户图层-->
 <form action="conctlr/addSalCustomInfo.do" method="post">
-<div class="add_menber" id="add_menber_style" style="display:none">
+<div class="add_menber" id="add_menber_style" style="display:none;overfiow:scroll">
   
     <ul class=" page-content">
      <!-- <li style="display:hidden"><label class="label_name">客户编号：</label><span class="add_name"><input  type="text" id="customId" class="text_add"/></span><div class="prompt r_f"></div></li> -->
@@ -182,7 +198,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <li><label class="label_name">客户来源：</label><span class="add_name"><input  type="text" name="customSource" id="customSource" class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">固定电话：</label><span class="add_name"><input  type="text" name="fixedPhone" id="fixedPhone" class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">移动电话：</label><span class="add_name"><input  type="text" name="cellPhone" id="cellPhone" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">客户传真：</label><span class="add_name"><input  type="text" name="customFax" id="customFax" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">客户传真：</label><span class="add_name"><input  type="text" name="customFax" id="customFax" class="text_add"/></span><div class="prompt r_f"></div></li> 
      <li><label class="label_name">开户银行：</label><span class="add_name"><input  type="text" name="depositBank" id="depositBank" class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">银行账户：</label><span class="add_name"><input  type="text" name="bankAccout" id="bankAccout" class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">下次联系：</label><span class="add_name"><input  type="DATE" name="nextcontactTime" id="nextcontactTime" class="text_add"/></span><div class="prompt r_f"></div></li>
@@ -194,8 +210,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <li><label class="label_name">备注信息：</label><span class="add_name"><input  type="text" name="remark" id="remark" class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">公司编号：</label><span class="add_name"><input  type="text" name="comId" id="comId" class="text_add"/></span><div class="prompt r_f"></div></li>
 
-    </ul><br><br><br><br><br><br><br><br><br><br><br><br>
-    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br><br><br><br><br><br>
+    </ul><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br><br>
  </div>
  </form>
  
@@ -204,6 +220,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="update_menber" id="update_menber_style" style="display:none">
 	
     <ul class=" page-content">
+
+    <input type="hidden" name="customId" id="customIdx"/> 
+    <input type="hidden" name="customState" id="customStatex"/> 
+     <li><label class="label_name">客户名称：</label><span class="add_name"><input  type="text"  id="customNamex" name="customName" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">客户属性：</label><span class="add_name"><input  type="text" name="customProperties" id="customPropertiesx" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">网&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;站：</label><span class="add_name"><input  type="text" name="website" id="websitex" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">股票代码：</label><span class="add_name"><input  type="text" id="ticketCodex" name="ticketCode" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">上级单位：</label><span class="add_name"><input  type="text" id="superiorUnitsx" name="superiorUnits" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">所&nbsp;&nbsp;有&nbsp;&nbsp;者：</label><span class="add_name"><input  type="text" name="owner" id="ownerx" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">员&nbsp;&nbsp;工&nbsp;&nbsp;数：</label><span class="add_name"><input  type="text" name="staff" id="staffx" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">行业编号：</label><span class="add_name"><input  type="text" id="tradeNumberx" name="tradeNumber" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">客户类型：</label><span class="add_name"><input  type="text" id="customTypex" name="customType" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">客户来源：</label><span class="add_name"><input  type="text" id="customSourcex" name="customSource" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">固定电话：</label><span class="add_name"><input  type="text" id="fixedPhonex" name="fixedPhone" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">移动电话：</label><span class="add_name"><input  type="text" id="cellPhonex" name="cellPhone" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">客户传真：</label><span class="add_name"><input  type="text" id="customFaxx" name="customFax" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">开户银行：</label><span class="add_name"><input  type="text" id="depositBankx" name="depositBank" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">银行账户：</label><span class="add_name"><input  type="text" id="bankAccoutx" name="bankAccout" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">下次联系：</label><span class="add_name"><input  type="DATE"  id="nextcontactTimex" name="nextcontactTime"   dateFmt="yyyy-MM-dd HH:mm:ss" class="text_add" /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">电子邮件：</label><span class="add_name"><input  type="text" id="emailx" name="email" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">S&nbsp;I&nbsp;C编码：</label><span class="add_name"><input  type="text" id="sicCodex" name="sicCode" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">支付方式：</label><span class="add_name"><input  type="text" id="payWayx" name="payWay" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">是否有效：</label><span class="add_name"><input  type="text" id="effectivityx" name="effectivity" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">详细地址：</label><span class="add_name"><input  type="text" id="detailAddressx" name="detailAddress" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">备注信息：</label><span class="add_name"><input  type="text" id="remarkx" name="remark" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">公司编号：</label><span class="add_name"><input  type="text" id="comIdx" name="comId" class="text_add"/></span><div class="prompt r_f"></div></li>
+    </ul><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br><br>
 
  </div>
  </form>
@@ -503,21 +547,19 @@ function jia(customId)
        
     }
 /*用户-删除*/
-function member_del(obj,id){
+function member_del(customId){
 	layer.confirm('确认要删除吗？',function(index){
 	     
-		$(obj).parents("tr").remove();
+		//$(obj).parents("tr").remove();
+		document.location.href="conctlr/delSalCustomInfo.do?customId="+customId;
 		layer.msg('已删除!',{icon:1,time:1000});
 	});
 }
-laydate({
-    elem: '#start',
-    event: 'focus' 
-});
+
 
 /*用户-删除ajax*/
 
- function del(customId)
+/*  function del(customId)
     {
         var url="conctlr/delSalCustomInfo.do?customId="+customId;
         
@@ -532,7 +574,7 @@ laydate({
 	      }
 	    });
        
-    }
+    } */
 
 
 </script>

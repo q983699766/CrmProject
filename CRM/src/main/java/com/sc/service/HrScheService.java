@@ -2,6 +2,7 @@ package com.sc.service;
 
 import java.util.List;
 
+import com.github.pagehelper.PageInfo;
 import com.sc.bean.OfficeDetailSms;
 import com.sc.bean.OfficeSms;
 import com.sc.bean.OfficeSmsExample;
@@ -14,8 +15,12 @@ public interface HrScheService {
 	public List<OfficeSms> selectall(OfficeSms sms);
 
 	//查询所有供应商信息
-	public List<OfficeSms> selectByExample(OfficeSmsExample example);
+	public PageInfo<OfficeDetailSms> selectByExample(Integer pageNum, Integer pageSize,OfficeSmsExample example,Long userId,String smsHeadline,OfficeSms officeSms);
 	
+	//查询所有供应商信息
+		public PageInfo<OfficeDetailSms> selectreaded(Integer pageNum, Integer pageSize,OfficeSmsExample example,Long userId,OfficeSms officeSms,String read);
+		
+		
 	//通过ID查找公司
 	public SysCOMPANY seleCOMById(long comid);
 	
@@ -24,6 +29,9 @@ public interface HrScheService {
 	
 	//通过信息ID查找信息
 	public OfficeSms selectById(Long smsId);
+	
+	//通过信息ID查找信息详情
+	public OfficeDetailSms selectdetailsmsById(Long detailId);
 	
 	//查找全部用户
 	public List<SysUsers> selectuserByExample(SysUsersExample example);

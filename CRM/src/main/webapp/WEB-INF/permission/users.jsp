@@ -59,13 +59,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   icon:2,		   		
 			  });
 	}
+	if(ok=="5"){
+			layer.alert('员工编号不存在！',{
+               title: '提示框',				
+			   icon:2,		   		
+			  });
+	}
 </script>
 
 	
 
  <div class="margin clearfix">
  
- 	<div class="search_style">
+ 	<%-- <div class="search_style">
     	<font size="80">${aa.ckM }</font> 
     <form action="#" method="post">
       <div class="title_names">账户、用户名关键字查询</div>
@@ -74,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        <li style="width:90px;"><button type="submit" class="btn_search"><i class="icon-search"></i>查询</button></li>
       </ul>
       </form>
-    </div>
+    </div> --%>
     
    <div class="border clearfix">
        <span class="l_f">
@@ -157,7 +163,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <li><label class="label_name">用户密码：</label><span class="add_name">&nbsp;&nbsp;&nbsp;●●●●●●<!-- <input  type="password" name="userPassword" id="userPassword" class="text_add"/> --></span><div class="prompt r_f"></div></li>
      
      <li><label class="label_name">员工编号：</label><span class="add_name"><input  type="text" name="empId" id="empIdx" class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">公司编号：</label><span class="add_name"><input  type="text" name="comId" id="comIdx" class="text_add"/></span><div class="prompt r_f"></div></li><li><label class="label_name">用户角色：</label><span class="add_name">
+     <!-- <li><label class="label_name">公司编号：</label><span class="add_name"><input  type="text" name="comId" id="comIdx" class="text_add"/></span><div class="prompt r_f"></div></li> --><li><label class="label_name">用户角色：</label><span class="add_name">
      		&nbsp;&nbsp;&nbsp;&nbsp;<select id="rolesx" name="roleId"  data-selector data-selector-checks="true">
                 <c:forEach items="${roles}" var="r" ><option value="${r.roleId }" >${r.roleName }</option></c:forEach>
             </select></span><div class="prompt r_f"></div></li>
@@ -180,7 +186,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <div class="prompt r_f"></div>
      </li>
      <li><label class="label_name">员工编号：</label><span class="add_name"><input name="empId" id="empId" type="text"  class="text_add" placeholder="必填" /></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">公司编号：</label><span class="add_name"><input name="comId" id="comId" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li>
+     <!-- <li><label class="label_name">公司编号：</label><span class="add_name"><input name="comId" id="comId" type="text"  class="text_add" placeholder="必填"/></span><div class="prompt r_f"></div></li> -->
      <li><label class="label_name">添加角色：</label><span class="add_name">&nbsp;&nbsp;&nbsp;&nbsp;
              <select id="roles" name="roleId" data-selector data-selector-checks="true">
                 <c:forEach items="${roles}" var="r" ><option value="${r.roleId }">${r.roleName }</option></c:forEach>
@@ -205,17 +211,19 @@ function add(obj){
 		var pass4 = document.getElementById("uname").value;
 		var pass5 = document.getElementById("upass").value;
 		var pass1 = document.getElementById("empId").value;
-		var pass2 = document.getElementById("comId").value;
-		var pass3 = document.getElementById("roles").value;
+		/* var pass2 = document.getElementById("comId").value; */
+		/* var pass3 = document.getElementById("roles").value; */
 		
 		var roleId="";
 		$(".actives").each(function(i,e){
-		    /* alert($(this).attr("data-value")); */
+		    
 		    roleId+="roleId="+$(this).attr("data-value")+"&";
+		    alert(roleId);
 		});
 		
 		obj.action=obj.action+"?"+roleId;
-		/* alert(obj.action); */
+		alert(obj.action); 
+		
 		if (pass4==""){
 			  layer.alert('用户名不能为空!',{
               title: '提示框',				
@@ -265,12 +273,12 @@ function add(obj){
 		
 		var roleId="";
 		$(".actives").each(function(i,e){
-		    /* alert($(this).attr("data-value")); */
+		    alert($(this).attr("data-value")); 
 		    roleId+="roleId="+$(this).attr("data-value")+"&";
 		});
 		obj.action=obj.action+"?"+roleId;
-		/* alert(obj.action);
-		alert(roleId); */
+		alert(obj.action);
+		alert(roleId); 
 		if (pass1==""){
 			  layer.alert('员工编号不能为空!',{
               title: '提示框',				
@@ -305,7 +313,7 @@ function add(obj){
 function del_user(uId){
  		layer.confirm('是否确定删除？',{
                 btn: ['是','否'] ,				
-				icon:2,
+				icon:0,
 				},
 				function(){
 						  location.href="del.do?userId="+uId;

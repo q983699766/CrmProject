@@ -85,6 +85,19 @@ public class PurProductsServiceImpl implements PurProductsService {
 	public void addpurproducts( PurProducts purproducts) {
 		purproductsmapper.insert(purproducts);
 	}
+	@Override
+	public void delpurproducts(Long productId) {
+	
+		
+		purproductsmapper.deleteByPrimaryKey(productId);
+		
+	}
+	@Override
+	public void delpurproduct(Long productid) {
+		
+		purproductsmapper.deleteByPrimaryproductid(productid);
+	}
+
 	
 
 }

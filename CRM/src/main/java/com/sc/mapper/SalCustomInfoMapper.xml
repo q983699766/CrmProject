@@ -31,6 +31,22 @@
       <arg column="COM_ID" jdbcType="DECIMAL" javaType="java.lang.Long" />
       <arg column="LAST_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
+     <!-- 配置一对一（客户信息对应订单） -->
+    <association property="salorder" javaType="com.sc.bean.SalOrder">
+    	<id column="" property=""/>
+    	<result column="ORDER_ID" property="orderId"/>
+    	<result column="CREATE_TIME" property="createTime"/>
+    	<result column="INVOICE_NUMBER" property="invoiceNumber"/>
+    	<result column="USER_ID" property="userId"/>
+    	<result column="CUSTOM_ID" property="customId"/> 
+    	<result column="SAL_MONEY" property="salMoney"/> 
+    	<result column="ORDER_OUT_STATE" property="orderOutState"/> 
+    	<result column="REBATE" property="rebate"/> 
+    	<result column="ORDER_STATE" property="orderState"/> 
+    	<result column="REMARK" property="remark"/> 
+    	<result column="COM_ID" property="comId"/>
+    	<result column="LAST_TIME" property="lastTime"/> 
+    </association>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -561,4 +577,13 @@
     where CUSTOM_ID = #{customId,jdbcType=DECIMAL}
   </update>
   
+   <select id="selectByOrderId" parameterType="com.sc.bean.SalConper" resultMap="BaseResultMap">
+  	SELECT *
+  	FROM SAL_CUSTOM_INFO CUSTOM 
+  	INNER  JOIN (SELECT ORDE.CUSTOM_ID,MAX(ORDE.CREATE_TIME) CREATE_TIME
+	FROM SAL_ORDER ORDE
+	GROUP BY ORDE.CUSTOM_ID) B
+	ON CUSTOM .CUSTOM_ID=B.CUSTOM_ID
+  	WHERE CUSTOM.CUSTOM_STATE IN('暂缓流失','已经流失')  
+  </select>
 </mapper>
