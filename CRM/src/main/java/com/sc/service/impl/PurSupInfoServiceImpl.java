@@ -36,15 +36,15 @@ public class PurSupInfoServiceImpl implements PurSupInfoService {
 				Criteria criteria = example.createCriteria();
 				criteria.andSupInfoNumEqualTo(pursupinfo.getSupInfoNum());
 			}
-			if(pursupinfo.getSupName()!=null){
+			else if(pursupinfo.getSupName()!=null){
 				Criteria criteria = example.createCriteria();
 				criteria.andSupNameLike("%"+pursupinfo.getSupName()+"%");
 			}
-			if(pursupinfo.getSupUname()!=null){
+			else if(pursupinfo.getSupUname()!=null){
 				Criteria criteria = example.createCriteria();
 				criteria.andSupUnameLike("%"+pursupinfo.getSupUname()+"%");
 			}
-			if(pursupinfo.getContacts()!=null){
+			else if(pursupinfo.getContacts()!=null){
 				Criteria criteria = example.createCriteria();
 				criteria.andContactsLike("%"+pursupinfo.getContacts()+"%");
 			}

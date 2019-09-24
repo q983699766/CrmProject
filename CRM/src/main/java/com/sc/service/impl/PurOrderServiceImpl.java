@@ -10,6 +10,10 @@ import com.github.pagehelper.PageInfo;
 import com.sc.bean.PurOrder;
 import com.sc.bean.PurOrderExample;
 import com.sc.bean.PurOrderInfo;
+import com.sc.bean.PurOrderInfoExample;
+import com.sc.bean.PurSupInfo;
+import com.sc.bean.PurSupInfoExample;
+import com.sc.bean.PurOrderInfoExample.Criteria;
 import com.sc.mapper.PurOrderInfoMapper;
 import com.sc.mapper.PurOrderMapper;
 import com.sc.mapper.PurSupInfoMapper;
@@ -65,4 +69,32 @@ PurOrderInfoMapper  purOrderInfoMapper;
 		purOrderInfoMapper.insert(purOrderInfo);
 		
 	}
+
+	@Override
+	public void updateinfo(PurOrder purorder) {
+		purordermapper.updateByPrimaryKey(purorder);
+		
+	}
+
+	//查询所有
+	@Override
+	public PageInfo<PurOrder> selecorder(Integer pageNum,Integer pageSize ,PurOrder purorder) {
+		   //设置开始分页
+			PageHelper.startPage(pageNum, pageSize);
+			 PurOrderExample example = new PurOrderExample();
+			if(purorder.getPurTitle()!=null){
+				 com.sc.bean.PurOrderExample.Criteria criteria = example.createCriteria();
+				criteria.andPurTitleLike("%"+purorder.getPurTitle()+"%");
+			}
+			List<PurOrder> list=this.purordermapper.selectByExample(example);
+			//封装LIST到pageinfo
+			PageInfo<PurOrder> pi = new PageInfo<PurOrder>(list);
+			
+			return pi;
+			}
+			//调用查询所有的方法
+			
+		
+
+
 }
