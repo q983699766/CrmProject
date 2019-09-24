@@ -78,9 +78,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <!---->
      <div class="border clearfix">
        <span class="l_f">
-      	<p class="btn btn-danger">客户：${record.customName }</p>
+      	<p class="btn btn-danger">联系人：${record.conperName }</p>
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加联系记录</a>
-       
+       <a href="conctlr/gotoConper.do?customId=${record.customId}"  class="btn btn-danger"><i class="icon-plus"></i>返回上一级</a> 
        </span>
        <span class="r_f">共：<b>2345</b>条</span>
      </div>
@@ -120,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				pattern="yyyy-MM-dd" /></td> 
 			<td style="font-size:13px;">${b.recordContent}</td>
          	 <td class="td-manage">
-         		 <a title="删除" href="javascript:;"  onclick="member_del(this,'1');del(${a.conperId})" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
+         		 <a title="删除" href="javascript:;"  onclick="member_del(this,'1');del(${b.recordId})" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
           	</td>
 		</tr>
 		</c:forEach>
@@ -132,32 +132,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 
   <!--添加用户图层-->
- <form action="#" method="post">
+ <form action="conctlr/addSalRecord.do" method="post">
 <div class="add_menber" id="add_menber_style" style="display:none"> 
     <ul class=" page-content">
+    <input type="hidden" name="customId" value="${record.conperId}" /> 
      <!-- <li><label class="label_name">客户编号：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li> -->
-     <li><label class="label_name">联系标题：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">联系时间：</label><span class="add_name"><input  type="date"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">联系内容：</label><span class="add_name"><textarea rows="15%" cols="30%" type="text"  class="text_add"></textarea></span><div class="prompt r_f"></div></li>
-    </ul>
+     <li><label class="label_name">联系标题：</label><span class="add_name"><input  type="text" name="recordTitle"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">联系时间：</label><span class="add_name"><input  type="date" name="recordTime" dateFmt="yyyy-MM-dd HH:mm:ss"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">联系内容：</label><span class="add_name"><textarea rows="15%" cols="30%" type="text"  name="recordContent" style="resize:none;" class="text_add"></textarea></span><div class="prompt r_f"></div></li>
+    </ul><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="提交"></div><br><br><br>
  </div>
  </form>
  
- 
- 
- <!--修改用户图层-->
- <form action="#" method="post">
-<div class="update_menber" id="update_menber_style" style="display:none"> 
-    <ul class=" page-content">
-     <!-- <li><label class="label_name">客户编号：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li> -->
-     <li><label class="label_name">联系标题：</label><span class="add_name"><input  type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">联系时间：</label><span class="add_name"><input  type="date"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">联系内容：</label><span class="add_name"><textarea rows="15%" cols="30%" type="text"  class="text_add"></textarea></span><div class="prompt r_f"></div></li>
-    </ul>
- </div>
- </form>
- 
-
    	
   </body>
 </html>
@@ -208,7 +195,6 @@ jQuery(function($) {
 		shadeClose: true, //点击遮罩关闭层
         area : ['800px' , ''],
         content:$('#add_menber_style'),
-		btn:['提交','取消'],
 		yes:function(index,layero){	
 		 var num=0;
 		 var str="";
@@ -274,7 +260,7 @@ function member_edit(id){
 		}
     });
 }
-/*用户-删除*/
+/*联系记录-删除*/
 function member_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
 		$(obj).parents("tr").remove();
@@ -285,6 +271,26 @@ laydate({
     elem: '#start',
     event: 'focus' 
 });
+
+
+    /*联系记录-删除ajax*/
+
+ function del(recordId)
+    {
+        var url="conctlr/delSalRecord.do?recordId="+recordId;
+        
+	   //ajax异步请求
+	   $.ajax
+	   ({
+	      type:"post",
+	      url:url,
+	      dataType:"json",
+	      success:function(data)
+	      {//从前台回调回来的数组，处理后的数据 
+	      }
+	    });
+       
+    }
 
 </script>
 
