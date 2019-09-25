@@ -40,31 +40,87 @@
 					return;
 				}
 			} 
-			/* if(){
-				document.getElementById('cc000').submit();
-			} */
-			
 		}   
-		/* $("#a1").click(function() {
-			var iii = $("#cc000").prev().find("input");
-			var aaa = '';
-			$(iii).each(function() {
-				if($(this).prop("checked") == true){
-					document.getElementById('cc000').submit();
-					return;
-				}
-			})
-		}) */
-		/* function sccc(){
-			var iii = $("#cc000").prev().find("input");
-			var aaa = '';
-			$(iii).each(function() {
-				if($(this).prop("checked") == true){
-					document.getElementById('cc000').submit();
-					return;
-				}
-			})
-		} */
+	/*发布*/
+  function open(){
+  	  $.ajax({
+		type:"post",
+    	url:"officeg.do/pretargetId.do",
+    	success:function(data){
+     	   	var select = document.getElementById("selecttargetId");
+     	   	$.each(data, function(i, elt) {
+     	   		select.options.add(new Option(elt.checkTarget, elt.targetId));
+     	   	})
+     	}
+	  }); 
+	  $.ajax({
+		type:"post",
+    	url:"officeg.do/prereceiver.do",
+    	success:function(data){
+     	   	var spanreceiver = document.getElementById("spanreceiver");
+     	   	var checkbox;
+     	   	var text;
+     	   	$.each(data, function(i, elt) {
+     	   		checkbox = document.createElement("input");
+     	   		checkbox.setAttribute("type", "checkbox");
+     	   		checkbox.setAttribute("name", "receiverId");
+     	   		checkbox.setAttribute("value", elt.userId);
+     	   		text = document.createTextNode(elt.userName);
+     	   		spanreceiver.appendChild(checkbox);
+     	   		spanreceiver.appendChild(text);
+     	   	})
+     	}
+	  });
+   	layer.open({
+        type: 1,
+        title: '发布',
+		maxmin: true, 
+		shadeClose: true, //点击遮罩关闭层
+        area : ['800px' , ''],
+        content:$('#add_menber_style'),
+		yes:function(index,layero){	
+		 	/* layer.closeAll(); */
+		}
+    });
+}; 
+/* 获取发布表单，并提交 */
+function fabuform(){
+	// 设置targetId的input的值
+	$("#targetId").val($("#selecttargetId").find("option:selected").val());
+	// 任务指标不能为空
+	if($("#selecttargetId").val()==-1){
+		layer.alert('任务指标不能为空!',{
+              title: '提示框',				
+				icon:0,
+			 });
+		return false;
+	}
+	// 接收人不能为空
+	var receiverIdList = $("input[name='receiverId']").val();
+	if(receiverIdList==0){
+		layer.alert('接收人不能为空!',{
+              title: '提示框',				
+				icon:0,
+			 });
+		return false;
+	}
+	/* 终止日期验证 */
+	var endtime = $("#taskEndtime").val();
+	var starttime = $("#taskStarttime").val();
+	if(endtime<=starttime){
+		layer.alert('终止日期不能小于等于生效日期!',{
+              title: '提示框',				
+				icon:0,
+			 });
+		return false;
+	}
+	layer.closeAll();
+	
+	document.forms.fabuformv.action="officeg.do/fabu.do";
+	return true;
+	/* document.getElementById("fabuformv").submit(); */
+	
+}
 	</script>
 <body>
 <div class="margin clearfix">
@@ -77,20 +133,25 @@
        <li style="width:90px;"><button type="button" class="btn_search"><i class="icon-search"></i>查询</button></li>
       </ul>
     </div>-->
-	 <div class="search_style">
-      <div class="title_names">新建考核指标集</div>
+	 <!-- <div class="search_style">
+      <div class="title_names">发布考核任务</div>
       <form action="officecc.do/addofficechecktarget.do" method="post">
       <ul class="search_content clearfix">
-       <li><label class="l_f">考核指标集名称</label><input name="checkTarget" type="text" class="text_add" placeholder="添加一个名称" style=" width:250px"></li>
-       <li><label class="l_f">考核指标集描述</label><textarea name="remark" class="textarea" style=" margin-left:10px;" cols="100"></textarea><!--<input class="inline laydate-icon" id="start" style=" margin-left:10px;">--></li>
-       <li style="width:90px;"><button type="submit" class="btn_search"><i class="icon-search"></i>添加</button></li>
-       
+       <li><label class="l_f">任务标题</label><input name="taskTitle" type="text" class="text_add" placeholder="添加一个名称" style=" width:250px"></li>
+       <li><label class="l_f">任务具体内容</label><textarea name="taskContent" class="textarea" style=" margin-left:10px;" cols="100"></textarea></li>
+       <li><label class="l_f">考核指标集</label>
+           <button type="button" onclick="addtargetId()" class="btn_search"><i class="icon-search"></i>选择</button>
+       </li>
+       <li><label class="l_f">有效期</label>生效日期<input name="taskStarttime" type="date" class="text_add" style=" width:250px">终止日期<input name="taskEndtime" type="date" class="text_add" style=" width:250px"></li>
+       <li><label class="l_f">被考核人</label><button type="button" onclick="addreceiver()" class="btn_search"><i class="icon-search"></i>添加</button></li>
+       <li style="width:90px;"><button type="submit" class="btn_search"><i class="icon-search"></i>发布</button></li>
+       <li style="width:90px;"><button type="reset" class="btn_search"><i class="icon-search"></i>重置</button></li>
       </ul>
       </form>
-    </div>
+    </div> -->
     <div class="border clearfix">
        <span class="l_f">
-        <!-- <a href="javascript:sccc();" id="a1" class="btn btn-danger"><i class="fa fa-trash"></i>&nbsp;批量删除</a> -->
+        <a href="javascript:open();" id="open" class="btn btn-yellow"><i class="icon-plus"></i>&nbsp;新增发布</a>
         
         <!--<a href="javascript:ovid()" class="btn btn-sm btn-primary"><i class="fa fa-check"></i>&nbsp;已浏览</a>
         <a href="javascript:ovid()" class="btn btn-yellow"><i class="fa fa-times"></i>&nbsp;未浏览</a>-->
@@ -111,14 +172,14 @@
           <th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
           <th width="80">任务编号ID</th>
           <th width="150px">任务标题</th>
-          <th width="">任务具体内容</th>
+          <th width="160">任务具体内容</th>
           <th width="80">考核指标</th>
           <th width="80">开始时间</th>
           <th width="80">结束时间</th>
           <th width="80">发布人</th>
           <th width="80">公司ID</th>
           <th width="200px">最后修改时间</th>
-           <th width="70">修改</th>            
+           <th width="70">查看详情</th>            
            <th width="250">删除</th> 
           </tr>
       </thead>
@@ -134,14 +195,17 @@
           <td><fmt:formatDate value="${u.taskStarttime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
           <td><fmt:formatDate value="${u.taskEndtime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
           <td>${u.sysUsers.userName }
-          <a onclick="Guestbook_iewre('${u.taskPublisher }')" title="此人接收"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>
+          <!-- <a onclick="Guestbook_iewre('${u.taskPublisher }')" title="此人接收"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a> -->
           </td>
           <td>${u.comId }</td>
           <td><fmt:formatDate value="${u.lastTime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-          <td class="td-status"><a onclick="Guestbook_iew('${u.taskId }')" title="修改"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a></td>
+          <td class="td-status">
+          <a href="officeg.do/listdetail.do?taskId=${u.taskId }&taskPublisher=${u.taskPublisher }">查看详情</a>
+          <!-- <a onclick="Guestbook_iew('${u.taskId }')" title="修改"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a> -->
+          </td>
           <td class="td-manage">
-          <a onclick="Guestbook_iewrethisline('${u.taskId }')" title="此条接收详情"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>
-        <a  href="javascript:;"  onclick="member_del(this,'${u.taskId }')" title="删除" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
+          <!-- <a onclick="Guestbook_iewrethisline('${u.taskId }')" title="此条接收详情"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a> -->
+        <a  href="javascript:;"  onclick="member_del(this,'${u.taskId }','${u.comId }')" title="删除" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
           </td>
         </tr>
         </c:forEach>
@@ -152,6 +216,28 @@
     </div>
  </div>
 </div>
+<!--添加用户图层-->
+<form action="" method="post" id="fabuformv" onsubmit="return fabuform()">
+<div class="add_menber" id="add_menber_style" style="display:none">
+    <ul class=" page-content">
+     <!-- <li style="display:hidden"><label class="label_name">客户编号：</label><span class="add_name"><input  type="text" id="customId" class="text_add"/></span><div class="prompt r_f"></div></li> -->
+     <li><label class="label_name">任务标题：</label><span class="add_name"><input required type="text" name="taskTitle" id="taskTitle" class="text_add"/></span><div class="prompt r_f" ></div></li>
+     <li><label class="label_name">具体内容：</label><span class="add_name"><input required type="text" name="taskContent" id="taskContent" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">考核指标：</label><span class="add_name"><input  type="hidden" name="targetId" id="targetId" class="text_add"/>&nbsp;&nbsp;
+     	<select id="selecttargetId" class="text_add">
+     		<option value="-1">请选择</option>
+     	</select>
+     </span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">公司编号：</label><span class="add_name"><input required type="text" name="comId" id="comId" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">生效日期：</label><span class="add_name"><input required type="date"  name="taskStarttime" id="taskStarttime" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">终止日期：</label><span class="add_name"><input required  name="taskEndtime" id="taskEndtime" type="date" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">被考核人：</label><span class="add_name" id="spanreceiver"></span><div class="prompt r_f"></div></li>
+     
+
+    </ul><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="center"> <input class="btn btn-primary" type="submit" id="submit" value="发布">&nbsp;&nbsp;<input class="btn btn-primary" type="reset" id="submit" value="重置"></div><br><br><br><br><br><br>
+ </div>
+ </form>
 <!--此人接收-->
 <div id="Guestbookre" style="display:none">
  <!--此条接收列表-->
@@ -248,7 +334,7 @@ function member_show(title,url,id,w,h){
 	layer_show(title,url+'#?='+id,w,h);
 }
 /*留言-删除*/
-function member_del(obj,id){
+function member_del(obj,id,comId){
 	layer.confirm('确认要删除吗？',function(index){
 		/*$(obj).parents("tr").remove();*/
 		/*alert(id);
@@ -258,8 +344,9 @@ function member_del(obj,id){
 			data:{"targetId":id}
 			
 		});*/
-		//document.location.href="officecc.do/delofficechecktarget.do?relId="+id;
 		layer.msg('已删除!',{icon:1,time:1000});
+		document.location.href="officeg.do/del.do?taskId="+id+"&comId="+comId;
+		
 	});
 }
 

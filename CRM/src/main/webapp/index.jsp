@@ -365,9 +365,9 @@ $('.change_Password').on('click', function(){
 						<li><a href="#" class="dropdown-toggle"><i class="icon-align-left"></i><span class="menu-text"> 任务信息</span><b class="arrow icon-angle-down"></b></a>
 							<ul class="submenu">
 								<li class="home"><a href="javascript:void(0)" name="officecc.do/listofficechecktargetall.do" title="任务指标管理" class="iframeurl"><i class="icon-double-angle-right"></i>任务指标管理</a></li>
-                                <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="任务授权关系" class="iframeurl"><i class="icon-double-angle-right"></i>任务授权关系</a></li>
-                                <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="任务发布管理" class="iframeurl"><i class="icon-double-angle-right"></i>任务发布管理</a></li>
-                                <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="任务接收查询" class="iframeurl"><i class="icon-double-angle-right"></i>任务接收查询</a></li>
+                                <li class="home"><a href="javascript:void(0)" name="officeg.do/list.do" title="任务发布管理" class="iframeurl"><i class="icon-double-angle-right"></i>任务发布管理</a></li>
+                                <!-- <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="任务发布管理" class="iframeurl"><i class="icon-double-angle-right"></i>任务发布管理</a></li> -->
+                                <li class="home"><a href="javascript:void(0)" name="officeg.do/listree.do" title="任务接收查询" class="iframeurl"><i class="icon-double-angle-right"></i>任务接收查询</a></li>
 							</ul>
 						</li>
                         	<li><a href="#" class="dropdown-toggle"><i class="icon-linkedin"></i><span class="menu-text"> 采购管理 </span><b class="arrow icon-angle-down"></b></a>
