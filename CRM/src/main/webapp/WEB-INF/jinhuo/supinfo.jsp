@@ -90,24 +90,20 @@
 				<!---->
 				<!-- <button type="button" class="btn_search"><i class="icon-search"></i>查询</button> -->
 				<div class="border clearfix">
-					<span class="l_f"> <a href="javascript:ovid()"
-						name="pursupinfo/goaddinfo.do" id="member_add"
-						class="btn btn-warning"><i class="icon-plus"></i>添加供应商信息</a> 
-						<a
-						href="javascript:shanchu()"
-						class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
+					<span class="l_f">
+					<a href="javascript:ovid()"name="pursupinfo/goaddinfo.do" id="member_add"class="btn btn-warning"><i class="icon-plus"></i>添加供应商信息</a> 
+					<a href="javascript:shanchu()"class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
+				     <a href="pur/xiazai.do" class="btn btn-warning"> <i class="layui-icon layui-icon-download-circle">&nbsp;导出Excel</i> </a> 
 					</span>
 					<script type="text/javascript">
 						function shanchu() {
-						var a=document.getElementsByName("bb");
-						if(a=="")
-						alert("11111");
-					       {confirm("你还没有勾选！");}
-					   
-					       document.getElementById("cc").submit();
+						if(document.getElementById("bb").checked == true)
+						{document.getElementById("cc").submit();
+						}else{
+                    	    confirm("请先勾选！");
+                          }
+					   }
 						
-						}
-							
 					</script>
 
 				</div>
@@ -136,7 +132,7 @@
 							<c:forEach items="${pi.list}" var="i">
 								<tr>
 									<td><label><input type="checkbox" class="ace"
-											name="bb" value="${i.supInfoNum}"><span class="lbl"></span></label></td>
+											name="bb" id="bb" value="${i.supInfoNum}"><span class="lbl"></span></label></td>
 									<td>${i.supInfoNum}</td>
 									<td>${i.supName}</td>
 									<td>${i.contacts}</td>

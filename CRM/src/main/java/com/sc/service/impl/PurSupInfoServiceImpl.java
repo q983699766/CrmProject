@@ -80,6 +80,11 @@ public class PurSupInfoServiceImpl implements PurSupInfoService {
 		}
 	}
 
+	@Override
+	public List<PurSupInfo> select() {
+		return purSupInfoMapper.selectByExample(null);
+	}
+
 
 
 	

@@ -269,40 +269,24 @@ public ModelAndView ck(ModelAndView mav, @RequestParam(defaultValue = "1") Integ
 	     System.out.println("删除的产品id"+puroderinfo.getProductId());
 	     
 	     List<PurOrderInfo> bypurNumber = purOrderInfoMapper.selectBypurNumber(puroderinfo.getPurNumber());
-	     if(bypurNumber.size()==1){
+	     
+	      String i=null;
 	     for (PurOrderInfo purOrderInfo : bypurNumber) {
-	    	
 	    	 String warehouseOrnot = purOrderInfo.getWarehouseOrnot();
 	    	 System.out.println("是否入库："+warehouseOrnot);
-	    	 if(warehouseOrnot.equals("已入库")){
-	    		 Long purInfoNumber = purOrderInfo.getPurNumber();
-	    		 PurOrder selectByPrimaryKey = purOrderMapper.selectByPrimaryKey(purInfoNumber);
-	    		 String r="1";
-	    		 long l = Long.parseLong(r);
-	    		 selectByPrimaryKey.setPurProgrees(l);
-	    		 purorderservice.updateinfo(selectByPrimaryKey);
-	    		 
-	    	 }
-		   }
-	     }
-	    /* if(bypurNumber.size()>1){
-	    	 Iterator<PurOrderInfo> iterator = bypurNumber.iterator();
-	    	 while (iterator.hasNext()) {
-	    	  for (PurOrderInfo purOrderInfo : bypurNumber)
-	    		  { String warehouseOrnot = purOrderInfo.getWarehouseOrnot();
-		    	 System.out.println("是否入库："+warehouseOrnot);
-		    	 if(warehouseOrnot.equals("已入库")){
-		    		 Long purInfoNumber = purOrderInfo.getPurNumber();
-		    		 PurOrder selectByPrimaryKey = purOrderMapper.selectByPrimaryKey(purInfoNumber);
-		    		 String r="1";
-		    		 long l = Long.parseLong(r);
-		    		 selectByPrimaryKey.setPurProgrees(l);
-		    		 purorderservice.updateinfo(selectByPrimaryKey);
-		    		 
-		    	 }
-		}	}
+	    	 if(warehouseOrnot.equals("否")){
+	    		 i="1";
+	    		 break;}
+	       }
+	    	 if (i==null){
+	  
+    		 PurOrder selectByPrimaryKey = purOrderMapper.selectByPrimaryKey(bypurNumber.get(0).getPurNumber());
+    		 String r="1";
+    		 long l = Long.parseLong(r);
+    		 selectByPrimaryKey.setPurProgrees(l);
+    		 purorderservice.updateinfo(selectByPrimaryKey);}
 	    	 
-	     }*/
+	    	
 	}
 	
 	@RequestMapping("/fukuan.do")
