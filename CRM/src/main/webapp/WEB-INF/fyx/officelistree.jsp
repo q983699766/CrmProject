@@ -75,22 +75,22 @@
        <li style="width:90px;"><button type="button" class="btn_search"><i class="icon-search"></i>查询</button></li>
       </ul>
     </div>-->
-	 <div class="search_style">
+	 <!-- <div class="search_style">
       <div class="title_names">新建考核指标集</div>
       <form action="officecc.do/addofficechecktarget.do" method="post">
       <ul class="search_content clearfix">
        <li><label class="l_f">考核指标集名称</label><input name="checkTarget" type="text" class="text_add" placeholder="添加一个名称" style=" width:250px"></li>
-       <li><label class="l_f">考核指标集描述</label><textarea name="remark" class="textarea" style=" margin-left:10px;" cols="100"></textarea><!--<input class="inline laydate-icon" id="start" style=" margin-left:10px;">--></li>
+       <li><label class="l_f">考核指标集描述</label><textarea name="remark" class="textarea" style=" margin-left:10px;" cols="100"></textarea><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li>
        <li style="width:90px;"><button type="submit" class="btn_search"><i class="icon-search"></i>添加</button></li>
        
       </ul>
       </form>
-    </div>
+    </div>-->
     <div class="border clearfix">
        <span class="l_f">
-        <a href="javascript:sccc();" id="a1" class="btn btn-danger"><i class="fa fa-trash"></i>&nbsp;批量删除</a>
+        <!--<a href="javascript:sccc();" id="a1" class="btn btn-danger"><i class="fa fa-trash"></i>&nbsp;批量删除</a>
         
-        <!--<a href="javascript:ovid()" class="btn btn-sm btn-primary"><i class="fa fa-check"></i>&nbsp;已浏览</a>
+        <a href="javascript:ovid()" class="btn btn-sm btn-primary"><i class="fa fa-check"></i>&nbsp;已浏览</a>
         <a href="javascript:ovid()" class="btn btn-yellow"><i class="fa fa-times"></i>&nbsp;未浏览</a>-->
        </span>
        <span class="r_f"></span>
@@ -103,8 +103,10 @@
 		 <tr>
           <th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
           <th width="80">ID</th>
-          <th width="150px">考核指标集名称</th>
-          <th width="80">考核指标集描述</th>
+          <th width="150px">任务编号</th>
+          <th width="">接收用户</th>
+          <th width="">是否完成</th>
+          <th width="">状态</th>
           <th width="80">公司编号</th>
           <th width="200px">最后修改时间</th>
           <th width="70">修改</th>                
@@ -115,19 +117,28 @@
 	
 	<c:forEach items="${list }" var="u" varStatus="x">
 		<tr>
-     <td><label name="lll"><input type="checkbox" class="ace" name="bb000" id="inputt${x.index }" value="${u.targetId }"><span class="lbl" name="mmm"></span></label></td>
-          <td>${u.targetId }</td>
-          <td><!-- <u style="cursor:pointer"  class="text-primary" onclick="member_show('张小泉','member-show.html','1031','500','400')"> -->${u.checkTarget }<!-- </u> --></td>
+     <td><label name="lll"><input type="checkbox" class="ace" name="bb000" id="inputt${x.index }" value="${u.idd }"><span class="lbl" name="mmm"></span></label></td>
+          <td>${u.idd }</td>
+          <td><!-- <u style="cursor:pointer"  class="text-primary" onclick="member_show('张小泉','member-show.html','1031','500','400')"> -->${u.taskId }<!-- </u> --></td>
           <td class="text-l">
-          ${u.remark }
+          ${u.sysUsers.userName }
+          </td>
+          <td>${u.isFinish==0 ? '未完成':'已完成' }</td>
+          <td>
+          	<c:if test="${u.statue==0 }">未开始</c:if>
+          	<c:if test="${u.statue==1 }">已生效</c:if>
+          	<c:if test="${u.statue==2 }">已失效</c:if>
           </td>
           <td>${u.comId }</td>
           <td><fmt:formatDate value="${u.lastTime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-          <td class="td-status"><a onclick="Guestbook_iew('${u.targetId }')" title="修改"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a></td>
+          <td class="td-status">
+          	<c:if test="${u.isFinish==0 }"><a onclick="Guestbook_iew('${u.idd }')" title="修改"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a></c:if>
+          	<c:if test="${u.isFinish!=0 }">已确认完成</c:if>
+          </td>
           <td class="td-manage">
            <!--<a onClick="member_stop(this,'10001')"  href="javascript:;" title="已浏览"  class="btn btn-xs btn-success"><i class="fa fa-check  bigger-120"></i></a>   
         <a  onclick="member_edit('回复','member-add.html','4','','510')" title="回复"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>   -->   
-        <a  href="javascript:;"  onclick="member_del(this,'${u.targetId }')" title="删除" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
+        <!-- <a  href="javascript:;"  onclick="member_del(this,'${u.idd }')" title="删除" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a> -->
           </td>
         </tr>
         </c:forEach>
@@ -194,78 +205,8 @@ $('#checkbox').on('click',function(){
 	})
 /*留言查看*/
 function Guestbook_iew(id){
-	var url="officecc.do/goupdateofficechecktarget.do?targetId="+id;
-	$.ajax({
-		type:"post",
-      	url:url,
-      	dataType:"json",
-      	success:function(data)
-	      {//从前台回调回来的数组，处理后的数据
-	       //alert(JSON.stringify(data));
-	         $("#checkTarget").val(data.checkTarget);//将取出的值覆盖原来的值 （val对值进行操作)	
-	         $("#remark").val(data.remark);
-	      }
-	});
-	var index = layer.open({
-        type: 1,
-        title: '修改界面',
-		maxmin: true, 
-		shadeClose:false,
-        area : ['600px' , ''],
-        content:$('#Guestbook'),
-		btn:['修改','取消'],
-		yes: function(index, layero){		 
-		  /* if($('input[name="checkbox"]').prop("checked")){			 
-			 if($('.form-control').val()==""){
-				layer.alert('回复内容不能为空！',{
-               title: '提示框',				
-			  icon:0,		
-			  }) 
-			 }else{			
-			      layer.alert('确定回复该内容？',{
-				   title: '提示框',				
-				   icon:0,	
-				   btn:['确定','取消'],	
-				   yes: function(index){					   
-					     layer.closeAll();
-					   }
-				  }); 		  
-		   }			
-	      }else{			
-			 layer.alert('是否要取消回复！',{
-               title: '提示框',				
-			icon:0,		
-			  }); 
-			  layer.close(index);      		  
-		  } */
-		  if($('#checkTarget').val()=="" || $('#remark').val()==""){
-				layer.alert('修改名称或内容不能为空！',{
-               title: '提示框',				
-			  icon:0,		
-			  }) 
-			 }else{			
-			      layer.alert('确定该修改？',{
-				   title: '提示框',				
-				   icon:0,	
-				   btn:['确定','取消'],	
-				   yes: function(index){					   
-					     
-					     $.ajax({
-					     	type:"post",
-					     	url:"officecc.do/updateofficechecktarget.do",
-					     	data:{"targetId":id,"checkTarget":$('#checkTarget').val(),"remark":$('#remark').val()},
-					     	success:function(data){
-					     		document.location.reload();
-					     	}
-					     });
-					     layer.closeAll();
-					     /*document.location.href="officecc.do/updateofficechecktarget.do?targetId="+id+"&checkTarget="+$('#checkTarget').val()+"&remark="+$('#remark').val();
-					     layer.closeAll();*/
-					   }
-				  }); 		  
-		   }
-	   }
-	})	
+	/* var url="officecc.do/goupdateofficechecktarget.do?targetId="+id; */
+	document.location.href="officeg.do/updateisfinish.do?idd="+id;	
 };
 	/*字数限制*/
 function checkLength(which) {

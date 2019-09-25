@@ -27,4 +27,6 @@ public interface OfficeChecktaskMapper {
     int updateByPrimaryKeySelective(OfficeChecktask record);
 
     int updateByPrimaryKey(OfficeChecktask record);
+    
+    int getfabu(OfficeChecktask record);
 }

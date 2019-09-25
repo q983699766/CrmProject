@@ -276,4 +276,15 @@
       LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
     where TASK_ID = #{taskId,jdbcType=DECIMAL}
   </update>
+  
+<insert id="getfabu" parameterType="com.sc.bean.OfficeChecktask" >
+    <selectKey resultType="java.lang.Long"  order="AFTER" keyProperty="taskId">
+        select OFFICE_TASKDETAIL_AAA.CURRVAL  from DUAL
+    </selectKey>
+    insert into OFFICE_CHECKTASK (TASK_TITLE, 
+      TASK_CONTENT, TASK_PUBLISHER, TARGET_ID, TASK_STARTTIME, TASK_ENDTIME, COM_ID, LAST_TIME)
+    values (#{taskTitle,jdbcType=VARCHAR}, 
+      #{taskContent,jdbcType=VARCHAR}, #{taskPublisher,jdbcType=DECIMAL}, #{targetId,jdbcType=DECIMAL}, 
+      #{taskStarttime,jdbcType=TIMESTAMP}, #{taskEndtime,jdbcType=TIMESTAMP}, #{comId,jdbcType=DECIMAL}, #{lastTime,jdbcType=TIMESTAMP})
+</insert>
 </mapper>

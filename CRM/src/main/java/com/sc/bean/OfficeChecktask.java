@@ -16,10 +16,10 @@ public class OfficeChecktask implements Serializable {
 
     private Long targetId;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date taskStarttime;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date taskEndtime;
 
     private Long comId;
