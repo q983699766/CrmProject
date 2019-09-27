@@ -17,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sc.bean.Message;
 import com.sc.bean.SysUsers;
+import com.sc.mapper.OfficeDetailSmsMapper;
+import com.sc.service.HrScheDetailService;
 import com.sc.service.SysUsersService;
 
 @Controller
@@ -26,6 +28,9 @@ public class LoginController {
 
 	@Autowired
 	SysUsersService sysuserservice;
+	
+	@Autowired
+	HrScheDetailService hrScheDetailService;
 	
 	
 	@RequestMapping("/login.do")
@@ -81,6 +86,11 @@ public class LoginController {
 		}
 		
 		if(sysusers.getUserState().equals("0")){
+			
+			Long uid = sysusers.getUserId();
+			Integer num = hrScheDetailService.countnum(uid);
+			session.setAttribute("num",num );
+			
 			session.setAttribute("nowuser", sysusers);
 			mav.setViewName("redirect:../index.jsp");
 			return mav;

@@ -153,6 +153,18 @@ public class HrScheDetailServiceImpl implements HrScheDetailService {
 		}
 		
 	}
+
+	@Override
+	public Integer countnum(long uid) {
+		OfficeDetailSmsExample officeDetailSmsExample = new OfficeDetailSmsExample();
+		Criteria c = officeDetailSmsExample.createCriteria();
+		c.andSmsStateEqualTo("0");
+		c.andReceiverIdEqualTo(uid);
+		
+		List<OfficeDetailSms> selectByExample = officeDetailSmsMapper.selectByExample(officeDetailSmsExample);
+		Integer num = selectByExample.size();
+		return num;
+	}
 	
 	
 	

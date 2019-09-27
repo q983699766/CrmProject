@@ -1,5 +1,6 @@
 package com.sc.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,10 +12,13 @@ import com.github.pagehelper.PageInfo;
 import com.sc.bean.OfficeChecktarget;
 import com.sc.bean.OfficeChecktargetExample;
 import com.sc.bean.OfficeChecktask;
+import com.sc.bean.OfficeChecktaskExample;
 import com.sc.bean.OfficeGrant;
 import com.sc.bean.OfficeGrantExample;
 import com.sc.bean.OfficeTaskdetail;
 import com.sc.bean.OfficeTaskdetailExample;
+import com.sc.bean.SysUsers;
+import com.sc.bean.SysUsersExample;
 import com.sc.bean.Users;
 import com.sc.bean.UsersExample;
 import com.sc.bean.UsersExample.Criteria;
@@ -42,20 +46,103 @@ public class OfficeGrantServiceImpl implements OfficeGrantService {
 	@Autowired
 	OfficeTaskdetailMapper officeTaskdetailMapper;
 	
-//	@Override
-//	public List<OfficeGrant> selectgrantunderme(Long userId, Long comId) {
-//		// TODO Auto-generated method stub
-//		OfficeGrantExample og = new OfficeGrantExample();
-//		com.sc.bean.OfficeGrantExample.Criteria criteria = og.createCriteria();
-//		criteria.andComIdEqualTo(comId);
-//		criteria.andUpidEqualTo(userId);
-//		return this.officeGrantMapper.selectByExample(og);
-//	}
+	@Autowired
+	OfficeGrantMapper officeGrantMapper;
 	
 	@Override
-	public List<OfficeChecktask> selectall() {
+	public void del(Long taskId, Long userId, Long comId) {
+		// 通过userId查出其下属
+		OfficeGrantExample eg = new OfficeGrantExample();
+		com.sc.bean.OfficeGrantExample.Criteria criteria2 = eg.createCriteria();
+		criteria2.andUpidEqualTo(userId);
+		List<OfficeGrant> listg = officeGrantMapper.selectByExample(eg);
+		List<Long> values = new ArrayList<Long>();
+		for (OfficeGrant u : listg) {
+			values.add(u.getUserId());
+		}
+		
+		// 删除下属表：设置查找范围，comid，下属列表，taskid等，查出列表，并按主键删除这些列表数据
+		OfficeTaskdetailExample e = new OfficeTaskdetailExample();
+		com.sc.bean.OfficeTaskdetailExample.Criteria criteria = e.createCriteria();
+		criteria.andComIdEqualTo(comId);
+		criteria.andTaskIdEqualTo(taskId);
+		criteria.andReceiverIdIn(values);
+		List<OfficeTaskdetail> listdetail = officeTaskdetailMapper.selectByExample(e);
+		for (OfficeTaskdetail officeTaskdetail : listdetail) {
+			officeTaskdetailMapper.deleteByPrimaryKey(officeTaskdetail.getIdd());
+		}
+		
+		// 删除OfficeChecktask表，主键为taskId
+		officeChecktaskMapper.deleteByPrimaryKey(taskId);
+	}
+	
+	@Override
+	public void fabu(OfficeChecktask off, Long[] lreceiverIds, Long userId) {
+		// 将接收人id数组改为List
+		List<Long> receivers = new ArrayList<Long>();
+		for(Long i : lreceiverIds) {
+			receivers.add(i);
+		}
+		
+		// 插入一条数据到OfficeChecktask，并返回主键
+		off.setTaskPublisher(userId);
+		off.setLastTime(new Date());
+		Integer fabuId = officeChecktaskMapper.getfabu(off);
+		System.out.println("TaskId:"+off.getTaskId());
+		
+		// 将接收人列表插入到数据库
+		OfficeTaskdetail  officeTaskdetail = new OfficeTaskdetail();
+		officeTaskdetail.setIsFinish(0L);
+		officeTaskdetail.setComId(off.getComId());
+		officeTaskdetail.setLastTime(new Date());
+		officeTaskdetail.setStatue(0L);
+		officeTaskdetail.setTaskId(off.getTaskId());
+		for(Long j : receivers) {
+			officeTaskdetail.setReceiverId(j);
+			officeTaskdetailMapper.insert(officeTaskdetail);
+		}
+	}
+	
+	@Override
+	public List<SysUsers> prereceiver(Long userId) {
+		OfficeGrantExample e = new OfficeGrantExample();
+		com.sc.bean.OfficeGrantExample.Criteria criteria = e.createCriteria();
+		criteria.andUpidEqualTo(userId);
+		List<OfficeGrant> list = officeGrantMapper.selectByExample(e);
+		
+		List<Long> userIdList = new ArrayList<Long>();
+		for (OfficeGrant officeGrant : list) {
+			userIdList.add(officeGrant.getUserId());
+		}
+		
+		SysUsersExample euser = new SysUsersExample();
+		com.sc.bean.SysUsersExample.Criteria criteria2 = euser.createCriteria();
+		criteria2.andUserIdIn(userIdList);
+		List<SysUsers> list2 = sysUsersMapper.selectByExample(euser);
+		
+		return list2;
+	}
+	
+	@Override
+	public List<OfficeChecktarget> pretargetId() {
+		return officeChecktargetMapper.selectByExample(null);
+	}
+
+	@Override
+	public void updateisfinish(Long idd) {
 		// TODO Auto-generated method stub
-		List<OfficeChecktask> list = officeChecktaskMapper.selectByExample(null);
+		OfficeTaskdetail off = officeTaskdetailMapper.selectByPrimaryKey(idd);
+		off.setIsFinish(1L);
+		officeTaskdetailMapper.updateByPrimaryKey(off);
+	}
+	
+	@Override
+	public List<OfficeChecktask> selectall(Long userId) {
+		OfficeChecktaskExample eoc = new OfficeChecktaskExample();
+		com.sc.bean.OfficeChecktaskExample.Criteria criteria = eoc.createCriteria();
+		criteria.andTaskPublisherEqualTo(userId);
+		
+		List<OfficeChecktask> list = officeChecktaskMapper.selectByExample(eoc);
 		
 		for (OfficeChecktask officeChecktask : list) {
 			officeChecktask.setSysUsers(sysUsersMapper.selectByPrimaryKey(officeChecktask.getTaskPublisher()));
@@ -66,7 +153,7 @@ public class OfficeGrantServiceImpl implements OfficeGrantService {
 	}
 	
 	@Override
-	public List<OfficeTaskdetail> selectthisline(Long taskId) {
+	public List<OfficeTaskdetail> selectthisline(Long taskId,Long taskPublisher) {
 		// TODO Auto-generated method stub
 		
 		OfficeChecktask officeChecktask = officeChecktaskMapper.selectByPrimaryKey(taskId);
@@ -85,6 +172,19 @@ public class OfficeGrantServiceImpl implements OfficeGrantService {
 		OfficeTaskdetailExample e = new OfficeTaskdetailExample();
 		com.sc.bean.OfficeTaskdetailExample.Criteria c = e.createCriteria();
 		c.andTaskIdEqualTo(taskId);
+		
+		// 通过taskPublisher查出其下属的id列表
+		List<Long> receiverList = new ArrayList<Long>();
+		OfficeGrantExample eg = new OfficeGrantExample();
+		com.sc.bean.OfficeGrantExample.Criteria cg = eg.createCriteria();
+		cg.andUpidEqualTo(taskPublisher);
+		List<OfficeGrant> listg = officeGrantMapper.selectByExample(eg);
+		for (OfficeGrant officeGrant : listg) {
+//			System.out.println("xiashuID:"+officeGrant.getUserId());
+			receiverList.add(officeGrant.getUserId());
+		}
+		
+		c.andReceiverIdIn(receiverList);
 		List<OfficeTaskdetail> list2 = officeTaskdetailMapper.selectByExample(e);
 		
 		for (OfficeTaskdetail officeTaskdetail : list2) {
@@ -95,7 +195,14 @@ public class OfficeGrantServiceImpl implements OfficeGrantService {
 		OfficeTaskdetailExample example = new OfficeTaskdetailExample();
 		com.sc.bean.OfficeTaskdetailExample.Criteria criteria = example.createCriteria();
 		criteria.andTaskIdEqualTo(taskId);
+		criteria.andReceiverIdIn(receiverList);
 		List<OfficeTaskdetail> list = officeTaskdetailMapper.selectByExample(example);
+		
+		for (OfficeTaskdetail officeTaskdetail : list) {
+			Long receiverId = officeTaskdetail.getReceiverId();
+			SysUsers sysUsers = sysUsersMapper.selectByPrimaryKey(receiverId);
+			officeTaskdetail.setSysUsers(sysUsers);
+		}
 		
 		return list;
 	}
@@ -125,6 +232,12 @@ public class OfficeGrantServiceImpl implements OfficeGrantService {
 		}
 		
 		List<OfficeTaskdetail> list2 = officeTaskdetailMapper.selectByExample(e);
+		
+		for (OfficeTaskdetail officeTaskdetail : list2) {
+			Long receiverId = officeTaskdetail.getReceiverId();
+			SysUsers sysUsers = sysUsersMapper.selectByPrimaryKey(receiverId);
+			officeTaskdetail.setSysUsers(sysUsers);
+		}
 		
 		return list2;
 	}

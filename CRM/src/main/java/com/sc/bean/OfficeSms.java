@@ -5,6 +5,8 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class OfficeSms implements Serializable {
     private Long smsId;
 
@@ -17,6 +19,7 @@ public class OfficeSms implements Serializable {
     private Long comId;
     
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="utf-8")
     private Date lastTime;
     
     private SysCOMPANY syscompany;//配置一对一，定义另外一方的对象

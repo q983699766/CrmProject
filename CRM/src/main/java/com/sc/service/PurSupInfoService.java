@@ -1,5 +1,9 @@
 package com.sc.service;
 
+
+
+import java.util.List;
+
 import com.github.pagehelper.PageInfo;
 import com.sc.bean.PurSupInfo;
 
@@ -18,7 +22,8 @@ public interface PurSupInfoService {
 	public void updateinfo(PurSupInfo pursupinfo);
 	
 	
-
+	//查询所有供应商信息
+	public  List<PurSupInfo> select();
 
 
 

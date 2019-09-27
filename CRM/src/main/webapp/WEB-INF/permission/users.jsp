@@ -218,11 +218,11 @@ function add(obj){
 		$(".actives").each(function(i,e){
 		    
 		    roleId+="roleId="+$(this).attr("data-value")+"&";
-		    alert(roleId);
+		    
 		});
 		
 		obj.action=obj.action+"?"+roleId;
-		alert(obj.action); 
+		
 		
 		if (pass4==""){
 			  layer.alert('用户名不能为空!',{

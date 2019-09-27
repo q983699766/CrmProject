@@ -99,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<!-- <td class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td> -->
 				<td>${r.roleName }</td>
 				<td>${r.highRoleName == null||r.highRoleName == '0' ? "无":r.highRoleName }</td>
-				<td class="hidden-480">${r.roleId==1 ? "一切权限":"" }<c:forEach items="${r.perms }" var="p"><p>${p.permissionName}</p></c:forEach></td>
+				<td class="hidden-480">${r.roleId==1 ? "一切权限":"" }<c:forEach items="${r.perms }" var="p"><p>${p.permissionName == "查看销售订单统计" ? "":p.permissionName}</p></c:forEach></td>
 				<td>${r.roleDescribe }</td>
 				<td>
 				<c:if test="${r.roleId !=1 }">

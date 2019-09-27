@@ -230,29 +230,30 @@ $('.change_Password').on('click', function(){
 							</ul>
 						</li>
 	                   <li class="purple">
-						<a data-toggle="dropdown" class="dropdown-toggle" href="#" style="height: 45px;"><i class="icon-bell-alt"></i><span class="badge badge-important">8</span></a>
+						<a data-toggle="dropdown" class="dropdown-toggle" href="#" style="height: 45px;"><i class="icon-bell-alt"></i><span class="badge badge-important" name="num">${num}</span></a>
 							<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
-                            <li class="dropdown-header"><i class="icon-warning-sign"></i>8条通知</li>
+                            <li class="dropdown-header"><i class="icon-warning-sign"></i><span name="num">${num}</span>条未读短信</li>
                             <li>
                               <a href="#">
 										<div class="clearfix">
 											<span class="pull-left">
-												<i class="btn btn-xs no-hover btn-pink icon-comment"></i>
-												新闻评论
+												<!-- <i class="btn btn-xs no-hover btn-pink icon-comment"></i> -->
+												<!-- <a href="Office/selectreaded.do?read=0" class="btn btn-yellow"><i class="fa fa-times"></i>&nbsp;我的未读短信</a> -->
+												<a href="javascript:void(0)" name="Office/selectreaded.do?read=0" title="未读消息" class="iframeurl"><i class="icon-double-angle-right"></i>我的未读消息</a>
 											</span>
-											<span class="pull-right badge badge-info">+12</span>
+											<span class="pull-right badge badge-info" name="num">${num}</span>
 										</div>
 									</a>
 								</li>
 
 								<li>
-									<a href="#">
-										<i class="btn btn-xs btn-primary icon-user"></i>
-										切换为编辑登录..
-									</a>
+									
+										<a href="javascript:void(0)" name="officectlr/agenda1.do" title="日程安排1" class="iframeurl"><i class="icon-double-angle-right"></i>我的日程安排</a>
+									
 								</li> 
+								
 
-								<li>
+								<!-- <li>
 									<a href="#">
 										<div class="clearfix">
 											<span class="pull-left">
@@ -272,13 +273,14 @@ $('.change_Password').on('click', function(){
 											<span class="pull-right badge badge-info">+11</span>
 										</div>
 									</a>
-								</li>
+								</li> -->
 
 								<li>
-									<a href="#">
-										查看所有通知
+									<!-- <a href="#">
+										查看我接收的所有短信
 										<i class="icon-arrow-right"></i>
-									</a>
+									</a> -->
+									<a href="javascript:void(0)" name="Office/selectinfo.do" title="消息列表" class="iframeurl"><i class="icon-double-angle-right"></i>查看我接收的所有短信<i class="icon-arrow-right"></i></a>
 								</li>
 							</ul>
 						</li>
@@ -321,17 +323,17 @@ $('.change_Password').on('click', function(){
 						</div>
 					</div><!-- #sidebar-shortcuts -->
 					<ul class="nav nav-list" id="nav_list">
-				     <li class="home"><a href="javascript:void(0)" name="home.html" class="iframeurl" title=""><i class="icon-dashboard"></i><span class="menu-text"> 系统首页 </span></a></li>
-                     <li><a href="#" class="dropdown-toggle"><i class="icon-desktop"></i><span class="menu-text"> 公司管理</span><b class="arrow icon-angle-down"></b></a>
+				     <li class="home"><a href="javascript:void(0)" name="salCtl/countSal" class="iframeurl" title=""><i class="icon-dashboard"></i><span class="menu-text"> 系统首页 </span></a></li>
+                     <li><a href="#" class="dropdown-toggle"><i class="icon-group"></i><span class="menu-text"> 公司管理</span><b class="arrow icon-angle-down"></b></a>
 					   <ul class="submenu">
                          <li class="home"><a  href="javascript:void(0)" name="sysdutyctlr/listpage.do"title="职位信息"  class="iframeurl"><i class="icon-double-angle-right"></i>职位管理</a></li>
 						 <li class="home"><a  href="javascript:void(0)" name="sycompanyctlr/list.do" title="公司信息" class="iframeurl"><i class="icon-double-angle-right"></i>公司管理</a></li>
 						 <li class="home"><a href="javascript:void(0)" name="sysEmpuser/list.do" title="员工信息" class="iframeurl"><i class="icon-double-angle-right"></i>员工管理</a></li>
 						<li class="home"><a href="javascript:void(0)" name="syBranchctlr/tiao.do"  title="部门信息" class="iframeurl"><i class="icon-double-angle-right"></i>部门管理</a></li>
-						</ul>
+						</ul> 
 					</li>
 					<li>
-					<a href="#" class="dropdown-toggle"><i class="icon-picture "></i><span class="menu-text">仓库</span><b class="arrow icon-angle-down"></b></a>
+					<a href="#" class="dropdown-toggle"><i class="icon-truck "></i><span class="menu-text"> 仓库管理</span><b class="arrow icon-angle-down"></b></a>
 						<ul class="submenu">
 						<li class="home"><a href="javascript:void(0)" name="ccckxxctlr/ck.do" title="库存信息" class="iframeurl"><i class="icon-double-angle-right"></i>库存信息</a></li>
 						<li class="home"><a href="javascript:void(0)" name="ccspxxctlr/list.do" title="库存商品信息"  class="iframeurl"><i class="icon-double-angle-right"></i>库存商品信息</a></li>
@@ -340,11 +342,9 @@ $('.change_Password').on('click', function(){
 							</ul>
 						</li>
 					<li>
-					<a href="#" class="dropdown-toggle"><i class="icon-list"></i><span class="menu-text"> 余懿 </span><b class="arrow icon-angle-down"></b></a>
+					<a href="#" class="dropdown-toggle"><i class="icon-file"></i><span class="menu-text"> 销售订单 </span><b class="arrow icon-angle-down"></b></a>
                     <ul class="submenu">
-                    <li class="home"><a href="javascript:void(0)" name="salCtl/countSal" title="交易信息"  class="iframeurl"><i class="icon-double-angle-right"></i>交易信息</a></li>
                     <li class="home"><a href="javascript:void(0)" name="salCtl/salMessCtl" title="订单管理"  class="iframeurl"><i class="icon-double-angle-right"></i>订单管理</a></li>
-                    <li class="home"><a href="javascript:void(0)" name="Order_handling.html" title="订单处理"  class="iframeurl"><i class="icon-double-angle-right"></i>订单处理</a></li>
                    </ul>
 				  </li>
                   <li>
@@ -354,23 +354,23 @@ $('.change_Password').on('click', function(){
 					<li class="home"><a href="javascript:void(0)" name="conctlr/lose.do" title="客户流失"  class="iframeurl"><i class="icon-double-angle-right"></i>客户流失</a></li>
                    </ul>
 				  </li>
-						<li><a href="#" class="dropdown-toggle"><i class="icon-edit"></i><span class="menu-text"> 万成龙</span><b class="arrow icon-angle-down"></b></a>
+						<li><a href="#" class="dropdown-toggle"><i class="icon-edit"></i><span class="menu-text"> 消息信息</span><b class="arrow icon-angle-down"></b></a>
 							<ul class="submenu">
-								<li class="home"><a href="javascript:void(0)" name="Office/selectinfo.do" title="消息列表" class="iframeurl"><i class="icon-double-angle-right"></i>我的接收消息</a></li>
-                                <li class="home"><a href="javascript:void(0)" name="Office/selectdetailinfo.do" title="意见反馈" class="iframeurl"><i class="icon-double-angle-right"></i>我的发送信息</a></li>
+								<li class="home"><a href="javascript:void(0)" name="Office/selectinfo.do" title="我的接收消息" class="iframeurl"><i class="icon-double-angle-right"></i>我的接收消息</a></li>
+                                <li class="home"><a href="javascript:void(0)" name="Office/selectdetailinfo.do" title="我的发送信息" class="iframeurl"><i class="icon-double-angle-right"></i>我的发送信息</a></li>
                                <!--  <li class="home"><a href="javascript:void(0)" name="officectlr/agenda.do" title="日程安排" class="iframeurl"><i class="icon-double-angle-right"></i>日程安排</a></li>  -->
-                                <li class="home"><a href="javascript:void(0)" name="officectlr/agenda1.do" title="日程安排1" class="iframeurl"><i class="icon-double-angle-right"></i>日程安排</a></li>
+                                <li class="home"><a href="javascript:void(0)" name="officectlr/agenda1.do" title="日程安排" class="iframeurl"><i class="icon-double-angle-right"></i>日程安排</a></li>
 							</ul>
 						</li>
-						<li><a href="#" class="dropdown-toggle"><i class="icon-edit"></i><span class="menu-text"> 范宇星 </span><b class="arrow icon-angle-down"></b></a>
+						<li><a href="#" class="dropdown-toggle"><i class="icon-align-left"></i><span class="menu-text"> 任务信息</span><b class="arrow icon-angle-down"></b></a>
 							<ul class="submenu">
 								<li class="home"><a href="javascript:void(0)" name="officecc.do/listofficechecktargetall.do" title="任务指标管理" class="iframeurl"><i class="icon-double-angle-right"></i>任务指标管理</a></li>
-                                <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="任务授权关系" class="iframeurl"><i class="icon-double-angle-right"></i>任务授权关系</a></li>
-                                <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="任务发布管理" class="iframeurl"><i class="icon-double-angle-right"></i>任务发布管理</a></li>
-                                <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="任务接收查询" class="iframeurl"><i class="icon-double-angle-right"></i>任务接收查询</a></li>
+                                <li class="home"><a href="javascript:void(0)" name="officeg.do/list.do" title="任务发布管理" class="iframeurl"><i class="icon-double-angle-right"></i>任务发布管理</a></li>
+                                <!-- <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="任务发布管理" class="iframeurl"><i class="icon-double-angle-right"></i>任务发布管理</a></li> -->
+                                <li class="home"><a href="javascript:void(0)" name="officeg.do/listree.do" title="任务接收查询" class="iframeurl"><i class="icon-double-angle-right"></i>任务接收查询</a></li>
 							</ul>
 						</li>
-                        	<li><a href="#" class="dropdown-toggle"><i class="icon-cogs"></i><span class="menu-text"> 采购管理 </span><b class="arrow icon-angle-down"></b></a>
+                        	<li><a href="#" class="dropdown-toggle"><i class="icon-linkedin"></i><span class="menu-text"> 采购管理 </span><b class="arrow icon-angle-down"></b></a>
 							<ul class="submenu">
 								<li class="home"><a href="javascript:void(0)" name="pursupinfo/selectinfo.do" title="供应商管理" class="iframeurl"><i class="icon-double-angle-right"></i>供应商管理</a></li>
 								<li class="home"><a href="javascript:void(0)" name="purorder/selectinfo.do" title="采购单" class="iframeurl"><i class="icon-double-angle-right"></i>采购单</a></li>
@@ -378,14 +378,13 @@ $('.change_Password').on('click', function(){
                                 <li class="home"><a href="javascript:void(0)" name="products/selectproducts11.do" title="待采购列表" class="iframeurl"><i class="icon-double-angle-right"></i>待采购列表</a></li>
 							</ul>
 						</li>
-                        <li><a href="#" class="dropdown-toggle"><i class="icon-group"></i><span class="menu-text"> 系统管理 </span><b class="arrow icon-angle-down"></b></a>
+                        <li><a href="#" class="dropdown-toggle"><i class="icon-cogs"></i><span class="menu-text"> 系统管理 </span><b class="arrow icon-angle-down"></b></a>
 							<ul class="submenu">
 								<li class="home"><a href="javascript:void(0)" name="userinfoctlr/getinfo.do" title="个人信息" class="iframeurl"><i class="icon-double-angle-right"></i>个人账户信息</a></li>
 								<li class="home"><a href="javascript:void(0)" name="usersctlr/getlist1.do" title="账户管理"  class="iframeurl"><i class="icon-double-angle-right"></i>账户管理</a></li>
 								<li class="home"><a href="javascript:void(0)" name="rolesctlr/getlist.do" title="角色管理"  class="iframeurl"><i class="icon-double-angle-right"></i>角色管理</a></li>
 								<li class="home"><a href="javascript:void(0)" name="permisctlr/getPermission.do" title="权限管理"  class="iframeurl"><i class="icon-double-angle-right"></i>权限管理</a></li>
-                   
-								  
+								<li class="home"><a href="javascript:void(0)" name="syslogctrl/showLOg" title="系统日志"  class="iframeurl"><i class="icon-double-angle-right"></i>系统日志</a></li>  
 							</ul>
 						</li>
 					</ul>

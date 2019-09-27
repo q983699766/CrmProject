@@ -18,10 +18,15 @@ public interface PurOrderService {
 		
 		
 		//添加采购单详情
-	public void addpro(PurOrderInfo purOrderInfo);
+	     public void addpro(PurOrderInfo purOrderInfo);
 	
+	   //修改供应商信息
+		 	public void updateinfo(PurOrder purorder);
+		 	
+		 	
+			PageInfo<PurOrder> selecorder(Integer pageNum, Integer pageSize, PurOrder purorder);
 	
-		
+
 		
 	
 }

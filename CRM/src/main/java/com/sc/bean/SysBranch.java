@@ -5,6 +5,8 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class SysBranch implements Serializable {
     private Long secId;
 
@@ -15,6 +17,7 @@ public class SysBranch implements Serializable {
     private Long comId;
     
     @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
     private Date lastTime;
 
     private static final long serialVersionUID = 1L;

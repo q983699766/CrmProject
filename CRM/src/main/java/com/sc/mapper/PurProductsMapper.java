@@ -32,4 +32,6 @@ public interface PurProductsMapper {
     
     PurProducts selectByid(Long productid);
     
+    int deleteByPrimaryproductid(Long productid);
+    
 }

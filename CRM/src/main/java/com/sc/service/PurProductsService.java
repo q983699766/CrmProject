@@ -28,5 +28,12 @@ public interface PurProductsService {
 		
 		public void addpurproducts( PurProducts purproducts);
 		
+		//根据id删除
+		public void delpurproducts(Long productId);	
+		
+		public void delpurproduct(Long productId);	
+		
+		
+		
 		
 }

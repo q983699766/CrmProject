@@ -7,6 +7,7 @@ import com.sc.bean.OfficeDetailSms;
 import com.sc.bean.OfficeSms;
 import com.sc.bean.OfficeSmsExample;
 import com.sc.bean.SysCOMPANY;
+import com.sc.bean.SysEmpuser;
 import com.sc.bean.SysUsers;
 import com.sc.bean.SysUsersExample;
 
@@ -26,6 +27,9 @@ public interface HrScheService {
 	
 	//通过ID查找用户
 	public SysUsers seleuserById(long userid);
+	
+	//通过ID查找emp
+	public SysEmpuser seletempById(long empid);
 	
 	//通过信息ID查找信息
 	public OfficeSms selectById(Long smsId);

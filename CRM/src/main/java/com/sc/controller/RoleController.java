@@ -116,7 +116,7 @@ public class RoleController {
 			
 			SysRoleExample sysRoleExample1 = new SysRoleExample();
 			Criteria c1 = sysRoleExample1.createCriteria();
-			c.andRoleNameEqualTo(rname);
+			c1.andRoleNameEqualTo(rname);
 			List<SysRole> selectByExample1 = SysRoleMapper.selectByExample(sysRoleExample1);
 			
 			SysRole sysRole = selectByExample1.get(0);
