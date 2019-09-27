@@ -75,7 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <div class="border clearfix">
        <span class="l_f">
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加仓库</a>
-        <a href="javascript:sc()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
+      <!--   <a href="javascript:sc()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a> -->
        </span>
        <script type="text/javascript">
 		function sc() 
@@ -126,8 +126,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          
           <td class="td-manage">          
           <a title="编辑"  onclick="jia(${u.ckBh});member_edit('550')" href="javascript:"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'${u.ckBh }')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a> 
-          
+          <%-- <a title="删除" href="javascript:;"  onclick="member_del(this,'${u.ckBh }')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a> 
+           --%>
           </td>
 		</tr>
        </c:forEach>

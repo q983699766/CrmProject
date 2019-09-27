@@ -1,11 +1,18 @@
 package com.sc.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,14 +25,17 @@ import com.sc.bean.Ccspxxb;
 import com.sc.bean.PurOrderInfo;
 import com.sc.bean.SalDetails;
 import com.sc.bean.SalOrder;
+import com.sc.bean.SysDuty;
 import com.sc.service.CcSpxxService;
+import com.sc.service.SysDutyService;
 
 @Controller // 注册成bean对象
 @RequestMapping("/ccspxxctlr")
 public class CcCkSpxxbController {
 	@Autowired
 	CcSpxxService ccSpxxService;
-	
+	@Autowired
+	 SysDutyService sysDutyService;
 	
 
 	// 1.分页查看仓库商品列表（以测试）
@@ -81,7 +91,7 @@ public class CcCkSpxxbController {
 	}
 
 	// 模糊查询
-	@RequestMapping("mh.do")
+	@RequestMapping("/mh.do")
 	public ModelAndView selectmh(ModelAndView mav, @RequestParam(defaultValue = "1") Integer pageNum,
 			@RequestParam(defaultValue = "5") Integer pageSize, Ccspxxb ccspxx) {
 
@@ -152,7 +162,7 @@ public class CcCkSpxxbController {
 	}
 	
 	// 销售根据订单状态查询
-		@RequestMapping("xsmh.do")
+		@RequestMapping("/xsmh.do")
 		public ModelAndView xsmh(ModelAndView mav, @RequestParam(defaultValue = "1") Integer pageNum,
 				@RequestParam(defaultValue = "5") Integer pageSize, SalOrder salOrder) {
 
@@ -167,8 +177,7 @@ public class CcCkSpxxbController {
 		}
 	
 		//通过销售单id查询该条商品的销售订单详情
-		@RequestMapping("/xsid.do")
-	
+		@RequestMapping("/xsid.do")	
 		public ModelAndView  selectSalDetailsByUid(HttpServletRequest req,ModelAndView mav, @RequestParam(defaultValue = "1") Integer pageNum,
 				@RequestParam(defaultValue = "5") Integer pageSize ,Long orderId ) {
 			System.out.println("进入查询销售信息方法" );
@@ -209,4 +218,56 @@ public class CcCkSpxxbController {
 			}
 			return mav;
 		}
+		
+		
+		
+/*	@RequestMapping("/excle.do")
+		public void UserExcelDownloads(HttpServletResponse response) throws IOException {
+			HSSFWorkbook workbook = new HSSFWorkbook();  
+			HSSFSheet sheet = workbook.createSheet("职位信息表");
+			sheet.setColumnWidth(5, 256*20); //设置列的宽度
+			//List<SysDuty> selectDuty = sysDutyService.selectDuty();
+			List<Ccspxxb> selectDuty = ccSpxxService.selectCcspxx();
+			String str = "yyy-MM-dd HH:mm";
+			SimpleDateFormat sdf = new SimpleDateFormat(str);
+			String fileName = "sysduty" + ".xls";
+			int rowNum = 1;
+			String[] headers = { "商品编号", "商品名称", "商品类型", "单位", "仓库编号", "库存数量" ,"成本价","零售价","经销价","备注信息","公司编号","最后修改时间"};
+			HSSFRow row = sheet.createRow(0);
+			row.setHeightInPoints(30);//设置行的高度y
+			for (int i = 0; i < headers.length; i++) {
+				HSSFCell cell = row.createCell((short) i);
+				HSSFRichTextString text = new HSSFRichTextString(headers[i]);
+				cell.setCellValue(text);
+			}
+			for (Ccspxxb student : selectDuty) {
+				HSSFRow row1 = sheet.createRow(rowNum);
+				row1.createCell((short) 0).setCellValue(student.getProductId());
+				row1.createCell((short) 1).setCellValue(new HSSFRichTextString(student.getSpMc()));
+				row1.createCell((short) 2).setCellValue(student.getSpLb());
+				row1.createCell((short) 3).setCellValue(new HSSFRichTextString(student.getDw()));
+				row1.createCell((short) 4).setCellValue(student.getCkBh());
+				row1.createCell((short) 5).setCellValue(student.getKcSl());
+				row1.createCellFromRecord((Float) 6).setCellStyle(student.getCbj());
+				row1.createCellFromRecord((Float) 7).setCellValue(student.getLsj());
+				row1.createCellFromRecord((Float) 8).setCellValue(student.getJxj());
+				row1.createCell((short) 9).setCellValue(new HSSFRichTextString(student.getBzxx()));
+				row1.createCell((short) 4).setCellValue(student.getComId());
+				row1.createCell((short) 7).setCellValue(sdf.format(student.getLastTime()));
+				rowNum++;
+			}
+			response.setContentType("application/octet-stream");
+			response.setHeader("Content-disposition", "attachment;filename=" + fileName);
+			response.flushBuffer();
+			workbook.write(response.getOutputStream());
+		}
+	
+
+		
+		*/
+		
+		
+		
+		
+		
 }

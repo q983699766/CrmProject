@@ -56,7 +56,7 @@ public class PurProductsInfoController {
 	}
 
 	// 模糊查询
-	@RequestMapping("mh.do")
+	@RequestMapping("/mh.do")
 	public ModelAndView selectmh(ModelAndView mav, @RequestParam(defaultValue = "1") Integer pageNum,
 			@RequestParam(defaultValue = "5") Integer pageSize, PurOrderInfo purOrderInfo) {
 

@@ -58,7 +58,7 @@ public class CcCkxxbController {
 		}
 	
 		//删除
-		@RequestMapping("del.do")
+		@RequestMapping("/del.do")
 		public ModelAndView del(ModelAndView mav,Long uid){
 			
 			System.out.println("接收到的fwid为"+uid);
@@ -134,7 +134,7 @@ public class CcCkxxbController {
 		}
 		
 		//模糊查询
-		@RequestMapping("mh.do")
+		@RequestMapping("/mh.do")
 		public ModelAndView selectmh(ModelAndView mav,
 				@RequestParam(defaultValue="1")Integer pageNum,
 				@RequestParam(defaultValue="5")Integer pageSize,CcCkxxb ccCkxxb){
