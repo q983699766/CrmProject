@@ -143,23 +143,32 @@
          
                          
           <td >${u.rebate }</td>  <!--是否返利  -->  
-          <c:if test="${u.orderState ==1}">                              
-          <td>已审核</td>	<!--订单状态  -->	
+          <c:if test="${u.orderState ==0}">                              
+          <td>待支付</td>	<!--订单状态  -->	
           </c:if>
-          <c:if test="${u.orderState !=1}">                              
-          <td>未审核</td>	<!--订单状态  -->	
+          <c:if test="${u.orderState ==1}">                              
+          <td>已支付</td>	<!--订单状态  -->	
+          </c:if>
+          <c:if test="${u.orderState ==2}">                              
+          <td>交易成功</td>	<!--订单状态  -->	
+          </c:if>
+          <c:if test="${u.orderState ==3}">                              
+          <td>交易失败</td>	<!--订单状态  -->	
+          </c:if>
+          <c:if test="${u.orderState ==4}">                              
+          <td>已审核</td>	<!--订单状态  -->	
           </c:if>		
           <td>${u.remark }</td>	<!--备注信息-->
           <td>${u.comId }</td>         <!-- 公司编号 -->
           <td><fmt:formatDate value="${u.lastTime}" pattern="yyyy-MM-dd" /></td>   <!--最后修改时间  -->      
           <td class="td-manage">
-          <c:if test="${u.orderState==1&&u.orderOutState!=1}">
+          <c:if test="${u.orderState==4&&u.orderOutState!=1}">
 		   <a title="详情" ;member_edit('550')" href="ccspxxctlr/xsid.do?orderId=${u.orderId }"  class="btn btn-warning"><i class="icon-plus"></i></a> 
 		  </c:if>
-		  <c:if test="${u.orderState==0&&u.orderOutState!=1}">
+		  <c:if test="${u.orderState!=4}">
 		    <a title="详情" ;member_edit('550') disabled  class="btn btn-active"><i class="icon-plus"></i></a> 
 		  </c:if>
-		   <c:if test="${u.orderState==1&&u.orderOutState==1}">
+		   <c:if test="${u.orderState==4&&u.orderOutState==1}">
 		    <a title="详情" ;member_edit('550') disabled  class="btn btn-active"><i class="icon-plus"></i></a> 
 		  </c:if>
           </td>
