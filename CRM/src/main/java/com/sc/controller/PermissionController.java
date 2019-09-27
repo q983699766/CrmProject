@@ -274,6 +274,15 @@ public class PermissionController {
 			PermissionService.roleAddPerm(PR);
 		}
 		
+		Long pId = (long)154;
+		
+		SysPermissionRole PR = new SysPermissionRole();
+		PR.setLastTime(date);
+		PR.setPermissionId(pId);
+		PR.setRoleId(role);
+		PR.setOperatorId(userId);
+		PermissionService.roleAddPerm(PR);
+		
 		Integer ok = 1;
 		mav.setViewName("redirect:../permisctlr/getPermission.do?ok="+ok);
 		return mav;

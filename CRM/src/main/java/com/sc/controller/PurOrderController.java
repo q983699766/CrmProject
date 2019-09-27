@@ -274,7 +274,7 @@ public ModelAndView ck(ModelAndView mav, @RequestParam(defaultValue = "1") Integ
 	     for (PurOrderInfo purOrderInfo : bypurNumber) {
 	    	 String warehouseOrnot = purOrderInfo.getWarehouseOrnot();
 	    	 System.out.println("是否入库："+warehouseOrnot);
-	    	 if(warehouseOrnot.equals("否")){
+	    	 if(warehouseOrnot.equals("未入库")){
 	    		 i="1";
 	    		 break;}
 	       }
